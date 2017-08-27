@@ -76,7 +76,7 @@
 
 						</ul>
 					</li>
-					<li>
+					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">GALLERY<span class="caret"></span></a>
 						<ul class="dropdown-menu" >
 							
@@ -87,7 +87,7 @@
 
 						</ul>
 					</li>
-					<li>
+					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">CONTACT<span class="caret"></span></a>
 						<ul class="dropdown-menu" >
 							
@@ -543,6 +543,19 @@
     		}
     	});
     </script>
+
+    <script>
+    	$('ul.nav li.dropdown').hover(function() {
+  			$(this).find('.dropdown-menu').stop(true, true).delay(100).fadeIn(500);
+  			$('.bg').removeClass('bg');
+  			$(this).addClass('bg');
+			}, function() {
+  			$(this).find('.dropdown-menu').stop(true, true).delay(100).fadeOut(100);
+  			$('.bg').removeClass('bg');
+		});
+    </script>
+
+    
 
 </body>
 
