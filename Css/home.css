@@ -349,10 +349,25 @@ footer ul{
 .gallery{
 	background-color: #293352;
 	margin-top: 20px;
-	padding-bottom: 35px;
+	padding-bottom: 25px;
 	padding-top: 15px;
+	text-align: center;
 }
 
+.go-to-gallery{
+	text-align: center;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+	font-size: 25px;
+	padding:0px;
+	color:white;
+	
+}
+
+
+.go-to-gallery:hover{
+	color:black;
+}
 
 .courses{
 	font-family: 'Roboto', sans-serif;
