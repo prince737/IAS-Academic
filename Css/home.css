@@ -26,7 +26,7 @@
 .nav.navbar-nav li ul{
 	padding: 0px;
 	margin: 0px;
-	width:200px;
+	
 }
 .nav.navbar-nav li ul li{
 	
@@ -43,6 +43,7 @@
 .nav.navbar-nav li ul li a{
 		background:#414141;
 		border-bottom:1px solid black;
+		
 	}
 
 
