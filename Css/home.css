@@ -14,7 +14,8 @@
 .nav.navbar-nav li a {
     color: #DEF2F3;
     font-size: 17px;
-    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+	font-weight: 300;
 }
 
 .nav.navbar-nav li a:hover {
