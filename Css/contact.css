@@ -1,0 +1,170 @@
+*{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+	
+}
+
+.navbar {
+  border-radius: 0px;
+  background: #002147;
+	margin-bottom: 0;
+}
+
+.nav.navbar-nav li{
+	margin-right:20px;
+	
+}
+
+.nav.navbar-nav li a {
+    color: #DEF2F3;
+    font-size: 17px;
+    font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+}
+
+.nav.navbar-nav li a:hover {
+    background: black;
+}
+
+ 
+
+.nav.navbar-nav li ul{
+	padding: 0px;
+	margin: 0px;
+	
+}
+.nav.navbar-nav li ul li{
+	
+	width:100%;
+	margin: 0px;
+	
+	
+}
+
+.bg{
+	background-color: black;
+}
+
+.nav.navbar-nav li ul li a{
+		background:#414141;
+		border-bottom:1px solid black;
+		
+	}
+
+
+.my-content{
+	text-align: center;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #DEF2F3;
+    font-size: 18px;
+}
+
+
+.brand-sm{
+	font-family: "Times New Roman", Georgia, Serif;
+}
+
+
+.navbar-brand img{
+	display:inline-block;
+	max-height: 20px;
+	max-width: 20px;
+	margin-right: 10px;
+}
+
+/*STYLES FOR UPPER LOGO SECTION*/
+
+.logo-header{
+	padding:20px 10px 10px 10px;
+	text-align: center;
+    
+}
+
+
+.logo{
+	display: inline-block;
+}
+
+.logo-img{
+	max-height: 70px;
+	max-width: 70px;
+	margin-right: 20px;
+	margin-left: 20px;
+}
+
+.logo-text{
+	color:#DEF2F3;
+	font-size: 20px;
+	font-family: times new roman;
+	border-top:1px solid #DEF2F3;
+	border-bottom:1px solid #DEF2F3;
+	padding: 5px 10px;
+	
+}
+
+.logo-hindi{
+	width:310px;
+}
+
+.contact-banner{
+	
+	background-image: url("../images/untitled.png");
+	background-size: 100%;
+	text-align:center;
+	
+}
+
+.contact-banner h2{
+	font-weight:900;
+	
+	opacity:0.8;
+	color: white;  /*#F4E76E*/
+	padding:10px;
+}
+
+.contact-banner p{
+	color:white;
+	font-size:20px;
+	
+}
+
+/*MEDIA QUERIES*/
+
+@media screen and (min-width: 768px) {
+  .brand-sm{
+  	display:none;
+  }
+
+  .navbar-nav{
+  	float:none;
+  	text-align: center;
+  }
+  .navbar-nav li{
+  	float: none;
+  	display: inline-block;
+  }
+  .contact-banner{
+	  height:330px;
+	  padding-top:85px;
+  }
+  .contact-banner h2{
+		
+		margin-left:auto;
+		margin-right:auto;
+	}
+}
+
+
+
+  @media screen and (max-width: 768px) {
+  
+  	.nav.navbar-nav li{
+		margin-right: 0px;
+  	}
+  	.logo-header{
+  		display:none;
+  	}
+	
+  }
