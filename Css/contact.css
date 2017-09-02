@@ -1,7 +1,13 @@
 *{
 	font-family: 'Roboto', sans-serif;
-	font-weight: 300;
+	font-weight: 400;
 	
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 .navbar {
@@ -113,7 +119,7 @@
 	background-image: url("../images/untitled.png");
 	background-size: 100%;
 	text-align:center;
-	
+	background-attachment:fixed;
 }
 
 .contact-banner h2{
@@ -129,6 +135,175 @@
 	font-size:20px;
 	
 }
+
+.breadcrumb{
+	background:#ab5443;
+	border-radius:0px;
+	height:45px;
+	font-size:18px;
+}
+
+.breadcrumb >.active {
+  color: black;
+}
+
+.breadcrumb >.breadcrumb-item a {
+   
+    color: white;
+}
+
+.branch-heading{
+	color:white;
+	font-size:50px;
+	padding:5px 10px;
+	background:#0099a9;
+	margin:0px;
+	margin-top:40px;
+}
+
+.branch-body{
+	padding:20px;
+	border:2px solid #0099a9;
+	
+}
+
+
+.addrs p{
+	font-size:18px;
+	line-height:30px;
+	color:	#484848;
+}
+
+.addrs span{
+	color:#0099a9;
+}
+
+.question{
+	border:none;
+	outline:none;
+	background:none;
+	font-size:18px;
+	padding: 5px 10px;
+}
+
+.question:hover{
+	background-color:#002147;
+}
+
+.q1{
+	background-color:#0099a9;
+	color:white;
+}
+
+#map{
+        height: 100%;
+		padding:0;
+		margin:0;
+		border: 2px solid #0099a9;
+}
+
+#map1{
+        height: 100%;
+		padding:0;
+		margin:0;
+		border: 2px solid #0099a9;
+}
+
+#map3{
+        height: 100%;
+		padding:0;
+		margin:0;
+		border: 2px solid #0099a9;
+}
+
+
+/*CONTACT MODAL*/
+
+.modal-content{
+	
+	border-radius:0px;
+}
+
+.contactus{
+	
+	
+	margin-left: auto;
+	margin-right: auto;
+	float: none;
+	padding: 10px 20px;
+
+}
+
+.send-query{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+	font-size: 40px;
+	color:#48727F;
+	margin:0px;
+	text-align: center;
+}
+
+.bottomliner{
+	color:	#585858;
+	text-align: center;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+	font-size: 16px;
+	margin:0px;
+}
+
+.contactus form{
+	padding:20px;
+}
+
+.contactus input{
+	height:50px;
+	border-radius: 0px;
+	outline none;
+	border:1px solid #48727F;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+	font-size: 20px;
+	color:black;
+	
+}
+
+.contactus input:focus,input:active, {
+	outline:0px !important;
+    -webkit-appearance:none;
+    box-shadow: none;
+}
+
+.contactus textarea{
+	height:200px;
+	border-radius: 0px;
+	outline none;
+	border:1px solid #48727F;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+	font-size: 16px;
+	color:black;
+	
+	resize: none;
+}
+
+.contactus button{
+	background-color: #48727F;
+	color:white;
+	outline:none;
+	border-radius: 0px;
+	height:50px;
+	width:100%;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+	font-size: 20px;
+}
+
+.contactus button:hover{
+	background-color: #002147;
+	color:white;
+}
+
 
 /*MEDIA QUERIES*/
 
@@ -154,6 +329,30 @@
 		margin-left:auto;
 		margin-right:auto;
 	}
+	.breadcrumb{
+		padding-left:110px;
+	}
+	
+	.addrs{
+		padding-left:5%;
+	}
+	
+	.question{
+		margin-top:15%;
+	}
+	#map-wrapper{
+		height:400px;
+		width:65%;
+	}
+	#map-wrapper1{
+		height:400px;
+		width:65%;
+	}
+	
+	#map-wrapper3{
+		height:400px;
+		width:65%;
+	}
 }
 
 
@@ -166,5 +365,13 @@
   	.logo-header{
   		display:none;
   	}
+	#map-wrapper{
+		height:300px;
+		width:100%;
+	}
+	
+	.mp{
+		display:none;
+	}
 	
   }
