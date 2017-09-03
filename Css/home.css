@@ -1,81 +1,88 @@
-
-
-.navbar {
-  border-radius: 0px;
-  background: #002147;
-
+*{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	
 }
 
-.nav.navbar-nav li{
-	margin-right:20px;
+
+.navbar{
+	
+	background-color:#002147;
+	border-radius:0px;
+}
+
+.navbar-collapse{
 	
 }
 
 .nav.navbar-nav li a {
     color: #DEF2F3;
-    font-size: 17px;
-    font-family: 'Roboto', sans-serif;
-	font-weight: 300;
+    font-size: 15px;
+    
 }
 
-.nav.navbar-nav li a:hover {
-    background: black;
+.menu1, .menu2{
+	 margin-top:35px;
+	 
 }
 
- 
 
-.nav.navbar-nav li ul{
-	padding: 0px;
-	margin: 0px;
-	
-}
-.nav.navbar-nav li ul li{
-	
-	width:100%;
-	margin: 0px;
-	
+.brand-div{
+	line-height:38px;
+	padding-top:10px;
+	padding-left:35px;
 	
 }
 
-.bg{
-	background-color: black;
+.brand-div td{
+	padding:10px;
 }
 
-.nav.navbar-nav li ul li a{
-		background:#414141;
-		border-bottom:1px solid black;
-		
-	}
-
-
-.my-content{
-	text-align: center;
+.brand{
+	font-family:"Times New Roman", Georgia, Serif;
+	color:white;
+	font-size:29px;
+	
+	padding:0px;
+	margin:0px;
 }
 
-.navbar-inverse .navbar-brand {
-    color: #DEF2F3;
-    font-size: 18px;
+.brand1{
+	font-family:"Times New Roman", Georgia, Serif;
+	color:white;
+	font-size:22px;
+	
+	padding:0px;
+	margin:0px;
+}
+
+.brand span{
+	font-family:"Times New Roman", Georgia, Serif;
+	color:white;
+	font-size:37px;
+	
+}
+
+.brand1 span{
+	font-family:"Times New Roman", Georgia, Serif;
+	color:white;
+	font-size:30px;
+}
+
+.logo{
+	height:68px;
+	width:68px;
 }
 
 
-.brand-sm{
-	font-family: "Times New Roman", Georgia, Serif;
-}
 
 @media screen and (min-width: 768px) {
-  .brand-sm{
-  	display:none;
+  .navbar{
+	  height:120px;
   }
-
-  .navbar-nav{
-  	float:none;
-  	text-align: center;
-  }
-  .navbar-nav li{
-  	float: none;
-  	display: inline-block;
-  }
-
+  .menu1{
+	padding-left:50px;
+}
   .enroll-btn{
   	margin-top:26%;
   }
@@ -89,15 +96,7 @@
 
   @media screen and (max-width: 768px) {
   
-  	.nav.navbar-nav li{
-		margin-right: 0px;
-  	}
-  	.logo-header{
-  		display:none;
-  	}
-  	.dropdown-menu li a{
-  		color:red;
-  	}
+  	
 
   	.contactus{
   		width:90%;
