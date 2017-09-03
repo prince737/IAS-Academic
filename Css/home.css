@@ -15,80 +15,107 @@
 	
 }
 
-.nav.navbar-nav li a {
-    color: #DEF2F3;
-    font-size: 15px;
-    
+.actv{
+	border-top:1px solid #DEF2F3;
+	border-bottom:1px solid #DEF2F3;
 }
 
-.menu1, .menu2{
-	 margin-top:35px;
-	 
-}
 
 
 .brand-div{
 	line-height:38px;
-	padding-top:10px;
-	padding-left:35px;
-	
-}
-
-.brand-div td{
-	padding:10px;
+	padding-top:20px;
+	padding-left:68px;
 }
 
 .brand{
 	font-family:"Times New Roman", Georgia, Serif;
 	color:white;
-	font-size:29px;
-	
-	padding:0px;
-	margin:0px;
+	font-size:23px;
+	padding-top:3px;
 }
 
-.brand1{
-	font-family:"Times New Roman", Georgia, Serif;
-	color:white;
-	font-size:22px;
-	
-	padding:0px;
-	margin:0px;
-}
+
 
 .brand span{
 	font-family:"Times New Roman", Georgia, Serif;
 	color:white;
-	font-size:37px;
+	font-size:30px;
 	
 }
 
-.brand1 span{
-	font-family:"Times New Roman", Georgia, Serif;
-	color:white;
-	font-size:30px;
+.tag{
+	color:#DEF2F3;
+	font-size:25px;
+	font-family: "Brush Script Std", Brush Script MT, cursive;
 }
 
+
+.brand-div td{
+	padding-left:15px;
+}
+
+
 .logo{
-	height:68px;
-	width:68px;
+	height:78px;
+	width:78px;
+	border-radius:10px;
+	font-weight:300i;
+	float:left;
 }
 
 
 
 @media screen and (min-width: 768px) {
-  .navbar{
-	  height:120px;
-  }
-  .menu1{
-	padding-left:50px;
-}
-  .enroll-btn{
-  	margin-top:26%;
-  }
-  .img-modal{
-	 width:800px;
-}
+	.navbar{
+		height:120px;
+	}
+	.menu{
+		margin-top:35px;
+		padding-left:50px;
+	}
+	.enroll-btn{
+		margin-top:26%;
+	}
+	  .img-modal{
+		 width:800px;
+	}
+
+
+	.nav.navbar-nav li a {
+		color: #DEF2F3;
+		font-size: 15px;
+		
+	}
+
+	.nav.navbar-nav li ul li a{
+		color:#3277ae;
+		font-size:14px;
+		padding: 10px 20px;
+		margin-left:5px;
+		margin-right:10px;
+	}
+
+
+	.nav.navbar-nav li ul li{
+		border-bottom:1px solid #D3D3D3;
+	}
+
+	.nav.navbar-nav li ul li:last-child {
+	  border-bottom: none;
+	}
+
+	.nav.navbar-nav li ul li:hover{
+		color:white;
+		background:#3277ae;
+	}
+
+	.nav.navbar-nav li ul li a:hover{
+		color:white;
+		background:#3277ae;
+	}
+	
+	
 
 }
 
@@ -96,7 +123,9 @@
 
   @media screen and (max-width: 768px) {
   
-  	
+  	.brand-div{
+		display:none;
+	}
 
   	.contactus{
   		width:90%;
