@@ -1,3 +1,5 @@
+ 
+
 *{
 	font-family: 'Roboto', sans-serif;
 	font-weight: 400;
@@ -11,9 +13,6 @@
 	border-radius:0px;
 }
 
-.navbar-collapse{
-	
-}
 
 .actv{
 	border-top:1px solid #DEF2F3;
@@ -35,7 +34,18 @@
 	padding-top:3px;
 }
 
+.navbar-brand{
+	
+	font-family: "Times New Roman", Georgia, Serif;
+	
+}
 
+.navbar-brand img{
+	display:inline-block;
+	max-height: 20px;
+	max-width: 20px;
+	margin-right: 10px;
+}
 
 .brand span{
 	font-family:"Times New Roman", Georgia, Serif;
@@ -64,11 +74,15 @@
 	float:left;
 }
 
-
-
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1200px) {
 	.navbar{
 		height:120px;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.brand-sm{
+		display:none;
 	}
 	.menu{
 		margin-top:35px;

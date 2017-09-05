@@ -5,73 +5,43 @@
 }
 
 html, body {
-    height: 100%;
+    
     margin: 0;
     padding: 0;
 }
 
-.navbar {
-  border-radius: 0px;
-  background: #002147;
-	margin-bottom: 0;
+.navbar{
+	margin-bottom:0px;
+	background-color:#002147;
+	border-radius:0px;
 }
 
-.nav.navbar-nav li{
-	margin-right:20px;
+
+.actv{
+	border-top:1px solid #DEF2F3;
+	border-bottom:1px solid #DEF2F3;
+}
+
+
+
+.brand-div{
+	line-height:38px;
+	padding-top:20px;
+	padding-left:68px;
+}
+
+.brand{
+	font-family:"Times New Roman", Georgia, Serif;
+	color:white;
+	font-size:23px;
+	padding-top:3px;
+}
+
+.navbar-brand{
 	
-}
-
-.nav.navbar-nav li a {
-    color: #DEF2F3;
-    font-size: 17px;
-    font-family: 'Roboto', sans-serif;
-	font-weight: 300;
-}
-
-.nav.navbar-nav li a:hover {
-    background: black;
-}
-
- 
-
-.nav.navbar-nav li ul{
-	padding: 0px;
-	margin: 0px;
-	
-}
-.nav.navbar-nav li ul li{
-	
-	width:100%;
-	margin: 0px;
-	
-	
-}
-
-.bg{
-	background-color: black;
-}
-
-.nav.navbar-nav li ul li a{
-		background:#414141;
-		border-bottom:1px solid black;
-		
-	}
-
-
-.my-content{
-	text-align: center;
-}
-
-.navbar-inverse .navbar-brand {
-    color: #DEF2F3;
-    font-size: 18px;
-}
-
-
-.brand-sm{
 	font-family: "Times New Roman", Georgia, Serif;
+	
 }
-
 
 .navbar-brand img{
 	display:inline-block;
@@ -80,38 +50,31 @@ html, body {
 	margin-right: 10px;
 }
 
-/*STYLES FOR UPPER LOGO SECTION*/
+.brand span{
+	font-family:"Times New Roman", Georgia, Serif;
+	color:white;
+	font-size:30px;
+	
+}
 
-.logo-header{
-	padding:20px 10px 10px 10px;
-	text-align: center;
-    
+.tag{
+	color:#DEF2F3;
+	font-size:25px;
+	font-family: "Brush Script Std", Brush Script MT, cursive;
+}
+
+
+.brand-div td{
+	padding-left:15px;
 }
 
 
 .logo{
-	display: inline-block;
-}
-
-.logo-img{
-	max-height: 70px;
-	max-width: 70px;
-	margin-right: 20px;
-	margin-left: 20px;
-}
-
-.logo-text{
-	color:#DEF2F3;
-	font-size: 20px;
-	font-family: times new roman;
-	border-top:1px solid #DEF2F3;
-	border-bottom:1px solid #DEF2F3;
-	padding: 5px 10px;
-	
-}
-
-.logo-hindi{
-	width:310px;
+	height:78px;
+	width:78px;
+	border-radius:10px;
+	font-weight:300i;
+	float:left;
 }
 
 .contact-banner{
@@ -392,18 +355,50 @@ footer ul{
 /*MEDIA QUERIES*/
 
 @media screen and (min-width: 768px) {
-  .brand-sm{
-  	display:none;
-  }
+	.brand-sm{
+		display:none;
+	}
+	.menu{
+		margin-top:35px;
+		padding-left:50px;
+	}
+	
+	.nav.navbar-nav li a {
+		color: #DEF2F3;
+		font-size: 15px;
+		
+	}
 
-  .navbar-nav{
-  	float:none;
-  	text-align: center;
-  }
-  .navbar-nav li{
-  	float: none;
-  	display: inline-block;
-  }
+	.nav.navbar-nav li ul li a{
+		color:#3277ae;
+		font-size:14px;
+		padding: 10px 20px;
+		margin-left:5px;
+		margin-right:10px;
+	}
+
+
+	.nav.navbar-nav li ul li{
+		border-bottom:1px solid #D3D3D3;
+	}
+
+	.nav.navbar-nav li ul li:last-child {
+	  border-bottom: none;
+	}
+
+	.nav.navbar-nav li ul li:hover{
+		color:white;
+		background:#3277ae;
+	}
+
+	.nav.navbar-nav li ul li a:hover{
+		color:white;
+		background:#3277ae;
+	}
+  
+  
+  
+  
   .contact-banner{
 	  height:330px;
 	  padding-top:85px;
@@ -443,12 +438,10 @@ footer ul{
 
   @media screen and (max-width: 768px) {
   
-  	.nav.navbar-nav li{
-		margin-right: 0px;
-  	}
-  	.logo-header{
-  		display:none;
-  	}
+  	.brand-div{
+		display:none;
+	}
+
 	#map-wrapper{
 		height:300px;
 		width:100%;
@@ -460,16 +453,11 @@ footer ul{
 	
   }
   
+  @media screen and (min-width: 1200px) {
+	.navbar{
+		height:120px;
+	}
+}
   
   
   
-  
-  
-  /*
-  
-  <div class="col-sm-4 brand-div">
-						
-					</div>
-  
-  
-  */
