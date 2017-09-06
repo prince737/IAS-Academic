@@ -5,7 +5,7 @@
 }
 
 html, body {
-    
+    background:#424242;
     margin: 0;
     padding: 0;
 }
@@ -115,131 +115,76 @@ html, body {
     color: white;
 }
 
-.branch-heading{
-	color:white;
-	font-size:50px;
-	padding:5px 10px;
-	
-	margin:0px;
-	margin-top:40px;
-}
 
+/* MAIN SECTION */
 
-.branch-body{
+.offices{
+	background:#212121;
 	padding:20px;
-	
-	
+	margin-top:20px;
 }
 
-.bb1{
-	border:2px solid #002147;
+.bname{
+	color:#E8E8E8;
+	font-size:22px;
+	font-weight:500;
 }
 
-.bb2{
-	border:2px solid #293352;
+.addrs{
+	padding-left:40px;
 }
-.bb3{
-	border:2px solid #48727F;
-}
-
-.bb4{
-	border:2px solid #0099a9;
+.addrs-data{
+	color:#909090;
 }
 
-.bb5, .bb6{
-	border:2px solid #40C4FF;
+.map{
+	background-image: url("../images/map.png");
+	background-size:100%;
+	height:150px;
 }
 
-
-
-.addrs p{
-	font-size:18px;
-	line-height:30px;
-	color:	#484848;
+.map-link{
+	background:#da4d3c;
+	height: 80px;
+	margin-top:17%;
+	margin-left:auto;
+	margin-right:auto;
+	text-align:center;
+	padding-top:17%;
+	width:150px;
 }
 
-.a1 span{
-	color:#002147;
+.map-link a{
+	color:white;
+	padding: 8px 10px;
+	border:1px solid white;
+	border-radius:20px;
+	font-size:10px;
 }
 
-.a2 span{
-	color:#293352;
-}
-.a3 span{
-	color:#48727F;
-}
-.a4 span{
-	color:#0099a9;
-}
-.a5 span, .a6 span{
-	color:#40C4FF;
+.arrow{
+	width: 0; 
+	height: 0; 
+	border-left: 15px solid transparent;
+	border-right: 15px solid transparent;
+	border-top: 15px solid #da4d3c;
+	font-size: 0;
+	line-height: 0;
+	margin-left:43%;
+	margin-top:15%;
 }
 
-
-
-.question{
+.cntct-btn{
+	color:#da4d3c;
+	background:none;
 	border:none;
 	outline:none;
-	background:none;
-	font-size:18px;
-	padding: 5px 10px;
-	color:white;
+	padding:0px;
 }
 
-.question:hover{
-	background-color:#002147;
+.cntct-btn:hover{
+	text-decoration:underline;
 }
-
-.h1, .q1{
-	
-	background:#002147;
-}
-
-.h2, .q2{
-	background:#293352;
-}
-
-.h3, .q3{
-	background:#48727F;
-}
-
-.h4, .q4{
-	background:#0099a9;
-}
-.h5, .q5, .h6, .q6{
-	background-color:#40C4FF;
-}
-
-
-
-#map{
-        height: 100%;
-		padding:0;
-		margin:0;
-		border: 2px solid #002147;
-}
-
-#map1{
-        height: 100%;
-		padding:0;
-		margin:0;
-		border: 2px solid #293352;
-}
-
-#map2{
-	height: 100%;
-	padding:0;
-	margin:0;
-	border: 2px solid #48727F;
-}
-
-#map3{
-        height: 100%;
-		padding:0;
-		margin:0;
-		border: 2px solid #0099a9;
-}
-
 
 /*CONTACT MODAL*/
 
@@ -412,26 +357,6 @@ footer ul{
 		padding-left:110px;
 	}
 	
-	.addrs{
-		padding-left:5%;
-	}
-	
-	.question{
-		margin-top:15%;
-	}
-	#map-wrapper{
-		height:400px;
-		width:65%;
-	}
-	#map-wrapper1{
-		height:400px;
-		width:65%;
-	}
-	
-	#map-wrapper3{
-		height:400px;
-		width:65%;
-	}
 }
 
 
@@ -442,15 +367,8 @@ footer ul{
 		display:none;
 	}
 
-	#map-wrapper{
-		height:300px;
-		width:100%;
-	}
-	
-	.mp{
+	.map{
 		display:none;
-	}
-	
   }
   
   @media screen and (min-width: 1200px) {
