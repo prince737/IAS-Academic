@@ -188,7 +188,28 @@ html, body {
 .text ul li{
 	font-size:16px;
 	color:#686868;
-	list
+}
+
+.panel-title a{
+	display:block;
+	widrh:100%;
+}
+
+.panel-title a:focus{
+	text-decoration:none;
+}
+
+.panel{
+	margin-top:30px;
+}
+
+.panel > .panel-heading {
+    background-image: none;
+    background-color: #48727F;
+}
+
+.picon{
+	padding-right:10px;
 }
 
 /* Footer */
@@ -273,6 +294,11 @@ footer ul{
 	.breadcrumb{
 		padding-left:130px;
 	}
+	
+	.panel-mob{
+		display:none;
+		
+	}
 }
 
 
@@ -282,9 +308,16 @@ footer ul{
   	.brand-div{
 		display:none;
 	}
-
+	
 }
 
+@media screen and (max-width: 767px) {
+  
+  	.content{
+		display:none;
+	}
+	
+}
   
   @media screen and (min-width: 1200px) {
 	.navbar{
