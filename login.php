@@ -12,7 +12,26 @@
 </head>
 
 <body>
-	<div class="bg">dddd</div>
+	<div class="bg container-fluid">
+		<div class="row row-centered">
+			<div class="col-sm-6 col-lg-4 col-centered">
+				<p class="brand">Institute Of Applied Science</p>
+				<div class="content">
+					<p class="login">LOG IN</p>
+					<form class="form">
+					    <p class="name">EMAIL</p> 
+						<input type="email" name="email" placeholder="E-mail" required><br>
+						<p class="name">PASSWORD</p>
+						<input type="password" name="pwd" placeholder="Password" required><br>
+						<button type="submit" name="submit" class="submit">LOG IN</button><br>
+						<a href="#" class="fp">Forgot Your Password?</a>
+					</form>
+					
+				</div>
+			</div>
+		</div>
+	
+	</div>
 	
 
 
