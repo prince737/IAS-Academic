@@ -4,7 +4,8 @@
 
 <html>
 <head>
-	<title>Registration | IAS</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Registration | IAS</title>	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/register.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -14,12 +15,15 @@
  href="images/logo.jpg" />
 </head>
 <body>
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <!-- Brand/logo -->
+  <img src="images/logo.jpg" class="logo" height="35" width="35" style="float:left; margin:10px;"/>
+  <a class="navbar-brand" href="index.html"><span class="brand"><span>I</span>NSTITUTE OF <span>A</span>PPLIED <span>S</span>CIENCE</span></a>
+	</nav>
     <div class="container-fluid">
 	    <div class="row">
-			<div class="col-md-5 col-sm-10 contactus">
-				<div class="heading">
-					<img src="images/logo.jpg"/>
-				</div>
+			<div class="col-lg-5 col-sm-10 contactus">
+				<div class="heading">Register</div>
 				<form>
 				    <div class="item"><span>1</span>  Your Basic Info</div>
   					<div class="form-group">
@@ -78,58 +82,6 @@
 		</div>
 	</div>
 		
-			<!--<div class="col-lg-6 form">
-				<form action="includes/registration.inc.php" method="POST">
-					
-					
-					<div class="input-contain">
-						<span>GENDER:</span>
-						<input type="radio" name="gender" value="male"> Male
-						<input type="radio" name="gender" value="female"> Female
-						<input type="radio" name="gender" value="other"> Other
-					</div>
-					<div class="input-contain">
-						<input type="text" class="inputText" id="datepicker" name="dob" required/>
-						<span class="floating-label">DATE OF BIRTH </span>
-					</div>
-					<div class="input-contain">
-						<input type="text" class="inputText" name="he" required />
-						<span class="floating-label">HIGHEST EDUCATION </span>
-					</div>
-					<div class="input-contain">
-						<input type="text" class="inputText" name="yop" required />
-						<span class="floating-label">YEAR OF PASSING</span>
-					</div>
-					<select class="inputText input-contain" style="color:#dee1e4;">
-					<option>SELECT COURSE</option>
-						<option value="volvo">Volvo</option>
-						<option value="saab">Saab</option>
-						<option value="mercedes">Mercedes</option>
-						<option value="audi">Audi</option>
-					</select>
-					<div class="input-contain">
-						<input type="email" class="inputText" name="email" required />
-						<span class="floating-label">EMAIL</span>
-					</div>
-					
-					<div class="input-contain">
-						<input type="text" class="inputText" name="contact" required />
-						<span class="floating-label">CONTACT NUMBER</span>
-					</div>
-					<div class="input-contain">
-						<input type="password" class="inputText" name="pwd" required />
-						<span class="floating-label">PASSWORD</span>
-					</div>
-					<div class="input-contain">
-						<input type="password" class="inputText" name="cpwd" required />
-						<span class="floating-label">CONFIRM PASSWORD</span>
-					</div>
-					<button type="submit" name="submit">Sign Up</button>
-				</form>
-			</div>
-		
-		</div>-->
-		
 	
 	
 	<script src="js/jquery-3.2.1.min.js"></script>   
@@ -141,7 +93,7 @@
 		$( "#datepicker" ).datepicker({
 			changeMonth: true,
 			changeYear: true,
-			yearRange: '1990:2013'
+			yearRange: '1990:2017'
 		});
 	} );
 	</script>
