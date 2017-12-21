@@ -3,6 +3,9 @@
 	font-weight: 400;
 	
 }
+body{
+	background-color:#5fcf80; 
+|}
 
 .contactus{
 	background-color: #F7F7F8;
@@ -12,7 +15,7 @@
 	margin-right: auto;
 	float: none;
 	padding:20px;
-
+	
 }
 
  input[type=text], input[type=email]{

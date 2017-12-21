@@ -17,7 +17,9 @@
     <div class="container-fluid">
 	    <div class="row">
 			<div class="col-md-5 col-sm-10 contactus">
-				
+				<div class="heading">
+					<img src="images/logo.jpg"/>
+				</div>
 				<form>
 				    <div class="item"><span>1</span>  Your Basic Info</div>
   					<div class="form-group">
