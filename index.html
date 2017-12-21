@@ -89,7 +89,7 @@
 								<ul class="dropdown-menu" >
 									
 									<li><a tabindex="-1" href="login.php">LOGIN</a></li>
-									<li><a tabindex="-1" href="#">ENROLL NOW</a></li>
+									<li><a tabindex="-1" href="registration.php">ENROLL NOW</a></li>
 									<li><a tabindex="-1" href="#">AVAILABLE EXAMS</a></li>
 
 								</ul>
@@ -197,7 +197,9 @@
 				<div class="notice-head">
 					NOTICES
 				</div>
-				<div class="notice-body" data-aos="fade" data-aos-once="true" data-aos-delay="100">
+				
+				<div class="notice-body"  id="verticalScroller">
+				    <marquee direction="up" scrollamount="3">
                     <div class="notice-content">
 						<a href="#">Notices goes here Notices goes here Notices goes here Notices goes here</a>
 					</div>
@@ -220,9 +222,14 @@
 					<div class="notice-content">
 						<a href="#">Notices goes here Notices goes here Notices goes here Notices goes here</a>
 					</div>
-
 					
+					<div class="notice-content">
+						<a href="#">Notices goes here Notices goes here Notices goes here Notices goes here</a>
+					</div>
+
+					</marquee>					
 			    </div>
+				
 			    </div>
 			</div>
 
@@ -232,7 +239,8 @@
 				<div class="notice-head" >
 					EVENTS
 				</div>
-				<div class="notice-body" data-aos="fade" data-aos-once="true" data-aos-delay="100">
+				<div class="notice-body" id="verticalScroller1">
+					<marquee direction="up" scrollamount="3">
                     <div class="notice-content ">
 						<a href="#">Notices goes here Notices goes here Notices goes here Notices goes here</a>
 					</div>
@@ -255,6 +263,11 @@
 						<a href="#">Notices goes here Notices goes here Notices goes here Notices goes here</a>
 					</div>
 					
+					<div class="notice-content">
+						<a href="#">Notices goes here Notices goes here Notices goes here Notices goes here</a>
+					</div>
+					
+					</marquee>
 			    </div>
 			    </div>
 			</div>
@@ -446,7 +459,7 @@
     					
     					<input type="email" required class="form-control" id="email" placeholder="Email" id="email">
   					</div>
-  					<div class="form-group ">
+  					<div class="form-group">
     					
     					<input type="text" class="form-control" id="name" placeholder="Name" required>
   					</div>
@@ -564,7 +577,6 @@
     </script>
 
     
-
 </body>
 
 </html>

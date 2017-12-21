@@ -6,6 +6,9 @@
 	
 }
 
+marquee{
+	max-height:270px;
+}
 
 .navbar{
 	
@@ -222,7 +225,7 @@
 }
 
 .notice-body{
-	min-height:300px;
+	max-height:300px;
 	border:1px solid black;
 	border-top:none;
 	padding:30px;

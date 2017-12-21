@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Home | IAS</title>
+	<title>Login | IAS</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/login.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
@@ -12,10 +12,13 @@
 </head>
 
 <body>
+
+	
 	<div class="bg container-fluid">
+	
 		<div class="row row-centered">
 			<div class="col-sm-6 col-lg-4 col-centered">
-				<p class="brand">Institute Of Applied Science</p>
+				<p class="brand">Institute of Applied Science</p>
 				<div class="content">
 					<p class="login">LOG IN</p>
 					<form class="form">
@@ -28,6 +31,7 @@
 					</form>
 					
 				</div>
+				<a href="registration.php" >register</a>
 			</div>
 		</div>
 	

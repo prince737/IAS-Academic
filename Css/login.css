@@ -10,18 +10,21 @@ body, html {
     
 }
 
+
+
 .bg {
     /* The image used */
-    background-image: url("../images/leo-fosdal-113874-01.jpeg");
+   /* background-image: url("../images/leo-fosdal-113874-01.jpeg");
 
     /* Full height */
     height: 100%; 
 
     /* Center and scale the image nicely */
-    background-position: center;
+   /* background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
-}
+    background-size: cover;*/
+	background:#1ABC9C;
+}		
 
 .row-centered{
     text-align:center;
@@ -46,7 +49,7 @@ body, html {
 
 
 .login{
-	background: #5c5b5a;
+	background: #48727F;
 	margin:0px;
 	border-radius:5px 5px 0px 0px;
 	height:50px;
@@ -67,14 +70,14 @@ body, html {
 	margin:0px;
 	margin-top:25px;
 	margin-bottom:5px;
-	color:#5c5b5a;
+	color:#48727F;
 }
 
 .submit{
 	outline:none;
 	border:none;
 	padding: 5px 15px;
-	background-color:#5c5b5a;
+	background-color:#48727F;
 	margin-top:25px;
 	color:white;
 	border-radius:3px;
@@ -109,7 +112,7 @@ outline: none !important;
 
 .fp{
 	text-decoration:none;
-	color:#5c5b5a;
+	color:#48727F;
 }
 
 .fp:hover{
