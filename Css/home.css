@@ -6,8 +6,9 @@
 	
 }
 
-marquee{
+.marquee{
 	max-height:270px;
+	overflow: hidden;
 }
 
 .navbar{

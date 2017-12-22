@@ -1,3 +1,6 @@
+<?php
+	session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +24,7 @@
 				<p class="brand">Institute of Applied Science</p>
 				<div class="content">
 					<p class="login">LOG IN</p>
-					<form class="form">
+					<form class="form" action="includes/login.inc.php" method="POST">
 					    <p class="name">EMAIL</p> 
 						<input type="email" name="email" placeholder="E-mail" required><br>
 						<p class="name">PASSWORD</p>
