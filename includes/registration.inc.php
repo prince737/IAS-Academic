@@ -28,47 +28,69 @@ if(isset($_POST['register']))
 	
 	
 	if(empty($name) || empty($gender) || empty($dob) || empty($email) || empty($contact) || empty($gname) || empty($gcontact) || empty($address) || empty($he) || empty($inst) || empty($yop) || empty($course) || empty($pwd)) {
-		header("Location: ../registration.php?signup=empty");
-		exit();
+		$arr['emp'] = '1';	
+		$query = http_build_query($arr);
+		header("Location: ../registration.php?$query");	
 	} 
 	else 
 	{
 		//check if input characters are valid		
-		if(!preg_match("/^[a-zA-Z ]*$/", $name) || !preg_match("/^[a-zA-Z ]*$/", $gname ) || !is_numeric($contact) || !is_numeric($gcontact)) 
+		
+		if(!preg_match("/^[A-Za-z]*\s{1}[A-Za-z]*$/", $name))
 		{
-			header("Location: ../registration.php?signup=invalidnameno");
-			exit();
-		} 
+			$arr['nm'] = '1';		
+		}
+		
+		if(!filter_var($email, FILTER_VALIDATE_EMAIL))
+		{
+			$arr['em'] = '1';			
+		}
+		
+		if(!preg_match("/^[A-Za-z]*\s{1}[A-Za-z]*$/", $gname))
+		{
+			$arr['gnm'] = '1';		
+		}
+		
+		if(!preg_match("/^[0-9]{10}$/", $contact))
+		{
+			$arr['ct'] = '1';		
+		}
+		
+		if(!preg_match("/^[0-9]{10}$/", $gcontact))
+		{
+			$arr['gct'] = '1';		
+		}
+		
+		if(count($arr) != 0)
+		{
+			$query = http_build_query($arr);
+			header("Location: ../registration.php?$query");				
+		}
 		else
 		{
-			if (!filter_var($email, FILTER_VALIDATE_EMAIL)) 
+			$sql = "select * from students where stu_email='$email'" ;
+			$result = mysqli_query($conn, $sql);
+			$resultCheck = mysqli_num_rows($result);
+			if($resultCheck > 0) 
 			{
-				header("Location: ../registration.php?signup=invalidemail");
+				header("Location: ../registration.php?signup=emailtaken");
+				$val= array($name,$dob,$email,$contact,$gname,$gcontact,$address,$he,$inst,$yop);
+				$query = http_build_query($val);
+			header("Location: ../registration.php?$query&signup=emailtaken");	
 				exit();
 			} 
 			else 
-			{		
-				$sql = "select * from students where stu_email='$email'" ;
-				$result = mysqli_query($conn, $sql);
-				$resultCheck = mysqli_num_rows($result);
-				if($resultCheck > 0) 
-				{
-					header("Location: ../registration.php?signup=emailtaken");
-					exit();
-				} 
-				else 
-				{
-					//Hashing the password
-					$hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
-					//Insert the user in db
-					
-					$sql = "insert into students (stu_name, stu_gender, stu_address, stu_gurdianname, stu_gurdiancontact, stu_highestdegree, stu_yearofpass, stu_currentinstitute, stu_course, stu_dob, stu_contact, stu_email, stu_password, stu_approvalstatus, stu_image) values ('$name', '$gender', '$address', '$gname', '$gcontact', '$he', '$yop', '$inst', '$course', '$dob', '$contact', '$email', '$hashedPwd', 0, '$file')";
-					mysqli_query($conn, $sql);
-					header("Location: ../registration.php?signup=success");
-					exit();
-				}
+			{
+				//Hashing the password
+				$hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
+				//Insert the user in db
+				
+				$sql = "insert into students (stu_name, stu_gender, stu_address, stu_gurdianname, stu_gurdiancontact, stu_highestdegree, stu_yearofpass, stu_currentinstitute, stu_course, stu_dob, stu_contact, stu_email, stu_password, stu_approvalstatus, stu_image) values ('$name', '$gender', '$address', '$gname', '$gcontact', '$he', '$yop', '$inst', '$course', '$dob', '$contact', '$email', '$hashedPwd', 0, '$file')";
+				mysqli_query($conn, $sql);
+				header("Location: ../registration.php?signup=success");
+				exit();
 			}
-		}			
+		}
 	}	
 	
 } 

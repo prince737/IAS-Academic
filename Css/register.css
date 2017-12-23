@@ -21,6 +21,7 @@
 	font-size:27px;
 }
 
+
 .heading{
 	font-family: 'Roboto', sans-serif;
 	font-weight: 700;
@@ -28,6 +29,13 @@
 	text-align:center;
 }
 
+.require{
+	color:#00796B;
+	padding-top:10px;
+	font-size:17px;
+	text-align:center;
+	font-weight:500;
+}
 
 .contactus{
 	background-color: #F7F7F8;
@@ -68,6 +76,11 @@ input[type=file]{
 	background-color: #5fcf80; 
 	color:white;
 	font-size:22px;
+	transition: all 0.5s ease;
+}
+
+.submit:hover{
+	background-color: #00796B;
 }
 
 .item{

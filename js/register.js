@@ -10,14 +10,16 @@ $( function() {
 	
 	//INput field validations
 	
-	/*$('#name').on('blur', function(){
+	$('#name').on('blur', function(){
 		if(!this.value.match(/^[A-Za-z]*\s{1}[A-Za-z]*$/))
 		{
 			$('#error_name').html('Please provide a valid name.').css('color', '#D32F2F').css('padding-top','10px').css('font-size','16px');
-			 $(this).focus(); 
+			 $(this).focus();
+			 $('#name').css('border', '2px solid #D32F2F');
 			return false;
 		} 
-        $('#error_name').html('');           
+        $('#error_name').html('');  
+		$('#name').css('border', 'none');	
         
 	});	
 
@@ -26,9 +28,11 @@ $( function() {
 		{
 			$('#error_gname').html('Please provide a valid name.').css('color', '#D32F2F').css('padding-top','10px').css('font-size','16px');
 			 $(this).focus(); 
+			 $('#gname').css('border', '2px solid #D32F2F');
 			return false;
 		} 
-        $('#error_gname').html('');           
+        $('#error_gname').html('');    
+		$('#gname').css('border', 'none');			
         
 	});	
 
@@ -37,9 +41,11 @@ $( function() {
 		{
 			$('#error_contact').html('Please provide a valid Contact Number.').css('color', '#D32F2F').css('padding-top','10px').css('font-size','16px');
 			 $(this).focus(); 
+			 $('#contact').css('border', '2px solid #D32F2F');
 			return false;
 		} 
-        $('#error_contact').html('');           
+        $('#error_contact').html('');  
+		$('#contact').css('border', 'none');		
         
 	});	
 
@@ -48,9 +54,11 @@ $( function() {
 		{
 			$('#error_gcontact').html('Please provide a valid Contact Number.').css('color', '#D32F2F').css('padding-top','10px').css('font-size','16px');
 			 $(this).focus(); 
+			 $('#gcontact').css('border', '2px solid #D32F2F');
 			return false;
 		} 
-        $('#error_gcontact').html('');           
+        $('#error_gcontact').html('');   
+		$('#gcontact').css('border', 'none');		
         
 	});		
 	
@@ -59,9 +67,11 @@ $( function() {
 		{
 			$('#error_email').html('Please provide a valid email address.').css('color', '#D32F2F').css('padding-top','10px').css('font-size','16px');
 			 $(this).focus(); 
+			 $('#email').css('border', '2px solid #D32F2F');
 			return false;
 		} 
-        $('#error_email').html('');           
+        $('#error_email').html('');  
+		$('#email').css('border', 'none');			
         
 	});	
 	
@@ -91,20 +101,22 @@ $( function() {
 		});			
 		
 		
-		//Imge validation
+		//Image validation
 		
-		/*$(document).ready(function(){  
+		$(document).ready(function(){  
         $('#register').click(function(){  
             var extension = $('#img').val().split('.').pop().toLowerCase();  
             if(jQuery.inArray(extension, ['png','jpg','jpeg']) == -1)  
             {  
                  $('#error_image').html('Please provide a proper image file .').css('color', '#D32F2F').css('padding-top','10px').css('font-size','16px');
-                $('#img').val('');  
+                $('#img').val('');
+				$('#img').focus();	
+				$('#img').css('border', '2px solid #D32F2F').css('box-shadow', 'none');
                 return false;  
             }  
              
         });  
-        });  */
+        });  
 		
 		
 		

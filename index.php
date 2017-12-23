@@ -58,8 +58,8 @@
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">COURSES<span class="caret"></span></a>
 								<ul class="dropdown-menu" >
 								
-									<li><a tabindex="-1" href="#">JOINT ENTRANCE</a></li>
-									<li><a tabindex="-1" href="#">ICSE & ISC</a></li>
+									<li><a tabindex="-1" href="course.php?course=je">JOINT ENTRANCE</a></li>
+									<li><a tabindex="-1" href="course.php?course=isc">ICSE & ISC</a></li>
 									<li><a tabindex="-1" href="#">CBSE</a></li>
 									<li><a tabindex="-1" href="#">MADHYAMIK</a></li>
 									<li><a tabindex="-1" href="#">HS (WBCHSE)</a></li>
