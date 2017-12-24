@@ -20,26 +20,26 @@
 </head>
 <body>
 	<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-		<a href="index.php" class="pull-left"><img src="images/logo.jpg" height="35" width="35" style="margin:8px;"></a>
-      <a class="navbar-brand" href="index.php"><span class="brand"><span>I</span>NSTITUTE OF <span>A</span>PPLIED <span>S</span>CIENCE</span></a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">      
-      <ul class="nav navbar-nav navbar-right">
-        <li><a style="font-size:16px;" href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+	    <div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>                        
+				</button>
+				<a href="index.php" class="pull-left"><img src="images/logo.jpg" height="35" width="35" style="margin:8px;"></a>
+				<a class="navbar-brand" href="index.php"><span class="brand"><span>I</span>NSTITUTE OF <span>A</span>PPLIED <span>S</span>CIENCE</span></a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">      
+				<ul class="nav navbar-nav navbar-right">
+					<li><a style="font-size:16px;" href="login.php"><span class="glyphicon glyphicon-log-in"></span> Log In</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
     <div class="container-fluid">
 	    <div class="row">
-			<div class="col-lg-5 col-sm-10 contactus">
+			<div class="col-lg-5 col-sm-10 register">
 				<div class="heading">Register</div>
 				<p class="require">All the fields below are required.*</p>
 				<?php

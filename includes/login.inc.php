@@ -21,28 +21,37 @@ if(isset($_POST['submit']))
 		$sql = "select * from students where stu_email = '$email'";
 		$result = mysqli_query($conn, $sql);
 		$resultCheck = mysqli_num_rows($result);
-		echo $resultCheck;
 		if($resultCheck < 1)
-		{
-			header("Location: ../login.php?login=error1");
+		{			
+			header("Location: ../login.php?m=$email&l=er");
 			exit();
 		}
-		else{
+		else
+		{
 			if($row = mysqli_fetch_assoc($result))
 			{
-				$hashedPwdCheck = password_verify($pwd, $row['stu_password']);
-				if($hashedPwdCheck == false)
-				{
-					header("Location: ../login.php?login=error2");
+				/*if($row['stu_approvlstatus'] == 0 ){
+					header("Location: ../login.php?l=na");
 					exit();
 				}
-				elseif($hashedPwdCheck == true)
-				{
-					//Login the user here
-					$_SESSION['student_id'] = $row['stu_id'];
-					header("Location: ../profile.php");
-					exit();
-				}
+				else
+				{*/
+					$hashedPwdCheck = password_verify($pwd, $row['stu_password']);
+					if($hashedPwdCheck == false)
+					{
+						$mail= $row['stu_email'];
+						header("Location: ../login.php?m=$mail&l=pdm");
+						exit();
+					}
+					elseif($hashedPwdCheck == true)
+					{
+						//Login the user here
+						$_SESSION['student'] = $row;
+						header("Location: ../profile.php");
+						exit();
+					}
+				//}
+				
 			}
 		}
 	}

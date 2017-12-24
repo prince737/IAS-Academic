@@ -5,143 +5,132 @@
 	padding:0px;
 }
 
-body, html {
-    height: 100%;
-    
+.navbar{
+	border-radius:0px;
+	border-bottom:5px solid #343436;
+	background:#212121;
+	margin-bottom:0px;
 }
-
-
-
-.bg {
-    /* The image used */
-   /* background-image: url("../images/leo-fosdal-113874-01.jpeg");
-
-    /* Full height */
-    height: 100%; 
-
-    /* Center and scale the image nicely */
-   /* background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;*/
-	
-}		
-
-.row-centered{
-    text-align:center;
-}
-
-.col-centered{
-    display:inline-block;
-    float:none;
-	height:100%;
-	
-}
-.content{
-	box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
-}
-
-
 .brand{
+	font-family:"Times New Roman", Georgia, Serif;
 	color:white;
-	font-family: times new roman;
-	font-size:30px;
-}
-
-
-.login{
-	background: #48727F;
-	margin:0px;
-	border-radius:5px 5px 0px 0px;
-	height:50px;
-	color:white;
+	padding-top:3px;
 	font-size:20px;
-	line-height:50px;
-	font-weight:300;
 }
 
-.form{
-	background-color:#fff;
-	border-radius:0px 0px 5px 5px;
-	padding:15px;
-	padding-top:1px;
-}
-
-.name{
-	margin:0px;
-	margin-top:25px;
-	margin-bottom:5px;
-	color:#48727F;
-}
-
-.submit{
-	outline:none;
-	border:none;
-	padding: 5px 15px;
-	background-color:#48727F;
-	margin-top:25px;
+.brand span{
+	font-family:"Times New Roman", Georgia, Serif;
 	color:white;
-	border-radius:3px;
-	margin-bottom:20px;
+	font-size:27px;
 }
 
-.submit:hover{
-	background-color:#28292b;
+.text{
+	text-align:center;
+	font-size:18px;
+	margin-top:2%;
+	color:#00796B;
+	font-weight:500;
 }
 
-input{
-	padding:5px;
-	width:70%;
-	height:40px;
-	
+.signin{
+	background-color: #F7F7F7;
+	margin-top: 5px;
+	margin-bottom: 4%;
+	margin-left: auto;
+	margin-right: auto;
+	float: none;
+	padding:20px;
+	border-radius:2px;
+	-moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+	padding-bottom:40px;
 }
 
-
-input:focus {
-border: 1px solid #5c5b5a !important;
-box-shadow: 0 0 3px #5c5b5a !important;
--moz-box-shadow: 0 0 3px #5c5b5a !important;
--webkit-box-shadow: 0 0 3px #5c5b5a !important;
+.dp{
+	height:120px;
+	width:120px;
+	border-radius:58px;
+	display:block;
+	margin:20px auto 0px auto; 
 }
 
-input:focus{
-outline-offset: 0px !important;
-outline: none !important;
-}
-
-
-
-.fp{
-	text-decoration:none;
-	color:#48727F;
-}
-
-.fp:hover{
+input[type=email], input[type=password]{
+	height:45px;
+	width:88%;
+	margin:0px auto 0px auto; 	
+	font-size: 16px;
 	color:black;
 }
 
-@media screen and (min-width: 768px) {
-	.content{
-		margin-top:60px;
-	}
+
+input[type=email]{
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+	margin-top:50px;
+}	
+
+input[type=password]{
+	margin-bottom: 15px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.submit{
+	height:45px;
+	width:88%;
+	display:block;
+	margin:0px auto 10px auto; 
+	font-size: 16px;
+	border-radius:7px;
+	background:#3276B1;
+	color:white;
+	outline:none;
+	border:none;
+	border:1px solid #CCCCCC;
+}
+
+.checkbox{
+	margin-left:42px;
+}
+
+.need-help
+{
+    margin-top: 10px;
+	margin-right:20px;
+}
+
+.error{
+	color:#D32F2F;
+	font-size:16px;
+}
+
+@media screen and (max-width: 768px) {
 	
-	.col-centered{
-		margin-top:100px;
+	.signin{
+  		width:90%;
+  	}
+	
+	.brand{
+		font-size:16px;
+	}
+
+	.brand span{
+		font-size:24px;
 	}
 }
 
-@media screen and (max-width: 760px) {
-	.content{
-		margin-top:50px;
+@media screen and (max-width: 380px) {
+	.brand{
+		font-size:12px;
 	}
-	
-	.col-centered{
-		margin-top:50px;
+
+	.brand span{
+		font-size:19px;
+	}		
+}	
+@media screen and (min-width: 768px){
+	.row{
+		margin:10px 50px 50px 50px;
 	}
 }
-
-
-
-
-
-
-

@@ -16,34 +16,100 @@
 
 <body>
 
-	
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>                        
+				</button>
+				<a href="index.php" class="pull-left"><img src="images/logo.jpg" height="35" width="35" style="margin:8px;"></a>
+				<a class="navbar-brand" href="index.php"><span class="brand"><span>I</span>NSTITUTE OF <span>A</span>PPLIED <span>S</span>CIENCE</span></a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">      
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="registration.php" style="font-size:16px;"><span class="glyphicon glyphicon-user"></span> Enroll Now</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
 	<div class="bg container-fluid">
-	
-		<div class="row row-centered">
-			<div class="col-sm-6 col-lg-4 col-centered">
-				<p class="brand">Institute of Applied Science</p>
-				<div class="content">
-					<p class="login">LOG IN</p>
-					<form class="form" action="includes/login.inc.php" method="POST">
-					    <p class="name">EMAIL</p> 
-						<input type="email" name="email" placeholder="E-mail" required><br>
-						<p class="name">PASSWORD</p>
-						<input type="password" name="pwd" placeholder="Password" required><br>
-						<button type="submit" name="submit" class="submit">LOG IN</button><br>
-						<a href="#" class="fp">Forgot Your Password?</a>
-					</form>
+			
+		<p class="text">Log in to access your profile and exams</p>
+		<div class="row">
+			<div class="col-md-7 col-lg-4 col-sm-10 col-md-offset-4 signin">
+				
+				<img src="images/no-photo.jpg" class="dp">
+				<form class="form" action="includes/login.inc.php" method="POST">
+					<input type="email" name="email" id="email" placeholder="E-mail" class="form-control" value="<?php if(isset($_GET['m'])){echo $_GET['m'];} ?>" required>				
+					<input type="password" id="pwd" name="pwd" class="form-control" placeholder="Password" required>	
+					<button type="submit" name="submit" id="submit" class="submit">Log In</button><br>
+					<p id="error_email" style="text-align:center;"></p>
+					<p id="error_pwd" style="text-align:center;"></p>
+					<?php
+						if(isset($_GET['l']))
+						{
+							if($_GET['l'] == 'na')
+							{
+								echo '<p class="error" style="text-align:center; ">You are not yet approved by our administrator. We will send you an email once you are approved. </p>';
+							}
+							elseif($_GET['l'] == 'pdm')
+							{
+								echo '<p class="error" style="text-align:center; ">Passwords do not match. Try again. </p>';
+							}
+							elseif($_GET['l'] == 'er')
+							{
+								echo '<p class="error" style="text-align:center; ">Invalid email id or password. </p>';
+							}
+						}
+					?>
 					
-				</div>
-				<a href="registration.php" >register</a>
+					
+					<label class="checkbox pull-left">
+						<input type="checkbox" value="remember-me">
+						Remember me
+					</label>
+					<a href="#" class="pull-right need-help">Forgot Password? </a><span class="clearfix"></span>	
+				
+				</form>
+			
+			
 			</div>
 		</div>
 	
 	</div>
 	
-
-
 <script src="js/jquery-3.2.1.min.js"></script>   
 <script src="js/bootstrap.js"></script>
-
+<script src="js/jquery-3.2.1.min.js"></script>
+<script>
+	$('#email').on('blur', function(){
+		if(!this.value.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/))
+		{
+			$('#error_email').html('Please provide a valid email address.').css('color', '#D32F2F').css('font-size','16px');
+			 $(this).focus(); 
+			 $('#email').css('border', '2px solid #D32F2F');
+			return false;
+		} 
+        $('#error_email').html('');  
+		$('#email').css('border', 'none');			
+        
+	});	
+	
+	$('#pwd').on('blur', function(){
+		if(this.value.length < 8){
+			$('#error_pwd').html('Passwords must be atleast 8 characters long.').css('color', '#D32F2F').css('font-size','16px');
+			$(this).focus(); 
+			$('#pwd').css('border', '2px solid #D32F2F');
+			$('#submit').prop('disabled',true);
+			return false;
+		} else{
+            $('#error_pwd').html('');  
+			$('#pwd').css('border', 'none');
+			$('#submit').prop('disabled',false);	
+        }
+		});		
+</script>
 </body>
 </html>
