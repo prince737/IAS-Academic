@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=0.8">
 	<title>Administrator | IAS</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="admin.css">
@@ -103,7 +103,7 @@
 						</div>
 						<div class="col-md-7">
 							<ul class="pull-right">
-								<li id="welcome" class="hidden-xs hidden-sm">Welcome to your administration area</li>
+								<li id="welcome" class="hidden-xs">Welcome to your administration area</li>
 								<li class="fixed-width">
 									<a href="#">
 										<span class="fa fa-bell" aria-hidden="true"></span>
@@ -265,10 +265,10 @@
 				</div>	
 			</div>
 		</div>
-	</div>-->
-</div>
-		
+	</div>
 
+	</div>	
+</div>
 
 	
 	<script src="../js/jquery-3.2.1.min.js"></script>	
