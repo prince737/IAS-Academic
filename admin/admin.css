@@ -12,6 +12,7 @@ html,body{
 	height:100%;
 }
 
+
 #nav-header .brand{
 	font-family:"Times New Roman", Georgia, Serif;
 	padding-top:3px;
@@ -195,6 +196,10 @@ $mySidebar .link > ul > li{
 	padding-bottom:10px;
 }
 
+#stu_form{
+	display:inline-block;
+}
+
 .admin-content-con{
 	margin-top:20px;
 	background-color:#fff;
@@ -245,3 +250,9 @@ $mySidebar .link > ul > li{
 .comment-date-dash{
 	color:#999;
 }
+
+.modal-dialog{
+	margin-top:10%;!important;
+}
+
+

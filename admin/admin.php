@@ -1,5 +1,9 @@
 <?php
 	session_start();
+	require_once('../includes/dbh.inc.php');
+	
+	$query ="Select * from students where stu_approvalstatus=0";
+	$result =@mysqli_query($conn,$query); 
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,30 +14,10 @@
     <link rel="stylesheet" type="text/css" href="admin.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" type="image/jpg"
- href="../images/logo.jpg" />
+    <link rel="icon" type="image/jpg" href="../images/logo.jpg" />
 </head>
 
-<body>
-	
-	<!--<nav class="navbar navbar-inverse">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>                        
-				</button>
-				<a href="index.php" class="pull-left"><img src="../images/logo.jpg" height="35" width="35" style="margin:8px;"></a>
-				<a class="navbar-brand" href="../index.php"><span class="brand"><span>I</span>NSTITUTE OF <span>A</span>PPLIED <span>S</span>CIENCE</span></a>
-			</div>
-			<div class="collapse navbar-collapse" id="myNavbar">      
-				
-			</div>
-		</div>
-	</nav> -->
-	
-	
+<body>	
 
 	
 			
@@ -138,47 +122,64 @@
 										<a class="btn btn-xs btn-warning pull-right" href="#" role="button">Do something</a>
 									</div>
 								</header>
-								<table class="table table-striped">
-									<thead>
-										<tr>
-											<th>#</th>
-											<th>First Name</th>
-											<th>Last Name</th>
-											<th>action</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<th scope="row">1</th>
-											<td>Mark</td>
-											<td>Otto</td>
-											<td>
-												<a class="btn btn-xs btn-success"  href="#" role="button">Approve</a>
-												<a class="btn btn-xs btn-danger" href="#" role="button">Deny </a>
-											</td>
-										</tr>
-										<tr>
-											<th scope="row">2</th>
-											<td>Jacob</td>
-											<td>Thornton</td>
-											<td>
-												<a class="btn btn-xs btn-success"  href="#" role="button">Approve</a>
-												<a class="btn btn-xs btn-danger" href="#" role="button">Deny </a>
-											</td>
-										</tr>
-										<tr>
-											<th scope="row">3</th>
-											<td>Larry</td>
-											<td>the Bird</td>
-											<td>
-												<a class="btn btn-xs btn-success"  href="#" role="button">Approve</a>
-												<a class="btn btn-xs btn-danger" href="#" role="button">Deny </a>
-											</td>
-										</tr>
+								<?php
+									if($result)
+									{
+										echo '<table class="table table-striped">
+												<thead>
+													<tr>
+														<th>#</th>
+														<th>First Name</th>
+														<th>Email</th>
+														<th>action</th>
+													</tr>
+												</thead>';
+										$i = 1;		
+										while($row = mysqli_fetch_array($result))
+										{
+											
+											echo '<tbody>
+													<tr>
+														<th scope="row">1</th>
+														<td>'.$row['stu_name'].'</td>
+														<td>'.$row['stu_email'].'</td>
+														<td>
+															<form action="includes/stu.inc.php" method="POST" id="stu_form">
+																<input type="hidden" value="'.$row['stu_email'].'" name="email"></input>
+																<input type="hidden" value="'.$row['stu_name'].'" id="name"></input>
+																<button class="btn btn-xs btn-success" type="submit" name="approve">Approve</button>
+																<button class="btn btn-xs btn-danger cntct-btn" data-target="#Modal'.$i.'" data-toggle="modal" name="deny" type="button" >Deny</button>	
+																<div class="modal fade" id="Modal'.$i.'"  >
+																	<div class="modal-dialog modal-sm">
+																		<div class="modal-content" >
+																			<div class="modal-header">
+																				<button type="button" class="close" data-dismiss="modal">&times;</button>	<h4>Deny Approval</h4>				
+																			</div>
+																			<div class="modal-body">
+																				Sure to deny '.$row['stu_name'].'?
+																			</div> 
+																			<div class="modal-footer">
+																				<button type="button" class="btn btn-success btn-xs" data-dismiss="modal">Close</button>
+																					<button type="submit" class="btn btn-danger btn-xs" name="deny">Save changes</button>
+																			</div>		
+																		</div>
+																	</div>
+																</div>
+															</form>
+															
+															<a class="btn btn-xs btn-warning" href="students.php", role="button">Details</a>
+														</td>
+													</tr>
+												  '; 
+												  echo $i;
+												  $i++;
+										}											
+									}
+								?>	
 									</tbody>
 								</table>
 								<div class="clearfix">
-									<a class="text-link pull-right" href="#">View all students</a>
+									<a class="text-link pull-right" href="students.php">View all students</a>
 								</div>
 							</div>
 						</div>
@@ -268,6 +269,10 @@
 	</div>
 
 	</div>	
+	
+	
+	
+	
 </div>
 
 	
