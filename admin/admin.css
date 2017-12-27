@@ -205,6 +205,8 @@ $mySidebar .link > ul > li{
 	background-color:#fff;
 	border-top: 4px #e7eaec solid;	
 	padding:15px;
+	max-height:500px;
+	overflow:auto;
 }
 
 .dashbord-left-cell{

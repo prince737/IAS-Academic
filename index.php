@@ -1,3 +1,10 @@
+<?php
+if(isset($_GET['qs']) && $_GET['qs'] == 1){
+    echo "";	
+	echo 'success';
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,8 +16,14 @@
 	<link rel="stylesheet" type="text/css" href="css/aos.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" type="image/jpg"
- href="images/logo.jpg" />
+    <link rel="icon" type="image/jpg" href="images/logo.jpg" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#myModal").modal('show');
+	});
+</script>
 </head>
 
 <body>
@@ -199,8 +212,8 @@
 				</div>
 				
 				<div class="notice-body"  id="verticalScroller">
-				    <marquee direction="up" scrollamount="3">
-                    <div class="notice-content">
+				    <div class="marquee">
+                    <div class="notice-content ">
 						<a href="#">Notices goes here Notices goes here Notices goes here Notices goes here</a>
 					</div>
 
@@ -214,8 +227,7 @@
 						<a href="#">Notices goes here Notices goes here Notices goes here Notices goes here</a>
 					</div>
 
-
-					<div class="notice-content">
+ 					<div class="notice-content">
 						<a href="#">Notices goes here Notices goes here Notices goes here Notices goes here</a>
 					</div>
 
@@ -226,8 +238,8 @@
 					<div class="notice-content">
 						<a href="#">Notices goes here Notices goes here Notices goes here Notices goes here</a>
 					</div>
-
-					</marquee>					
+					
+					</div>			
 			    </div>
 				
 			    </div>
@@ -430,7 +442,7 @@
 
 	<!--Enroll Modal -->
 	
-	<div class="modal fade" id="updateModal"  >
+	<div class="modal hide fade" id="updateModal"  >
         <div class="modal-dialog">
             <div class="modal-content" >
                 <div class="modal-header">
@@ -454,27 +466,45 @@
 			<div class="col-sm-5 contactus" data-aos="fade-up" data-aos-once="true" data-aos-delay="300">
 				<p class="send-query">Send Your Queries</p>
 				<p class="bottomliner">We would be happy to hear from you</p>
-				<form>
+				<form action="includes/contact.inc.php" method="POST">
   					<div class="form-group ">
     					
-    					<input type="email" required class="form-control" id="email" placeholder="Email" id="email">
+    					<input type="email" required class="form-control" id="email" name="email" placeholder="Email" id="email">
   					</div>
   					<div class="form-group">
     					
-    					<input type="text" class="form-control" id="name" placeholder="Name" required>
+    					<input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
   					</div>
 
   					<div class="form-group ">
-   						 <textarea class="form-control" id="msg" rows="3" placeholder="Message"  required></textarea>
-  						</div>
+   					    <textarea class="form-control" id="msg" rows="3" placeholder="Message" name="message"  required></textarea>
+  					</div>
 
-  					<button type="submit" id="submit" class="btn btn-default">Send Query</button>
+  					<button type="submit" id="submit" name="qsubmit" class="btn btn-default">Send Query</button>
 				</form>
 			</div>
 		</div>
 	</div>
+	
+	<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
 
-
+  </div>
+</div>
+	
 	<footer>
 		<div class="container">
 			<div class="row">
@@ -516,7 +546,6 @@
 	
 
     <script src="js/jquery-3.2.1.min.js"></script> 
-	
     <script src="js/bootstrap.js"></script>
 	<script src="js/aos.js"></script>
 	<script src="js/smoothscroll.js"></script>
@@ -524,8 +553,8 @@
 	<script src="js/jquery.marquee.js" type="text/javascript"></script>
 	<script>
 		$('.marquee').marquee({
-			duration: 5000,
-			gap: 30,
+			duration: 10000,
+			gap: 0,
 			delayBeforeStart: 0,
 			direction: 'up',
 			duplicated: true,

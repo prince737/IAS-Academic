@@ -18,15 +18,7 @@
 	if(isset($_POST['deny']))
 	{
 		$email = mysqli_real_escape_string($conn, $_POST['email']);
-		$query = "Insert into denied_students select * from students where stu_email = '$email'";	
-		if(mysqli_query($conn,$query))
-		{
-			echo "success";
-		}
-		else{
-			echo "fail";
-		}
-		$query = "delete from students where stu_email = '$email'";
+		$query = "Update students set stu_approvalstatus=2 where stu_email = '$email'";	
 		if(mysqli_query($conn,$query))
 		{
 			echo "success";

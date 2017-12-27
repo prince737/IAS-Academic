@@ -4,6 +4,9 @@
 	
 	$query ="Select * from students where stu_approvalstatus=0";
 	$result =@mysqli_query($conn,$query); 
+	
+	$query1 ="Select * from queries order by q_id desc";
+	$result1 =@mysqli_query($conn,$query1); 
 ?>
 <!DOCTYPE html>
 <html>
@@ -83,7 +86,7 @@
 									<span class="icon-bar"></span>
 								</button>
 							</nav>
-							<a class="navbar-brand hidden-sm hidden-xs" href="../index.php"><span class="brand"><span>I</span>NSTITUTE OF <span>A</span>PPLIED <span>S</span>CIENCE</span></a>
+							<a class="navbar-brand hidden-sm hidden-xs" href="../index.php" target="_blank"><span class="brand"><span>I</span>NSTITUTE OF <span>A</span>PPLIED <span>S</span>CIENCE</span></a>
 						</div>
 						<div class="col-md-7">
 							<ul class="pull-right">
@@ -131,7 +134,7 @@
 														<th>#</th>
 														<th>First Name</th>
 														<th>Email</th>
-														<th>action</th>
+														<th>Action</th>
 													</tr>
 												</thead>';
 										$i = 1;		
@@ -140,7 +143,7 @@
 											
 											echo '<tbody>
 													<tr>
-														<th scope="row">1</th>
+														<th scope="row">'.$i.'</th>
 														<td>'.$row['stu_name'].'</td>
 														<td>'.$row['stu_email'].'</td>
 														<td>
@@ -160,7 +163,7 @@
 																			</div> 
 																			<div class="modal-footer">
 																				<button type="button" class="btn btn-success btn-xs" data-dismiss="modal">Close</button>
-																					<button type="submit" class="btn btn-danger btn-xs" name="deny">Save changes</button>
+																					<button type="submit" class="btn btn-danger btn-xs" name="deny">Deny Request</button>
 																			</div>		
 																		</div>
 																	</div>
@@ -171,7 +174,6 @@
 														</td>
 													</tr>
 												  '; 
-												  echo $i;
 												  $i++;
 										}											
 									}
@@ -188,28 +190,40 @@
 								<header>
 									<h5>Queries</h5>
 								</header>
-				
-								<div class="comment-head-dash clearfix">
-									<div class="commenter-name-dash pull-left">Tom Phelan</div>
-									<div class="days-dash pull-right">2days ago</div>						
-								</div>
-								<p class="comment-dash">
-									Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard ummy text ever since the 1500s. 
-								</p>
-								<small class="comment-date-dash">Today 5:10pm 24/12/17</small>
-								<hr>
-								<div class="comment-head-dash clearfix">
-									<div class="commenter-name-dash pull-left">Tom Phelan</div>
-									<div class="days-dash pull-right">2days ago</div>						
-								</div>
-								<p class="comment-dash">
-									Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard ummy text ever since the 1500s. 
-								</p>
-								<small class="comment-date-dash">Today 5:10pm 24/12/17</small>
-								<hr>
+				                <?php
+									if($result1){
+										while($row = mysqli_fetch_array($result1))
+										{
+											$now = date("Y-m-d");
+											$date1 = new DateTime($now);
+											$date2 = new DateTime($row['q_date']);
+											$diff = $date2->diff($date1)->format("%a");
+											
+											if($diff == 0){
+												$diff = 'Today';
+											}
+											else{
+												$diff = $diff.' days ago';
+											}
+											
+											echo '
+												<div class="comment-head-dash clearfix">
+													<div class="commenter-name-dash pull-left">'.$row['q_name'].'</div>
+													<div class="days-dash pull-right">'.$diff.'</div>
+												</div>
+												<p class="comment-dash">
+													 '.$row['q_message'].'
+												</p>
+												<small class="comment-date-dash">'.$row['q_time'].' '.$row['q_date'].'</small>
+												<hr>
+																							
+											';
+										}
+									}
+								?>
 								<div class="clearfix">
 									<a class="text-link pull-right" href="#">View all queries</a>
-								</div>
+								</div>									
 							</div>
 						</div>
 					</div>
