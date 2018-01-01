@@ -12,14 +12,10 @@
 		$date = date('m/d/Y');
 		$time = date("h:i a");
 		
-		if(!filter_var($email, FILTER_VALIDATE_EMAIL))
-		{
-			header("Location: ../index.php?em=1");		
-		}
-		else{
-			$sql = "insert into queries (q_email, q_name, q_message, q_date, q_time) values ('$email', '$name', '$message', '$date', '$time')";
-				mysqli_query($conn, $sql);
-				header("Location: ../index.php?qs=1");
-				exit();
-		}
+		
+		$sql = "insert into queries (q_email, q_name, q_message, q_date, q_time) values ('$email', '$name', '$message', '$date', '$time')";
+		mysqli_query($conn, $sql);
+		header("Location: ../index.php?qs=1#contact");
+		exit();
+		
 	}

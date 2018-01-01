@@ -2,6 +2,8 @@
 
 session_start();
 
+include 'simple-crypt.inc.php';
+
 if(isset($_POST['submit'])) 
 {
 	include 'dbh.inc.php';
@@ -22,20 +24,21 @@ if(isset($_POST['submit']))
 		$result = mysqli_query($conn, $sql);
 		$resultCheck = mysqli_num_rows($result);
 		if($resultCheck < 1)
-		{			
-			header("Location: ../login.php?m=$email&l=er");
+		{	
+			$encryptmail = simple_crypt( $email, 'e' );
+			header("Location: ../login.php?m=$encryptmail&l=er");
 			exit();
 		}
 		else
 		{
 			if($row = mysqli_fetch_assoc($result))
 			{
-				/*if($row['stu_approvlstatus'] == 0 ){
+				if($row['stu_approvlstatus'] == 0 ){
 					header("Location: ../login.php?l=na");
 					exit();
 				}
 				else
-				{*/
+				{
 					$hashedPwdCheck = password_verify($pwd, $row['stu_password']);
 					if($hashedPwdCheck == false)
 					{
@@ -50,7 +53,7 @@ if(isset($_POST['submit']))
 						header("Location: ../profile.php");
 						exit();
 					}
-				//}
+				}
 				
 			}
 		}

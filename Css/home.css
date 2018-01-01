@@ -6,13 +6,9 @@
 	
 }
 
-.marquee{
-	max-height:270px;
-	overflow: hidden;
-}
+
 
 .navbar{
-	
 	background-color:#002147;
 	border-radius:0px;
 }
@@ -209,25 +205,58 @@
 
 
 
-.notice1, .notice2{
-	
-	
-	margin-top:20px;
-	
+.notice1, .notice2{	
+	margin-top:30px;
 }
 
 
 .notice-head{
 	background: #002147;
-	color:white;
 	padding:10px;
 	font-size: 18px;
 	text-align: center;
 }
 
+.notice-head{
+	color:white;
+	font-size: 18px;
+}
+
+
+td{
+	vertical-align:top;
+}
+
+.date{
+	color:#293352;
+	font-weight:bold;
+	font-size:16px;
+}
+
+.marquee p{
+	margin:0px;
+}
+
+.notice-text{
+	font-size:15px;
+	width:100%;
+}
+
+.marquee table tr{
+	border-bottom: 1px solid #ddd;
+}
+
+.marquee table tr td{
+	padding: 10px 0px;
+}
+.marquee{
+	max-height:260px;
+	overflow:hidden;
+}
 .notice-body{
+	min-height:300px;
 	max-height:300px;
-	border:1px solid black;
+	border:1px solid #DDDDDD;
 	border-top:none;
 	padding:30px;
 }
@@ -348,6 +377,16 @@ footer ul{
 	margin:0px;
 }
 
+.success{
+	color:	#009688;
+	text-align: center;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	font-size: 16px;
+	padding-top:5px;
+	margin:0px;
+}
+
 .contactus form{
 	padding:20px;
 }
@@ -404,7 +443,7 @@ footer ul{
 
 .gallery{
 	background-color: #293352;
-	margin-top: 20px;
+	margin-top: 30px;
 	padding-bottom: 25px;
 	padding-top: 15px;
 	text-align: center;

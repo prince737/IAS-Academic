@@ -1,8 +1,14 @@
 <?php
-if(isset($_GET['qs']) && $_GET['qs'] == 1){
-    echo "";	
-	echo 'success';
-}
+	
+	session_start();
+	require_once('includes/dbh.inc.php');	
+	
+	$query ="Select * from notices where notices_status=1 order by STR_TO_DATE(notices_date, '%M %d, %Y') DESC";
+	$result =@mysqli_query($conn,$query);	
+	
+	$query ="Select * from events where events_status=1";
+	$result1 =@mysqli_query($conn,$query);	
+
 ?>
 
 <!DOCTYPE html>
@@ -17,14 +23,7 @@ if(isset($_GET['qs']) && $_GET['qs'] == 1){
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" type="image/jpg" href="images/logo.jpg" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("#myModal").modal('show');
-	});
-</script>
-</head>
+	
 
 <body>
 
@@ -207,83 +206,77 @@ if(isset($_GET['qs']) && $_GET['qs'] == 1){
 			
 			<div class="col-sm-6 slide-show notice1">
 				<div class="col-sm-12">
-				<div class="notice-head">
-					NOTICES
-				</div>
-				
-				<div class="notice-body"  id="verticalScroller">
-				    <div class="marquee">
-                    <div class="notice-content ">
-						<a href="#">Notices goes here Notices goes here Notices goes here Notices goes here</a>
-					</div>
-
-
-					<div class="notice-content">
-						<a href="#">Notices goes here Notices goes here Notices goes here Notices goes here</a>
-					</div>
-
-
-					<div class="notice-content">
-						<a href="#">Notices goes here Notices goes here Notices goes here Notices goes here</a>
-					</div>
-
- 					<div class="notice-content">
-						<a href="#">Notices goes here Notices goes here Notices goes here Notices goes here</a>
-					</div>
-
-					<div class="notice-content">
-						<a href="#">Notices goes here Notices goes here Notices goes here Notices goes here</a>
+					<div class="notice-head">
+						NOTICES
 					</div>
 					
-					<div class="notice-content">
-						<a href="#">Notices goes here Notices goes here Notices goes here Notices goes here</a>
+					<div class="notice-body"  id="verticalScroller">
+						<div class="marquee">
+							<table>
+							<?php
+								if($result)
+								{
+										
+									while($row = mysqli_fetch_array($result))
+									{
+										$phpdate = strtotime($row['notices_date']);
+										$date = date( 'd M, Y', $phpdate );
+										echo'
+											<tr>
+												<td>
+													<p class="date">'.$date.'</p>
+													<p class="notice-text" >'.$row['notices_content'].'<a href="'.$row['notices_location'].'" target="_blank"> Know more</a></p>
+												</td>
+											</tr>
+										';
+									}
+								}
+							?>
+							</table>
+							
+						</div>			
 					</div>
-					
-					</div>			
 			    </div>
 				
-			    </div>
 			</div>
 
 
 			<div class="col-sm-6 slide-show notice2">
 				<div class="col-sm-12">
-				<div class="notice-head" >
-					EVENTS
-				</div>
-				<div class="notice-body" id="verticalScroller1">
-					<div class="marquee">
-                    <div class="notice-content ">
-						<a href="#">Notices goes here Notices goes here Notices goes here Notices goes here</a>
+					<div class="notice-head" >
+						EVENTS
 					</div>
-
-
-					<div class="notice-content">
-						<a href="#">Notices goes here Notices goes here Notices goes here Notices goes here</a>
+					<div class="notice-body" id="verticalScroller1">
+						<div class="marquee">
+							<table>
+								
+								<?php
+									if($result1)
+									{
+											
+										while($row = mysqli_fetch_array($result1))
+										{
+											$phpdate = strtotime($row['events_startdate']);
+											$date1 = date( 'd M, Y', $phpdate );
+											$phpdate = strtotime($row['events_enddate']);
+											$date2 = date( 'd M, Y', $phpdate );
+											echo'
+												<tr>
+													<td>
+														<p class="date">'.$date1.'</p>
+														<p class="notice-text" >'.$row['events_heading'].'</p>
+													</td>
+												</tr>
+											';
+										}
+									}
+								?>
+							
+							</table>
+						</div>	
 					</div>
-
-
-					<div class="notice-content">
-						<a href="#">Notices goes here Notices goes here Notices goes here Notices goes here</a>
-					</div>
-
- 					<div class="notice-content">
-						<a href="#">Notices goes here Notices goes here Notices goes here Notices goes here</a>
-					</div>
-
-					<div class="notice-content">
-						<a href="#">Notices goes here Notices goes here Notices goes here Notices goes here</a>
-					</div>
-					
-					<div class="notice-content">
-						<a href="#">Notices goes here Notices goes here Notices goes here Notices goes here</a>
-					</div>
-					
-					</div>
-			    </div>
 			    </div>
 			</div>
-		   
 		</div>
 
 
@@ -461,15 +454,23 @@ if(isset($_GET['qs']) && $_GET['qs'] == 1){
     </div>
 
 
-	<div class="container-fluid contact-form" data-stellar-background-ratio="0.4">
+	<div class="container-fluid contact-form" id="contact" data-stellar-background-ratio="0.4">
 		<div class="row">
 			<div class="col-sm-5 contactus" data-aos="fade-up" data-aos-once="true" data-aos-delay="300">
 				<p class="send-query">Send Your Queries</p>
 				<p class="bottomliner">We would be happy to hear from you</p>
+				<?php
+					if(isset($_GET['qs']) && $_GET['qs'] == 1){
+						echo '
+							<p class="success">Thank You for reaching us. We will get in touch at the earliest.</p>
+						';
+					}					
+				?>
 				<form action="includes/contact.inc.php" method="POST">
   					<div class="form-group ">
     					
     					<input type="email" required class="form-control" id="email" name="email" placeholder="Email" id="email">
+						<p id="error_email"></p>
   					</div>
   					<div class="form-group">
     					
@@ -553,8 +554,8 @@ if(isset($_GET['qs']) && $_GET['qs'] == 1){
 	<script src="js/jquery.marquee.js" type="text/javascript"></script>
 	<script>
 		$('.marquee').marquee({
-			duration: 10000,
-			gap: 0,
+			duration: 1000,
+			gap: 50,
 			delayBeforeStart: 0,
 			direction: 'up',
 			duplicated: true,
@@ -615,7 +616,21 @@ if(isset($_GET['qs']) && $_GET['qs'] == 1){
   			$('.bg').removeClass('bg');
 		});
     </script>
-
+	<script>
+		$('#email').on('blur', function(){
+		if(!this.value.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/))
+		{
+			$('#error_email').html('Please provide a valid email address.').css('color', '#D32F2F').css('padding-top','10px').css('font-size','16px');
+			 $(this).focus(); 
+			 $('#email').css('border', '2px solid #D32F2F');
+			return false;
+		} 
+        $('#error_email').html('');  
+		$('#email').css('border', 'none');			
+        
+	});	
+	
+	</script>
     
 </body>
 

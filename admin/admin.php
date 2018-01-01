@@ -2,10 +2,78 @@
 	session_start();
 	require_once('../includes/dbh.inc.php');
 	
+	if(isset($_GET['msnt']))
+	{
+		echo '			    
+		    <div id="success-modal">
+				<div class="modalconent">
+					<h3 style="color:teal;">Information</h3>
+					<hr>	
+					<p class="para">Message was successfully sent to user\'s mail id.</p> 
+					<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+				</div>
+			</div>
+		';			
+	}
+	if(isset($_GET['rdsh']) || isset($_GET['rdb']))
+	{
+		echo '			    
+		    <div id="success-modal">
+				<div class="modalconent">
+					<h3 style="color:teal;">Information</h3>
+					<hr>	
+					<p class="para">Query was successfully removed.</p>
+					<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+				</div>
+			</div>
+		';			
+	}
+	if(isset($_GET['saprv']))
+	{
+		echo '			    
+		    <div id="success-modal">
+				<div class="modalconent">
+					<h3 style="color:teal;">Information</h3>
+					<hr>	
+					<p class="para">'.$_GET['saprv'].' was successfully approved.</p>
+					<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+				</div>
+			</div>
+		';			
+	}
+	
+	if(isset($_GET['sdny']))
+	{
+		echo '			    
+		    <div id="success-modal">
+				<div class="modalconent">
+					<h3 style="color:teal;">Information</h3>
+					<hr>	
+					<p class="para">'.$_GET['sdny'].' was successfully denied.</p>
+					<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+				</div>
+			</div>
+		';			
+	}
+	
+	if(isset($_GET['error']) || isset($_GET['m_n_snt']))
+	{
+		echo '			    
+		    <div id="success-modal">
+				<div class="modalconent">
+					<h3 style="color:teal;">Information</h3>
+					<hr>	
+					<p class="para">Something went wrong, Please try again.</p>
+					<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+				</div>
+			</div>
+		';			
+	}
+	
 	$query ="Select * from students where stu_approvalstatus=0";
 	$result =@mysqli_query($conn,$query); 
 	
-	$query1 ="Select * from queries order by q_id desc";
+	$query1 ="Select * from queries where q_replystatus=0 and q_removalstatus=0 order by q_id desc limit 2";
 	$result1 =@mysqli_query($conn,$query1); 
 ?>
 <!DOCTYPE html>
@@ -14,7 +82,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=0.8">
 	<title>Administrator | IAS</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="admin.css">
+    <link rel="stylesheet" type="text/css" href="css/admin.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" type="image/jpg" href="../images/logo.jpg" />
@@ -61,10 +129,40 @@
 						</a>
 					</li>
 					<li class="link">
-						<a href="#">
+						<a href="#collapse-post1" data-toggle="collapse" aria-control="collapse-post1">
 							<i class="fa fa-calendar-o" aria-hidden="true"></i>
-							<span class="hidden-sm hidden-xs">Notices and Events</span>
+							<span class="hidden-sm hidden-xs">Notices</span>
 						</a>
+						<ul class="collapse collapsable" id="collapse-post1" style="margin:0px; padding:0px; ">
+							<li>
+								<a href="admin_notices.php">
+									<span>Create New</span>
+								</a>
+							</li>
+							<li>
+								<a href="active_notices.php">
+									<span>View Active</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="link">
+						<a href="#collapse-post2" data-toggle="collapse" aria-control="collapse-post1">
+							<i class="fa fa-calendar" aria-hidden="true"></i>
+							<span class="hidden-sm hidden-xs">Events</span>
+						</a>
+						<ul class="collapse collapsable" id="collapse-post2" style="margin:0px; padding:0px; ">
+							<li>
+								<a href="#">
+									<span>Create New</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>View Active</span>
+								</a>
+							</li>
+						</ul>
 					</li>
 					<li class="link online-exam">
 						<a href="#">
@@ -149,9 +247,9 @@
 														<td>
 															<form action="includes/stu.inc.php" method="POST" id="stu_form">
 																<input type="hidden" value="'.$row['stu_email'].'" name="email"></input>
-																<input type="hidden" value="'.$row['stu_name'].'" id="name"></input>
+																<input type="hidden" value="'.$row['stu_name'].'" name="name"></input>
 																<button class="btn btn-xs btn-success" type="submit" name="approve">Approve</button>
-																<button class="btn btn-xs btn-danger cntct-btn" data-target="#Modal'.$i.'" data-toggle="modal" name="deny" type="button" >Deny</button>	
+																<button class="btn btn-xs btn-danger" data-target="#Modal'.$i.'" data-toggle="modal" name="deny" type="button" >Deny</button>	
 																<div class="modal fade" id="Modal'.$i.'"  >
 																	<div class="modal-dialog modal-sm">
 																		<div class="modal-content" >
@@ -192,6 +290,7 @@
 								</header>
 				                <?php
 									if($result1){
+										$i = 1;	
 										while($row = mysqli_fetch_array($result1))
 										{
 											$now = date("Y-m-d");
@@ -207,6 +306,8 @@
 											}
 											
 											echo '
+											<form action="includes/query.inc.php" method="POST">
+												<input type="hidden" value="'.$row['q_id'].'" name="q_id"></input>
 												<div class="comment-head-dash clearfix">
 													<div class="commenter-name-dash pull-left">'.$row['q_name'].'</div>
 													<div class="days-dash pull-right">'.$diff.'</div>
@@ -215,9 +316,58 @@
 													 '.$row['q_message'].'
 												</p>
 												<small class="comment-date-dash">'.$row['q_time'].' '.$row['q_date'].'</small>
+												
+												<button class="btn btn-xs btn-danger pull-right" style="margin-left:10px;" type="button" data-target="#rModal'.$i.'" data-toggle="modal">Remove</button>
+												<button class="btn btn-xs btn-success pull-right" name="reply" data-target="#QModal'.$i.'" data-toggle="modal" type="button" >Reply</button>
+												<div class="comment-head-dash clearfix"></div>
 												<hr>
-																							
+												
+												<div class="modal fade" id="QModal'.$i.'"  >
+													<div class="modal-dialog">
+														<div class="modal-content" >
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal">&times;</button>	<h3 style="color:teal;">Reply to Query</h3>				
+															</div>
+															<div class="modal-body">
+																<label for="email">User\'s Email:</label>
+																<input class="form-control" name="email" id="email" value="'.$row['q_email'].'" readonly><br>
+																<label for="name">User\'s Name:</label>
+																<input class="form-control" name="name" id="name"  value="'.$row['q_name'].'" readonly><br>
+																<label for="msg">Your Message:</label>
+																 <textarea class="form-control" id="msg" rows="3" placeholder="Message" name="message"  required></textarea>
+																
+																
+															</div> 
+															<div class="modal-footer">
+																<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+																<button type="submit" name="sreply" class="btn btn-success">Send Reply</button>
+															</div>		
+														</div>
+													</div>
+												</div>
+											</form>	
+											<form action="includes/query.inc.php" method="POST">
+												<input type="hidden" value="'.$row['q_id'].'" name="q_id"></input>	
+												<div class="modal fade" id="rModal'.$i.'"  >
+													<div class="modal-dialog modal-xs">
+														<div class="modal-content" >
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal">&times;</button>	<h3 style="color:#EF5350;">Remove Query</h3>				
+															</div>
+															<div class="modal-body">
+																<p class="font">This will not remove the record from the database, instead, only remove from the dashboard.</p>
+															</div> 
+															<div class="modal-footer">
+																<button type="submit" class="btn btn-warning" name="remove-dash">Continue</button>
+																or
+																<button type="submit" name="remove-db" class="btn btn-danger">Remove from Database</button>
+															</div>		
+														</div>
+													</div>
+												</div>	
+											</form>								
 											';
+											$i++;
 										}
 									}
 								?>
@@ -284,6 +434,7 @@
 
 	</div>	
 	
+	<
 	
 	
 	
@@ -292,6 +443,6 @@
 	
 	<script src="../js/jquery-3.2.1.min.js"></script>	
 	<script src="../js/bootstrap.js"></script>
-	<script src="admin.js"></script>
+	<script src="js/admin.js"></script>
 </body>
 </html>

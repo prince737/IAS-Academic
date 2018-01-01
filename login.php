@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	include 'includes/simple-crypt.inc.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -42,7 +43,7 @@
 				
 				<img src="images/no-photo.jpg" class="dp">
 				<form class="form" action="includes/login.inc.php" method="POST">
-					<input type="email" name="email" id="email" placeholder="E-mail" class="form-control" value="<?php if(isset($_GET['m'])){echo $_GET['m'];} ?>" required>				
+					<input type="email" name="email" id="email" placeholder="E-mail" class="form-control" value="<?php if(isset($_GET['m'])){$decrypted = simple_crypt( $_GET['m'], 'd' );echo $decrypted;} ?>" required>	
 					<input type="password" id="pwd" name="pwd" class="form-control" placeholder="Password" required>	
 					<button type="submit" name="submit" id="submit" class="submit">Log In</button><br>
 					<p id="error_email" style="text-align:center;"></p>
