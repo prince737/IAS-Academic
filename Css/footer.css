@@ -1,0 +1,19 @@
+footer{
+	background: #002147;
+	color: #eee;
+	padding:20px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+	font-size: 15px;
+	margin-top:30px;
+}
+
+.fa{
+	padding:5px;
+	font-size: 45px;
+}
+
+footer ul{
+	list-style-type: none;
+	padding: 0px;
+}

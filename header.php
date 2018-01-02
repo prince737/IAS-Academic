@@ -36,7 +36,7 @@
 					
 					<div class="col-lg-7 menu">
 						<ul class="nav navbar-nav" role="menu" aria-labelledby="dropdownMenu">
-							<li><a href="#" class="actv">HOME</a></li>
+							<li><a href="index.php">HOME</a></li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">COURSES<span class="caret"></span></a>
 								<ul class="dropdown-menu" >
@@ -78,7 +78,7 @@
 								</ul>
 							</li>
 							<li>
-								<a href="#gallery" class="smoothScroll">GALLERY</a>
+								<a href="gallery.html" class="smoothScroll">GALLERY</a>
 								
 							</li>
 							<li class="dropdown">
@@ -101,3 +101,7 @@
 			</div>
 		</div>	
 	</nav>
+	
+	
+	
+	

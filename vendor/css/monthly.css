@@ -2,12 +2,13 @@
 /* Overall wrapper */
 .monthly {
 	background: #F3F3F5;
-	color: #545454;
+	color: #909090;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
 	position: relative;
+	border:5px solid #909090;
 }
 
 /* Top bar containing title, navigation, and buttons */
@@ -15,7 +16,7 @@
 	position: relative;
 	text-align: center;
 	padding: 0.5em;
-	background: #fff;
+	background: #212121;
 	height: 3em;
 	box-sizing: border-box;
 }
@@ -89,6 +90,8 @@
 	width: 3em;
 	height: 100%;
 	opacity: .5;
+	background:#909090;
+	color:white;
 }
 .monthly-prev {
 	left: 0;
@@ -131,8 +134,8 @@
 	display: table;
 	table-layout: fixed;
 	width: 100%;
-	background: #fff;
-	border-bottom: 1px solid #EBEBEB;
+	background: #212121;
+	border-bottom: 1px solid #909090;
 }
 .monthly-day-title-wrap div {
 	width: 14.28%!important;
@@ -162,8 +165,8 @@
 	box-sizing: border-box;
 	position: relative;
 	color: inherit;
-	background: #fff;
-	box-shadow: 0 0 0 1px #EBEBEB;
+	background: #212121;
+	box-shadow: 0 0 0 1px #909090;
 	-webkit-transition: .25s;
 	transition: .25s;
 	padding: 0;
@@ -185,7 +188,7 @@
 
 /* Days that are part of previous or next month */
 .monthly-day-blank {
-	background: #F3F3F5;
+	background: #383838;
 }
 
 /* Event calendar day number styles */
@@ -280,7 +283,8 @@
 }
 /* Listing of events under calendar */
 .monthly-event-list {
-	background: rgba(233, 235, 236, 0.9);
+	background: #212121;
+	opacity:0.98;
 	overflow: auto;
 	position: absolute;
 	top: 2.5em;
@@ -299,7 +303,7 @@
 	position: relative;
 	padding: 0.5em 0.7em 0.25em 4em;
 	display: none;
-	border-top: 1px solid #D6D6D6;
+	border-top: 1px solid #909090;
 	text-align: left;
 }
 
@@ -405,7 +409,7 @@ establish the rules based on the calendar element width rather than the device w
 		margin: 0 0 1px 0;
 		width: auto;
 		height: 1.5em;
-		line-height: 1.2em;
+		line-height: 1.3em;
 		padding: 0.125em 0 0.1em 0.125em;
 		border-radius: 0;
 		overflow: hidden;

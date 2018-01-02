@@ -382,12 +382,12 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 		function formatTime(value) {
 			var timeSplit = value.split(":");
 			var hour = parseInt(timeSplit[0], 10);
-			var period = "AM";
+			var period = "";
 			if(hour > 12) {
 				hour -= 12;
-				period = "PM";
+				period = "";
 			} else if (hour == 12) {
-				period = "PM";
+				period = "";
 			} else if(hour === 0) {
 				hour = 12;
 			}

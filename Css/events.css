@@ -1,0 +1,95 @@
+*{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	
+}
+html, body {
+    background:#424242;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+
+.events-banner{
+	background-image: url("../images/events.jpg");
+	background-size: 100%;
+	text-align:center;
+	background-attachment:fixed;
+	margin-top:-20px;
+	position: relative;
+}
+
+.events-banner h2{
+	font-weight:900;
+	opacity:0.8;
+	color: white;  /*#F4E76E*/
+	padding:10px;
+}
+
+.events-banner p{
+	color:white;
+	font-size:20px;
+	
+}
+
+.breadcrumb{
+	background:#ab5443;
+	border-radius:0px;
+	height:45px;
+	font-size:18px;
+}
+
+.breadcrumb >.active {
+  color: black;
+}
+
+.breadcrumb >.breadcrumb-item a {
+    color: white;
+}
+
+.monthly{
+	background: black !important;
+}
+.banner{
+	font-weight:300;
+	font-size:30px;
+	opacity:0.9;
+	color:white;
+}
+
+.helper{
+	color:teal;
+	font-size: 20px;
+}
+
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+    text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  
+  .events-banner{
+	  height:330px;
+	  padding-top:85px;
+  }
+  .events-banner h2{
+		margin-left:auto;
+		margin-right:auto;
+	}
+	.breadcrumb{
+		padding-left:110px;
+	}
+	
+}
+
