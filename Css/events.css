@@ -3,10 +3,18 @@
 	font-weight: 400;
 	
 }
-html, body {
-    background:#424242;
+html{
+	background:	#212121;
     margin: 0;
     padding: 0;
+}
+
+
+ body {
+	background:	#212121;
+    margin: 0;
+    padding: 0;
+	margin-bottom:260px;
 }
 
 
@@ -51,6 +59,7 @@ html, body {
 
 .monthly{
 	background: black !important;
+	margin-bottom:30px;
 }
 .banner{
 	font-weight:300;

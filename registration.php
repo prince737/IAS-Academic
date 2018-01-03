@@ -152,7 +152,7 @@
 							<option value="audi">Audi</option>
 						</select>
   					</div>
-					<div class="item"><span>3</span>  Help us to recognize you</div>
+					<div class="item"><span>3</span>  Identity</div>
 					<div class="form-group ">
 						<label for="img">UPLOAD PHOTO:</label>
     					<input type="file" class="form-control" name="image" id="img" accept=".jpg, .jpeg, .png" required />

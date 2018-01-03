@@ -3,242 +3,239 @@
 	font-weight: 400;
 	
 }
-
-.navbar{
-	margin-bottom:0px;
-	background-color:#002147;
-	border-radius:0px;
+html, body {
+    margin: 0;
+    padding: 0;
+	background:#f5f5f5;
+	overflow-x:hidden;
 }
 
-
-.actv{
-	border-top:1px solid #DEF2F3;
-	border-bottom:1px solid #DEF2F3;
-}
-
-
-
-.brand-div{
-	line-height:38px;
-	padding-top:20px;
-	padding-left:68px;
-}
-
-.brand{
-	font-family:"Times New Roman", Georgia, Serif;
+#banner .clear-fix span{
 	color:white;
-	font-size:23px;
-	padding-top:3px;
+	font-family: 'Sacramento', cursive;
+	font-size:50px;
+	padding-right:20px;
+	padding-top:5px;
 }
 
-.navbar-brand{
-	
-	font-family: "Times New Roman", Georgia, Serif;
-	
+
+.jumbotron{
+	background-image: url("../images/gallery1.jpg");
+	background-size: cover;
+	background-attachment: fixed;
+	color:white;
+	vertical-align:middle;
+	padding-top:10%;
 }
 
-.navbar-brand img{
-	display:inline-block;
-	max-height: 20px;
-	max-width: 20px;
-	margin-right: 10px;
+.jumbotron .about{
+	font-size:16px;
+}
+
+.btn-group{
+	margin-top:5%;
+}
+
+.btn-group .btn{
+	background:none;
+	border:1px solid white;
+	border-radius: 20px!important;
+	transition: 0.3s all ease;
+	margin: 2px 0px!important;
+	margin-left: 5px!important;
+}
+
+.btn-group .active{
+	background:#51d2e8;
+	color:white;
+	border:1px solid #51d2e8;
+}
+
+.btn-group .btn:hover{
+	background:#51d2e8;
+	color:white;
+	border:1px solid #51d2e8;
+}
+
+.brand, .brand span{
+	font-family:"Times New Roman", Georgia, Serif;
+}
+.brand{
+	font-size:30px!important;
 }
 
 .brand span{
-	font-family:"Times New Roman", Georgia, Serif;
-	color:white;
-	font-size:30px;
-	
+	font-size:50px!important;
 }
 
-.tag{
-	color:#DEF2F3;
-	font-size:25px;
-	font-family: "Brush Script Std", Brush Script MT, cursive;
+#sidebar{
+	background:#424242;
+	width:200px;
+	height:100%;
+	display:block;
+	position:absolute;
+	left:-200px;
+	top:0px;
+	transition:left 0.3s linear;
+	z-index:999;
 }
 
-
-.brand-div td{
-	padding-left:15px;
-}
-
-
-.logo{
-	height:78px;
-	width:78px;
-	border-radius:10px;
-	font-weight:300i;
-	float:left;
-}
-
-/*BANNER*/
-
-.gallery-banner{
-	
-	background-image: url("../images/jake-thacker-113197.jpg");
-	background-size: 100%;
+#sidebar h1{
+	color:#51d2e8;
 	text-align:center;
-	background-attachment:fixed;
 }
 
-.gallery-banner h2{
-	font-weight:900;
-	
-	opacity:0.8;
-	color: white;  /*#F4E76E*/
+#sidebar.visible{
+	left:0px;
+	transition:left 0.3s linear;
+}
+
+#sidebar ul{
+	margin:0px;
+	padding:0px;
+}
+
+#sidebar ul li{
+	list-style:none;
+	font-size:12px;
+}
+
+#sidebar ul li:hover{
+}
+
+#sidebar ul li a{
+	color:#ccc;
+	display:block;
 	padding:10px;
+	text-decoration: none;
 }
 
-.gallery-banner p{
-	color:white;
-	font-size:20px;
-	
+#sidebar ul li a:hover{
+	color:#ccc !important;
+	text-decoration: none!important;
+	background: #212121;
 }
 
-
-/*BREADCRUMB*/
-
-.breadcrumb{
-	background:#ab5443;
-	border-radius:0px;
-	height:45px;
-	font-size:18px;
+#sidebar ul li a:focus{
+	color:#ccc !important;
+	text-decoration: none!important;
 }
 
-.breadcrumb >.active {
-  color: black;
+#sidebar ul li ul li{
+	padding-left: 20px;
+	border-left: 5px solid #51d2e8;
+	background:#303030;
 }
 
-.breadcrumb >.breadcrumb-item a {
-   
-    color: white;
+#sidebar ul li ul li a:hover{
+	color:white!important;
+	background:#303030;
 }
 
+#sidebar-btn{
+	display:inline-block;
+	vertical-align: middle;
+	width:20px;
+	height:15px;
+	cursor:pointer;
+	margin:20px;
+	position:absolute;
+	top:0px;
+	right:-60px;
+}
 
-/*FOOTER STYLES BEGINS HERE% */
+#sidebar-btn span{
+	height:1px;
+	background:#fff;
+	margin-bottom:5px;
+	display:block;
+}
 
-footer{
-	background: #002147;
-	color: #eee;
-	padding:20px;
-	font-family: 'Roboto', sans-serif;
+#sidebar-btn p{
+	float:left;
+	position:relative;
+	left:115%;
+	bottom: 24%;
+	display:inline;
+	color:#51d2e8;
 	font-weight: 300;
-	font-size: 15px;
+	opacity: 0.8;
 }
 
-.fa{
-	padding:5px;
-	font-size: 45px;
+#sidebar-btn span:nth-child(2){
+	width:75%;
 }
 
-footer ul{
-	list-style-type: none;
-	padding: 0px;
+#sidebar-btn span:nth-child(3){
+	width:50%;
+}
+.active{
+	background:#212121;
 }
 
+.container{
+	margin-top:-60px;
+}
 
+.wrapper img{
+	border: 5px solid #909090;
+}
 
 @media screen and (min-width: 1200px) {
-	.navbar{
-		height:120px;
-	}
-}
-
-@media screen and (min-width: 768px) {
-	.brand-sm{
-		display:none;
-	}
-	.menu{
-		margin-top:35px;
-		padding-left:50px;
-	}
-	
-	.nav.navbar-nav li a {
-		color: #DEF2F3;
-		font-size: 15px;
-		
-	}
-
-	.nav.navbar-nav li ul li a{
-		color:#3277ae;
-		font-size:14px;
-		padding: 10px 20px;
-		margin-left:5px;
-		margin-right:10px;
-	}
-
-
-	.nav.navbar-nav li ul li{
-		border-bottom:1px solid #D3D3D3;
-	}
-
-	.nav.navbar-nav li ul li:last-child {
-	  border-bottom: none;
-	}
-
-	.nav.navbar-nav li ul li:hover{
-		color:white;
-		background:#3277ae;
-	}
-
-	.nav.navbar-nav li ul li a:hover{
-		color:white;
-		background:#3277ae;
-	}
-	
-	 .gallery-banner{
-	  height:300px;
-	  padding-top:85px;
-  }
-  .gallery-banner h2{
-		
+	.jumbotron .about{
+		width:50%;
 		margin-left:auto;
 		margin-right:auto;
 	}
-	.breadcrumb{
-		padding-left:110px;
+	.jumbotron{
+		height:500px;
 	}
 	
-}
-
-/*IMAGES*/
-
-.gallery{
-	padding:20px;
-}
-
-.img{
-	transition: transform .2s ease-in-out;
-}
-
-.img:hover{
-	transform: scale(1.15);
-	
-}
-
-
-
-
-
-  @media screen and (max-width: 768px) {
-  
-  	.brand-div{
-		display:none;
+	#banner .clear-fix span{	
+		font-size:50px;
+		padding-right:20px;
+		padding-top:5px;
 	}
+	.jumbotron .browse{
+		margin-top:6%;
+	}
+	.wrapper img{
+		margin-bottom:5%;
+	}
+}
 
-  	.contactus{
-  		width:90%;
-  	}
-  	.enroll-btn{
-  		margin-top:0%;
-  	}
-	
-	
-  }
 
-.navbar-brand img{
-	display:inline-block;
-	max-height: 20px;
-	max-width: 20px;
-	margin-right: 10px;
+@keyframes grow {
+	0%, 100% { 
+	    transform: scale(1);
+	}
+	50% { transform: scale(2);}
+}	
+
+
+@media screen and (max-width: 900px) {
+	#banner .clear-fix span{	
+		font-size:30px;
+		padding-right:20px;
+		padding-top:5px;
+	}
+	.col-sm-6 {
+        margin-top:20px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+	#banner .clear-fix span{	
+		font-size:25px;
+		padding-right:20px;
+		padding-top:5px;
+	}
+}	
+
+@media screen and (max-width: 650px) {
+	#banner .clear-fix span{	
+		font-size:22px;
+		padding-right:20px;
+		padding-top:5px;
+	}
 }

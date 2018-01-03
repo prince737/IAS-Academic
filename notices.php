@@ -45,7 +45,7 @@
 	</ol>
 	
 	<div class="container">
-		<div class="row">
+		<div class="row"  style="margin-bottom: 30px;">
 			<div class="col-md-9 content">
 				<div class="col-md-12">
 					<h3 class="heading">Notice Board</h3>

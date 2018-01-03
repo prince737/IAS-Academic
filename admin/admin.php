@@ -164,6 +164,24 @@
 							</li>
 						</ul>
 					</li>
+					<li class="link">
+						<a href="#collapse-post21" data-toggle="collapse" aria-control="collapse-post1">
+							<i class="fa fa-picture-o" aria-hidden="true"></i>
+							<span class="hidden-sm hidden-xs">Gallery</span>
+						</a>
+						<ul class="collapse collapsable" id="collapse-post21" style="margin:0px; padding:0px; ">
+							<li>
+								<a href="#">
+									<span>Add New Images</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>Delete Existing</span>
+								</a>
+							</li>
+						</ul>
+					</li>
 					<li class="link online-exam">
 						<a href="#">
 							<i class="fa fa-tasks" aria-hidden="true"></i>
