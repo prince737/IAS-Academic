@@ -1,10 +1,11 @@
 <?php
 
-	if(isset($_POST['upload'])){
+	if(isset($_POST['save'])){
 		include_once '../../includes/dbh.inc.php';
 		
-		
+		$caption = mysqli_real_escape_string($conn, $_POST['caption']);
 		$folder = mysqli_real_escape_string($conn, $_POST['folder']);
+		
 		
 		$fileName = $_FILES['image']['name'];
 		$fileTmpName = $_FILES['image']['tmp_name'];
@@ -12,37 +13,50 @@
 		$fileError = $_FILES['image']['error'];
 		$fileType = $_FILES['image']['type'];
 		
-		$fileExt = explode('.', $fileName);
-		$fileActualExt = strtolower(end($fileExt));
+		print_r($fileName);
 		
-		$allow = array('jpg', 'jpeg', 'png', 'gif');
-		
-		if(in_array($fileActualExt, $allow)){
-			if($fileError === 0)
-			{
-				if($fileSize < 50000000){
-					$fileNameNew = uniqid('', true).".".$fileActualExt;
-					$fileDest = '../../gallery/'.$folder.'/'.$fileNameNew;
-					$fileDestAll = '../../gallery/All/'.$fileNameNew;
-					move_uploaded_file($fileTmpName, $fileDest);
-					copy($fileDest, $fileDestAll);
-					header("Location: ../add_image.php?success");
-					exit();
+		for($i = 0; $i< count($fileName); $i++){
+			
+			$fileExt = explode('.', $fileName[$i]);
+			$fileActualExt = strtolower(end($fileExt));
+			
+			$allow = array('jpg', 'jpeg', 'png', 'gif');
+			
+			if(in_array($fileActualExt, $allow)){
+				if($fileError[$i] === 0)
+				{
+					if($fileSize[$i] < 50000000){
+						$fileNameNew = uniqid('', true).".".$fileActualExt;
+						$fileDest = '../../gallery/'.$folder.'/'.$fileNameNew;
+						$dest= 'gallery/'.$folder.'/'.$fileNameNew;
+						$fileDestAll = '../../gallery/All/'.$fileNameNew;
+						move_uploaded_file($fileTmpName[$i], $fileDest);
+						copy($fileDest, $fileDestAll);
+						$query = "insert into gallery(gallery_folder, gallery_caption, gallery_location) values('$folder', '$caption', '$dest')";
+						if(!mysqli_query($conn, $query)){
+							header("Location: ../add_image.php?errsql");
+							exit();
+						}
+						else{
+							header("Location: ../add_image.php?success");
+							exit();
+						}
+					}
+					else{
+						header("Location: ../add_image.php?err1");
+						exit();
+					}		
 				}
 				else{
-					header("Location: ../add_image.php?err1");
+					header("Location: ../add_image.php?err2");
 					exit();
-				}		
-			}
+				}
+			}	
 			else{
-				header("Location: ../add_image.php?err2");
+				header("Location: add_image.php?err3");
 				exit();
-			}
-		}	
-		else{
-			header("Location: add_image.php?err3");
-			exit();
-		}
+			}	
+		}			
 	}
 	else
 	{

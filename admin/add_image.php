@@ -2,6 +2,32 @@
 	session_start();
 	require_once('../includes/dbh.inc.php');
 
+	if(isset($_GET['success']))
+	{
+		echo '			    
+		    <div id="success-modal">
+				<div class="modalconent">
+					<h3 style="color:teal;">Information</h3>
+					<hr>	
+					<p class="para">Notice / Event was added successfully.</p> 
+					<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+				</div>
+			</div>
+		';			
+	}
+	if(isset($_GET['err']))
+	{
+		echo '			    
+		    <div id="success-modal">
+				<div class="modalconent">
+					<h3 style="color:teal;">Information</h3>
+					<hr>	
+					<p class="para">Something went wrong, please try again.</p> 
+					<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+				</div>
+			</div>
+		';			
+	}
 	
 
 ?>
@@ -184,12 +210,17 @@
 								</div>
 								<div class="form-group">
 									<label class="sr-only">Add Image</label>
-									<input type="file" class="form-control" name="image" accept=".jpg, .jpeg, .png, .gif" required />
-									<p style="color:teal; padding: 10px 0px;">Accept File types are .jpg, .jpeg, .gif, .png</p>
+									<p style="color:teal; padding: 0px 0px 0px 10px;">You can upload multiple files at once by selecting more than one while browsing but that would mean that the images won't have any unique caption.</p>
+									<input type="file" class="form-control" name="image[]" accept=".jpg, .jpeg, .png, .gif" required multiple/>
+									<p style="color:teal; padding: 10px 0px 0px 0px;">Accepted File types are .jpg, .jpeg, .gif, .png</p>
+								</div>
+								<div class="form-group">
+									<label class="sr-only">Caption</label>
+									<input type="text" class="form-control" name="caption" placeholder="Optional caption for the image"/>
 								</div>
 								
 								<div class="clearfix">
-									<button type="submit" class="btn btn-primary pull-right" name="upload">Upload</button>
+									<button type="submit" class="btn btn-primary pull-right" name="save">Upload</button>
 								</div>
 								
 							</form>

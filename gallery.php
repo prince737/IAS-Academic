@@ -1,10 +1,17 @@
+<?php
+	session_start();
+	require_once('includes/dbh.inc.php');
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Gallery | IAS</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/footer.css">
     <link rel="stylesheet" type="text/css" href="css/gallery.css">
+	
     <link rel="stylesheet" type="text/css" href="css/animate.css">
 	<link rel="stylesheet" type="text/css" href="css/aos.css">
 	<link rel="stylesheet" href="css/lightbox.min.css">
@@ -226,252 +233,700 @@
 		<div class="row row1">
 		
 			<?php
+						
 				if(!isset($_GET['RRnpo'])){
-					$dir = "gallery/All/*.jpg";
-					$dir1 = "gallery/All/*.png";
-					//get the list of all files with .jpg extension in the directory and safe it in an array named $images
-					$images = glob( $dir );
-					$images1 = glob( $dir1 );
-					$i = 1;	
-					//extract only the name of the file without the extension and save in an array named $find
-					foreach( $images as $image ):
+										
+					$results_per_page = 12;
+					$query = "select * from gallery order by gallery_folder";
+					$result = mysqli_query($conn, $query);
+					$number_of_results = mysqli_num_rows($result);
+						
+					$number_of_pages = ceil($number_of_results/$results_per_page);
+						
+					if (!isset($_GET['page'])) {
+					  $page = 1;
+					} else {
+					  $page = $_GET['page'];
+					}
+					
+					$this_page_first_result = ($page-1)*$results_per_page;
+						
+					$sql='select * from gallery order by gallery_folder LIMIT ' . $this_page_first_result . ',' .  $results_per_page;
+					$result = mysqli_query($conn, $sql);
+										
+					while($row = mysqli_fetch_array($result) ){
+						
 						echo '
-							<div class="col-md-3 col-sm-6">
+							<div class="col-md-3 col-sm-6 top-buffer">
 								<div class="wrapper">
-									<a href="'. $image .'" data-lightbox="All"><img height="200" style="width:100%;" src=" '. $image .'" /></a>
+									<a href="'. $row['gallery_location'] .'" data-lightbox="All" data-title="'.$row['gallery_caption'].'">
+									
+										<div class="contain">
+										    <img height="200" style="width:100%;" src=" '. $row['gallery_location'] .'" />
+										    <div class="overlay">
+											    <div class="text"><p>+</p>Click to Expand</div>
+										    </div>
+										</div>
+									
+										
+									</a>
 								</div>
 							</div>	
-						';
-						$i++;
-					endforeach;
+						';						
+					}	
 					
-					foreach( $images1 as $image ):
-						echo '
-							<div class="col-md-3 col-sm-6">
-								<a href="'. $image .'" data-lightbox="All"><img height="200" style="width:100%;" src=" '. $image .'" /></a>
-							</div>	
-						';
-						$i++;
-					endforeach;
-				}
+					if($number_of_pages > 1){
+						$prev=$page-1;
+						$next=$page+1;
+						echo '<div class="text-center"><ul class="pagination">';
+						if($prev >=1){
+							echo '
+								<li><a href="gallery.php?page=' . $prev . '">&laquo;</a><li>
+							';
+						}
+
+						
+						
+						for ($p=1;$p<=$number_of_pages;$p++) {
+							$selected = $p == $page ? 'class="selected btn disabled"' : '';
+							echo '
+								<li><a '.$selected.' href="gallery.php?page=' . $p . '">' . $p . '</a><li>
+							';
+							
+						}
+						if($next <= $number_of_pages && $number_of_pages >= 2){
+							echo '
+								<li><a href="gallery.php?page=' . $next . '">&raquo;</a><li>
+							';
+						}
+						echo '</ul></div>';
+					}					
+					
+				}// END OF ALL
 				elseif($_GET['RRnpo'] == 'pssT'){
-					$dir = "gallery/Campus/*.jpg";
-					$dir1 = "gallery/Campus/*.png";
-					//get the list of all files with .jpg extension in the directory and safe it in an array named $images
-					$images = glob( $dir );
-					$images1 = glob( $dir1 );	
-					//extract only the name of the file without the extension and save in an array named $find
-					foreach( $images as $image ):
-						echo '
-							<div class="col-md-3 col-sm-6">
-								<a href="'. $image .'" data-lightbox="All"><img height="200" style="width:100%;" src=" '. $image .'" /></a>
-							</div>	
-						';
-					endforeach;
+					$results_per_page = 12;
+					$query = "select * from gallery where gallery_folder='Campus'";
+					$result = mysqli_query($conn, $query);
+					$number_of_results = mysqli_num_rows($result);
+						
+					$number_of_pages = ceil($number_of_results/$results_per_page);
+						
+					if (!isset($_GET['page'])) {
+					  $page = 1;
+					} else {
+					  $page = $_GET['page'];
+					}
 					
-					foreach( $images1 as $image ):
+					$this_page_first_result = ($page-1)*$results_per_page;
+						
+					$sql="select * from gallery where gallery_folder='Campus' LIMIT " . $this_page_first_result . "," .  $results_per_page;
+					$result = mysqli_query($conn, $sql);
+										
+					while($row = mysqli_fetch_array($result) ){
+						
 						echo '
-							<div class="col-md-3 col-sm-6">
-								<a href="'. $image .'" data-lightbox="All"><img height="200" style="width:100%;" src=" '. $image .'" /></a>
+							<div class="col-md-3 col-sm-6 top-buffer">
+								<div class="wrapper">
+									<a href="'. $row['gallery_location'] .'" data-lightbox="All" data-title="'.$row['gallery_caption'].'">
+									
+										<div class="contain">
+										    <img height="200" style="width:100%;" src=" '. $row['gallery_location'] .'" />
+										    <div class="overlay">
+											    <div class="text"><p>+</p>Click to Expand</div>
+										    </div>
+										</div>
+									
+										
+									</a>
+								</div>
 							</div>	
-						';
-					endforeach;
+						';						
+					}	
 					
-				}
+					if($number_of_pages > 1){
+						$prev=$page-1;
+						$next=$page+1;
+						echo '<ul class="pagination">';
+						if($prev >=1){
+							echo '
+								<li><a href="gallery.php?RRnpo=pssT&page=' . $prev . '">&laquo;</a><li>
+							';
+						}
+
+						
+						
+						for ($p=1;$p<=$number_of_pages;$p++) {
+							$selected = $p == $page ? 'class="selected btn disabled"' : '';
+							echo '
+								<li><a '.$selected.' href="gallery.php?RRnpo=pssT&page=' . $p . '">' . $p . '</a><li>
+							';
+							
+						}
+						if($next <= $number_of_pages && $number_of_pages >= 2){
+							echo '
+								<li><a href="gallery.php?RRnpo=pssT&page=' . $next . '">&raquo;</a><li>
+							';
+						}
+						echo '</ul>';
+					}							
+									
+				}//END OF CAMPUS
 				
 				elseif($_GET['RRnpo'] == 'cm'){
-					$dir = "gallery/Classroom/*.jpg";
-					$dir1 = "gallery/Classroom/*.png";
-					$images = glob( $dir );
-					$images1 = glob( $dir1 );	
-					foreach( $images as $image ):
-						echo '
-							<div class="col-md-3 col-sm-6">
-								<a href="'. $image .'" data-lightbox="All"><img height="200" style="width:100%;" src=" '. $image .'" /></a>
-							</div>	
-						';
-					endforeach;
+					$results_per_page = 12;
+					$query = "select * from gallery where gallery_folder='Classroom'";
+					$result = mysqli_query($conn, $query);
+					$number_of_results = mysqli_num_rows($result);
+						
+					$number_of_pages = ceil($number_of_results/$results_per_page);
+						
+					if (!isset($_GET['page'])) {
+					  $page = 1;
+					} else {
+					  $page = $_GET['page'];
+					}
 					
-					foreach( $images1 as $image ):
+					$this_page_first_result = ($page-1)*$results_per_page;
+						
+					$sql="select * from gallery where gallery_folder='Classroom' LIMIT " . $this_page_first_result . "," .  $results_per_page;
+					$result = mysqli_query($conn, $sql);
+										
+					while($row = mysqli_fetch_array($result) ){
+						
 						echo '
-							<div class="col-md-3 col-sm-6">
-								<a href="'. $image .'" data-lightbox="All"><img height="200" style="width:100%;" src=" '. $image .'" /></a>
+							<div class="col-md-3 col-sm-6 top-buffer">
+								<div class="wrapper">
+									<a href="'. $row['gallery_location'] .'" data-lightbox="All" data-title="'.$row['gallery_caption'].'">
+									
+										<div class="contain">
+										    <img height="200" style="width:100%;" src=" '. $row['gallery_location'] .'" />
+										    <div class="overlay">
+											    <div class="text"><p>+</p>Click to Expand</div>
+										    </div>
+										</div>
+									
+										
+									</a>
+								</div>
 							</div>	
-						';
-					endforeach;
+						';						
+					}	
 					
-				}
+					if($number_of_pages > 1){
+						$prev=$page-1;
+						$next=$page+1;
+						echo '<ul class="pagination">';
+						if($prev >=1){
+							echo '
+								<li><a href="gallery.php?RRnpo=cm&page=' . $prev . '">&laquo;</a><li>
+							';
+						}
+
+						
+						
+						for ($p=1;$p<=$number_of_pages;$p++) {
+							$selected = $p == $page ? 'class="selected btn disabled"' : '';
+							echo '
+								<li><a '.$selected.' href="gallery.php?RRnpo=cm&page=' . $p . '">' . $p . '</a><li>
+							';
+							
+						}
+						if($next <= $number_of_pages && $number_of_pages >= 2){
+							echo '
+								<li><a href="gallery.php?RRnpo=cm&page=' . $next . '">&raquo;</a><li>
+							';
+						}
+						echo '</ul>';
+					}					
+					
+				} //END OF CLASSROOM
 				
 				elseif($_GET['RRnpo'] == 'ty'){
-					$dir = "gallery/Faculty/*.jpg";
-					$dir1 = "gallery/Faculty/*.png";
-					$images = glob( $dir );
-					$images1 = glob( $dir1 );	
-					foreach( $images as $image ):
-						echo '
-							<div class="col-md-3 col-sm-6">
-								<a href="'. $image .'" data-lightbox="All"><img height="200" style="width:100%;" src=" '. $image .'" /></a>
-							</div>	
-						';
-					endforeach;
+					$results_per_page = 12;
+					$query = "select * from gallery where gallery_folder='Faculty'";
+					$result = mysqli_query($conn, $query);
+					$number_of_results = mysqli_num_rows($result);
+						
+					$number_of_pages = ceil($number_of_results/$results_per_page);
+						
+					if (!isset($_GET['page'])) {
+					  $page = 1;
+					} else {
+					  $page = $_GET['page'];
+					}
 					
-					foreach( $images1 as $image ):
+					$this_page_first_result = ($page-1)*$results_per_page;
+						
+					$sql="select * from gallery where gallery_folder='Faculty' LIMIT " . $this_page_first_result . "," .  $results_per_page;
+					$result = mysqli_query($conn, $sql);
+										
+					while($row = mysqli_fetch_array($result) ){
+						
 						echo '
-							<div class="col-md-3 col-sm-6">
-								<a href="'. $image .'" data-lightbox="All"><img height="200" style="width:100%;" src=" '. $image .'" /></a>
+							<div class="col-md-3 col-sm-6 top-buffer">
+								<div class="wrapper">
+									<a href="'. $row['gallery_location'] .'" data-lightbox="All" data-title="'.$row['gallery_caption'].'">
+									
+										<div class="contain">
+										    <img height="200" style="width:100%;" src=" '. $row['gallery_location'] .'" />
+										    <div class="overlay">
+											    <div class="text"><p>+</p>Click to Expand</div>
+										    </div>
+										</div>
+									
+										
+									</a>
+								</div>
 							</div>	
-						';
-					endforeach;
+						';						
+					}	
 					
-				}
+					if($number_of_pages > 1){
+						$prev=$page-1;
+						$next=$page+1;
+						echo '<ul class="pagination">';
+						if($prev >=1){
+							echo '
+								<li><a href="gallery.php?RRnpo=ty&page=' . $prev . '">&laquo;</a><li>
+							';
+						}
+
+						
+						
+						for ($p=1;$p<=$number_of_pages;$p++) {
+							$selected = $p == $page ? 'class="selected btn disabled"' : '';
+							echo '
+								<li><a '.$selected.' href="gallery.php?RRnpo=ty&page=' . $p . '">' . $p . '</a><li>
+							';
+							
+						}
+						if($next <= $number_of_pages && $number_of_pages >= 2){
+							echo '
+								<li><a href="gallery.php?RRnpo=ty&page=' . $next . '">&raquo;</a><li>
+							';
+						}
+						echo '</ul>';
+					}					
+					
+				} //END OF FACULTY
 				
 				elseif($_GET['RRnpo'] == 'Ts'){
-					$dir = "gallery/Events/*.jpg";
-					$dir1 = "gallery/Events/*.png";
-					$images = glob( $dir );
-					$images1 = glob( $dir1 );	
-					foreach( $images as $image ):
-						echo '
-							<div class="col-md-3 col-sm-6">
-								<a href="'. $image .'" data-lightbox="All"><img height="200" style="width:100%;" src=" '. $image .'" /></a>
-							</div>	
-						';
-					endforeach;
+					$results_per_page = 12;
+					$query = "select * from gallery where gallery_folder='Events'";
+					$result = mysqli_query($conn, $query);
+					$number_of_results = mysqli_num_rows($result);
+						
+					$number_of_pages = ceil($number_of_results/$results_per_page);
+						
+					if (!isset($_GET['page'])) {
+					  $page = 1;
+					} else {
+					  $page = $_GET['page'];
+					}
 					
-					foreach( $images1 as $image ):
+					$this_page_first_result = ($page-1)*$results_per_page;
+						
+					$sql="select * from gallery where gallery_folder='Events' LIMIT " . $this_page_first_result . "," .  $results_per_page;
+					$result = mysqli_query($conn, $sql);
+										
+					while($row = mysqli_fetch_array($result) ){
+						
 						echo '
-							<div class="col-md-3 col-sm-6">
-								<a href="'. $image .'" data-lightbox="All"><img height="200" style="width:100%;" src=" '. $image .'" /></a>
+							<div class="col-md-3 col-sm-6 top-buffer">
+								<div class="wrapper">
+									<a href="'. $row['gallery_location'] .'" data-lightbox="All" data-title="'.$row['gallery_caption'].'">
+									
+										<div class="contain">
+										    <img height="200" style="width:100%;" src=" '. $row['gallery_location'] .'" />
+										    <div class="overlay">
+											    <div class="text"><p>+</p>Click to Expand</div>
+										    </div>
+										</div>
+									
+										
+									</a>
+								</div>
 							</div>	
-						';
-					endforeach;
+						';						
+					}	
 					
-				}
+					if($number_of_pages > 1){
+						$prev=$page-1;
+						$next=$page+1;
+						echo '<ul class="pagination">';
+						if($prev >=1){
+							echo '
+								<li><a href="gallery.php?RRnpo=Ts&page=' . $prev . '">&laquo;</a><li>
+							';
+						}
+
+						
+						
+						for ($p=1;$p<=$number_of_pages;$p++) {
+							$selected = $p == $page ? 'class="selected btn disabled"' : '';
+							echo '
+								<li><a '.$selected.' href="gallery.php?RRnpo=Ts&page=' . $p . '">' . $p . '</a><li>
+							';
+							
+						}
+						if($next <= $number_of_pages && $number_of_pages >= 2){
+							echo '
+								<li><a href="gallery.php?RRnpo=Ts&page=' . $next . '">&raquo;</a><li>
+							';
+						}
+						echo '</ul>';
+					}					
+					
+				} //END OF EVENTS
 				
 				elseif($_GET['RRnpo'] == 'gRA'){
-					$dir = "gallery/Inauguration/*.jpg";
-					$dir1 = "gallery/Inauguration/*.png";
-					$images = glob( $dir );
-					$images1 = glob( $dir1 );	
-					foreach( $images as $image ):
-						echo '
-							<div class="col-md-3 col-sm-6">
-								<a href="'. $image .'" data-lightbox="All"><img height="200" style="width:100%;" src=" '. $image .'" /></a>
-							</div>	
-						';
-					endforeach;
+					$results_per_page = 12;
+					$query = "select * from gallery where gallery_folder='Inauguration'";
+					$result = mysqli_query($conn, $query);
+					$number_of_results = mysqli_num_rows($result);
+						
+					$number_of_pages = ceil($number_of_results/$results_per_page);
+						
+					if (!isset($_GET['page'])) {
+					  $page = 1;
+					} else {
+					  $page = $_GET['page'];
+					}
 					
-					foreach( $images1 as $image ):
+					$this_page_first_result = ($page-1)*$results_per_page;
+						
+					$sql="select * from gallery where gallery_folder='Inauguration' LIMIT " . $this_page_first_result . "," .  $results_per_page;
+					$result = mysqli_query($conn, $sql);
+										
+					while($row = mysqli_fetch_array($result) ){
+						
 						echo '
-							<div class="col-md-3 col-sm-6">
-								<a href="'. $image .'" data-lightbox="All"><img height="200" style="width:100%;" src=" '. $image .'" /></a>
+							<div class="col-md-3 col-sm-6 top-buffer">
+								<div class="wrapper">
+									<a href="'. $row['gallery_location'] .'" data-lightbox="All" data-title="'.$row['gallery_caption'].'">
+									
+										<div class="contain">
+										    <img height="200" style="width:100%;" src=" '. $row['gallery_location'] .'" />
+										    <div class="overlay">
+											    <div class="text"><p>+</p>Click to Expand</div>
+										    </div>
+										</div>
+									
+										
+									</a>
+								</div>
 							</div>	
-						';
-					endforeach;
+						';						
+					}	
 					
-				}
+					if($number_of_pages > 1){
+						$prev=$page-1;
+						$next=$page+1;
+						echo '<ul class="pagination">';
+						if($prev >=1){
+							echo '
+								<li><a href="gallery.php?RRnpo=gRA&page=' . $prev . '">&laquo;</a><li>
+							';
+						}
+
+						
+						
+						for ($p=1;$p<=$number_of_pages;$p++) {
+							$selected = $p == $page ? 'class="selected btn disabled"' : '';
+							echo '
+								<li><a '.$selected.' href="gallery.php?RRnpo=gRA&page=' . $p . '">' . $p . '</a><li>
+							';
+							
+						}
+						if($next <= $number_of_pages && $number_of_pages >= 2){
+							echo '
+								<li><a href="gallery.php?RRnpo=gRA&page=' . $next . '">&raquo;</a><li>
+							';
+						}
+						echo '</ul>';
+					}					
+					
+				}//END OF INAUGURATION
 				
 				elseif($_GET['RRnpo'] == 'Noi'){
-					$dir = "gallery/Celebrations/*.jpg";
-					$dir1 = "gallery/Celebrations/*.png";
-					$images = glob( $dir );
-					$images1 = glob( $dir1 );	
-					foreach( $images as $image ):
-						echo '
-							<div class="col-md-3 col-sm-6">
-								<<a href="'. $image .'" data-lightbox="All"><img height="200" style="width:100%;" src=" '. $image .'" /></a>
-							</div>	
-						';
-					endforeach;
+					$results_per_page = 12;
+					$query = "select * from gallery where gallery_folder='Celebrations'";
+					$result = mysqli_query($conn, $query);
+					$number_of_results = mysqli_num_rows($result);
+						
+					$number_of_pages = ceil($number_of_results/$results_per_page);
+						
+					if (!isset($_GET['page'])) {
+					  $page = 1;
+					} else {
+					  $page = $_GET['page'];
+					}
 					
-					foreach( $images1 as $image ):
+					$this_page_first_result = ($page-1)*$results_per_page;
+						
+					$sql="select * from gallery where gallery_folder='Celebrations' LIMIT " . $this_page_first_result . "," .  $results_per_page;
+					$result = mysqli_query($conn, $sql);
+										
+					while($row = mysqli_fetch_array($result) ){
+						
 						echo '
-							<div class="col-md-3 col-sm-6">
-								<a href="'. $image .'" data-lightbox="All"><img height="200" style="width:100%;" src=" '. $image .'" /></a>
+							<div class="col-md-3 col-sm-6 top-buffer">
+								<div class="wrapper">
+									<a href="'. $row['gallery_location'] .'" data-lightbox="All" data-title="'.$row['gallery_caption'].'">
+									
+										<div class="contain">
+										    <img height="200" style="width:100%;" src=" '. $row['gallery_location'] .'" />
+										    <div class="overlay">
+											    <div class="text"><p>+</p>Click to Expand</div>
+										    </div>
+										</div>
+									
+										
+									</a>
+								</div>
 							</div>	
-						';
-					endforeach;
+						';						
+					}	
 					
-				}
+					if($number_of_pages > 1){
+						$prev=$page-1;
+						$next=$page+1;
+						echo '<ul class="pagination">';
+						if($prev >=1){
+							echo '
+								<li><a href="gallery.php?RRnpo=Noi&page=' . $prev . '">&laquo;</a><li>
+							';
+						}
+
+						
+						
+						for ($p=1;$p<=$number_of_pages;$p++) {
+							$selected = $p == $page ? 'class="selected btn disabled"' : '';
+							echo '
+								<li><a '.$selected.' href="gallery.php?RRnpo=Noi&page=' . $p . '">' . $p . '</a><li>
+							';
+							
+						}
+						if($next <= $number_of_pages && $number_of_pages >= 2){
+							echo '
+								<li><a href="gallery.php?RRnpo=Noi&page=' . $next . '">&raquo;</a><li>
+							';
+						}
+						echo '</ul>';
+					}					
+					
+				}//END OF CELEBRATIONS
 				
 				elseif($_GET['RRnpo'] == 'Tht'){
-					$dir = "gallery/Something/*.jpg";
-					$dir1 = "gallery/Something/*.png";
-					//get the list of all files with .jpg extension in the directory and safe it in an array named $images
-					$images = glob( $dir );
-					$images1 = glob( $dir1 );	
-					//extract only the name of the file without the extension and save in an array named $find
-					foreach( $images as $image ):
-						echo '
-							<div class="col-md-3 col-sm-6">
-								<a href="'. $image .'" data-lightbox="All"><img height="200" style="width:100%;" src=" '. $image .'" /></a>
-							</div>	
-						';
-					endforeach;
+					$results_per_page = 12;
+					$query = "select * from gallery where gallery_folder='Something'";
+					$result = mysqli_query($conn, $query);
+					$number_of_results = mysqli_num_rows($result);
+						
+					$number_of_pages = ceil($number_of_results/$results_per_page);
+						
+					if (!isset($_GET['page'])) {
+					  $page = 1;
+					} else {
+					  $page = $_GET['page'];
+					}
 					
-					foreach( $images1 as $image ):
+					$this_page_first_result = ($page-1)*$results_per_page;
+						
+					$sql="select * from gallery where gallery_folder='Something' LIMIT " . $this_page_first_result . "," .  $results_per_page;
+					$result = mysqli_query($conn, $sql);
+										
+					while($row = mysqli_fetch_array($result) ){
+						
 						echo '
-							<div class="col-md-3 col-sm-6">
-								<a href="'. $image .'" data-lightbox="All"><img height="200" style="width:100%;" src=" '. $image .'" /></a>
+							<div class="col-md-3 col-sm-6 top-buffer">
+								<div class="wrapper">
+									<a href="'. $row['gallery_location'] .'" data-lightbox="All" data-title="'.$row['gallery_caption'].'">
+									
+										<div class="contain">
+										    <img height="200" style="width:100%;" src=" '. $row['gallery_location'] .'" />
+										    <div class="overlay">
+											    <div class="text"><p>+</p>Click to Expand</div>
+										    </div>
+										</div>
+									
+										
+									</a>
+								</div>
 							</div>	
-						';
-					endforeach;
+						';						
+					}	
 					
-				}
+					if($number_of_pages > 1){
+						$prev=$page-1;
+						$next=$page+1;
+						echo '<ul class="pagination">';
+						if($prev >=1){
+							echo '
+								<li><a href="gallery.php?RRnpo=Tht&page=' . $prev . '">&laquo;</a><li>
+							';
+						}
+
+						
+						
+						for ($p=1;$p<=$number_of_pages;$p++) {
+							$selected = $p == $page ? 'class="selected btn disabled"' : '';
+							echo '
+								<li><a '.$selected.' href="gallery.php?RRnpo=Tht&page=' . $p . '">' . $p . '</a><li>
+							';
+							
+						}
+						if($next <= $number_of_pages && $number_of_pages >= 2){
+							echo '
+								<li><a href="gallery.php?RRnpo=Tht&page=' . $next . '">&raquo;</a><li>
+							';
+						}
+						echo '</ul>';
+					}					
+					
+				}//END OF SOMETHING
 				
 				elseif($_GET['RRnpo'] == 'RRR'){
-					$dir = "gallery/Misc/*.jpg";
-					$dir1 = "gallery/Misc/*.png";
-					$images = glob( $dir );
-					$images1 = glob( $dir1 );	
-					foreach( $images as $image ):
-						echo '
-							<div class="col-md-3 col-sm-6">
-								<a href="'. $image .'" data-lightbox="All"><img height="200" style="width:100%;" src=" '. $image .'" /></a>
-							</div>	
-						';
-					endforeach;
+					$results_per_page = 12;
+					$query = "select * from gallery where gallery_folder='Misc'";
+					$result = mysqli_query($conn, $query);
+					$number_of_results = mysqli_num_rows($result);
+						
+					$number_of_pages = ceil($number_of_results/$results_per_page);
+						
+					if (!isset($_GET['page'])) {
+					  $page = 1;
+					} else {
+					  $page = $_GET['page'];
+					}
 					
-					foreach( $images1 as $image ):
+					$this_page_first_result = ($page-1)*$results_per_page;
+						
+					$sql="select * from gallery where gallery_folder='Misc' LIMIT " . $this_page_first_result . "," .  $results_per_page;
+					$result = mysqli_query($conn, $sql);
+										
+					while($row = mysqli_fetch_array($result) ){
+						
 						echo '
-							<div class="col-md-3 col-sm-6">
-								<a href="'. $image .'" data-lightbox="All"><img height="200" style="width:100%;" src=" '. $image .'" /></a>
+							<div class="col-md-3 col-sm-6 top-buffer">
+								<div class="wrapper">
+									<a href="'. $row['gallery_location'] .'" data-lightbox="All" data-title="'.$row['gallery_caption'].'">
+									
+										<div class="contain">
+										    <img height="200" style="width:100%;" src=" '. $row['gallery_location'] .'" />
+										    <div class="overlay">
+											    <div class="text"><p>+</p>Click to Expand</div>
+										    </div>
+										</div>
+									
+										
+									</a>
+								</div>
 							</div>	
-						';
-					endforeach;
+						';						
+					}	
 					
-				}
+					if($number_of_pages > 1){
+						$prev=$page-1;
+						$next=$page+1;
+						echo '<ul class="pagination">';
+						if($prev >=1){
+							echo '
+								<li><a href="gallery.php?RRnpo=RRR&page=' . $prev . '">&laquo;</a><li>
+							';
+						}
+
+						
+						
+						for ($p=1;$p<=$number_of_pages;$p++) {
+							$selected = $p == $page ? 'class="selected btn disabled"' : '';
+							echo '
+								<li><a '.$selected.' href="gallery.php?RRnpo=RRR&page=' . $p . '">' . $p . '</a><li>
+							';
+							
+						}
+						if($next <= $number_of_pages && $number_of_pages >= 2){
+							echo '
+								<li><a href="gallery.php?RRnpo=RRR&page=' . $next . '">&raquo;</a><li>
+							';
+						}
+						echo '</ul>';
+					}					
+					
+				} //END OF MISC
 			?>
 			
-			<!--<div class="col-md-3 col-sm-6">
-				
-				<img height="200" style="width:100%;"  src=" images/6.jpg" />
-			</div>			
-			<div class="col-md-3 col-sm-6">
-				
-				<img height="200" style="width:100%;"  src=" images/6.jpg" />
-			</div>
-			<div class="col-md-3 col-sm-6">
-				<img height="200" style="width:100%;"  src=" images/6.jpg" />
-				
-			</div>
-			<div class="col-md-3 col-sm-6">
-				
-				<img height="170" style="width:100%;"  src=" images/6.jpg" />
-			</div>
-		
-			<div class="col-md-3 col-sm-6">
-<img height="200" style="width:100%;" src=" images/6.jpg" />
-				
-			</div> -->
-			
-
-				
-			</div>
 		</div>
 	</div>
 	
+	<div class="container-fluid top-pad">
+		<div class="row">
+		
+			<div class="col-md-12"  style="background:#51d2e8;">
+			<div class="row">
+				<div class="col-md-6 contact-form" id="contact">
+				
+					<h1>Contact Us</h1>
+					<?php
+					if(isset($_GET['qs']) && $_GET['qs'] == 1){
+						echo '
+							<p class="success">Thank You for reaching us. We will get in touch at the earliest.</p>
+						';
+					}					
+					?>
+					<form action="includes/contact.inc.php" method="POST">
+						<div class="col-md-6">
+							<div class="form-group">
+								<input type="email" required class="form-control" id="email" name="email" placeholder="Email">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<input type="text" required class="form-control" id="phone" name="phone" maxlength="10" placeholder="Contact Number">
+							</div>
+						</div>	
+						<div class="col-md-12">
+							<div class="form-group">
+								
+								<input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group ">
+								<textarea class="form-control" id="msg" rows="3" placeholder="Message" name="message"  required></textarea>
+								<button type="submit" id="submit" name="submit" class="btn btn-default submit">Send Query</button>
+							</div>
+						</div>
+					</form>
 
+				
+				</div>
+				
+				<div class="col-sm-6 side">
+					<h1>Our Mission</h1>
+					<p>The mission of the Institute of Applied Science is to help prepare outstanding educators, scholars, and researchers, and to advance the profession of education, as broadly defined, through research on the science and art of teaching and learning, the application of clinical processes, the effective uses of technology, and the analysis and development of leadership and educational policy.</p>
+					<a href="registration.php">Join us Now!</a>
+					<a href="admission.html">Browse Admission Process</a><br><br>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+	
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="text-center">
+						Copyright &copy; Institute of Applied Science 2017 | Something: About something
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</footer>
+	
+	
     <script src="js/jquery-3.2.1.min.js"></script>   
     <script src="js/bootstrap.js"></script>
 	<script src="js/lightbox.min.js"></script>

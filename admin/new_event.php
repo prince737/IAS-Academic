@@ -127,7 +127,7 @@
 						</a>
 						<ul class="collapse collapsable" id="collapse-post21" style="margin:0px; padding:0px; ">
 							<li>
-								<a href="#">
+								<a href="add_image.php">
 									<span>Add New Images</span>
 								</a>
 							</li>

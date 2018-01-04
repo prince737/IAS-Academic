@@ -3,11 +3,22 @@
 	font-weight: 400;
 	
 }
-html, body {
+html{
+	background:	#fff;
     margin: 0;
     padding: 0;
-	background:#f5f5f5;
-	overflow-x:hidden;
+}
+
+
+ body {
+	background:	#fff;
+    margin: 0;
+    padding: 0;
+	margin-bottom:60px;
+}
+
+.top-pad{
+	margin-top: 40px;
 }
 
 #banner .clear-fix span{
@@ -173,13 +184,96 @@ html, body {
 	background:#212121;
 }
 
-.container{
-	margin-top:-60px;
+.wrapper{
+	margin-top:-35px;
 }
 
 .wrapper img{
-	border: 5px solid #909090;
+	transition: 1s all ease;
 }
+.pagination{
+	margin:0px;
+}
+
+.pagination li a{
+	color: #212121!important;
+}
+
+.pagination .selected{
+	border-radius:0px!important;
+	background:#000;
+	color:white!important;
+}
+
+
+footer{
+	background:#000!important;
+}
+
+/* FOR OVARLAY */
+
+.contain {
+  position: relative;
+  width: 100%;
+  overflow:hidden;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,140,186,0.8);
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  transition: .5s ease;
+}
+
+.contain:hover .overlay {
+  height: 100%;
+}
+
+.contain:hover img{
+	transform: scale(1.3);
+}
+
+.text {
+  white-space: nowrap; 
+  color: white;
+  font-size: 16px;
+  font-weight:300;
+  position: absolute;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+.text p{
+	font-family: 'Sacramento', cursive;
+	font-size:50px;
+	text-align:center;
+	animation: grow 2s infinite;
+}
+
+@keyframes grow {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(2);
+  }
+}
+
+/* OVERLAY ENDS */
 
 @media screen and (min-width: 1200px) {
 	.jumbotron .about{
@@ -199,11 +293,132 @@ html, body {
 	.jumbotron .browse{
 		margin-top:6%;
 	}
-	.wrapper img{
-		margin-bottom:5%;
+	
+	.contain:hover .overlay {
+	  height: 100%;
 	}
+	.top-buffer{
+		margin-bottom: 4%;
+	}
+	
 }
 
+
+/*CONTACT SECTION*/
+
+.contact-form{
+	padding: 20px;
+}
+
+.contact-form h1{
+	font-family: 'Sacramento', cursive;
+	font-weight: bold;
+	color:#212121;
+	margin-bottom:2%;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.contact-form input{
+	border:1px solid #212121;
+	border-radius:0px;
+	background:#51d2e8;
+}
+
+.contact-form input:focus{
+	border:1px solid #212121;
+	border-radius:0px;
+	background:#51d2e8;
+}
+
+.contact-form textarea{
+	border:1px solid #212121;
+	border-radius:0px;
+	background:#51d2e8;
+}
+
+.contact-form textarea:focus{
+	border:1px solid #212121;
+	border-radius:0px;
+	background:#51d2e8;
+}
+
+
+.contact-form input::placeholder { 
+   color: #212121;
+}
+
+.contact-form textarea::placeholder {
+   color: #212121;
+}
+
+.contact-form .submit{
+	margin-top:10px;
+	border-radius:0px;
+	border:none;
+	background:#212121;
+	color:#fff;
+	width: 160px;
+	transition:0.5s all ease;
+	border: 1px solid #212121;
+}
+
+.contact-form submit:focus{
+	border-radius:0px;
+	border:none;
+	background:#212121;
+	color:#fff;	
+}
+
+.contact-form .submit:hover{
+	background:#51d2e8;
+	color:#212121;
+	border: 1px solid #212121;
+}
+
+.side{
+	background-image: url("../images/gallery1.jpg");
+	background-attachment:fixed;
+	background-size:cover;
+	padding: 20px;
+	
+}
+
+.side h1{
+	font-family: 'Sacramento', cursive;
+	margin-bottom:2%;
+	color:#51d2e8;
+}
+
+.side p{
+	color:white;
+	font-size:15px;
+	padding:30px 60px 30px 10px;
+}
+
+.side a{
+	color: #51d2e8;
+	text-decoration:none;
+	margin-left: 2%;
+	transition: 0.3s all ease;
+}
+
+footer a{
+	color: #51d2e8;
+	text-decoration:none;
+	transition: 0.3s all ease;
+}
+
+.side a:hover{
+	text-decoration:underline;
+}
+
+footer a:hover{
+	text-decoration:underline;
+}
 
 @keyframes grow {
 	0%, 100% { 

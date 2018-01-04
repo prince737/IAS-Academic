@@ -472,6 +472,10 @@
     					<input type="email" required class="form-control" id="email" name="email" placeholder="Email" id="email">
 						<p id="error_email"></p>
   					</div>
+					<div class="form-group">
+						<input type="text" required class="form-control" id="phone" name="phone" maxlength="10" placeholder="Contact Number">
+						<p id="error_contact"></p>
+					</div>
   					<div class="form-group">
     					
     					<input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
@@ -627,6 +631,19 @@
 		} 
         $('#error_email').html('');  
 		$('#email').css('border', 'none');			
+        
+	});	
+	
+	$('#phone').on('blur', function(){
+		if(!this.value.match(/^[0-9]{10}$/))
+		{
+			$('#error_contact').html('Please provide a valid Contact Number.').css('color', '#D32F2F').css('padding-top','10px').css('font-size','16px');
+			 $(this).focus(); 
+			 $('#phone').css('border', '2px solid #D32F2F');
+			return false;
+		} 
+        $('#error_contact').html('');  
+		$('#contact').css('border', 'none');		
         
 	});	
 	
