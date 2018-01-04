@@ -1,6 +1,11 @@
 <?php
 	session_start();
 	include 'includes/simple-crypt.inc.php';
+	
+	if(isset($_SESSION['student']) || isset($_COOKIE['student']) ){
+		header("Location: profile.php");
+		exit();
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -63,15 +68,19 @@
 							{
 								echo '<p class="error" style="text-align:center; ">Invalid email id or password. </p>';
 							}
+							elseif($_GET['l'] == 'erre')
+							{
+								echo '<p class="error" style="text-align:center; ">Email you entered was Incorrect</p>';
+							}
 						}
 					?>
 					
 					
 					<label class="checkbox pull-left">
-						<input type="checkbox" value="remember-me">
+						<input type="checkbox" value="remember-me" name="remember">
 						Remember me
 					</label>
-					<a href="#" class="pull-right need-help">Forgot Password? </a><span class="clearfix"></span>	
+					<button class="need-help pull-right text-danger" data-target="#resetPwd" data-toggle="modal" name="deny" type="button" >Forgot Password</button><span class="clearfix"></span>	
 				
 				</form>
 			
@@ -80,6 +89,31 @@
 		</div>
 	
 	</div>
+	
+	<div class="modal fade" id="resetPwd">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content" >
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>	<h4>Forgot Password</h4>				
+				</div>
+				<form action="includes/login.inc.php" method="POST">
+					<div class="modal-body">
+						
+							<label for="email">Please Re-enter your email</label>
+							<div class="form-group">
+								<input type="email" name="emailreset" id="email" placeholder="E-mail" class="form-control" required>
+							</div>
+						
+					</div> 
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-warning btn-xs" name="resetPwd">Request Password Change</button>
+					</div>	
+				</form>				
+			</div>
+		</div>
+	</div>
+	
 	
 <script src="js/jquery-3.2.1.min.js"></script>   
 <script src="js/bootstrap.js"></script>
