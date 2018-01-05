@@ -327,7 +327,7 @@
 											<form action="includes/query.inc.php" method="POST">
 												<input type="hidden" value="'.$row['q_id'].'" name="q_id"></input>
 												<div class="comment-head-dash clearfix">
-													<div class="commenter-name-dash pull-left">'.$row['q_name'].'</div>
+													<div class="commenter-name-dash pull-left">'.$row['q_name'].' &nbsp;&nbsp;&nbsp;<small>Mob: </small>'.$row['q_phone'].'</div>
 													<div class="days-dash pull-right">'.$diff.'</div>
 												</div>
 												<p class="comment-dash">
@@ -341,7 +341,7 @@
 												<hr>
 												
 												<div class="modal fade" id="QModal'.$i.'"  >
-													<div class="modal-dialog">
+													<div class="modal-dialog" style="margin-top:50px!important;">
 														<div class="modal-content" >
 															<div class="modal-header">
 																<button type="button" class="close" data-dismiss="modal">&times;</button>	<h3 style="color:teal;">Reply to Query</h3>				
@@ -351,6 +351,8 @@
 																<input class="form-control" name="email" id="email" value="'.$row['q_email'].'" readonly><br>
 																<label for="name">User\'s Name:</label>
 																<input class="form-control" name="name" id="name"  value="'.$row['q_name'].'" readonly><br>
+																<label for="email">User\'s Phone Number:</label>
+																<input class="form-control" name="phone" id="phone" value="'.$row['q_phone'].'" readonly><br>
 																<label for="msg">Your Message:</label>
 																 <textarea class="form-control" id="msg" rows="3" placeholder="Message" name="message"  required></textarea>
 																

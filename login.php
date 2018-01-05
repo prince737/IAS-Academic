@@ -6,6 +6,25 @@
 		header("Location: profile.php");
 		exit();
 	}
+	
+	
+	if(isset($_GET['msnt']))
+	{
+		echo '			    
+		    <div id="success-modal">
+				<div class="modalconent">
+					<h3 style="color:teal;">Information</h3>
+					<hr>	
+					<p class="para">We have sent you an email with a link to reset-your password. Please visit the link in order to change your password. Link valid for one time only.</p> 
+					<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+				</div>
+			</div>
+		';			
+	}
+	
+	
+	
+	
 ?>
 <!DOCTYPE html>
 <html>
@@ -45,7 +64,12 @@
 		<p class="text">Log in to access your profile and exams</p>
 		<div class="row">
 			<div class="col-md-7 col-lg-4 col-sm-10 col-md-offset-4 signin">
-				
+				<?php
+					if(isset($_GET['ERxpchdYYzU']))
+					{
+						echo '<p class="pwdr">Your Password was successfully changed. Try logging in with your new password.</p>';
+					}
+				?>
 				<img src="images/no-photo.jpg" class="dp">
 				<form class="form" action="includes/login.inc.php" method="POST">
 					<input type="email" name="email" id="email" placeholder="E-mail" class="form-control" value="<?php if(isset($_GET['m'])){$decrypted = simple_crypt( $_GET['m'], 'd' );echo $decrypted;} ?>" required>	
@@ -72,6 +96,13 @@
 							{
 								echo '<p class="error" style="text-align:center; ">Email you entered was Incorrect</p>';
 							}
+							elseif($_GET['l'] == 'alrDYreQ')
+							{
+								echo '<p class="error" style="text-align:center; ">You have already requested a password change. Please follow the link in the email we have sent you.</p>';
+							}
+							else{
+								echo '<p class="error" style="text-align:center; ">Something went wrong, please try again</p>';
+							}
 						}
 					?>
 					
@@ -80,7 +111,7 @@
 						<input type="checkbox" value="remember-me" name="remember">
 						Remember me
 					</label>
-					<button class="need-help pull-right text-danger" data-target="#resetPwd" data-toggle="modal" name="deny" type="button" >Forgot Password</button><span class="clearfix"></span>	
+					<button class="need-help pull-right text-danger" data-target="#resetPwd" data-toggle="modal" name="deny" type="button" >Forgot Password?</button><span class="clearfix"></span>	
 				
 				</form>
 			
@@ -94,20 +125,21 @@
 		<div class="modal-dialog modal-sm">
 			<div class="modal-content" >
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>	<h4>Forgot Password</h4>				
+					<button type="button" class="close" data-dismiss="modal">&times;</button>	<h4 style="color:teal;">Forgot Password?</h4>				
 				</div>
 				<form action="includes/login.inc.php" method="POST">
 					<div class="modal-body">
 						
-							<label for="email">Please Re-enter your email</label>
+							<label for="email">Please Re-enter your account email</label>
 							<div class="form-group">
-								<input type="email" name="emailreset" id="email" placeholder="E-mail" class="form-control" required>
+								<input type="email" name="emailreset" id="emailr" placeholder="E-mail" class="form-control" required>
 							</div>
+							<p style="color:#795548;">We will send you an email with further instructions.</p>
 						
 					</div> 
 					<div class="modal-footer">
 						<button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">Close</button>
-						<button type="submit" class="btn btn-warning btn-xs" name="resetPwd">Request Password Change</button>
+						<button type="submit" class="btn btn-success btn-xs" name="resetPwd">Request Password Change</button>
 					</div>	
 				</form>				
 			</div>
@@ -145,6 +177,16 @@
 			$('#submit').prop('disabled',false);	
         }
 		});		
+</script>
+
+<script>
+	window.onload = function () {
+		document.getElementById('button').onclick = function () {
+			document.getElementById('success-modal').style.display = "none"
+			window.location = "login.php";
+		};
+	};
+
 </script>
 </body>
 </html>

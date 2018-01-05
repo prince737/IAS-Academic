@@ -84,24 +84,30 @@ elseif(isset($_POST['resetPwd'])) {
 	} 
 	else
 	{
-		$sql = "select * from students where stu_email = '$emailr'";
+		$sql = "select * from students where stu_email = '$emailr' and stu_approvalstatus=1";
 		$result = mysqli_query($conn, $sql);
 		$resultCheck = mysqli_num_rows($result);
 		if($resultCheck < 1)
 		{	
-			header("Location: ../login.php?l=erre");
-			exit();
+			$row = mysqli_fetch_array($result);
+			if($row['stu_approvalstatus'] == 0){
+				header("Location: ../login.php?l=na");
+				exit();
+			}
+			else{
+				header("Location: ../login.php?l=erre");
+				exit();
+			}
 		}
 		else{
 			$str = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 			$str = str_shuffle($str);
-			$str = substr($str, 15);
+			$str = substr($str, 0, 30);
 			$encryptmail = simple_crypt( $emailr, 'e' );
 			
-			$msg = 'Please visit the following link to reset your password: localhost/iasacademic/includes/resetPassword.php?tKr='.$str.'&em='.$encryptmail;
+			$msg = 'Please visit the following link to reset your password: <html><a  href="localhost/iasacademic/resetPassword.php?tKr='.$str.'&em='.$encryptmail.'">Reset Your Password </a> </html>';
 			
-			echo $msg;
-			
+						
 			$mail = new PHPMailer(true);  
 		try{
 			
@@ -127,16 +133,31 @@ elseif(isset($_POST['resetPwd'])) {
 			$mail->Subject = 'Reset Your Password';
 			$mail->Body    = $msg;
 			
-			$mail->send();
-			
-			$query = "update students set stu_token = '$str' where stu_email='$emailr'';";
 			
 			
+			$query = "select stu_token from students where stu_email='$emailr'";
+			$result = mysqli_query($conn, $sql);
+			while($row = mysqli_fetch_array($result)){
+				if(!empty($row['stu_token'])){
+					header("Location: ../login.php?l=alrDYreQ");
+					exit();
+				}
+				else{
+					$mail->send();
+					$query = "update students set stu_token = '$str' where stu_email='$emailr';";
+					mysqli_query($conn, $query);
+				}
+			}
 			
+			
+			
+			header("Location: ../login.php?msnt");
+			exit();
 			
 		}
 		catch(Exception $e){
-			header("Location: ../admin.php?m_n_snt");
+			header("Location: ../login.php?l=m_n_snt");
+			exit();
 		}
 			
 			
