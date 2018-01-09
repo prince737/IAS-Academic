@@ -1,7 +1,13 @@
 <?php
 	
 	session_start();
+	require_once('includes/dbh.inc.php');
+	include 'includes/simple-crypt.inc.php';
 	
+	$query="select distinct course_type from courses;";
+	$resultType = mysqli_query($conn, $query);
+	
+		
 ?>
 
 
@@ -56,7 +62,7 @@
 				    <div class="item"><span>1</span>  Your Basic Info</div>
   					<div class="form-group">
 						<label for="name">NAME:</label>
-    					<input type="text" class="form-control" name="name" id="name" value="<?php if(isset($_GET['0'])){echo $_GET[0];} ?>" required>
+    					<input type="text" class="form-control" name="name" id="name" value="<?php if(isset($_GET['0'])){echo simple_crypt($_GET[0],'d');} ?>" required>
 						<p for="name" id="error_name" ></p>
 						<?php
 							if(isset($_GET['nm']))
@@ -67,17 +73,18 @@
 					</div>
 					<div class="form-group ">
     					<label for="gender">GENDER:</label><br>						
-						<input type="radio" name="gender" value="male" id="gender" required> Male<br>
-						<input type="radio" name="gender" value="female"> Female<br>
-						<input type="radio" name="gender" value="other"> Other
+						<input type="radio" name="gender" value="male" id="gender" <?php if(isset($_GET['10']) && simple_crypt($_GET['10'],'d')=='male'){echo 'checked';} ?> required> Male<br>
+						<input type="radio" name="gender" value="female" <?php if(isset($_GET['10']) && simple_crypt($_GET['10'],'d')=='female'){echo 'checked';} ?>> Female<br>
+						<input type="radio" name="gender" value="other" 
+							<?php if(isset($_GET['10']) && simple_crypt($_GET['10'],'d')=='other'){echo 'checked'; }?>> Other
   					</div>
 					<div class="form-group ">
 						<label for="datepicker">DATE OF BIRTH (yyyy-mm-dd):</label>
-    					<input type="text" class="form-control" id="datepicker" name="date" value="<?php if(isset($_GET['1'])){echo $_GET[1];} ?>"" required/>
+    					<input type="text" class="form-control" id="datepicker" name="date" value="<?php if(isset($_GET['1'])){echo simple_crypt($_GET[1],'d');} ?>"" required/>
   					</div>
 					<div class="form-group ">
 						<label for="email">EMAIL:</label>
-    					<input type="email" required class="form-control" id="email" name="email" value="<?php if(isset($_GET['2'])){echo $_GET[2];} ?>">
+    					<input type="email" required class="form-control" id="email" name="email" value="<?php if(isset($_GET['2'])){echo simple_crypt($_GET[2], 'd');} ?>">
 						<p for="name" id="error_email"></p>
 						<?php
 							if(isset($_GET['em']))
@@ -94,7 +101,7 @@
   					</div>
 					<div class="form-group ">
 						<label for="contact">CONTACT NUMBER:</label>
-    					<input type="text" required class="form-control" id="contact" name="contact" maxlength="10" value="<?php if(isset($_GET['3'])){echo $_GET[3];} ?>"> 
+    					<input type="text" required class="form-control" id="contact" name="contact" maxlength="10" value="<?php if(isset($_GET['3'])){echo simple_crypt($_GET[3],'d');} ?>"> 
 						<p for="name" id="error_contact"></p>
 						<?php
 							if(isset($_GET['ct']))
@@ -105,7 +112,7 @@
   					</div>
 					<div class="form-group ">
 						<label for="gname">GURDIAN'S NAME:</label>
-    					<input type="text" required class="form-control" id="gname" name="gname" value="<?php if(isset($_GET['4'])){echo $_GET[4];} ?>">
+    					<input type="text" required class="form-control" id="gname" name="gname" value="<?php if(isset($_GET['4'])){echo simple_crypt($_GET[4], 'd');} ?>">
 						<p for="name" id="error_gname"></p>	
 						<?php
 							if(isset($_GET['gnm']))
@@ -116,7 +123,7 @@
   					</div>
 					<div class="form-group ">
 						<label for="gcontact">GURDIAN'S CONTACT NUMBER:</label>
-    					<input type="text" required class="form-control" id="gcontact" maxlength="10" name="gcontact" value="<?php if(isset($_GET['5'])){echo $_GET[5];} ?>"> 
+    					<input type="text" required class="form-control" id="gcontact" maxlength="10" name="gcontact" value="<?php if(isset($_GET['5'])){echo simple_crypt($_GET[5],'d');} ?>"> 
 						<p for="name" id="error_gcontact"></p>
 						<?php
 							if(isset($_GET['gct']))
@@ -127,35 +134,70 @@
   					</div>
 					<div class="form-group ">
 						<label for="address">FULL ADDRESS:</label>
-    					<textarea class="form-control" id="address" rows="3" name="address" required><?php if(isset($_GET['6'])){echo $_GET[6];} ?></textarea>
+    					<textarea class="form-control" id="address" rows="3" name="address" required><?php if(isset($_GET['6'])){echo simple_crypt($_GET[6],'d');} ?></textarea>
   					</div>
 					<div class="item"><span>2</span>  Education</div>
 					<div class="form-group ">
 						<label for="he">HIGHEST EDUCATION:</label>
-    					<input type="text" class="form-control" name="he" id="he" required value="<?php if(isset($_GET['7'])){echo $_GET[7];} ?>"/>
+    					<input type="text" class="form-control" name="he" id="he" required value="<?php if(isset($_GET['7'])){echo simple_crypt($_GET[7],'d');} ?>"/>
   					</div>
 					<div class="form-group ">
 						<label for="inst">INSTITUTE WHERE YOU PURSUED HIGHEST EDUCATION:</label>
-    					<input type="text" class="form-control" name="inst" id="inst" required value="<?php if(isset($_GET['8'])){echo $_GET[8];} ?>"/>
+    					<input type="text" class="form-control" name="inst" id="inst" required value="<?php if(isset($_GET['8'])){echo simple_crypt($_GET[8],'d');} ?>"/>
   					</div>
-					<div class="form-group ">
+					<div class="form-group " id="course">
 						<label for="yop">YEAR OF PASSING:</label>
-    					<input type="text" class="form-control" name="yop" id="yop" maxlength="4" required value="<?php if(isset($_GET['9'])){echo $_GET[9];} ?>"/>
+    					<input type="text" class="form-control" name="yop" id="yop" maxlength="4" required value="<?php if(isset($_GET['9'])){echo simple_crypt($_GET[9],'d');} ?>"/>
   					</div>
 					<div class="form-group ">
-					<label for="course">COURSE OPTING FOR:</label>
-    					<select class="form-control" id="course" name="course">
-							<option selected>Choose...</option>
-							<option value="volvo">Volvo</option>
-							<option value="saab">Saab</option>
-							<option value="mercedes">Mercedes</option>
-							<option value="audi">Audi</option>
-						</select>
+						<label for="course">TYPE OF COURSE YOU ARE OPTING FOR:</label>
+    					<select class="form-control" id="course" name="course_type" required onchange="this.form.submit()">
+							<option selected>Choose Course Type</option>
+							<?php
+								if($resultType){
+									while($row = mysqli_fetch_array($resultType)){
+										if(isset($_GET['select']) && $row['course_type'] == $_GET['select']){
+											echo '<option value="'.$row['course_type'].'" selected>'.$row['course_type'].'</option>';
+										}
+										elseif(isset($_GET['select']) && $row['course_type'] == '10+2 Entrance Exams' && $_GET['select']=='10 2 Entrance Exams'){
+											echo '<option value="'.$row['course_type'].'" selected>'.$row['course_type'].'</option>';
+										}
+										elseif(isset($_GET['select']) && $row['course_type'] == 'Training & Project Work' && $_GET['select']=='Training '){
+											echo '<option value="'.$row['course_type'].'" selected>'.$row['course_type'].'</option>';
+										}
+										else{
+											echo '<option value="'.$row['course_type'].'">'.$row['course_type'].'</option>';
+										}
+									}
+								}												
+							?>
+						</select>	
   					</div>
+					<?php
+						if(isset($_GET['limit'])){
+							echo '
+								<div class="form-group ">
+									<label for="course">NAME OF THE COURSE:</label>
+									<select class="form-control" id="course_name" name="course_name" required>
+									<option selected>Choose Course Name</option>
+							';
+							$j=20;
+							for($i=0; $i<$_GET['limit']; $i++){
+								echo '<option value="'.simple_crypt($_GET[$j], 'd').'">'.simple_crypt($_GET[$j], 'd').'</option>';
+								$j++;
+							}
+							echo '
+									</select>	
+								</div>
+							';
+						}
+					
+					?>
 					<div class="item"><span>3</span>  Identity</div>
 					<div class="form-group ">
 						<label for="img">UPLOAD PHOTO:</label>
     					<input type="file" class="form-control" name="image" id="img" accept=".jpg, .jpeg, .png" required />
+						<p style="color:teal;">Accepted types are jpg, png and jpeg. MAX Size 1mb.</p>
 						<p for="name" id="error_image"></p>
   					</div>
 					<div class="item"><span>4</span>  Password</div>

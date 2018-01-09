@@ -1,3 +1,23 @@
+<?php
+	session_start();
+	require_once('includes/dbh.inc.php');
+	
+	if(isset($_GET['qs']) && ($_GET['qs'] == 1))
+	{
+		echo '			    
+		    <div id="success-modal">
+				<div class="modalconent">
+					<h3 style="color:teal;">Thank You! <span class="fa fa-smile-o"></span> </h3>
+					<hr>	
+					<p class="para">Your query was received and We will get back to you at the earliest.</p> 
+					<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+				</div>
+			</div>
+		';			
+	}
+?>
+
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -52,22 +72,18 @@
 					
 					<div class="col-lg-7 menu">
 						<ul class="nav navbar-nav" role="menu" aria-labelledby="dropdownMenu">
-							<li><a href="index.html" >HOME</a></li>
+							<li><a href="index.php" >HOME</a></li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">COURSES<span class="caret"></span></a>
 								<ul class="dropdown-menu" >
 								
-									<li><a tabindex="-1" href="#">JOINT ENTRANCE</a></li>
-									<li><a tabindex="-1" href="#">ICSE & ISC</a></li>
-									<li><a tabindex="-1" href="#">CBSE</a></li>
-									<li><a tabindex="-1" href="#">MADHYAMIK</a></li>
-									<li><a tabindex="-1" href="#">HS (WBCHSE)</a></li>
-									<li><a tabindex="-1" href="#">GATE</a></li>
-									<li><a tabindex="-1" href="#">NET / PSU / IES</a></li>
-									<li><a tabindex="-1" href="#">COMPUTER TRAINING</a></li>
-									<li><a tabindex="-1" href="#">INDUSTRIAL TRAINING</a></li>
-									<li><a tabindex="-1" href="#">RESEARCH</a></li>
-
+									<li><a tabindex="-1" href="courses.php?ee=1">10+2 ENTRANCE EXAMS</a></li>
+									<li><a tabindex="-1" href="courses.php?be">BOARD EXAMS</a></li>
+									<li><a tabindex="-1" href="courses.php?bec">BOARD & ENTRANCE COMBINED</a></li>
+									<li><a tabindex="-1" href="courses.php?gpi">GATE / PSU / IES</a></li>
+									<li><a tabindex="-1" href="courses.php?ce">COMPETITIVE EXAMS</a></li>
+									<li><a tabindex="-1" href="courses.php?tpw">TRAINING AND PROJECT WORKS</a></li>
+									<li><a tabindex="-1" href="courses.php?its">IAS TEST SERIES</a></li>
 								</ul>
 							</li>
 							<li class="dropdown">
@@ -87,27 +103,27 @@
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">ONLINE EXAMS<span class="caret"></span></a>
 								<ul class="dropdown-menu" >
 									
-									<li><a tabindex="-1" href="#">LOGIN</a></li>
-									<li><a tabindex="-1" href="#">ENROLL NOW</a></li>
+									<li><a tabindex="-1" href="login.php">LOGIN</a></li>
+									<li><a tabindex="-1" href="registration.php">ENROLL NOW</a></li>
 									<li><a tabindex="-1" href="#">AVAILABLE EXAMS</a></li>
 
 								</ul>
 							</li>
 							<li>
-								<a href="gallery.html" class="smoothScroll">GALLERY</a>
+								<a href="gallery.php" class="smoothScroll">GALLERY</a>
 								
 							</li>
 							<li class="dropdown" >
 								<a class="actv" href="contact.html" class="dropdown-toggle" data-toggle="dropdown">CONTACT<span class="caret"></span></a>
 								<ul class="dropdown-menu pull-left" >
 									
-									<li><a tabindex="-1" href="contact.html#co" class="smoothScroll">CORPORATE OFFICE</a></li>
-									<li><a tabindex="-1" href="contact.html#co" class="smoothScroll">KOLKATA</a></li>
-									<li><a tabindex="-1" href="contact.html#hwh" class="smoothScroll">HOWRAH</a></li>
-									<li><a tabindex="-1" href="contact.html#hwh" class="smoothScroll">BERHAMPORE</a></li>
-									<li><a tabindex="-1" href="contact.html#skm" class="smoothScroll">DURGAPUR</a></li>
-									<li><a tabindex="-1" href="contact.html#skm" class="smoothScroll">SILIGURI</a></li>
-									<li><a tabindex="-1" href="contact.html#sili" class="smoothScroll">SIKKIM</a></li>
+									<li><a tabindex="-1" href="contact.php#co" class="smoothScroll">CORPORATE OFFICE</a></li>
+									<li><a tabindex="-1" href="contact.php#co" class="smoothScroll">KOLKATA</a></li>
+									<li><a tabindex="-1" href="contact.php#hwh" class="smoothScroll">HOWRAH</a></li>
+									<li><a tabindex="-1" href="contact.php#hwh" class="smoothScroll">BERHAMPORE</a></li>
+									<li><a tabindex="-1" href="contact.php#skm" class="smoothScroll">DURGAPUR</a></li>
+									<li><a tabindex="-1" href="contact.php#skm" class="smoothScroll">SILIGURI</a></li>
+									<li><a tabindex="-1" href="contact.php#sili" class="smoothScroll">SIKKIM</a></li>
 
 								</ul>
 							</li>
@@ -343,29 +359,41 @@
             <div class="modal-content" >
                 <div class="modal-header">
                     
-			<button type="button" class="close" data-dismiss="modal">&times;</button>
-			<p class="send-query">Send Your Queries</p>
-						<p class="bottomliner">We would be happy to hear from you</p>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<p class="send-query">Send Your Queries</p>
+					<p class="bottomliner">We would be happy to hear from you</p>
+						<?php
+					if(isset($_GET['qs']) && $_GET['qs'] == 1){
+						echo '
+							<p class="success">Thank You for reaching us. We will get in touch at the earliest.</p>
+						';
+					}					
+				?>
                 </div>
 				<div class="modal-body">
 				
 					<div class=" contactus" >
 						
-						<form>
+						<form action="includes/contact.inc.php" method="POST">
 							<div class="form-group ">
-    					
-								<input type="email" required class="form-control" id="email" placeholder="Email" id="email">
+								
+								<input type="email" required class="form-control" id="email" name="email" placeholder="Email" id="email">
+								<p id="error_email"></p>
 							</div>
-							<div class="form-group ">
-    					
-								<input type="text" class="form-control" id="name" placeholder="Name" required>
+							<div class="form-group">
+								<input type="text" required class="form-control" id="phone" name="phone" maxlength="10" placeholder="Contact Number">
+								<p id="error_contact"></p>
+							</div>
+							<div class="form-group">
+								
+								<input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
 							</div>
 
 							<div class="form-group ">
-								<textarea class="form-control" id="msg" rows="3" placeholder="Message"  required></textarea>
+								<textarea class="form-control" id="msg" rows="2" placeholder="Message" name="message"  required></textarea>
 							</div>
 
-							<button type="submit" id="submit" class="btn btn-default">Send Query</button>
+							<button type="submit" id="submit" name="cont-submit" class="btn btn-default">Send Query</button>
 						</form>
 					</div>
                         
@@ -433,5 +461,45 @@
 				$('.bg').removeClass('bg');
 			});
 		</script>
+		
+		<script>
+		$('#email').on('blur', function(){
+		if(!this.value.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/))
+		{
+			$('#error_email').html('Please provide a valid email address.').css('color', '#D32F2F').css('padding-top','10px').css('font-size','16px');
+			 $(this).focus(); 
+			 $('#email').css('border', '2px solid #D32F2F');
+			return false;
+		} 
+        $('#error_email').html('');  
+		$('#email').css('border', 'none');			
+        
+	});	
+	
+	$('#phone').on('blur', function(){
+		if(!this.value.match(/^[0-9]{10}$/))
+		{
+			$('#error_contact').html('Please provide a valid Contact Number.').css('color', '#D32F2F').css('padding-top','10px').css('font-size','16px');
+			 $(this).focus(); 
+			 $('#phone').css('border', '2px solid #D32F2F');
+			return false;
+		} 
+        $('#error_contact').html('');  
+		$('#contact').css('border', 'none');		
+        
+	});	
+	
+	</script>
+	
+	<script>
+		window.onload = function () {
+			document.getElementById('button').onclick = function () {
+				document.getElementById('success-modal').style.display = "none"
+				window.location = "contact.php";
+			};
+		};
+	</script>
+		
+		
 </body>
 </html>

@@ -63,7 +63,7 @@ if(isset($_POST['submit']))
 							exit();
 						}
 						else{	
-							$_SESSION['student'] = $row;
+							$_SESSION['student'] = $email;
 							setcookie('student', "");
 							header("Location: ../profile.php");
 							exit();

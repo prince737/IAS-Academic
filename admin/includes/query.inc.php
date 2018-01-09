@@ -11,7 +11,7 @@
 	$msg = mysqli_real_escape_string($conn, $_POST['message']);
 	$id = mysqli_real_escape_string($conn, $_POST['q_id']);
 	
-	if(isset($_POST['sreply'])){
+	if(isset($_POST['sreply']) || isset($_POST['qsreply'])){
 		$mail = new PHPMailer(true);  
 		try{
 			
@@ -41,41 +41,88 @@
 			
 			$query = "update queries set q_replystatus = 1 where q_id = '$id';";
 			if(mysqli_query($conn, $query)){
-				header("Location: ../admin.php?msnt");	
-				exit();
+				if(isset($_POST['sreply'])){
+					header("Location: ../admin.php?msnt");	
+					exit();
+				}
+				else{
+					header("Location: ../queries.php?msnt");	
+					exit();
+				}
 			}
 			else{
-				header("Location: ../admin.php?err");	
+				if(isset($_POST['sreply'])){
+					header("Location: ../admin.php?error");	
+					exit();
+				}
+				else{
+					header("Location: ../queries.php?error");	
+					exit();
+				}	
 			}
 			
 			
 			
 		}
 		catch(Exception $e){
-			header("Location: ../admin.php?m_n_snt");
+			if(isset($_POST['remove-db'])){
+					header("Location: ../admin.php?error");	
+					exit();
+				}
+				else{
+					header("Location: ../queries.php?error");	
+					exit();
+				}
 		}
 	}
 	
 	
-	if(isset($_POST['remove-dash'])){
+	if(isset($_POST['remove-dash']) || isset($_POST['qremove-dash'])){
 		$query = "update queries set q_removalstatus = 1 where q_id = '$id';";
 		if(mysqli_query($conn, $query)){
-				header("Location: ../admin.php?rdsh");	
-				exit();
+				if(isset($_POST['remove-db'])){
+					header("Location: ../admin.php?rdb");	
+					exit();
+				}
+				else{
+					header("Location: ../queries.php?rdb");	
+					exit();
+				}
 		}
 		else{
-			header("Location: ../admin.php?err");	
+			if(isset($_POST['remove-db'])){
+					header("Location: ../admin.php?rdb");	
+					exit();
+				}
+				else{
+					header("Location: ../queries.php?rdb");	
+					exit();
+				}
 		}
 	}
 	
-	if(isset($_POST['remove-db'])){
+	if(isset($_POST['remove-db']) || isset($_POST['qremove-db'])){
 		$query = "delete from queries where q_id = '$id';";
 		if(mysqli_query($conn, $query)){
-				header("Location: ../admin.php?rdb");	
-				exit();
+			    if(isset($_POST['remove-db'])){
+					header("Location: ../admin.php?rdb");	
+					exit();
+				}
+				else{
+					header("Location: ../queries.php?rdb");	
+					exit();
+				}
+				
 		}
 		else{
-			header("Location: ../admin.php?err");
+			if(isset($_POST['remove-db'])){
+					header("Location: ../admin.php?rdb");	
+					exit();
+				}
+				else{
+					header("Location: ../queries.php?rdb");	
+					exit();
+				}
 		}
 	}
 	

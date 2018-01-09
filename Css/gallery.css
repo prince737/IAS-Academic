@@ -405,6 +405,9 @@ footer{
 	margin-left: 2%;
 	transition: 0.3s all ease;
 }
+footer{
+	position:fixed;
+}
 
 footer a{
 	color: #51d2e8;

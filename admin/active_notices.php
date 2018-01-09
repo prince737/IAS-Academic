@@ -76,29 +76,29 @@
 						</a>
 					</li>
 					<li class="link">
-						<a href="#collapse-post" data-toggle="collapse" aria-control="collapse-post">
+						<a href="students.php">
 							<i class="fa fa-graduation-cap" aria-hidden="true"></i>
-							<span class="hidden-sm hidden-xs">Manage Students</span>
+							<span class="hidden-sm hidden-xs">Students</span>
 						</a>
-						<ul class="collapse collapsable" id="collapse-post" style="margin:0px; padding:0px; ">
-							<li>
-								<a href="#">
-									<span>Approved Students</span>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<span>Unapproved Students</span>
-								</a>
-							</li>
-						</ul>
 					</li>
 					
 					<li class="link">
-						<a href="#">
-							<i class="fa fa-book" aria-hidden="true"></i>
+						<a href="#collapse-post1c" data-toggle="collapse" aria-control="collapse-post1c">
+							<i class="fa fa-calendar-o" aria-hidden="true"></i>
 							<span class="hidden-sm hidden-xs">Courses</span>
 						</a>
+						<ul class="collapse collapsable" id="collapse-post1c" style="margin:0px; padding:0px; ">
+							<li>
+								<a href="add_course.php">
+									<span>Add New</span>
+								</a>
+							</li>
+							<li>
+								<a href="update_course.php">
+									<span>Update Existing</span>
+								</a>
+							</li>
+						</ul>
 					</li>
 					<li class="link active">
 						<a href="#collapse-post1" data-toggle="collapse" aria-control="collapse-post1">
@@ -135,6 +135,30 @@
 								</a>
 							</li>
 						</ul>
+					</li>
+					<li class="link">
+						<a href="#collapse-post21" data-toggle="collapse" aria-control="collapse-post1">
+							<i class="fa fa-picture-o" aria-hidden="true"></i>
+							<span class="hidden-sm hidden-xs">Gallery</span>
+						</a>
+						<ul class="collapse collapsable" id="collapse-post21" style="margin:0px; padding:0px; ">
+							<li>
+								<a href="add_image.php">
+									<span>Add New Images</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>Delete Existing</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="link">
+						<a href="queries.php">
+							<i class="fa fa-question-circle-o" aria-hidden="true"></i>
+							<span class="hidden-sm hidden-xs">Queries</span>
+						</a>
 					</li>
 					<li class="link online-exam">
 						<a href="#">

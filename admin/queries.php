@@ -1,10 +1,67 @@
+<?php
+	session_start();
+	require_once('../includes/dbh.inc.php');
+	
+	if(isset($_GET['msnt']))
+	{
+		echo '			    
+		    <div id="success-modal">
+				<div class="modalconent">
+					<h3 style="color:teal;">Information</h3>
+					<hr>	
+					<p class="para">Message was successfully sent to user\'s mail id.</p> 
+					<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+				</div>
+			</div>
+		';			
+	}
+	if(isset($_GET['rdsh']) || isset($_GET['rdb']))
+	{
+		echo '			    
+		    <div id="success-modal">
+				<div class="modalconent">
+					<h3 style="color:teal;">Information</h3>
+					<hr>	
+					<p class="para">Query was successfully removed.</p>
+					<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+				</div>
+			</div>
+		';			
+	}
+	
+	
+	
+	
+	if(isset($_GET['error']) || isset($_GET['m_n_snt']))
+	{
+		echo '			    
+		    <div id="success-modal">
+				<div class="modalconent">
+					<h3 style="color:teal;">Information</h3>
+					<hr>	
+					<p class="para">Something went wrong, Please try again.</p>
+					<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+				</div>
+			</div>
+		';			
+	}
+	
+	$query ="Select * from queries where q_replystatus=0 and q_removalstatus=0 order by q_id desc";
+	$result =@mysqli_query($conn,$query); 
+	
+	$query1 ="Select * from queries where q_replystatus=1 and q_removalstatus=0 order by q_id desc";
+	$result1 =@mysqli_query($conn,$query1); 
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=0.8">
-	<title>Create Event | IAS</title>
+	<title>Manage Queries | IAS</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/default.css">
+	<link rel="stylesheet" type="text/css" href="css/admin.css">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -27,29 +84,29 @@
 						</a>
 					</li>
 					<li class="link">
-						<a href="#collapse-post" data-toggle="collapse" aria-control="collapse-post">
+						<a href="students.php">
 							<i class="fa fa-graduation-cap" aria-hidden="true"></i>
-							<span class="hidden-sm hidden-xs">Manage Students</span>
+							<span class="hidden-sm hidden-xs">Students</span>
 						</a>
-						<ul class="collapse collapsable" id="collapse-post" style="margin:0px; padding:0px; ">
-							<li>
-								<a href="#">
-									<span>Approved Students</span>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<span>Unapproved Students</span>
-								</a>
-							</li>
-						</ul>
 					</li>
 					
 					<li class="link">
-						<a href="#">
-							<i class="fa fa-book" aria-hidden="true"></i>
+						<a href="#collapse-post1c" data-toggle="collapse" aria-control="collapse-post1c">
+							<i class="fa fa-calendar-o" aria-hidden="true"></i>
 							<span class="hidden-sm hidden-xs">Courses</span>
 						</a>
+						<ul class="collapse collapsable" id="collapse-post1c" style="margin:0px; padding:0px; ">
+							<li>
+								<a href="add_course.php">
+									<span>Add New</span>
+								</a>
+							</li>
+							<li>
+								<a href="update_course.php">
+									<span>Update Existing</span>
+								</a>
+							</li>
+						</ul>
 					</li>
 					<li class="link">
 						<a href="#collapse-post1" data-toggle="collapse" aria-control="collapse-post1">
@@ -69,7 +126,7 @@
 							</li>
 						</ul>
 					</li>
-					<li class="link active">
+					<li class="link">
 						<a href="#collapse-post2" data-toggle="collapse" aria-control="collapse-post1">
 							<i class="fa fa-calendar" aria-hidden="true"></i>
 							<span class="hidden-sm hidden-xs">Events</span>
@@ -104,6 +161,12 @@
 								</a>
 							</li>
 						</ul>
+					</li>
+					<li class="link active">
+						<a href="#">
+							<i class="fa fa-question-circle-o" aria-hidden="true"></i>
+							<span class="hidden-sm hidden-xs">Queries</span>
+						</a>
 					</li>
 					<li class="link online-exam">
 						<a href="#">
@@ -151,16 +214,171 @@
 						</div>
 					</header>
 				</div>
-				<div id="content">
-					<header>
-						<h2 class="page_title">Manage Queries</h2>	
-					</header>	
-					<div class="content-inner">
-						<div class="form-wrapper">
-							<form action="includes/events.inc.php" method="POST" enctype="multipart/form-data">
+				
+					<div class="row">
+						<div class="col-md-6 dashboard-left-cell">
+							<div class="admin-content-con">
+								<header>
+									<h5>Queries with Pending Replies</h5>
+								</header>
+				                <?php
+									if($result){
+										$i = 1;	
+										while($row = mysqli_fetch_array($result))
+										{
+											$now = date("Y-m-d");
+											$date1 = new DateTime($now);
+											$date2 = new DateTime($row['q_date']);
+											$diff = $date2->diff($date1)->format("%a");
+											
+											if($diff == 0){
+												$diff = 'Today';
+											}
+											else{
+												$diff = $diff.' days ago';
+											}
+											
+											echo '
+											<form action="includes/query.inc.php" method="POST">
+												<input type="hidden" value="'.$row['q_id'].'" name="q_id"></input>
+												<div class="comment-head-dash clearfix">
+													<div class="commenter-name-dash pull-left">'.$row['q_name'].' &nbsp;&nbsp;&nbsp;<small>Mob: </small>'.$row['q_phone'].'</div>
+													<div class="days-dash pull-right">'.$diff.'</div>
+												</div>
+												<p class="comment-dash">
+													 '.$row['q_message'].'
+												</p>
+												<small class="comment-date-dash">'.$row['q_time'].' '.$row['q_date'].'</small>
+												
+												<button class="btn btn-xs btn-danger pull-right" style="margin-left:10px;" type="button" data-target="#rModal'.$i.'" data-toggle="modal">Remove</button>
+												<button class="btn btn-xs btn-success pull-right" name="reply" data-target="#QModal'.$i.'" data-toggle="modal" type="button" >Reply</button>
+												<div class="comment-head-dash clearfix"></div>
+												<hr>
+												
+												<div class="modal fade" id="QModal'.$i.'"  >
+													<div class="modal-dialog" style="margin-top:50px!important;">
+														<div class="modal-content" >
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal">&times;</button>	<h3 style="color:teal;">Reply to Query</h3>				
+															</div>
+															<div class="modal-body">
+																<label for="email">User\'s Email:</label>
+																<input class="form-control" name="email" id="email" value="'.$row['q_email'].'" readonly><br>
+																<label for="name">User\'s Name:</label>
+																<input class="form-control" name="name" id="name"  value="'.$row['q_name'].'" readonly><br>
+																<label for="email">User\'s Phone Number:</label>
+																<input class="form-control" name="phone" id="phone" value="'.$row['q_phone'].'" readonly><br>
+																<label for="msg">Your Message:</label>
+																 <textarea class="form-control" id="msg" rows="3" placeholder="Message" name="message"  required></textarea>
+																
+																
+															</div> 
+															<div class="modal-footer">
+																<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+																<button type="submit" name="sreply" class="btn btn-success">Send Reply</button>
+															</div>		
+														</div>
+													</div>
+												</div>
+											</form>	
+											<form action="includes/query.inc.php" method="POST">
+												<input type="hidden" value="'.$row['q_id'].'" name="q_id"></input>	
+												<div class="modal fade" id="rModal'.$i.'"  >
+													<div class="modal-dialog modal-xs">
+														<div class="modal-content" >
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal">&times;</button>	<h3 style="color:#EF5350;">Remove Query</h3>				
+															</div>
+															<div class="modal-body">
+																<p class="font">This will not remove the record from the database, instead, only remove from the dashboard.</p>
+															</div> 
+															<div class="modal-footer">
+																<button type="submit" class="btn btn-warning" name="remove-dash">Continue</button>
+																or
+																<button type="submit" name="remove-db" class="btn btn-danger">Remove from Database</button>
+															</div>		
+														</div>
+													</div>
+												</div>	
+											</form>								
+											';
+											$i++;
+										}
+									}
+								?>
 								
+							</div>
+						</div>
+						
+						<div class="col-md-6 dashboard-right-cell">
+							<div class="admin-content-con">
+								<header>
+									<h5>Queries that are Already Replied</h5>
+								</header>
+				                <?php
+									if($result1){
+										$i = 1;	
+										while($row = mysqli_fetch_array($result1))
+										{
+											$now = date("Y-m-d");
+											$date1 = new DateTime($now);
+											$date2 = new DateTime($row['q_date']);
+											$diff = $date2->diff($date1)->format("%a");
+											
+											if($diff == 0){
+												$diff = 'Today';
+											}
+											else{
+												$diff = $diff.' days ago';
+											}
+											
+											echo '
+											<form action="includes/query.inc.php" method="POST">
+												<input type="hidden" value="'.$row['q_id'].'" name="q_id"></input>
+												<div class="comment-head-dash clearfix">
+													<div class="commenter-name-dash pull-left">'.$row['q_name'].' &nbsp;&nbsp;&nbsp;<small>Mob: </small>'.$row['q_phone'].'</div>
+													<div class="days-dash pull-right">'.$diff.'</div>
+												</div>
+												<p class="comment-dash">
+													 '.$row['q_message'].'
+												</p>
+												<small class="comment-date-dash">'.$row['q_time'].' '.$row['q_date'].'</small>
+												
+												<button class="btn btn-xs btn-danger pull-right" style="margin-left:10px;" type="button" data-target="#rModal'.$i.'" data-toggle="modal">Remove</button>
+												
+												<div class="comment-head-dash clearfix"></div>
+												<hr>
+												
+											</form>	
+											<form action="includes/query.inc.php" method="POST">
+												<input type="hidden" value="'.$row['q_id'].'" name="q_id"></input>	
+												<div class="modal fade" id="rModal'.$i.'"  >
+													<div class="modal-dialog modal-xs">
+														<div class="modal-content" >
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal">&times;</button>	<h3 style="color:#EF5350;">Remove Query</h3>				
+															</div>
+															<div class="modal-body">
+																<p class="font">This will not remove the record from the database, instead, only remove from the dashboard.</p>
+															</div> 
+															<div class="modal-footer">
+																<button type="submit" class="btn btn-warning" name="qremove-dash">Continue</button>
+																or
+																<button type="submit" name="qremove-db" class="btn btn-danger">Remove from Database</button>
+															</div>		
+														</div>
+													</div>
+												</div>	
+											</form>								
+											';
+											$i++;
+										}
+									}
+								?>
 								
-							</form>
+							</div>
+						</div>
+					</div>
 						</div>
 					</div>	
 				</div>
@@ -181,7 +399,7 @@
 		window.onload = function () {
 			document.getElementById('button').onclick = function () {
 				document.getElementById('success-modal').style.display = "none"
-				window.location = "queries.php";
+				window.location.replace('queries.php');
 			};
 		};
 	</script>

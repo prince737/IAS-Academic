@@ -41,56 +41,13 @@
 					<span >COURSES</span>
 				</a>
 				<ul class="collapse collapsable" id="collapse-post" style="margin:0px; padding:0px; ">
-					<li>
-						<a href="#">
-							<span>JOINT ENTRANCE</span>
-						</a>
-					</li>
-					<li>
-						<a href="#">
-							<span>ICSE & ISC</span>
-						</a>
-					</li>
-					<li>
-						<a href="#">
-							<span>CBSE</span>
-						</a>
-					</li>
-					<li>
-						<a href="#">
-							<span>MADHYAMIK</span>
-						</a>
-					</li>
-					<li>
-						<a href="#">
-							<span>HS (WBCHSE)</span>
-						</a>
-					</li>
-					<li>
-						<a href="#">
-							<span>GATE</span>
-						</a>
-					</li>
-					<li>
-						<a href="#">
-							<span>NTE / PSU / IES</span>
-						</a>
-					</li>
-					<li>
-						<a href="#">
-							<span>COMPUTER TRAINING</span>
-						</a>
-					</li>
-					<li>
-						<a href="#">
-							<span>INDUSTRIAL TRAINING</span>
-						</a>
-					</li>
-					<li>
-						<a href="#">
-							<span>RESEARCH</span>
-						</a>
-					</li>
+					<li><a tabindex="-1" href="courses.php?ee=1">10+2 ENTRANCE EXAMS</a></li>
+					<li><a tabindex="-1" href="courses.php?be">BOARD EXAMS</a></li>
+					<li><a tabindex="-1" href="courses.php?bec">BOARD & ENTRANCE COMBINED</a></li>
+					<li><a tabindex="-1" href="courses.php?gpi">GATE / PSU / IES</a></li>
+					<li><a tabindex="-1" href="courses.php?ce">COMPETITIVE EXAMS</a></li>
+					<li><a tabindex="-1" href="courses.php?tpw">TRAINING AND PROJECT WORKS</a></li>
+					<li><a tabindex="-1" href="courses.php?its">IAS TEST SERIES</a></li>
 				</ul>
 			</li>
 			

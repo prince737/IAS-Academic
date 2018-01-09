@@ -14,7 +14,6 @@ html{
 	background:	#E8E8E8;
     margin: 0;
     padding: 0;
-	margin-bottom:260px;
 }
 
 
@@ -107,10 +106,9 @@ html{
 
 
 
-@media screen and (min-width: 768px) {
-  
+@media screen and (min-width: 768px) {  
   .notices-banner{
-	  height:330px;
+	  height:260px;
 	  padding-top:85px;
   }
   .notices-banner h2{
@@ -119,7 +117,6 @@ html{
 	}
 	.breadcrumb{
 		padding-left:90px;
-	}
-	
+	}	
 }
 

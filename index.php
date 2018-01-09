@@ -21,6 +21,7 @@
     <link rel="stylesheet" type="text/css" href="css/animate.css">
 	<link rel="stylesheet" type="text/css" href="css/aos.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
+	
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" type="image/jpg" href="images/logo.jpg" />
 	
@@ -70,16 +71,13 @@
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">COURSES<span class="caret"></span></a>
 								<ul class="dropdown-menu" >
 								
-									<li><a tabindex="-1" href="course.php?course=je">JOINT ENTRANCE</a></li>
-									<li><a tabindex="-1" href="course.php?course=isc">ICSE & ISC</a></li>
-									<li><a tabindex="-1" href="#">CBSE</a></li>
-									<li><a tabindex="-1" href="#">MADHYAMIK</a></li>
-									<li><a tabindex="-1" href="#">HS (WBCHSE)</a></li>
-									<li><a tabindex="-1" href="#">GATE</a></li>
-									<li><a tabindex="-1" href="#">NET / PSU / IES</a></li>
-									<li><a tabindex="-1" href="#">COMPUTER TRAINING</a></li>
-									<li><a tabindex="-1" href="#">INDUSTRIAL TRAINING</a></li>
-									<li><a tabindex="-1" href="#">RESEARCH</a></li>
+									<li><a tabindex="-1" href="courses.php?ee=1">10+2 ENTRANCE EXAMS</a></li>
+									<li><a tabindex="-1" href="courses.php?be">BOARD EXAMS</a></li>
+									<li><a tabindex="-1" href="courses.php?bec">BOARD & ENTRANCE COMBINED</a></li>
+									<li><a tabindex="-1" href="courses.php?gpi">GATE / PSU / IES</a></li>
+									<li><a tabindex="-1" href="courses.php?ce">COMPETITIVE EXAMS</a></li>
+									<li><a tabindex="-1" href="courses.php?tpw">TRAINING AND PROJECT WORKS</a></li>
+									<li><a tabindex="-1" href="courses.php?its">IAS TEST SERIES</a></li>
 
 								</ul>
 							</li>
@@ -107,20 +105,20 @@
 								</ul>
 							</li>
 							<li>
-								<a href="#gallery" class="smoothScroll">GALLERY</a>
+								<a href="gallery.php" class="smoothScroll">GALLERY</a>
 								
 							</li>
 							<li class="dropdown">
 								<a href="contact.html" class="dropdown-toggle" data-toggle="dropdown">CONTACT<span class="caret"></span></a>
 								<ul class="dropdown-menu pull-left" >
 									
-									<li><a tabindex="-1" href="contact.html">CORPORATE OFFICE</a></li>
-									<li><a tabindex="-1" href="contact.html">KOLKATA</a></li>
-									<li><a tabindex="-1" href="contact.html#hwh">HOWRAH</a></li>
-									<li><a tabindex="-1" href="contact.html#hwh">BERHAMPORE</a></li>
-									<li><a tabindex="-1" href="contact.html#skm">DURGAPUR</a></li>
-									<li><a tabindex="-1" href="contact.html#skm">SILIGURI</a></li>
-									<li><a tabindex="-1" href="contact.html#sili">SIKKIM</a></li>
+									<li><a tabindex="-1" href="contact.php">CORPORATE OFFICE</a></li>
+									<li><a tabindex="-1" href="contact.php">KOLKATA</a></li>
+									<li><a tabindex="-1" href="contact.php">HOWRAH</a></li>
+									<li><a tabindex="-1" href="contact.php">BERHAMPORE</a></li>
+									<li><a tabindex="-1" href="contact.php">DURGAPUR</a></li>
+									<li><a tabindex="-1" href="contact.php">SILIGURI</a></li>
+									<li><a tabindex="-1" href="contact.php">SIKKIM</a></li>
 
 								</ul>
 							</li>
@@ -151,25 +149,25 @@
 
 					<div class="carousel-inner" role="listbox">
                         <div class="item active">
-                             <img src="images/alexis-brown-857931.jpg" />
+                             <img src="images/alexis-brown-85793.jpg" />
                              <div class="carousel-caption">
                                   <h1>Image 1</h1>
                              </div >
                         </div>
                         <div class="item">
-                             <img src="images/davide-cantelli-1535171.jpg" />
+                             <img src="images/davide-cantelli-153517.jpg" />
                              <div class="carousel-caption">
                                   <h1>Image 2</h1>
                              </div >
                         </div>
                         <div class="item">
-                             <img src="images/roman-mager-599761.jpg" />
+                             <img src="images/roman-mager-59976.jpg" />
                              <div class="carousel-caption">
                                   <h1>Image 3</h1>
                              </div >
                         </div>
                         <div class="item">
-                             <img src="images/sergey-zolkin-212341.jpg" />
+                             <img src="images/sergey-zolkin-21234.jpg" />
                              <div class="carousel-caption">
                                   <h1>Image 4</h1>
                              </div >
@@ -197,22 +195,15 @@
 		</div>
 	</div>  <!--END OF  CAROUSEL -->
 
-	<div class="container">
+	<div class="container-fluid" >
 		
-		
-
-		<div class="row">
-
+		<div class="row notice-wrapper">
 			
-			<div class="col-sm-6 slide-show notice1">
-				<div class="col-sm-12">
-					<div class="notice-head">
-						NOTICES
-					</div>
-					
-					<div class="notice-body"  id="verticalScroller">
-						<div class="marquee">
-							<table>
+			<div class="col-md-6 notice-container">
+				<h4 class="label-primary"><span class="fa fa-arrow-right"></span>NOTICEBOARD</h4>
+				<div class="notice-board">
+					<div class="marquee">
+							
 							<?php
 								if($result)
 								{
@@ -222,71 +213,128 @@
 										$phpdate = strtotime($row['notices_date']);
 										$date = date( 'd M, Y', $phpdate );
 										echo'
-											<tr>
-												<td>
-													<p class="date">'.$date.'</p>
-													<p class="notice-text" >'.$row['notices_content'].'<a href="'.$row['notices_location'].'" target="_blank"> Know more</a></p>
-												</td>
-											</tr>
+											<div class=notice_data>
+												<span class="fa fa-file-text-o"></span>	
+												<a href="'.$row['notices_location'].'" target="_blank"><span>'.$date.'</span> | ' . $row['notices_content']. '</a>
+											
+											</div>	<br>
 										';
 									}
 								}
 							?>
-							</table>
 							
-						</div>			
-					</div>
-			    </div>
+						</div>	
+						
+				</div>
+				<a class="link btn btn-primary" href="notices.php">View All Notices</a>
+				
 				
 			</div>
-
-
-			<div class="col-sm-6 slide-show notice2">
-				<div class="col-sm-12">
-					<div class="notice-head" >
-						EVENTS
-					</div>
-					<div class="notice-body" id="verticalScroller1">
-						<div class="marquee">
-							<table>
-								
-								<?php
-									if($result1)
+			<div class="col-md-6 notice-container">				
+				<h4 class="label-primary"><span class="fa fa-arrow-right"></span> EVENTS & ANNOUNCEMENTS</h4>			
+				<div class="notice-board">
+					<div class="marquee">
+												
+							<?php
+								if($result1)
+								{
+										
+									while($row = mysqli_fetch_array($result1))
 									{
+										$phpdate = strtotime($row['events_startdate']);
+										$date1 = date( 'd M, Y', $phpdate );
+										$phpdate = strtotime($row['events_enddate']);
+										$date2 = date( 'd M, Y', $phpdate );
+										echo'
+										
+											<div class=notice_data>
+												<i class="fa fa-calendar" style="color:#795548;" aria-hidden="true"></i>
+												<a href="events.php"><span>'.$date1.'</span> | <span>'.$row['events_time'].' onwards | </span>' . $row['events_heading']. '</a>
 											
-										while($row = mysqli_fetch_array($result1))
-										{
-											$phpdate = strtotime($row['events_startdate']);
-											$date1 = date( 'd M, Y', $phpdate );
-											$phpdate = strtotime($row['events_enddate']);
-											$date2 = date( 'd M, Y', $phpdate );
-											echo'
-												<tr>
-													<td>
-														<p class="date">'.$date1.'</p>
-														<p class="notice-text" >'.$row['events_heading'].'</p>
-													</td>
-												</tr>
-											';
-										}
+											</div>	<br>
+											
+										';
 									}
-								?>
-							
-							</table>
-						</div>	
-					</div>
-			    </div>
+								}
+							?>
+						
+					</div>	
+				</div>
+				<a class="link btn btn-primary" href="events.php">View All Events</a>
+				
 			</div>
 		</div>
+	</div>	
+		
 
+	<!--NEW SECTION-->
 
+	<div class="container-fluid welcome" >
+		<h3>WELCOME TO INSTITUTE OF APPLIED SCIENCE</h3>
+							
+		<div class="container">
+		
+			<div class="row">
+			
+				<div class="col-md-3">
+					<div class="content-wlcm">
+						<span class="fa fa-thumbs-o-up"></span>
+						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+					</div>
+				</div>
+				
+				<div class="col-md-3">
+					<div class="content-wlcm">
+						<span class="fa fa-trophy"></span>
+						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="content-wlcm">
+						<span class="fa fa-hand-peace-o"></span>
+						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="content-wlcm">
+						<span class="fa fa-snowflake-o"></span>
+						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+					</div>
+				</div>
+			
+			</div>
+		
+		</div>
+	
+	</div>
+	
+	
+	<div class="container-fluid" id="gallery">
+		<div class="row" >
 
-	</div>  <!--Notice container  -->
+			<div class="col-md-6 lefty">
+				<h1>Have a look at our Gallery</h1>
+				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.<br><a href="gallery.php">Browse All!</a>
+</p>
+				<img data-aos="fade-up-left" data-aos-duration="1000" data-aos-delay="300" src="images/3.jpg"></img>
+			</div>
+			<div class="col-md-6 righty">
+				<img src="images/1.jpg" class="first" data-aos="fade-up-right" data-aos-duration="1000" data-aos-delay="300" ></img>
+				<img src="images/demo.jpg" class="second" data-aos="fade-up-right" data-aos-duration="1000" data-aos-delay="300" ></img>
 
+			</div>
+				
+		</div>
+	</div>
+
+	<!--NEW SECTION ENDS-->
 
 	<!--GALLERY container  -->
 
-	<div class="container-fluid gallery" id="gallery">
+	
+	
+	
+	<!--<div class="container-fluid gallery" id="gallery">
 		<p class="courses">Gallery</p><br>
 
 
@@ -558,8 +606,8 @@
 	<script src="js/jquery.marquee.js" type="text/javascript"></script>
 	<script>
 		$('.marquee').marquee({
-			duration: 1000,
-			gap: 50,
+			duration: 10000,
+			gap:320,
 			delayBeforeStart: 0,
 			direction: 'up',
 			duplicated: true,

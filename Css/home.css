@@ -6,7 +6,9 @@
 	
 }
 
-
+body{
+	overflow-x:hidden;
+}
 
 .navbar{
 	background-color:#002147;
@@ -74,11 +76,29 @@
 	float:left;
 }
 
+
+
 @media screen and (min-width: 1200px) {
 	.navbar{
 		height:120px;
 	}
+	.notice-container .text{
+	  width:70%;
+  }
+  .notice-container p{
+		margin-left:10%;
+		margin-top:2%;
+	}
 }
+
+
+@media screen and (max-width: 1024px) {
+	.left p{
+		width:380px;
+	}
+}
+
+
 
 @media screen and (min-width: 768px) {
 	.brand-sm{
@@ -129,8 +149,10 @@
 		background:#3277ae;
 	}
 	
+	.lefty p{
+		width:500px;
+	}
 	
-
 }
 
 
@@ -148,7 +170,23 @@
   		margin-top:0%;
   	}
 	
+	.notice-container .text{
+	  width:100%;
+  }
+  
+  #gallery img{
+		display:none;
+	}
 	
+	.lefty h1{
+		margin-left:0px;
+	}
+	.lefty p{
+		margin-left:0px!important;
+		width:100%;
+		padding-bottom:0px;
+	}
+  
   }
 
 .navbar-brand img{
@@ -204,69 +242,82 @@
 /*STYLES FOR NOTICEBOARDS STARTS HERE  %*/
 
 
-
-.notice1, .notice2{	
-	margin-top:30px;
+.notice_data{
+	background:#E8E8E8;
+	padding:10px 20px;
+	border-radius: 50px;
 }
 
-
-.notice-head{
-	background: #002147;
-	padding:10px;
-	font-size: 18px;
-	text-align: center;
-}
-
-.notice-head{
-	color:white;
-	font-size: 18px;
-}
-
-
-td{
-	vertical-align:top;
-}
-
-.date{
-	color:#293352;
+.notice_data span{
+	color: #795548;
 	font-weight:bold;
-	font-size:16px;
+}
+
+.notice_data a{
+	color: #212121;
+	text-decoration:none;
+}
+
+.notice_data a:hover{
+	color: #1e5085;
+	text-decoration:none;
+	
+}
+
+
+.notice-board{
+	border:3px solid #dcdcdc;
+	border-top:none;
+	min-height:320px;
+	max-height:330px;
+	margin:0px 20px 20px 20px;
+	margin-bottom:0px;
+	
+}
+
+.notice-container h4{
+	margin:0px 20px;
+	padding:8px;
+	color:white;
+	margin-top:30px;
+	background:#48727F;
+}
+
+.notice-container .link{
+	margin:10px 20px; 
+	display:block;
+	background:#48727F;
+	color:#fff;
+}
+
+	
+.marquee table{
+	width:100%;
+}
+
+
+
+.marquee table tr td{
+	padding: 10px;
+	margin:0px;
+	
+}
+.marquee{
+	max-height:320px;
+	min-height:320px;
+	overflow:hidden;
+	padding: 0px 10px;
+}
+
+.marquee .date{
+	font-size:14px;
+	color:#795548;
 }
 
 .marquee p{
 	margin:0px;
 }
-
-.notice-text{
-	font-size:15px;
-	width:100%;
-}
-
-.marquee table tr{
-	border-bottom: 1px solid #ddd;
-}
-
-.marquee table tr td{
-	padding: 10px 0px;
-}
-.marquee{
-	max-height:260px;
-	overflow:hidden;
-}
-.notice-body{
-	min-height:300px;
-	max-height:300px;
-	border:1px solid #DDDDDD;
-	border-top:none;
-	padding:30px;
-}
-
-
-.notice-content{
-	border-bottom: 1px dotted black;
-	padding:10px 0px 10px 0px;
-
-}
+	
 
 
 /*styles for enroll section*/
@@ -439,7 +490,99 @@ footer ul{
 	color:white;
 }
 
-/*STYLES FOR GALLERY */
+/*STYLES FOR NEW SECTION*/
+
+.welcome{
+	/*background-image: url("../images/welcome.jpg");*/
+	background:#4d4d56;
+	background-size:cover;
+	background-attachment:fixed;
+	margin-top: 30px;
+	padding-bottom: 6%;
+	padding-top: 15px;
+}	
+
+
+.welcome h3{
+	color:white;
+	font-size:23px;
+	font-weight:500;
+	text-align:center;
+	margin-top:5%;
+}
+
+.content-wlcm p, .content-wlcm span{
+	color:white;
+}
+
+.content-wlcm span{
+	display:inline-block;
+	font-size:50px;
+	border:2px solid #fff;
+	border-radius:40px;
+	padding:10px 15px;
+	margin-left:30%;
+	margin-bottom:15%;
+	margin-top:23%;
+}
+
+
+#gallery{
+	margin:0px;
+	background:#CFD8DC;
+	padding-bottom:30px;
+	margin-top:3%;
+}	
+
+.lefty{
+	padding-left:50px;
+}
+
+.lefty h1{
+	padding-bottom:20px;
+	padding-top:20px;
+	margin-left:10%;
+	font-family: 'Sacramento', cursive;
+	font-size:50px;
+	font-weight:bold;
+	color:#212121;
+}
+.lefty p{
+	padding-bottom:10%;
+	margin-left:15%;
+	color:#212121;
+}
+.lefty img{
+	height:350px;
+	width:520px;
+	transition: all .5s linear; 
+}
+
+
+
+.lefty p a{
+	color:#2954a2;
+}
+
+.righty .first{
+	height:350px;
+	width:100%;
+	margin-top:30px;
+	transition: all .5s linear; 
+}
+
+
+
+.righty .second{
+	height:300px;
+	width:70%;
+	margin-top:60px;
+	transition: all .5s linear; 
+}
+
+
+
+/*STYLES FOR GALLERY 
 
 .gallery{
 	background-color: #293352;

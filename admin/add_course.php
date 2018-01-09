@@ -1,47 +1,22 @@
 <?php
 	session_start();
-	require_once('../includes/dbh.inc.php');
 	
-	if(isset($_GET['success']))
-	{
-		echo '			    
-		    <div id="success-modal">
-				<div class="modalconent">
-					<h3 style="color:teal;">Information</h3>
-					<hr>	
-					<p class="para">Notice / Event was added successfully.</p> 
-					<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
-				</div>
-			</div>
-		';			
-	}
-	if(isset($_GET['err']))
-	{
-		echo '			    
-		    <div id="success-modal">
-				<div class="modalconent">
-					<h3 style="color:teal;">Information</h3>
-					<hr>	
-					<p class="para">Something went wrong, please try again.</p> 
-					<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
-				</div>
-			</div>
-		';			
-	}
+	
+	
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=0.8">
-	<title>Create Event | IAS</title>
+	<title>Add Course | IAS</title>
+	<link rel="icon" type="image/jpg" href="../images/logo.jpg" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/default.css">
 	<link rel="stylesheet" type="text/css" href="css/notices.css">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" type="image/jpg" href="../images/logo.jpg" />
 </head>
 
 <body>	
@@ -66,14 +41,14 @@
 						</a>
 					</li>
 					
-					<li class="link">
+					<li class="link active">
 						<a href="#collapse-post1c" data-toggle="collapse" aria-control="collapse-post1c">
 							<i class="fa fa-calendar-o" aria-hidden="true"></i>
 							<span class="hidden-sm hidden-xs">Courses</span>
 						</a>
 						<ul class="collapse collapsable" id="collapse-post1c" style="margin:0px; padding:0px; ">
 							<li>
-								<a href="add_course.php">
+								<a href="#">
 									<span>Add New</span>
 								</a>
 							</li>
@@ -102,7 +77,7 @@
 							</li>
 						</ul>
 					</li>
-					<li class="link active">
+					<li class="link">
 						<a href="#collapse-post2" data-toggle="collapse" aria-control="collapse-post1">
 							<i class="fa fa-calendar" aria-hidden="true"></i>
 							<span class="hidden-sm hidden-xs">Events</span>
@@ -191,83 +166,145 @@
 					</header>
 				</div>
 				
-				<div id="content">
+				<div id="content">				
 					<header>
-						<h2 class="page_title">Create a new Event</h2>	
-					</header>	
+						<h2 class="page_title">Add a new Course</h2>	
+					</header>
+					
 					<div class="content-inner">
 						<div class="form-wrapper">
-							<form action="includes/events.inc.php" method="POST" enctype="multipart/form-data">
-								
+							<form action="includes/courses.inc.php" method="POST">
+																
 								<div class="form-group">
-									<label class="sr-only">Start Date</label>
-									<input type="text" class="form-control" name="startdate" required id="datepicker" placeholder="Start Date (YYYY-MM-DD)">
+									<label class="sr-only">Course Id</label>
+									<input type="text" class="form-control" value="<?php if(isset($_GET['id'])){ echo $_GET['id']; }  ?>" name="cid" placeholder="Course Id " required />
 								</div>
 								<div class="form-group">
-									<label class="sr-only">End Date</label>
-									<input type="text" class="form-control" name="enddate" required id="datepicker1" placeholder="End Date (YYYY-MM-DD)">
+									<label class="sr-only">Course Type</label>
+									<input type="text" class="form-control" value="<?php if(isset($_GET['tp'])){ echo $_GET['tp']; }  ?>" name="ctype" placeholder="Course Type" required />
 								</div>
 								<div class="form-group">
-									<label class="sr-only">Time</label>
-									<input type="text" class="form-control" name="time" required id="datepicker1" placeholder="Starting Time (hh:mm am/pm)" maxlength="8">
+									<label class="sr-only">Course Name</label>
+									<input type="text" value="<?php if(isset($_GET['nm'])){ echo $_GET['nm']; }  ?>" class="form-control" name="cname" placeholder="Course Name" required />
 								</div>
 								<div class="form-group">
-									<label class="sr-only">Heading</label>
-									<input type="text" class="form-control" name="heading" placeholder="Short Heading (This will be displayed on Notice Board) " required />
+									<label class="sr-only">Course Description</label>
+									<textarea class="form-control" name="cdesc" style="height:200px;" placeholder="Course Description (This will be displayed on Courses Page for viewers) " required ><?php if(isset($_GET['desc'])){ echo $_GET['desc']; }  ?></textarea>
 								</div>
-								<div class="form-group">
-									<label class="sr-only">Body</label>
-									<textarea class="form-control" name="body" placeholder="Body (This will be displayed on Events Page) " required ></textarea>
-								</div>
+								<p style="color:teal;">Use html paragraph tags to create separate paragraphs .</p> <br>
 																
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" name="save">Publish Event when I click on save
+										<input type="checkbox" name="save">Publish Course when I click on save
 									</label>
 								</div>
 								<div class="clearfix">
-									<button type="submit" class="btn btn-primary pull-right" name="submit">Save / Publish</button>
+									<button type="submit" class="btn btn-primary pull-right" name="add-course">Save / Publish</button>
 								</div>
+								<?php
 								
+								?>
 							</form>
 						</div>
-					</div>	
+					</div>				
 				</div>
 			</div>
 		</div>
 	</div>	
-
+	
+	<?php
+	
+		if(isset($_GET['success']))
+		{
+			echo '			    
+				<div id="success-modal">
+					<div class="modalconent">
+						<h3 style="color:teal;">Information</h3>
+						<hr>	
+						<p class="para">New Course was added successfully.</p> 
+						<button id="buttoner" class="btn btn-danger btn-sm pull-right">Close</button>
+					</div>
+				</div>
+			';			
+		}
+		if(isset($_GET['err']))
+		{
+			echo '			    
+				<div id="success-modal">
+					<div class="modalconent">
+						<h3 style="color:teal;">Information</h3>
+						<hr>	
+						<p class="para">Something went wrong, please try again.</p> 
+						<button id="buttoner" class="btn btn-danger btn-sm pull-right">Close</button>
+					</div>
+				</div>
+			';			
+		}
+		if(isset($_GET['crsExt']))
+		{
+			echo '			    
+				<div id="success-modal">
+					<div class="modalconent">
+						<h3 style="color:teal;">Information</h3>
+						<hr>	
+						<p class="para">Course Id you entered is already in use. Please provide a different one.</p> 
+						<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+					</div>
+				</div>
+			';			
+		}
+		
+		if(isset($_GET['crsTPnA']))
+		{
+			echo '			    
+				<div id="success-modal">
+					<div class="modalconent">
+						<h3 style="color:teal;">Information</h3>
+						<hr>	
+						<p class="para">Course type you entered does not exist. Sure to create it?.</p> 
+						<button id="button" type="button" class="btn btn-danger btn-sm pull-right">No</button>
+						&nbsp; &nbsp;<button id="button" name="add-course1" class="btn btn-warning btn-sm pull-right">Yes</button>
+					</div>
+				</div>
+			';			
+		}
+	
+	?>
+	
+	
+	
+	
+	
 
 	<script src="../js/jquery-3.2.1.min.js"></script>	
 	<script src="../js/bootstrap.js"></script>
 	<script src="js/default.js"></script>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script>
-	  $( function() {
-		$( "#datepicker" ).datepicker({
-				changeMonth: true,
-				changeYear: true,
-				altField: "#datepicker",
-				altFormat: "yy-mm-dd",
-			});
-			
-		$( "#datepicker1" ).datepicker({
-				changeMonth: true,
-				changeYear: true,
-				altField: "#datepicker1",
-				altFormat: "yy-mm-dd",
-			});	
-	  });
-	</script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	
 	<script>
 		window.onload = function () {
 			document.getElementById('button').onclick = function () {
 				document.getElementById('success-modal').style.display = "none"
-				window.location = "new_event.php";
 			};
+			
+			
 		};
 	</script>
+	<script>
+	document.getElementById('buttoner').onclick = function () {
+				document.getElementById('success-modal').style.display = "none",
+				window.location.replace('add_course.php');
+			};
+		
+	
+	</script>
+	
 
 </body>
 </html>
+				
+				
+				
+				
+				
+				

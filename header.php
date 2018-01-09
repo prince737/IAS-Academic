@@ -41,16 +41,13 @@
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">COURSES<span class="caret"></span></a>
 								<ul class="dropdown-menu" >
 								
-									<li><a tabindex="-1" href="course.php?course=je">JOINT ENTRANCE</a></li>
-									<li><a tabindex="-1" href="course.php?course=isc">ICSE & ISC</a></li>
-									<li><a tabindex="-1" href="#">CBSE</a></li>
-									<li><a tabindex="-1" href="#">MADHYAMIK</a></li>
-									<li><a tabindex="-1" href="#">HS (WBCHSE)</a></li>
-									<li><a tabindex="-1" href="#">GATE</a></li>
-									<li><a tabindex="-1" href="#">NET / PSU / IES</a></li>
-									<li><a tabindex="-1" href="#">COMPUTER TRAINING</a></li>
-									<li><a tabindex="-1" href="#">INDUSTRIAL TRAINING</a></li>
-									<li><a tabindex="-1" href="#">RESEARCH</a></li>
+									<li><a tabindex="-1" href="courses.php?ee=1">10+2 ENTRANCE EXAMS</a></li>
+									<li><a tabindex="-1" href="courses.php?be">BOARD EXAMS</a></li>
+									<li><a tabindex="-1" href="courses.php?bec">BOARD & ENTRANCE COMBINED</a></li>
+									<li><a tabindex="-1" href="courses.php?gpi">GATE / PSU / IES</a></li>
+									<li><a tabindex="-1" href="courses.php?ce">COMPETITIVE EXAMS</a></li>
+									<li><a tabindex="-1" href="courses.php?tpw">TRAINING AND PROJECT WORKS</a></li>
+									<li><a tabindex="-1" href="courses.php?its">IAS TEST SERIES</a></li>
 
 								</ul>
 							</li>
@@ -78,20 +75,20 @@
 								</ul>
 							</li>
 							<li>
-								<a href="gallery.html" class="smoothScroll">GALLERY</a>
+								<a href="gallery.php" class="smoothScroll">GALLERY</a>
 								
 							</li>
 							<li class="dropdown">
 								<a href="contact.html" class="dropdown-toggle" data-toggle="dropdown">CONTACT<span class="caret"></span></a>
 								<ul class="dropdown-menu pull-left" >
 									
-									<li><a tabindex="-1" href="contact.html">CORPORATE OFFICE</a></li>
-									<li><a tabindex="-1" href="contact.html">KOLKATA</a></li>
-									<li><a tabindex="-1" href="contact.html#hwh">HOWRAH</a></li>
-									<li><a tabindex="-1" href="contact.html#hwh">BERHAMPORE</a></li>
-									<li><a tabindex="-1" href="contact.html#skm">DURGAPUR</a></li>
-									<li><a tabindex="-1" href="contact.html#skm">SILIGURI</a></li>
-									<li><a tabindex="-1" href="contact.html#sili">SIKKIM</a></li>
+									<li><a tabindex="-1" href="contact.php">CORPORATE OFFICE</a></li>
+									<li><a tabindex="-1" href="contact.php">KOLKATA</a></li>
+									<li><a tabindex="-1" href="contact.php">HOWRAH</a></li>
+									<li><a tabindex="-1" href="contact.php">BERHAMPORE</a></li>
+									<li><a tabindex="-1" href="contact.php">DURGAPUR</a></li>
+									<li><a tabindex="-1" href="contact.php">SILIGURI</a></li>
+									<li><a tabindex="-1" href="contact.php">SIKKIM</a></li>
 
 								</ul>
 							</li>
