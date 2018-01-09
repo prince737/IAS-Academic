@@ -10,6 +10,10 @@ if(isset($_POST['update-course'])){
 	$course_desc= mysqli_real_escape_string($conn, $_POST['cdesc']);
 	$course_id= mysqli_real_escape_string($conn, $_POST['cid']);
 	
+	$query= "select * from courses where course_type='$course_type'";
+	$result = mysqli_query($conn,$query);
+	$resultCheck = mysqli_num_rows($result);
+	
 	$query = "update courses set course_id = $course_id, course_type='$course_type', course_name='$course_name', course_description='$course_desc' where course_id='$course_id'";
 	if(mysqli_query($conn, $query)){
 		header("Location: ../update_course.php?success");
@@ -17,7 +21,10 @@ if(isset($_POST['update-course'])){
 	}else{
 		header("Location: ../update_course.php?err");
 		exit();
+	
 	}
+	
+	
 }
 
 if(isset($_POST['add-course']) || isset($_POST['add-course1'])){

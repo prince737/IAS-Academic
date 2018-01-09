@@ -3,31 +3,29 @@
 	session_start();
 	require_once('includes/dbh.inc.php');	
 	
-	if(isset($_GET['ee'])){
-		$type = '10+2 Entrance Exams';
-	}
-	if(isset($_GET['be'])){
-		$type = 'Board Exams';
-	}
-	if(isset($_GET['bec'])){
-		$type = 'Board and Entrance Combined';
-	}
-	if(isset($_GET['gpi'])){
-		$type = 'GATE / PSU / IES';
-	}
-	if(isset($_GET['ce'])){
-		$type = 'Competitive Exams';
-	}
-	if(isset($_GET['tpw'])){
-		$type = 'Training & Project Work';
-	}
-	if(isset($_GET['its'])){
-		$type = 'IAS Test Series';
+	$query = "Select distinct course_type from courses";
+	$result= mysqli_query($conn, $query);
+										
+	if($result){
+		while($row= mysqli_fetch_array($result)){
+			if(isset($_GET['crX']) && $_GET['crX'] == $row['course_type']){
+				$type = $row['course_type'];
+				break;
+			}
+			elseif(isset($_GET['crX']) && $_GET['crX'] == 'Training ' && $row['course_type'] == 'Training & Project Work'){
+				$type = $row['course_type'];
+				break;
+			}
+			elseif(isset($_GET['crX']) && $_GET['crX'] == '10 2 Entrance Exams' && $row['course_type'] == '10+2 Entrance Exams'){
+				$type = $row['course_type'];
+				break;
+			}
+		}
 	}
 	
-	$query= "select * from courses where course_type='$type'";
-	$result = mysqli_query($conn,$query);
 
+	
+	
 ?>
 
 <!DOCTYPE html>
@@ -98,11 +96,13 @@
 						}
 						else{
 							$i=1;
+							$query= "select * from courses where course_type='$type'";
+							$result = mysqli_query($conn,$query);
 							while($row = mysqli_fetch_array($result)){
-								$active = $i==1? 'class="active"' : '';
+								$active = $i==1? 'class="active"' : '';						
 								echo '
 									<li '.$active.'>
-										<a  href="#'.$i.'" data-toggle="tab">'.$row['course_name'].'</a>
+										<a href="#'.$i.'" data-toggle="tab">'.$row['course_name'].'</a>
 									</li>							
 								';
 								$i++;
@@ -163,13 +163,17 @@
 				<div  id="course_links">
 				    <p>Courses Offered</p>
 					<ul>
-						<li><a tabindex="-1" href="courses.php?ee=1">10+2 ENTRANCE EXAMS</a></li>
-						<li><a tabindex="-1" href="courses.php?be">BOARD EXAMS</a></li>
-						<li><a tabindex="-1" href="courses.php?bec">BOARD & ENTRANCE COMBINED</a></li>
-						<li><a tabindex="-1" href="courses.php?gpi">GATE / PSU / IES</a></li>
-						<li><a tabindex="-1" href="courses.php?ce">COMPETITIVE EXAMS</a></li>
-						<li><a tabindex="-1" href="courses.php?tpw">TRAINING AND PROJECT WORKS</a></li>
-						<li><a tabindex="-1" href="courses.php?its">IAS TEST SERIES</a></li>
+						<?php
+							include_once 'includes/dbh.inc.php';
+							$query = "Select distinct course_type from courses";
+							$result= mysqli_query($conn, $query);
+										
+							if($result){
+								while($row= mysqli_fetch_array($result)){
+										echo '<li><a tabindex="-1" href="courses.php?crX='.$row['course_type'].'">'.strtoupper($row['course_type']).'</a></li>';
+								}
+							}
+						?>
 					</ul>	
 				</div>				
 			</div>

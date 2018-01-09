@@ -3,8 +3,7 @@
 	session_start();
 	require_once('includes/dbh.inc.php');	
 	
-	$query ="Select * from notices where notices_status=1 order by STR_TO_DATE(notices_date, '%M %d, %Y') DESC";
-	$result =@mysqli_query($conn,$query);	
+	
 	
 	$query ="Select * from events where events_status=1";
 	$result1 =@mysqli_query($conn,$query);	
@@ -20,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="css/home.css">
     <link rel="stylesheet" type="text/css" href="css/animate.css">
 	<link rel="stylesheet" type="text/css" href="css/aos.css">
+	<link rel="stylesheet" type="text/css" href="vendor/css/lightslider.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
 	
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -28,109 +28,18 @@
 
 <body>
 
-	<nav class="navbar navbar-inverse my-navbar">
+	<?php
+		include('header.php');
+	?>
 	
-
-		<div class="container-fluid my-content">
-			
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="flase">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				
-				<a class="navbar-brand brand-sm" href="index.html" style="color:white;"><img src="images/logo.jpg"/>Institute of Applied Science</a>
-			</div>
-			
-			
-			
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<div class="row">
-					<div class="col-lg-5 brand-div">
-						
-						<img src="images/logo.jpg" class="logo"/>
-						<table>
-							<tr>	
-								<td valign="center" style="line-height:30px;">
-									<p class="brand"><span>I</span>NSTITUTE OF <span>A</span>PPLIED <span>S</span>CIENCE</p>
-									<p class="tag">Where true learning begins...</p>
-								
-								</td>
-							</tr>
-							
-						</table>
-					
-					</div>
-					
-					<div class="col-lg-7 menu">
-						<ul class="nav navbar-nav" role="menu" aria-labelledby="dropdownMenu">
-							<li><a href="#" class="actv">HOME</a></li>
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">COURSES<span class="caret"></span></a>
-								<ul class="dropdown-menu" >
-								
-									<li><a tabindex="-1" href="courses.php?ee=1">10+2 ENTRANCE EXAMS</a></li>
-									<li><a tabindex="-1" href="courses.php?be">BOARD EXAMS</a></li>
-									<li><a tabindex="-1" href="courses.php?bec">BOARD & ENTRANCE COMBINED</a></li>
-									<li><a tabindex="-1" href="courses.php?gpi">GATE / PSU / IES</a></li>
-									<li><a tabindex="-1" href="courses.php?ce">COMPETITIVE EXAMS</a></li>
-									<li><a tabindex="-1" href="courses.php?tpw">TRAINING AND PROJECT WORKS</a></li>
-									<li><a tabindex="-1" href="courses.php?its">IAS TEST SERIES</a></li>
-
-								</ul>
-							</li>
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">ADMISSIONS<span class="caret"></span></a>
-								<ul class="dropdown-menu" >
-									
-									<li><a tabindex="-1" href="admissions.html">ADMISSION PROCESS</a></li>
-									<li><a tabindex="-1" href="direct_adm.html">DIRECT ADMISSION</a></li>
-									<li><a tabindex="-1" href="SET.html">SCHOLARSHIP ENTRANCE TEST (SET)</a></li>
-									<li><a tabindex="-1" href="provisional.html">PROVISIONAL ADMISSION</a></li>
-
-								</ul>
-
-							</li>
-						
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">ONLINE EXAMS<span class="caret"></span></a>
-								<ul class="dropdown-menu" >
-									
-									<li><a tabindex="-1" href="login.php">LOGIN</a></li>
-									<li><a tabindex="-1" href="registration.php">ENROLL NOW</a></li>
-									<li><a tabindex="-1" href="#">AVAILABLE EXAMS</a></li>
-
-								</ul>
-							</li>
-							<li>
-								<a href="gallery.php" class="smoothScroll">GALLERY</a>
-								
-							</li>
-							<li class="dropdown">
-								<a href="contact.html" class="dropdown-toggle" data-toggle="dropdown">CONTACT<span class="caret"></span></a>
-								<ul class="dropdown-menu pull-left" >
-									
-									<li><a tabindex="-1" href="contact.php">CORPORATE OFFICE</a></li>
-									<li><a tabindex="-1" href="contact.php">KOLKATA</a></li>
-									<li><a tabindex="-1" href="contact.php">HOWRAH</a></li>
-									<li><a tabindex="-1" href="contact.php">BERHAMPORE</a></li>
-									<li><a tabindex="-1" href="contact.php">DURGAPUR</a></li>
-									<li><a tabindex="-1" href="contact.php">SILIGURI</a></li>
-									<li><a tabindex="-1" href="contact.php">SIKKIM</a></li>
-
-								</ul>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>	
-	</nav>
-
-
-	<div class="container-fluid">
+	<div class="container-fluid for-sm">
+		<div class="row cover">
+			fgggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
+		</div>
+	</div>
+	
+	
+	<div class="container-fluid carouseller">
 		<div class="row">
 			<div class="col-sm-12 slide-show">
 				
@@ -205,21 +114,19 @@
 					<div class="marquee">
 							
 							<?php
-								if($result)
+								$query ="Select * from notices where notices_status=1 order by STR_TO_DATE(notices_date, '%M %d, %Y') DESC";
+								$result =@mysqli_query($conn,$query);		
+								while($row = mysqli_fetch_array($result))
 								{
-										
-									while($row = mysqli_fetch_array($result))
-									{
-										$phpdate = strtotime($row['notices_date']);
-										$date = date( 'd M, Y', $phpdate );
-										echo'
-											<div class=notice_data>
-												<span class="fa fa-file-text-o"></span>	
-												<a href="'.$row['notices_location'].'" target="_blank"><span>'.$date.'</span> | ' . $row['notices_content']. '</a>
-											
-											</div>	<br>
-										';
-									}
+									$phpdate = strtotime($row['notices_date']);
+									$date = date( 'd M, Y', $phpdate );
+									echo'
+										<div class=notice_data>
+											<span class="fa fa-file-text-o"></span>	
+											<a href="'.$row['notices_location'].'" target="_blank"><span>'.$date.'</span> | ' . $row['notices_content']. '</a>
+									
+										</div>	<br>
+									';
 								}
 							?>
 							
@@ -277,28 +184,28 @@
 			<div class="row">
 			
 				<div class="col-md-3">
-					<div class="content-wlcm">
-						<span class="fa fa-thumbs-o-up"></span>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+					<div class="content-wlcm" >
+						<span class="fa fa-thumbs-o-up" data-aos="fade-up" data-aos-delay="100" data-aos-once="true"></span>
+						<p data-aos="fade-up" data-aos-once="true" data-aos-delay="200">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
 					</div>
 				</div>
 				
 				<div class="col-md-3">
 					<div class="content-wlcm">
-						<span class="fa fa-trophy"></span>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+						<span class="fa fa-trophy" data-aos="fade-up" data-aos-once="true" data-aos-delay="100"></span>
+						<p data-aos="fade-up" data-aos-once="true" data-aos-delay="200">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+					</div>
+				</div>
+				<div class="col-md-3" >
+					<div class="content-wlcm" >
+						<span class="fa fa-hand-peace-o" data-aos="fade-up" data-aos-once="true" data-aos-delay="100"></span>
+						<p data-aos="fade-up" data-aos-once="true" data-aos-delay="200">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="content-wlcm">
-						<span class="fa fa-hand-peace-o"></span>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="content-wlcm">
-						<span class="fa fa-snowflake-o"></span>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+						<span class="fa fa-snowflake-o" data-aos="fade-up" data-aos-once="true" data-aos-delay="100"></span>
+						<p data-aos="fade-up" data-aos-once="true" data-aos-delay="200">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
 					</div>
 				</div>
 			
@@ -307,6 +214,25 @@
 		</div>
 	
 	</div>
+	<!--NEW SECTION ENDS-->
+	
+	
+	<!--Enroll container -->
+
+	<div class="container">
+		<div class="row enroll" >
+			<div class="col-sm-4 slogan" data-aos="fade-right" data-aos-once="true">
+				EDUCATION FOR A BETTER FUTURE!
+			</div>
+			<div class="col-sm-5 mission">
+				The mission of the Institute of Applied Science is to help prepare outstanding educators, scholars, and researchers, through research on the science and art of teaching and learning, the application of clinical processes, the effective uses of technology, and the analysis and development of leadership and educational policy.
+			</div>
+			<div class="col-sm-3">
+				<a class="enroll-btn btn" href="registration.php"  data-aos="fade-left" data-aos-once="true">ENROLL NOW</a>
+			</div>
+		</div>
+
+	</div>  <!--Enroll container -->
 	
 	
 	<div class="container-fluid" id="gallery">
@@ -327,182 +253,145 @@
 		</div>
 	</div>
 
-	<!--NEW SECTION ENDS-->
+	<!--GALLERY SECTION ENDS-->
 
-	<!--GALLERY container  -->
+	<div class="container-fluid review-wrap">
+		<h2>Hear From Our Students</h2>
+		<div class="container" >
+			<div class="row review">
+				
+				<ul id="light-slider">
+					<li class="review-content">
+						
+						<p><img src="images/profile.jpg"></img><span>"</span>Lorem ipsum Cupidatat quis pariatur anim.Lorem ipsum Excepteur amet adipisicing fugiat velit nisi.<span>"</span></p>
+						<br><label class="name">Chris P. Bacon</label><br>
+						<label class="details">ISC, Delhi Public School</label>
+					</li>
+					<li class="review-content">
+						
+						<p><img src="images/profile.jpg"></img><span>"</span>Lorem ipsum Excepteur amet adipisicing fugiat velit nisi.Lorem ipsum Excepteur amet adipisicing fugiat velit nisi.<span>"</span></p>
+						<br><label class="name">Chris P. Bacon</label><br>
+						<label class="details">ISC, Delhi Public School</label>
+					</li>
+					<li class="review-content">
+						
+						<p><img src="images/profile.jpg"></img><span>"</span>Lorem ipsum Excepteur amet adipisicing fugiat velit nisi. Lorem ipsum Excepteur amet adipisicing fugiat velit nisi.<span>"</span></p>
+						<br><label class="name">Chris P. Bacon</label><br>
+						<label class="details">ISC, Delhi Public School</label>
+					</li >
+					<li class="review-content">
+						
+						<p><img src="images/profile.jpg"></img><span>"</span>Lorem ipsum Excepteur amet adipisicing fugiat velit nisi.Lorem ipsum Excepteur amet adipisicing fugiat velit nisi.<span>"</span></p>
+						<br><label class="name">Chris P. Bacon</label><br>
+						<label class="details">ISC, Delhi Public School</label>
+					</li>
+					<li class="review-content">
+						
+						<p><img src="images/profile.jpg"></img><span>"</span>Lorem ipsum Excepteur amet adipisicing fugiat velit nisi.Lorem ipsum Excepteur amet adipisicing fugiat velit nisi.<span>"</span></p>
+						<br><label class="name">Chris P. Bacon</label><br>
+						<label class="details">ISC, Delhi Public School</label>
+					</li>
+					<li class="review-content">
+						
+						<p><img src="images/profile.jpg"></img><span>"</span>Lorem ipsum Excepteur amet adipisicing fugiat velit nisi.Lorem ipsum Excepteur amet adipisicing fugiat velit nisi.<span>"</span></p>
+						<br><label class="name">Chris P. Bacon</label><br>
+						<label class="details">ISC, Delhi Public School</label>
+					</li>
+				</ul>
 
-	
-	
-	
-	<!--<div class="container-fluid gallery" id="gallery">
-		<p class="courses">Gallery</p><br>
-
-
-		<div class="img-gallery">
-  			<a href="#" data-target="#carouselModal" data-toggle="modal">
-    			<figure>
-      				<img src="images/Koala.jpg" />
-    			</figure>
-  			</a>
-  			<a href="#" data-target="#carouselModal" data-toggle="modal">
-    			<figure>
-      				<img src="images/Lighthouse.jpg" />
-    			</figure>
-  			</a>
-  			<a href="#" data-target="#carouselModal" data-toggle="modal">
-    			<figure>
-      				<img src="images/Penguins.jpg" />
-    			</figure>
-  			</a>
-  			<a href="#" data-target="#carouselModal" data-toggle="modal">
-    			<figure>
-      				<img src="images/Tulips.jpg" />
-    			</figure>
-  			</a>
-  			<a href="#" data-target="#carouselModal" data-toggle="modal">
-    			<figure>
-      				<img src="images/Chrysanthemum.jpg" />
-    			</figure>
-  			</a>
-  			<a href="#" data-target="#carouselModal" data-toggle="modal">
-    			<figure>
-      				<img src="images/Hydrangeas.jpg" />
-    			</figure>
-  			</a>
-  			<a href="#" data-target="#carouselModal" data-toggle="modal">
-    			<figure>
-      				<img src="images/Jellyfish.jpg" />
-    			</figure>
-  			</a>
-  			<a href="#" data-target="#carouselModal" data-toggle="modal">
-    			<figure>
-      				<img src="images/Desert.jpg" />
-    			</figure>
-  			</a>
-  
+				
+			</div>
 		</div>
-
-		<a href="gallery.html" class="go-to-gallery">View All</a>
 	
 	</div>
-
-
-	<!--IMAGE CAROUSEL MODAL BEGINS HERE -->
-
-	<div class="modal fade" id="carouselModal"  >
-		<div class="modal-dialog img-modal">
-            <div class="modal-content " >
-               
-                <div class="modal-body">
-                  
-					<div id="img-slider" class="carousel slide" data-ride="carousel">
-
-
-						<ol class="carousel-indicators">
-
-							<li data-target="#img-slider" data-slide-to="0" class="active"></li>
-							<li data-target="#img-slider" data-slide-to="1"></li>
-							<li data-target="#img-slider" data-slide-to="2"></li>
-							<li data-target="#img-slider" data-slide-to="3"></li>
-							<li data-target="#img-slider" data-slide-to="4"></li>
-							<li data-target="#img-slider" data-slide-to="5"></li>
-							<li data-target="#img-slider" data-slide-to="6"></li>
-							<li data-target="#img-slider" data-slide-to="7"></li>
-					
-						</ol>
-
-						<div class="carousel-inner" role="listbox">
-                        	<div class="item active">
-                             	<img src="images/Desert.jpg" />
-                             	
-                        	</div>
-                       	    <div class="item">
-                             	<img src="images/Jellyfish.jpg" alt="">
-                             	
-                        	</div>
-                        	<div class="item">
-                             	<img src="images/Hydrangeas.jpg" alt="">
-                             	
-                        	</div>
-                        	<div class="item">
-                             	<img src="images/Chrysanthemum.jpg" alt="">
-                             	
-                        	</div>
-                        	<div class="item">
-                             	<img src="images/Tulips.jpg" alt="">
-                             	
-                        	</div>
-                        	<div class="item">
-                             	<img src="images/Penguins.jpg" alt="">
-                             	
-                        	</div>
-                        	<div class="item">
-                             	<img src="images/Lighthouse.jpg" alt="">
-                             	
-                        	</div>
-                        	<div class="item">
-                             	<img src="images/Koala.jpg.jpg" alt="">
-                             	
-                        	</div>
-
-						</div>
-
-						<a class="left carousel-control" href="#img-slider" role="button" data-slide="prev">
-						<span  class="glyphicon glyphicon-chevron-left"aria-hidden="true"></span>
-						</a>
-						<a class="right carousel-control" href="#img-slider" role="button" data-slide="next">
-						<span  class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-						</a>
-
-
-					</div>  <!-- IMAGE CAROUSEL ENDS HERE  -->
-
-                </div>  <!-- MODAL BODY ENDS HERE  -->
-                    
-            </div>
-        </div>
-    </div>
-
 	
-	<!--Enroll container -->
+	
+	
+	<div class="container-fluid top-pad">
+		
+		<div class="row">
+		
+		<div class="col-md-12 contact-form">
+			<h2>Contact Us</h2>
+			<p class="text">Have doubts in mind? How about sharing then with us? We would be happy to hear from you.</p>
+			<?php
+					if(isset($_GET['qs']) && $_GET['qs'] == 1){
+						echo '
+							<p class="success">Thank You for reaching us. We will get in touch at the earliest.</p>
+						';
+					}					
+				?>
+			<div class="row">
+				<div class="col-md-6" id="contact">
+				
+					
+					<?php
+					if(isset($_GET['qs']) && $_GET['qs'] == 1){
+						echo '
+							<p class="success">Thank You for reaching us. We will get in touch at the earliest.</p>
+						';
+					}					
+					?>
+					<form action="includes/contact.inc.php" method="POST">
+						<div class="col-md-6">
+							<div class="form-group">
+								<input type="email" required class="form-control" id="email" name="email" placeholder="Email">
+								<p id="error_email"></p>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<input type="text" required class="form-control" id="phone" name="phone" maxlength="10" placeholder="Contact Number">
+								<p id="error_contact"></p>
+							</div>
+						</div>	
+						<div class="col-md-12">
+							<div class="form-group">
+								
+								<input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group ">
+								<textarea class="form-control" id="msg" rows="3" placeholder="Message" name="message"  required></textarea>
+								<button type="submit" id="submit" name="submit" class="btn btn-default submit">Send Query</button>
+							</div>
+						</div>
+					</form>
 
-	<div class="container">
-		<div class="row enroll" >
-			<div class="col-sm-4 slogan" data-aos="fade-right" data-aos-once="true">
-				EDUCATION FOR A BETTER FUTURE!
-			</div>
-			<div class="col-sm-5 mission">
-				The mission of the Institute of Applied Science is to help prepare outstanding educators, scholars, and researchers, through research on the science and art of teaching and learning, the application of clinical processes, the effective uses of technology, and the analysis and development of leadership and educational policy.
-			</div>
-			<div class="col-sm-3">
-				<button class="enroll-btn" data-target="#updateModal" data-toggle="modal" data-aos="fade-left" data-aos-once="true">ENROLL NOW</button>
+				
+				</div>
+				
+				<div class="col-sm-6 side">
+				
+					<table>
+						<tr>
+							<td><p><span class="fa fa-phone"></span>Call us : </p></td>
+							<td class="ans"><p >(033) 2657-3758</p></td>
+						</tr>
+						<tr>
+							<td><p><span class="fa fa-envelope-o"></span>Email : </p></td>
+							<td class="ans"><p >support@ias.com</p></td>
+						</tr>
+						<tr>
+							<td style="vertical-align:top;"><p><span class="fa fa-address-book-o"></span>Address : </p></td>
+							<td class="ans"><p >INSTITUTE OF APPLIED SCIENCE<br>
+					67B, Maharaja Thakur Road,<br>Dhakuria, Kolkata-700031</p></td>
+						</tr>
+					
+					</table>
+					
+				</div>
 			</div>
 		</div>
-
-	</div>  <!--Enroll container -->
-
-	<!--Enroll Modal -->
+		</div>
+	</div>
 	
-	<div class="modal hide fade" id="updateModal"  >
-        <div class="modal-dialog">
-            <div class="modal-content" >
-                <div class="modal-header">
-                        
-                     <p class="modal-title">XD</p>
-                        
-                     <button class="closed" style="float:right;" data-dismiss="modal">X</button><br><br>
-                     <iframe src="https://giphy.com/embed/3oriO2H4VbrgNdPg8U" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/blunttalk-season-2-starz-3oriO2H4VbrgNdPg8U">via GIPHY</a>
-                </div>
-				<div class="modal-body">
-                        
-				</div>  <!-- MODAL BODY ENDS HERE  -->
-                    
-            </div>
-        </div>
-    </div>
+	
+	
+	
 
-
-	<div class="container-fluid contact-form" id="contact" data-stellar-background-ratio="0.4">
+	<!--<div class="container-fluid contact-form" id="contact" data-stellar-background-ratio="0.4">
 		<div class="row">
 			<div class="col-sm-5 contactus" data-aos="fade-up" data-aos-once="true" data-aos-delay="300">
 				<p class="send-query">Send Your Queries</p>
@@ -537,72 +426,22 @@
 				</form>
 			</div>
 		</div>
-	</div>
+	</div>-->
 	
-	<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
-      </div>
-      <div class="modal-body">
-        <p>Some text in the modal.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
 
-  </div>
-</div>
 	
-	<footer>
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-3">
-					<h4 style="border-bottom:1px solid white; padding-bottom: 5px;">Copyright &copy; 2016 IAS</h4>
-					<h4>Follow Us:</h4>
-					<span class="fa fa-google-plus-square" style="font-size:25px;" aria-hidden="true"></span>
-					<span class="fa fa-facebook-official" style="font-size:25px;"aria-hidden="true"></span>
-					<span class="fa fa-youtube" aria-hidden="true"  style="font-size:25px;"></span>
-					<span class="fa fa-twitter-square" style="font-size:25px;" aria-hidden="true"></span>
-				</div>
-				<div class="col-sm-4">
-					<h4 style="border-bottom:1px solid white; padding-bottom: 5px;">About us</h4>
-					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-				</div>
-				<div class="col-sm-2">
-					<h4 style="border-bottom:1px solid white; padding-bottom: 5px;">Quick Links</h4>
-					<ul>
-						<li><a href="#">Career</a></li>
-						<li><a href="#">Academics</a></li>
-						<li><a href="#">Announcements</a></li>
-						<li><a href="#">Admission</a></li>
-						<li><a href="#">For Students</a></li>
-						<li><a href="#">Route Map</a></li>
-						<li><a href="#">FAQs</a></li>
-					</ul>
-				</div>
-				<div class="col-sm-3">
-					<h4 style="border-bottom:1px solid white; padding-bottom: 5px;">Contact Us</h4>
-						<p>INSTITUTE OF APPLIED SCIENCE <br>
-							67B, Maharaja Thakur Road,<br>
-							Dhakuria, Kolkata-700031<br>
-							Contact Number: (+91) 900-240-2787
-						</p>
-				</div>
-			</div>
-		</div>
-	</footer>
+	<?php
+	
+		include('footer.php');
+		
+	?>
 	
 
     <script src="js/jquery-3.2.1.min.js"></script> 
     <script src="js/bootstrap.js"></script>
 	<script src="js/aos.js"></script>
-	<script src="js/smoothscroll.js"></script>
-    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>	
+	
+	<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>	
 	<script src="js/jquery.marquee.js" type="text/javascript"></script>
 	<script>
 		$('.marquee').marquee({
@@ -626,12 +465,26 @@
 	<script>
     AOS.init();
   </script>
-    
-    <script> 
-
-
-
-    	$('#submit').on('click',function() {
+    <script src="vendor/js/lightslider.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#light-slider").lightSlider({
+				item: 4,
+				auto: true,
+				pauseOnHover: false,
+				loop: true,
+				keyPress: false,
+				controls: true,
+				prevHtml: '',
+				nextHtml: '',
+				adaptiveHeight:false
+			});
+		});
+	</script>
+	
+	
+    <script>
+		$('#submit').on('click',function() {
     		 if ($('#email').val()=="") {
     			$('#email').addClass('animated shake');
     			$('#email').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){

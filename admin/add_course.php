@@ -202,7 +202,20 @@
 									<button type="submit" class="btn btn-primary pull-right" name="add-course">Save / Publish</button>
 								</div>
 								<?php
-								
+									if(isset($_GET['crsTPnA']))
+									{
+										echo '			    
+											<div id="success-modal">
+												<div class="modalconent">
+													<h3 style="color:teal;">Information</h3>
+													<hr>	
+													<p class="para">Course type you entered does not exist. Sure to create it?.</p> 
+													<button id="button" type="button" class="btn btn-danger btn-sm pull-right">No</button>
+													&nbsp; &nbsp;<button id="button" name="add-course1" class="btn btn-warning btn-sm pull-right">Yes</button>
+												</div>
+											</div>
+										';			
+									}
 								?>
 							</form>
 						</div>
@@ -254,20 +267,7 @@
 			';			
 		}
 		
-		if(isset($_GET['crsTPnA']))
-		{
-			echo '			    
-				<div id="success-modal">
-					<div class="modalconent">
-						<h3 style="color:teal;">Information</h3>
-						<hr>	
-						<p class="para">Course type you entered does not exist. Sure to create it?.</p> 
-						<button id="button" type="button" class="btn btn-danger btn-sm pull-right">No</button>
-						&nbsp; &nbsp;<button id="button" name="add-course1" class="btn btn-warning btn-sm pull-right">Yes</button>
-					</div>
-				</div>
-			';			
-		}
+		
 	
 	?>
 	
