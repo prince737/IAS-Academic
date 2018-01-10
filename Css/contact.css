@@ -35,78 +35,13 @@ html, body {
 	padding:10px;
 }
 
-.navbar{
-	margin-bottom:0px;
-	background-color:#002147;
-	border-radius:0px;
-}
 
-
-.actv{
-	border-top:1px solid #DEF2F3;
-	border-bottom:1px solid #DEF2F3;
-}
-
-
-
-.brand-div{
-	line-height:38px;
-	padding-top:20px;
-	padding-left:68px;
-}
-
-.brand{
-	font-family:"Times New Roman", Georgia, Serif;
-	color:white;
-	font-size:23px;
-	padding-top:3px;
-}
-
-.navbar-brand{
-	
-	font-family: "Times New Roman", Georgia, Serif;
-	
-}
-
-.navbar-brand img{
-	display:inline-block;
-	max-height: 20px;
-	max-width: 20px;
-	margin-right: 10px;
-}
-
-.brand span{
-	font-family:"Times New Roman", Georgia, Serif;
-	color:white;
-	font-size:30px;
-	
-}
-
-.tag{
-	color:#DEF2F3;
-	font-size:25px;
-	font-family: "Brush Script Std", Brush Script MT, cursive;
-}
-
-
-.brand-div td{
-	padding-left:15px;
-}
-
-
-.logo{
-	height:78px;
-	width:78px;
-	border-radius:10px;
-	font-weight:300i;
-	float:left;
-}
 
 
 /*BANNER SECTION*/
 
 .contact-banner{
-	
+	margin-top:-20px;
 	background-image: url("../images/untitled.png");
 	background-size: 100%;
 	text-align:center;
@@ -304,72 +239,13 @@ html, body {
 
 
 
-/* Footer */
 
-footer{
-	background: #002147;
-	color: #eee;
-	padding:20px;
-	font-family: 'Roboto', sans-serif;
-	font-weight: 300;
-	font-size: 15px;
-	margin-top:30px;
-}
-
-.fa{
-	padding:5px;
-	font-size: 45px;
-}
-
-footer ul{
-	list-style-type: none;
-	padding: 0px;
-}
 
 
 /*MEDIA QUERIES*/
 
 @media screen and (min-width: 768px) {
-	.brand-sm{
-		display:none;
-	}
-	.menu{
-		margin-top:35px;
-		padding-left:50px;
-	}
 	
-	.nav.navbar-nav li a {
-		color: #DEF2F3;
-		font-size: 15px;
-		
-	}
-
-	.nav.navbar-nav li ul li a{
-		color:#3277ae;
-		font-size:14px;
-		padding: 10px 20px;
-		margin-left:5px;
-		margin-right:10px;
-	}
-
-
-	.nav.navbar-nav li ul li{
-		border-bottom:1px solid #D3D3D3;
-	}
-
-	.nav.navbar-nav li ul li:last-child {
-	  border-bottom: none;
-	}
-
-	.nav.navbar-nav li ul li:hover{
-		color:white;
-		background:#3277ae;
-	}
-
-	.nav.navbar-nav li ul li a:hover{
-		color:white;
-		background:#3277ae;
-	}
   
   #sili{
 	  margin-left:25%;
@@ -395,9 +271,7 @@ footer ul{
 
 @media screen and (max-width: 768px) {
   
-  	.brand-div{
-		display:none;
-	}
+  
 
 	.map{
 		display:none;
@@ -413,9 +287,7 @@ footer ul{
 }
   
   @media screen and (min-width: 1200px) {
-	.navbar{
-		height:120px;
-	}
+	
 }
   
   

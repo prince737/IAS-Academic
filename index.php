@@ -444,6 +444,8 @@
 	
 	<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>	
 	<script src="js/jquery.marquee.js" type="text/javascript"></script>
+	
+
 	<script>
 		$('.marquee').marquee({
 			duration: 10000,
@@ -549,6 +551,10 @@
         
 	});	
 	
+	</script>
+	
+	<script>
+		alert(window.location.href);
 	</script>
     
 </body>
