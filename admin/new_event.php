@@ -96,7 +96,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="active_events.php">
+								<a href="active_notices.php">
 									<span>View Active</span>
 								</a>
 							</li>
@@ -264,7 +264,7 @@
 		window.onload = function () {
 			document.getElementById('button').onclick = function () {
 				document.getElementById('success-modal').style.display = "none"
-				window.location = "new_event.php";
+				window.location.replace('new_event.php');
 			};
 		};
 	</script>

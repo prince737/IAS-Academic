@@ -863,7 +863,7 @@
 					<h1>Our Mission</h1>
 					<p>The mission of the Institute of Applied Science is to help prepare outstanding educators, scholars, and researchers, and to advance the profession of education, as broadly defined, through research on the science and art of teaching and learning, the application of clinical processes, the effective uses of technology, and the analysis and development of leadership and educational policy.</p>
 					<a href="registration.php">Join us Now!</a>
-					<a href="admission.html">Browse Admission Process</a><br><br>
+					<a href="admission.php">Browse Admission Process</a><br><br>
 				</div>
 			</div>
 		</div>

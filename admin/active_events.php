@@ -396,7 +396,7 @@
 		window.onload = function () {
 			document.getElementById('button').onclick = function () {
 				document.getElementById('success-modal').style.display = "none"
-				window.location = "active_events.php";
+				window.location.replace('active_events.php');
 			};
 		};
 	</script>

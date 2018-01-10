@@ -84,7 +84,7 @@
 						</a>
 						<ul class="collapse collapsable" id="collapse-post2" style="margin:0px; padding:0px; ">
 							<li>
-								<a href="#">
+								<a href="add_event.php">
 									<span>Create New</span>
 								</a>
 							</li>

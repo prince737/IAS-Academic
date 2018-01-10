@@ -100,7 +100,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="active_events.php">
+								<a href="active_notices.php">
 									<span>View Active</span>
 								</a>
 							</li>

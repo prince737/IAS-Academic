@@ -22,6 +22,20 @@
 	padding-top:3px;
 }
 
+.brand-sm p{
+	font-family:"Times New Roman", Georgia, Serif;
+	color:white;
+	font-size:16px;
+	display:inline-block;
+}
+
+.brand-sm p span{
+	font-family:"Times New Roman", Georgia, Serif;
+	color:white;
+	font-size:23px;	
+	
+}
+
 .navbar-brand{
 	
 	font-family: "Times New Roman", Georgia, Serif;
@@ -128,11 +142,29 @@
 	
   }
 
+  @media screen and (max-width: 667px) {
+	
+	.brand-sm p{
+		font-family:"Times New Roman", Georgia, Serif;
+		color:white;
+		font-size:14px;
+		display:inline-block;
+	}
+
+	.brand-sm p span{
+		font-family:"Times New Roman", Georgia, Serif;
+		color:white;
+		font-size:21px;
+	}	
+  }
+  
+  
 .navbar-brand img{
 	display:inline-block;
-	max-height: 20px;
-	max-width: 20px;
+	max-height: 30px;
+	max-width: 30px;
 	margin-right: 10px;
+	margin-top:-2%;
 }
 
 .slide-show{

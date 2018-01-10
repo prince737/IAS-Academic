@@ -125,12 +125,12 @@
 						</a>
 						<ul class="collapse collapsable" id="collapse-post2" style="margin:0px; padding:0px; ">
 							<li>
-								<a href="#">
+								<a href="new_event.php">
 									<span>Create New</span>
 								</a>
 							</li>
 							<li>
-								<a href="#">
+								<a href="active_events.php">
 									<span>View Active</span>
 								</a>
 							</li>
@@ -379,7 +379,7 @@
 		window.onload = function () {
 			document.getElementById('button').onclick = function () {
 				document.getElementById('success-modal').style.display = "none"
-				window.location = "active_notices.php";
+				window.location.replace('active-notices.php');
 			};
 		};
 	</script>

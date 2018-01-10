@@ -11,7 +11,7 @@
 					<span class="icon-bar"></span>
 				</button>
 				
-				<a class="navbar-brand brand-sm" href="index.html" style="color:white;"><img src="images/logo.jpg"/>Institute of Applied Science</a>
+				<a class="navbar-brand brand-sm" href="index.html" style="color:white;"><img src="images/logo.jpg"/><p><span>I</span>NSTITUTE OF <span>A</span>PPLIED <span>S</span>CIENCE</p></a>
 			</div>
 			
 			
@@ -61,10 +61,10 @@
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">ADMISSIONS<span class="caret"></span></a>
 								<ul class="dropdown-menu" >
 									
-									<li><a tabindex="-1" href="admissions.html">ADMISSION PROCESS</a></li>
-									<li><a tabindex="-1" href="direct_adm.html">DIRECT ADMISSION</a></li>
-									<li><a tabindex="-1" href="SET.html">SCHOLARSHIP ENTRANCE TEST (SET)</a></li>
-									<li><a tabindex="-1" href="provisional.html">PROVISIONAL ADMISSION</a></li>
+									<li><a tabindex="-1" href="admissions.php">ADMISSION PROCESS</a></li>
+									<li><a tabindex="-1" href="direct_adm.php">DIRECT ADMISSION</a></li>
+									<li><a tabindex="-1" href="SET.php">SCHOLARSHIP ENTRANCE TEST (SET)</a></li>
+									<li><a tabindex="-1" href="provisional.php">PROVISIONAL ADMISSION</a></li>
 
 								</ul>
 

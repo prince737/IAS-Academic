@@ -7,6 +7,6 @@ $(document).ready(function() {
 window.onload = function () {
     document.getElementById('button').onclick = function () {
         document.getElementById('success-modal').style.display = "none"
-		window.location = "admin.php";
+		window.location.replace('admin.php');
     };
 };

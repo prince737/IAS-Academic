@@ -17,6 +17,7 @@
 	<title>Home | IAS</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/home.css">
+	<link rel="stylesheet" type="text/css" href="css/header.css">
     <link rel="stylesheet" type="text/css" href="css/animate.css">
 	<link rel="stylesheet" type="text/css" href="css/aos.css">
 	<link rel="stylesheet" type="text/css" href="vendor/css/lightslider.css">
@@ -34,7 +35,7 @@
 	
 	<div class="container-fluid for-sm">
 		<div class="row cover">
-			fgggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
+			
 		</div>
 	</div>
 	
