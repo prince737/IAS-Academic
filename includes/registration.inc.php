@@ -6,27 +6,39 @@ include_once 'dbh.inc.php';
 include 'simple-crypt.inc.php';
 
 
+
+$name = mysqli_real_escape_string($conn, $_POST['name']);
+$gender = mysqli_real_escape_string($conn, $_POST['gender']);
+$dob = mysqli_real_escape_string($conn, $_POST['date']);
+$email = mysqli_real_escape_string($conn, $_POST['email']);
+$contact = mysqli_real_escape_string($conn, $_POST['contact']);
+$gname = mysqli_real_escape_string($conn, $_POST['gname']);
+$gcontact = mysqli_real_escape_string($conn, $_POST['gcontact']);
+$address = mysqli_real_escape_string($conn, $_POST['address']);
+$he = mysqli_real_escape_string($conn, $_POST['he']);
+$inst = mysqli_real_escape_string($conn, $_POST['inst']);
+$yop = mysqli_real_escape_string($conn, $_POST['yop']);
+$courseName = mysqli_real_escape_string($conn, $_POST['course_name']);
+$courseType = mysqli_real_escape_string($conn, $_POST['course_type']);
+$edu = mysqli_real_escape_string($conn, $_POST['edu']);
+$dept = mysqli_real_escape_string($conn, $_POST['dept']); 
+$university = mysqli_real_escape_string($conn, $_POST['university']);
+$college = mysqli_real_escape_string($conn, $_POST['college']); 
+$school = mysqli_real_escape_string($conn, $_POST['school']); 
+$courseName = mysqli_real_escape_string($conn, $_POST['course_name']);
+$courseType = mysqli_real_escape_string($conn, $_POST['course_type']);
+$pwd = mysqli_real_escape_string($conn, $_POST['pwd']);
+
+
+
+
+
 if(isset($_POST['register']))
-{
-	
-	
-	
+{	
 	$arr = array();
 	
-	$name = mysqli_real_escape_string($conn, $_POST['name']);
-	$gender = mysqli_real_escape_string($conn, $_POST['gender']);
-	$dob = mysqli_real_escape_string($conn, $_POST['date']);
-	$email = mysqli_real_escape_string($conn, $_POST['email']);
-	$contact = mysqli_real_escape_string($conn, $_POST['contact']);
-	$gname = mysqli_real_escape_string($conn, $_POST['gname']);
-	$gcontact = mysqli_real_escape_string($conn, $_POST['gcontact']);
-	$address = mysqli_real_escape_string($conn, $_POST['address']);
-	$he = mysqli_real_escape_string($conn, $_POST['he']);
-	$inst = mysqli_real_escape_string($conn, $_POST['inst']);
-	$yop = mysqli_real_escape_string($conn, $_POST['yop']);
-	$courseName = mysqli_real_escape_string($conn, $_POST['course_name']);
-	$courseType = mysqli_real_escape_string($conn, $_POST['course_type']);
-	$pwd = mysqli_real_escape_string($conn, $_POST['pwd']);
+	
+	
 		
 	$fileName = $_FILES['image']['name'];
 	$fileTmpName = $_FILES['image']['tmp_name'];
@@ -160,31 +172,35 @@ if(isset($_POST['register']))
 	}	
 	
 } 
-elseif(isset($_POST['course_type'])){
+elseif(isset($_POST['course_name'])){
 	
 	
-	$name = mysqli_real_escape_string($conn, $_POST['name']);
-	$gender = mysqli_real_escape_string($conn, $_POST['gender']);
-	$dob = mysqli_real_escape_string($conn, $_POST['date']);
-	$email = mysqli_real_escape_string($conn, $_POST['email']);
-	$contact = mysqli_real_escape_string($conn, $_POST['contact']);
-	$gname = mysqli_real_escape_string($conn, $_POST['gname']);
-	$gcontact = mysqli_real_escape_string($conn, $_POST['gcontact']);
-	$address = mysqli_real_escape_string($conn, $_POST['address']);
-	$he = mysqli_real_escape_string($conn, $_POST['he']);
-	$inst = mysqli_real_escape_string($conn, $_POST['inst']);
-	$yop = mysqli_real_escape_string($conn, $_POST['yop']);
 	
-	$val= array(simple_crypt($name,'e'),simple_crypt($dob,'e'),simple_crypt($email,'e'),simple_crypt($contact,'e'),simple_crypt($gname,'e'),simple_crypt($gcontact,'e'),simple_crypt($address,'e'),simple_crypt($he,'e'),simple_crypt($inst,'e'),simple_crypt($yop,'e'),simple_crypt($gender, 'e'));
-	$query1 = http_build_query($val);
 		
-	
-	
-	
+	$val= array(simple_crypt($name,'e'),simple_crypt($dob,'e'),simple_crypt($email,'e'),simple_crypt($contact,'e'),simple_crypt($gname,'e'),simple_crypt($gcontact,'e'),simple_crypt($address,'e'),simple_crypt($he,'e'),simple_crypt($inst,'e'),simple_crypt($yop,'e'),simple_crypt($gender, 'e'),$edu, $dept, $university, $college, $school);
+	$query1 = http_build_query($val);	
 	
 	$courseType = $_POST['course_type'];
 	
-	$query = "select course_name from courses where course_type = '$courseType'";
+	
+	
+	$query = http_build_query($arr);
+	header("Location: ../registration.php?class=$he&$query1&select=$courseType&courseName=$courseName#education");
+	exit();
+	
+	
+	
+}
+
+elseif(isset($_POST['course_type'])){
+	
+		
+	$val= array(simple_crypt($name,'e'),simple_crypt($dob,'e'),simple_crypt($email,'e'),simple_crypt($contact,'e'),simple_crypt($gname,'e'),simple_crypt($gcontact,'e'),simple_crypt($address,'e'),simple_crypt($he,'e'),simple_crypt($inst,'e'),simple_crypt($yop,'e'),simple_crypt($gender, 'e'),$edu, $dept, $university, $college, $school);
+	$query1 = http_build_query($val);	
+	
+	$courseType = $_POST['course_type'];
+	
+	/*$query = "select course_name from courses where course_type = '$courseType'";
 	$result = mysqli_query($conn, $query);
 	$i=20;
 	while($row = mysqli_fetch_array($result)){
@@ -192,11 +208,27 @@ elseif(isset($_POST['course_type'])){
 		$i++;
 	}
 	$max = $i-20;
-	$query = http_build_query($arr);
-	header("Location: ../registration.php?$query&$query1&select=$courseType&limit=$max#course");
+	$query = http_build_query($arr);*/
+	header("Location: ../registration.php?class=$he&select=$courseType#education");
 	exit();
 	
 }
+
+elseif(isset($_POST['he'])){
+	 
+
+	
+	$val= array(simple_crypt($name,'e'),simple_crypt($dob,'e'),simple_crypt($email,'e'),simple_crypt($contact,'e'),simple_crypt($gname,'e'),simple_crypt($gcontact,'e'),simple_crypt($address,'e'),simple_crypt($he,'e'),simple_crypt($inst,'e'),simple_crypt($yop,'e'),simple_crypt($gender, 'e'));
+	$query1 = http_build_query($val);
+	
+	//$courseType = $_POST['course_type'];	
+	
+	header("Location: ../registration.php?class=$he&$query1&#education");
+	exit();	
+
+}
+
+
 else {
 	header("Location: ../registration.php?");
 	exit();

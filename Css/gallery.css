@@ -72,12 +72,22 @@ html{
 	font-family:"Times New Roman", Georgia, Serif;
 }
 .brand{
-	font-size:30px!important;
+	font-size:30px!important;	
 }
 
 .brand span{
 	font-size:50px!important;
 }
+
+.brand a{
+	color:#fff;
+	font-family:"Times New Roman", Georgia, Serif;
+}
+
+.brand a:hover{
+	text-decoration:none;
+}
+
 
 #sidebar{
 	background:#424242;

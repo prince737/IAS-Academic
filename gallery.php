@@ -170,7 +170,7 @@
 			<span class="pull-right">Gallery</span>
 		</div>
 		<div class="jumbotron text-center">
-			<p class="brand"><span>I</span>NSTITUTE OF <span>A</span>PPLIED <span>S</span>CIENCE</p>
+			<p class="brand"><a href="index.php"><span>I</span>NSTITUTE OF <span>A</span>PPLIED <span>S</span>CIENCE</a></p>
 			<p class="about">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining <span style="color:#51d2e8;">essentially unchanged</span></p> 
 			<div class="btn-group">
 			    <button class="btn <?php if(!isset($_GET['RRnpo'])){ echo 'active'; }?>" onclick="location.href='gallery.php'">All</button>

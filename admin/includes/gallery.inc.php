@@ -1,7 +1,8 @@
 <?php
-
+	session_start();
+	include_once '../../includes/dbh.inc.php';
 	if(isset($_POST['save'])){
-		include_once '../../includes/dbh.inc.php';
+		
 		
 		$caption = mysqli_real_escape_string($conn, $_POST['caption']);
 		$folder = mysqli_real_escape_string($conn, $_POST['folder']);
@@ -57,6 +58,31 @@
 				exit();
 			}	
 		}			
+	}
+	elseif(isset($_POST['delete'])){
+		$location=  mysqli_real_escape_string($conn, $_POST['location']);
+		$gid= mysqli_real_escape_string($conn, $_POST['gid']);
+		
+		$f= explode('/', $location);
+		$folder = $f[1];
+		
+		$path = "../../".$location;
+		
+		if(!unlink($path)){
+			header("Location: ../remove_image.php?err&folder=$folder");
+			exit();
+		}
+		else{
+			$query= "delete from gallery where gid=$gid";
+			if(!mysqli_query($conn,$query)){
+				header("Location: ../remove_image.php?err&folder=$folder");
+				exit();
+			}
+			else{
+				header("Location: ../remove_image.php?success&folder=$folder");
+				exit();
+			}
+		}
 	}
 	else
 	{

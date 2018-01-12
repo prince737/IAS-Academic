@@ -12,7 +12,7 @@
 .brand-div{
 	line-height:38px;
 	padding-top:20px;
-	padding-left:68px;
+	padding-left:15px;
 }
 
 .brand{
@@ -52,7 +52,7 @@
 .brand span{
 	font-family:"Times New Roman", Georgia, Serif;
 	color:white;
-	font-size:30px;	
+	font-size:35px;	
 }
 
 .tag{
@@ -69,7 +69,7 @@
 
 .logo{
 	height:78px;
-	width:78px;
+	width:100px;
 	border-radius:10px;
 	font-weight:300i;
 	float:left;
@@ -87,7 +87,7 @@
 	}
 	.menu{
 		margin-top:35px;
-		padding-left:50px;
+		padding-left:80px;
 	}
 	
 	.nav.navbar-nav li a {

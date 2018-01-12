@@ -20,7 +20,7 @@
 				<div class="row">
 					<div class="col-lg-5 brand-div">
 						
-						<img src="images/logo.jpg" class="logo"/>
+						<a href="index.php"><img src="images/logo.jpg" class="logo"/></a>
 						<table>
 							<tr>	
 								<td valign="center" style="line-height:30px;">

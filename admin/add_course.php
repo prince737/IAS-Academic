@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	
-	
+	include_once '../includes/dbh.inc.php';
 	
 ?>
 
@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/default.css">
 	<link rel="stylesheet" type="text/css" href="css/notices.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/css/chosen.min.css">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -107,7 +108,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="#">
+								<a href="remove_image.php">
 									<span>Delete Existing</span>
 								</a>
 							</li>
@@ -186,6 +187,47 @@
 								<div class="form-group">
 									<label class="sr-only">Course Name</label>
 									<input type="text" value="<?php if(isset($_GET['nm'])){ echo $_GET['nm']; }  ?>" class="form-control" name="cname" placeholder="Course Name" required />
+								</div>
+								<div class="form-group ">
+									<select class="form-control chosen_select" id="he" name="classes[]" required multiple data-placeholder="Choose who can apply for this course">	
+										<?php
+											$array = array('Class X', 'Class XI', 'Class XII', 'Btech', 'Mtech', 'Other');
+											$i=20;
+											for($j=0; $j<6; $j++){ 
+												if(isset($_GET['climit']) && $_GET[$i] == $array[$j] ){
+													echo '<option selected>'.$array[$j].'</option>';	
+														$i++;
+												}
+												else{
+													echo '<option>'.$array[$j].'</option>';												
+												}
+											}
+										?>		
+										
+									</select>	
+								</div>
+								<div class="form-group ">
+									<select class="form-control chosen_select" id="he" name="centers[]" required multiple data-placeholder="Choose centers where this course will be available">		
+										<?php	
+											$query ="select center_name from centers";
+											$result=mysqli_query($conn,$query);
+											$i=0;
+											while($row = mysqli_fetch_array($result)){
+												if(isset($_GET['limit']) && $_GET[$i] == $row['center_name'] ){
+													echo '<option selected>'.$row['center_name'].'</option>';	
+													$i++;		
+												}
+												else{
+												
+													echo '<option>'.$row['center_name'].'</option>';
+												}
+											}
+											
+											
+											
+										?>	
+										
+									</select>	
 								</div>
 								<div class="form-group">
 									<label class="sr-only">Course Description</label>
@@ -278,9 +320,20 @@
 
 	<script src="../js/jquery-3.2.1.min.js"></script>	
 	<script src="../js/bootstrap.js"></script>
-	<script src="js/default.js"></script>
+	
+	<script src="../vendor/js/chosen.jquery.min.js"></script>
+	<script>
+		$(".chosen_select").chosen({
+			disable_search_threshold: 10,
+			no_results_text: "Oops, nothing found!",
+			width: "100%"
+		});
+
+	
+	</script>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	
+	
 	<script>
 		window.onload = function () {
 			document.getElementById('button').onclick = function () {
@@ -291,13 +344,15 @@
 		};
 	</script>
 	<script>
-	document.getElementById('buttoner').onclick = function () {
-				document.getElementById('success-modal').style.display = "none",
-				window.location.replace('add_course.php');
-			};
+		document.getElementById('buttoner').onclick = function () {
+			document.getElementById('success-modal').style.display = "none",
+			window.location.replace('add_course.php');
+		};
 		
 	
 	</script>
+	
+	
 	
 
 </body>

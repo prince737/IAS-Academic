@@ -156,7 +156,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="#">
+								<a href="remove_image.php">
 									<span>Delete Existing</span>
 								</a>
 							</li>

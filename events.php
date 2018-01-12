@@ -1,14 +1,8 @@
 <?php
-
+	
 	session_start();
 	require_once('includes/dbh.inc.php');	
-	
 		
-	$query ="Select * from events where events_status=1";
-	$result =@mysqli_query($conn,$query);
-	
-	$result1 =@mysqli_query($conn,$query);
-	
 ?>
 
 
@@ -67,6 +61,10 @@
 	<script src="vendor/js/monthly.js"></script>
 	
 	<?php
+		$query ="Select * from events where events_status=1";
+		$result =@mysqli_query($conn,$query);
+	
+		$result1 =@mysqli_query($conn,$query);
 		$count = 0;
 		$index=0;
 		$colors = array('#669966', '#666699','#999966','#666699','#CC99CC');

@@ -2,11 +2,14 @@ $( function() {
 		$( "#datepicker" ).datepicker({
 			changeMonth: true,
 			changeYear: true,
-			yearRange: '1990:2017',
+			yearRange: '1990:2012',
 			altField: "#datepicker",
 			altFormat: "yy-mm-dd",
+			defaultDate: "-27y -12m"
 		});
 	} );
+	
+	
 	
 	//INput field validations
 	

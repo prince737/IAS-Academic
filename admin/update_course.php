@@ -65,6 +65,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/default.css">
 	<link rel="stylesheet" type="text/css" href="css/notices.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/css/chosen.min.css">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -159,7 +160,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="#">
+								<a href="remove_image.php">
 									<span>Delete Existing</span>
 								</a>
 							</li>
@@ -253,6 +254,7 @@
 									<select class="form-control" id="course" name="courseName" onchange="this.form.submit()">
 										<option selected>Choose a Course to Update</option>
 										<?php
+											global $resultName;
 											if($resultName){
 												while($row = mysqli_fetch_array($resultName)){
 													global $selectedName;
@@ -274,9 +276,10 @@
 							
 							<form action="includes/courses.inc.php" method="POST">
 								<?php
+									
 									global $result;
 									if($result){
-										while($row = mysqli_fetch_array($result)){
+										while($row = mysqli_fetch_array($result)){									
 											echo '
 												<div class="form-group">
 													<label for="cid">Course Id:</label>
@@ -289,6 +292,58 @@
 												<div class="form-group">
 													<label for="cname">Course Name:</label>
 													<input type="text" id="cname" value="'.$row['course_name'].'" class="form-control" name="cname" placeholder="Course Name" required />
+												</div>
+												<div class="form-group ">
+													<label for="he">Students who can take this Course:</label>
+													<select class="form-control chosen_select" id="he" name="classes[]" required multiple>';	
+												$course_id= $row['course_id'];
+												$query="select edu from course_edu where course_id=$course_id";
+												$edu = mysqli_query($conn, $query);
+												$array = array('Class X', 'Class XI', 'Class XII', 'Btech', 'Mtech', 'Other');
+												
+												while($edu_row= mysqli_fetch_array($edu)){
+													
+													$eduArr[]= $edu_row['edu'];
+																												
+												}
+												print_r($eduArr);	
+												
+												$j=0;
+												for($i=0; $i<6; $i++){
+													
+													if($array[$i]==$eduArr[$j]){
+														echo '<option selected>'.$array[$i].'</option>';								
+														$j++;
+													}
+													else{
+														echo '<option>'.$array[$i].'</option>';
+													}
+												}
+												echo '
+													</select>
+												</div>
+												<div class="form-group">
+													<select class="form-control chosen_select" id="he" name="centers[]" required multiple data-placeholder="Choose centers where this course will be available">';
+													
+												$query = "select center_name from centers";
+												$res=mysqli_query($conn,$query);
+												$i=0;
+												$query = "select center_name from centers, course_center where centers.center_id=course_center.center_id and course_id=$course_id";	
+												$res1 = mysqli_query($conn, $query);
+												while($rowCenter = mysqli_fetch_array($res1)){
+													$centerArr[]= $rowCenter['center_name'];
+												}					
+												while($rowCenter = mysqli_fetch_array($res)){
+													if($rowCenter['center_name'] == $centerArr[$i]){
+														echo '<option selected>'.$rowCenter['center_name'].'</option>';
+														$i++;
+													}
+													else{
+														echo '<option>'.$rowCenter['center_name'].'</option>';
+													}
+												}												
+											echo '
+													</select>
 												</div>
 												<div class="form-group">
 													<label for="cdesc">Course Description:</label>
@@ -337,6 +392,16 @@
 
 	<script src="../js/jquery-3.2.1.min.js"></script>	
 	<script src="../js/bootstrap.js"></script>
+	<script src="../vendor/js/chosen.jquery.min.js"></script>
+	<script>
+		$(".chosen_select").chosen({
+			disable_search_threshold: 10,
+			no_results_text: "Oops, nothing found!",
+			width: "100%"
+		});
+
+	
+	</script>
 	<script src="js/default.js"></script>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	
