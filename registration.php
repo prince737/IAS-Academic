@@ -291,7 +291,7 @@
 							';
 							
 							
-							$query = "select course_id from course_class where class='$class'";
+							$query = "select course_name from courses where course_type='$select'";
 							$res = mysqli_query($conn, $query);
 							while($row = mysqli_fetch_array($res)){	
 								if(isset($_GET['courseName']) && $_GET['courseName'] == $row['course_name']){
