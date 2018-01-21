@@ -21,11 +21,10 @@
 			</div>
 		';			
 	}
-	
-	
-	
-	
+		
 ?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,6 +94,10 @@
 							elseif($_GET['l'] == 'erre')
 							{
 								echo '<p class="error" style="text-align:center; ">Email you entered was Incorrect</p>';
+							}
+							elseif($_GET['l'] == 'invalid')
+							{
+								echo '<p class="error" style="text-align:center; ">Email you entered is not registered with us.</p>';
 							}
 							elseif($_GET['l'] == 'alrDYreQ')
 							{

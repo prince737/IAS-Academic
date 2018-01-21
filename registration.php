@@ -33,7 +33,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>                        
 				</button>
-				<a href="index.php" class="pull-left"><img src="images/logo.jpg" height="35" width="35" style="margin:8px;"></a>
+				<a href="index.php" class="pull-left"><img src="images/logo.jpg" height="35" width="48" style="margin:8px;"></a>
 				<a class="navbar-brand" href="index.php"><span class="brand"><span>I</span>NSTITUTE OF <span>A</span>PPLIED <span>S</span>CIENCE</span></a>
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">      
@@ -58,7 +58,7 @@
 							echo '<p class="error" style="text-align:center; ">All fields are required. Please fill them carefully. </p>';
 						}	
 				?>
-				<form action="includes/registration.inc.php" method="POST" enctype="multipart/form-data">
+				<form action="includes/registration.inc.php" method="POST" enctype="multipart/form-data" id="form">
 				    <div class="item"><span>1</span>  Your Basic Info</div>
   					<div class="form-group">
 						<label for="name">NAME:</label>
@@ -73,10 +73,10 @@
 					</div>
 					<div class="form-group ">
     					<label for="gender">GENDER:</label><br>						
-						<input type="radio" name="gender" value="male" id="gender" <?php if(isset($_GET['10']) && simple_crypt($_GET['10'],'d')=='male'){echo 'checked';} ?> required> Male<br>
-						<input type="radio" name="gender" value="female" <?php if(isset($_GET['10']) && simple_crypt($_GET['10'],'d')=='female'){echo 'checked';} ?>> Female<br>
-						<input type="radio" name="gender" value="other" 
-							<?php if(isset($_GET['10']) && simple_crypt($_GET['10'],'d')=='other'){echo 'checked'; }?>> Other
+						<input type="radio" name="gender" value="Male" id="gender" <?php if(isset($_GET['10']) && simple_crypt($_GET['10'],'d')=='Male'){echo 'checked';} ?> required> Male<br>
+						<input type="radio" name="gender" value="Female" <?php if(isset($_GET['10']) && simple_crypt($_GET['10'],'d')=='Female'){echo 'checked';} ?>> Female<br>
+						<input type="radio" name="gender" value="Other" 
+							<?php if(isset($_GET['10']) && simple_crypt($_GET['10'],'d')=='Other'){echo 'checked'; }?>> Other
   					</div>
 					<div class="form-group ">
 						<label for="datepicker">DATE OF BIRTH (yyyy-mm-dd):</label>
@@ -139,7 +139,7 @@
 					<div class="item" id="education"><span>2</span>  Education</div>
 					<div class="form-group ">
 						<label for="he">EDUCATION YOU ARE CURRENTLY PURSUING:</label>
-    					<select class="form-control" id="he" name="he" required onchange="this.form.submit()">
+    					<select class="form-control" id="he" name="he" required ">
 							<option selected>Choose your current Education</option>
 							<?php
 								if(isset($_GET['class'])){
@@ -158,6 +158,7 @@
 							?>							
 						</select>	
   					</div>
+					<input id="hidden" name="hidden" type="hidden"></input>
 					<?php
 						if(isset($_GET['class']) && $_GET['class'] == 'Other'){
 							echo '
@@ -165,10 +166,22 @@
 									<label for="address">PLEASE SPECIFY:</label>
 										<input type="text" class="form-control" name="edu" value="';
 										if(isset($_GET['11'])){echo $_GET['11'];} 
-										echo' " required/>
+										echo'" required/>
 								</div>
 								<div class="form-group ">
-									<label for="inst">INSTITUTE WHERE YOU ARE PURSUING YOUR CURRENT EDUCATION:</label>
+									<label for="address">HIGHEST EDUCATION:</label>
+										<input type="text" class="form-control" name="he_other" value="';
+										if(isset($_GET['16'])){echo $_GET['16'];} 
+										echo'" required/>
+								</div>
+								<div class="form-group ">
+									<label for="address">YEAR OF PASSING:</label>
+										<input type="text" class="form-control" maxlength="4" name="yop" value="';
+										if(isset($_GET['9'])){echo simple_crypt($_GET['9'],'d');} 
+										echo '" required/>
+								</div>	
+								<div class="form-group ">
+									<label for="inst">INSTITUTE WHERE YOU ARE PURSUED YOUR HIGHEST EDUCATION:</label>
 									<input type="text" class="form-control" name="inst" id="inst" required value="';
 									if(isset($_GET['8'])){echo simple_crypt($_GET['8'],'d');} 
 									echo '"/>
@@ -182,29 +195,29 @@
 									<label for="address">DEPARTMENT:</label>
 										<input type="text" class="form-control" name="dept" value="';
 										if(isset($_GET['12'])){echo $_GET['12'];} 
-										echo' " required/>
+										echo'" required/>
 								</div>
 								<div class="form-group ">
 									<label for="address">EXPECTED YEAR OF PASSING:</label>
 										<input type="text" class="form-control" maxlength="4" name="yop" value="';
 										if(isset($_GET['9'])){echo simple_crypt($_GET['9'],'d');} 
-										echo' " required/>
+										echo'" required/>
 								</div>								
 								<div class="form-group ">
 									<label for="address">NAME OF YOUR COLLEGE:</label>
 										<input type="text" class="form-control" name="college" value="';
 										if(isset($_GET['14'])){echo $_GET['14'];} 
-										echo' " required/>
+										echo'" required/>
 								</div>
 								<div class="form-group ">
 									<label for="address">NAME OF YOUR UNIVERSITY:</label>
 										<input type="text" class="form-control" name="university" value="';
 										if(isset($_GET['13'])){echo $_GET['13'];} 
-										echo' " required/>
+										echo'" required/>
 								</div>
 							';
 						}
-						elseif(isset($_GET['class']) && ($_GET['class'] == 'Class X' || $_GET['class'] == 'Class XI' || $_GET['class'] == 'Class XII')){
+						elseif(isset($_GET['class']) && ($_GET['class'] == 'Class XI' || $_GET['class'] == 'Class XII')){
 							echo '
 								<div class="form-group ">
 									<label for="address">NAME OF YOUR SCHOOL:</label>
@@ -212,8 +225,37 @@
 										if(isset($_GET['15'])){echo $_GET['15'];} 
 										echo' " required/>
 								</div>
+								<div class="form-group ">
+									<label for="address">BOARD:</label>
+										<input type="text" class="form-control" name="university" value="';
+										if(isset($_GET['13'])){echo $_GET['13'];} 
+										echo' " required/>
+								</div>
+								<div class="form-group ">
+									<label for="address">YOUR SUBJECT COMBINATION (Separated by commas  " , " ):</label>
+										<input type="text" class="form-control" name="sub_combo" value="';
+										if(isset($_GET['17'])){echo $_GET['17'];} 
+										echo' " required/>
+								</div>
 							';	
 							
+						}
+						
+						elseif(isset($_GET['class']) && ($_GET['class'] == 'Class X')){
+							echo '
+								<div class="form-group ">
+									<label for="address">NAME OF YOUR SCHOOL:</label>
+										<input type="text" class="form-control" name="school" value="';
+										if(isset($_GET['15'])){echo $_GET['15'];} 
+										echo' " required/>
+								</div>
+								<div class="form-group ">
+									<label for="address">BOARD:</label>
+										<input type="text" class="form-control" name="university" value="';
+										if(isset($_GET['13'])){echo $_GET['13'];} 
+										echo' " required/>
+								</div>
+							';	
 						}
 						
 					?>
@@ -298,6 +340,9 @@
 									echo '<option value="'.$row['course_name'].'" selected>'.$row['course_name'].'</option>';
 									
 								}
+								elseif(isset($_GET['courseName']) && $_GET['courseName'] == 'Robotics with ARDUINO ' && $row['course_name'] == 'Robotics with ARDUINO & PID'){
+									echo '<option value="'.$row['course_name'].'" selected>'.$row['course_name'].'</option>';
+								}
 								else{
 									
 									echo '<option value="'.$row['course_name'].'">'.$row['course_name'].'</option>';
@@ -320,7 +365,42 @@
 							echo '
 									</select>	
 								</div>
+							';							
+						}
+						
+						
+						if(isset($_GET['courseName'])){
+							if($_GET['courseName'] == 'Robotics with ARDUINO '){
+								$name = 'Robotics with ARDUINO & PID';
+							}
+							else{
+								$name= $_GET['courseName'];
+							}
+							
+							$query = "select center_id from course_center where course_id=(select course_id from courses where course_name = '$name')";
+							$res = mysqli_query($conn, $query);
+							
+							echo '
+								<div class="form-group ">
+									<label for="course">CENTER WHERE YOU WANT TO ENROLL:</label>
+									<select class="form-control" id="course_name" name="center_name" required>
+									<option selected>Choose Center</option>
 							';
+							
+							while($row = mysqli_fetch_array($res)){
+								$id = $row['center_id'];
+								$query = "select center_name from centers where center_id= $id";
+								$result = mysqli_query($conn, $query);
+								while($rowName = mysqli_fetch_array($result)){
+									echo '<option value="'.$rowName['center_name'].'">'.$rowName['center_name'].'</option>';
+								}
+							}
+							
+							echo '
+									</select>	
+								</div>
+							';	
+							
 						}
 					
 					?>
@@ -354,7 +434,14 @@
     <script src="js/bootstrap.js"></script>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	
-	
-	
+	<script>
+		$(document).ready(function(){
+			$("#he").change(function(){
+				$("#hidden").val("he"),
+				$("#form").submit();
+			});
+		});
+	</script>	
+		
 </body>
 </html>

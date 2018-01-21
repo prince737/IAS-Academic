@@ -1,0 +1,306 @@
+*{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	margin: 0px;
+	padding:0px;
+}
+
+body{
+	background:#f1f3f6;
+}
+
+.navbar{
+	border-radius:0px;
+	border-bottom:5px solid #343436;
+	background:#212121;
+	margin-bottom:0px;
+	height:70px;
+	padding-top:0.5%;
+}
+.brand{
+	font-family:"Times New Roman", Georgia, Serif;
+	color:white;
+	padding-top:3px;
+	font-size:20px;
+}
+
+.brand span{
+	font-family:"Times New Roman", Georgia, Serif;
+	color:white;
+	font-size:27px;
+}
+
+.form{
+	margin-top:13%!important;
+}
+
+.form button{
+	
+	
+	background:none;
+	color:#fff;
+	border:none;
+	font-size:16px;
+}
+
+.profile-wrapper{
+	margin-top:2%;
+	margin: 2% 4% 0% 4%;
+}
+
+.active a{
+	color:#304FFE!important;
+}
+
+.active i{
+	color:#304FFE!important;
+}
+
+
+
+
+.img-name{
+	background:#fff;
+	padding-top:30px;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2);
+}
+
+.img-name img{
+	height: 180px;
+	width: 180px;
+	display:block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.img-name .name{
+	font-size:20px;
+	color:#212121;
+	font-weight:500;
+	padding:10px 0px;
+	padding-bottom:20px;
+	text-align:center;
+}
+
+.nav-menu{
+	background:#fff;
+	padding:10px;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2);
+}
+
+.nav-menu ul{
+	list-style-type:none;
+}
+
+.nav-menu ul li{
+	padding:10px;
+	border-bottom:1px solid #f3f3f4;
+}
+
+.nav-menu ul li i{
+	margin-right:15px;
+}
+.nav-menu ul li a{
+	color:#878787;
+	text-decoration:none;
+	font-weight:bold;
+	font-size:14px;
+	display:block;
+}
+
+.nav-menu ul .logout{
+	background:#304FFE; /*20bd99*/
+}
+
+.nav-menu form button{
+	width:100%;
+	font-weight:bold;
+	font-size:14px;
+	color:#fff;
+	background:none;
+	border:none;
+}
+
+.nav-menu form span{
+	margin-right:5px;
+}
+
+.content{
+	background:#fff;
+	padding:30px 30px;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2);
+}
+
+#account-wrapper .header{
+	font-size:25px;
+	color:#795548;
+}
+
+#account-wrapper .header1{
+	color:#212121;
+	font-size:15px;
+	padding-bottom:30px;
+	border-bottom:1px solid #f3f3f4;
+	color:teal;
+}
+
+#account-wrapper .heading{
+	font-size:16px;
+}
+
+#account-wrapper .value{
+	color:#757575;
+	border: 1px solid #dcdcdc;
+	padding: 10px 20px;
+	background:#fafafa;
+	width:90%;
+	min-height:42px;
+}
+
+.subject{
+	width:100%!important;
+}
+
+
+
+#account-wrapper .address{
+	color:#757575;
+	border: 1px solid #dcdcdc;
+	padding: 10px 20px;
+	background:#fafafa;
+	height:100px;
+}
+
+#account-wrapper .input{
+	display:inline-block;
+	height:42px;
+	border-radius:0px;
+	display:none;
+	width:71%;
+}
+
+#account-wrapper .save{
+	display:none;
+	height:42px;
+	border-radius:0px;
+}
+
+.heading .edit, .address .edit{
+	color:#304FFE;
+	font-size:14px;
+	margin-left:8px;
+	font-weight:500;
+	cursor:pointer;
+}
+
+#account-wrapper .textarea{
+	height:100px;
+	border-radius:0px;
+	display:none;
+}
+
+.sub{
+	height:42px!important;
+	border-radius:0px;
+	padding-top:10px!important;
+}
+
+#account-wrapper .pwd-change{
+	text-align:center;
+	color:#304FFE;
+	display:inline-block;
+	margin-top:10%;
+	text-align:left;
+	cursor:pointer;
+}
+
+footer{
+	background:#000!important;
+	height:65px;
+	line-height:65px;
+	color:#fff;
+	font-size:16px;
+	margin-top:30px;
+}
+
+.para{
+	font-size:16px;
+	padding:10px;
+}
+
+.font{
+	font-size:16px;
+}
+
+.modal-content{
+	border-radius:0px;
+	margin-top:20%!important;
+}
+
+.modal-content .close{
+	font-size:40px;
+	font-weight:300;
+	margin-right:-40px;
+	margin-top:-15px;
+	color:white;
+	opacity:1;
+}
+
+.modal-body{
+	padding: 5% 8%;
+}
+.modal-body .newpwd{
+	color:#212121;
+	font-size: 15px;
+	font-weight:500;
+	margin-top:5%;
+}
+
+.modal-body .btnn{
+	width:100%;
+	height:42px;
+	border:none;
+	background:#304FFE;
+	color:#fff;
+}
+
+.modal-body input{
+	height:42px;
+	border-radius:0px;
+}
+
+/*For success modal */
+
+#success-modal {
+    position: fixed;
+    font-family: Arial, Helvetica, sans-serif;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 99999;
+    height: 100%;
+    width: 100%;
+}
+.modalconent {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 0px 20px 20px 20px;
+}
+
+/*End of success modal */
+#fileLoader
+{
+    display:none;
+}
+
+#btnOpenFileDialog{
+	margin:0% 18%;
+	width: 180px;
+}
+
+#btnOpenFileDialog:focus{
+	outline:none;
+}

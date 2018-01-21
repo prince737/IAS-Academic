@@ -11,7 +11,7 @@
 					<span class="icon-bar"></span>
 				</button>
 				
-				<a class="navbar-brand brand-sm" href="index.html" style="color:white;"><img src="images/logo.jpg"/><p><span>I</span>NSTITUTE OF <span>A</span>PPLIED <span>S</span>CIENCE</p></a>
+				<a class="navbar-brand brand-sm" href="index.html" style="color:white;"><img class="hidden-xs" src="images/logo.jpg"/><p><span>I</span>NSTITUTE OF <span>A</span>PPLIED <span>S</span>CIENCE</p></a>
 			</div>
 			
 			
@@ -20,7 +20,7 @@
 				<div class="row">
 					<div class="col-lg-5 brand-div">
 						
-						<a href="index.php"><img src="images/logo.jpg" class="logo"/></a>
+						<a href="index.php" ><img src="images/logo.jpg" class="logo "/></a>
 						<table>
 							<tr>	
 								<td valign="center" style="line-height:30px;">
@@ -50,11 +50,8 @@
 											while($row= mysqli_fetch_array($result)){
 												echo '<li><a tabindex="-1" href="courses.php?crX='.$row['course_type'].'">'.strtoupper($row['course_type']).'</a></li>';
 											}
-										}
-									
-									?>
-									
-
+										}									
+									?>	
 								</ul>
 							</li>
 							<li class="dropdown">

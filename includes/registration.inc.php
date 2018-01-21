@@ -28,10 +28,14 @@ $school = mysqli_real_escape_string($conn, $_POST['school']);
 $courseName = mysqli_real_escape_string($conn, $_POST['course_name']);
 $courseType = mysqli_real_escape_string($conn, $_POST['course_type']);
 $pwd = mysqli_real_escape_string($conn, $_POST['pwd']);
+$hidden = $_POST['hidden'];
+$center = mysqli_real_escape_string($conn, $_POST['center_name']);
+$he_other = mysqli_real_escape_string($conn, $_POST['he_other']);
+$sub_combo = mysqli_real_escape_string($conn, $_POST['sub_combo']);
 
-
-
-
+// highest education - edu or he
+// current institute - school,college,inst
+//dept, stream, yop- btech mtech  
 
 if(isset($_POST['register']))
 {	
@@ -51,7 +55,7 @@ if(isset($_POST['register']))
 	
 		
 	
-	if(empty($name) || empty($gender) || empty($dob) || empty($email) || empty($contact) || empty($gname) || empty($gcontact) || empty($address) || empty($he) || empty($inst) || empty($yop) || empty($courseType) || empty($courseName) || empty($pwd)) {
+	if(empty($name) || empty($gender) || empty($dob) || empty($email) || empty($contact) || empty($gname) || empty($gcontact) || empty($address) || empty($he) ||  empty($courseType) || empty($courseName) || empty($pwd) || empty($center)) {
 		$arr['emp'] = '1';	
 		$query = http_build_query($arr);
 		header("Location: ../registration.php?$query");	
@@ -97,9 +101,10 @@ if(isset($_POST['register']))
 			$resultCheck = mysqli_num_rows($result);
 			if($resultCheck > 0) 
 			{
-				$val= array(simple_crypt($name,'e'), simple_crypt($dob,'e'),simple_crypt($email,'e'),simple_crypt($contact,'e'),simple_crypt($gname,'e'),simple_crypt($gcontact,'e'),simple_crypt($address,'e'),simple_crypt($he,'e'),simple_crypt($inst,'e'),simple_crypt($yop,'e'),simple_crypt($gender, 'e'));
-				$query = http_build_query($val);
-			header("Location: ../registration.php?$query&signup=emailtaken");	
+				$val= array(simple_crypt($name,'e'),simple_crypt($dob,'e'),simple_crypt($email,'e'),simple_crypt($contact,'e'),simple_crypt($gname,'e'),simple_crypt($gcontact,'e'),simple_crypt($address,'e'),simple_crypt($he,'e'),simple_crypt($inst,'e'),simple_crypt($yop,'e'),simple_crypt($gender, 'e'),$edu, $dept, $university, $college, $school, $he_other, $sub_combo);
+				$query = http_build_query($val);	
+				
+				header("Location: ../registration.php?$query&signup=emailtaken");	
 				exit();
 			} 
 			else 
@@ -113,10 +118,28 @@ if(isset($_POST['register']))
 				while($row = mysqli_fetch_array($result)){ 
 					$cid = $row['course_id'];
 				}
-				echo $cid;
-				$sql = "insert into students (stu_name, cid, stu_gender, stu_address, stu_gurdianname, stu_gurdiancontact, stu_highestdegree, stu_yearofpass, stu_currentinstitute, stu_dob, stu_contact, stu_email, stu_password, stu_approvalstatus) values ('$name', $cid, '$gender', '$address', '$gname', '$gcontact', '$he', '$yop', '$inst', '$dob', '$contact', '$email', '$hashedPwd', 0)";
-				mysqli_query($conn, $sql);
 				
+				$query = "select center_id from centers where center_name='$center'";
+				$result = mysqli_query($conn, $query);
+				while($row = mysqli_fetch_array($result)){ 
+					$centerid = $row['center_id'];
+				}
+				
+				
+				
+				//SETTING INSTITUTE
+				$inst = $inst.$school.$college;
+				
+				
+				if($he =='Other'){
+					$he=$he_other;
+				}
+				
+				$date = date("m/d/Y");				
+				
+				
+				$sql = "insert into students (stu_name, cid, center_id, stu_gender, stu_address, stu_gurdianname, stu_gurdiancontact, stu_highestdegree, stu_yearofpass, stu_currentinstitute, stu_dept, stu_university, stu_subjectCombo, stu_currentStatus, stu_dob, stu_contact, stu_email, stu_dateofadmission, stu_password, stu_approvalstatus) values ('$name', $cid, $centerid, '$gender', '$address', '$gname', '$gcontact', '$he', '$yop', '$inst',  '$dept', '$university', '$sub_combo', '$edu', '$dob', '$contact', '$email', '$date', '$hashedPwd', 0)";
+				mysqli_query($conn, $sql);		
 				
 				$fileExt = explode('.', $fileName);
 				$fileActualExt = strtolower(end($fileExt));
@@ -126,7 +149,7 @@ if(isset($_POST['register']))
 				if(in_array($fileActualExt, $allow)){
 					if($fileError === 0)
 					{
-						if($fileSize < 1050000){
+						if($fileSize < 10050000){
 							
 							
 							$query="select stu_id from students where stu_email='$email'";
@@ -136,11 +159,11 @@ if(isset($_POST['register']))
 							}
 							$fileDest = '../StudentProfileImages/'.$fileNameNew;
 							$dest= 'StudentProfileImages/'.$fileNameNew;
-							
+
 							move_uploaded_file($fileTmpName, $fileDest);
-							
-							
-							
+				
+							echo $fileDest;	
+										
 							$query = "update students set stu_imageLocation='$dest' where stu_email = '$email'";
 							if(!mysqli_query($conn, $query)){
 								header("Location: ../registration.php?errsql");
@@ -149,7 +172,8 @@ if(isset($_POST['register']))
 							else{
 								header("Location: ../registration.php?signup=success");
 								exit();
-							}
+							}		
+							
 						}
 						else{
 							header("Location: ../registration.php?err1");
@@ -164,25 +188,19 @@ if(isset($_POST['register']))
 				else{
 					header("Location: registration.php?err3");
 					exit();
-				}	
-								
+				}				
 				
 			}
 		}
 	}	
 	
 } 
-elseif(isset($_POST['course_name'])){
-	
-	
-	
+elseif(isset($_POST['course_name']) && $hidden != 'he'){	
 		
-	$val= array(simple_crypt($name,'e'),simple_crypt($dob,'e'),simple_crypt($email,'e'),simple_crypt($contact,'e'),simple_crypt($gname,'e'),simple_crypt($gcontact,'e'),simple_crypt($address,'e'),simple_crypt($he,'e'),simple_crypt($inst,'e'),simple_crypt($yop,'e'),simple_crypt($gender, 'e'),$edu, $dept, $university, $college, $school);
+	$val= array(simple_crypt($name,'e'),simple_crypt($dob,'e'),simple_crypt($email,'e'),simple_crypt($contact,'e'),simple_crypt($gname,'e'),simple_crypt($gcontact,'e'),simple_crypt($address,'e'),simple_crypt($he,'e'),simple_crypt($inst,'e'),simple_crypt($yop,'e'),simple_crypt($gender, 'e'),$edu, $dept, $university, $college, $school, $he_other, $sub_combo);
 	$query1 = http_build_query($val);	
 	
-	$courseType = $_POST['course_type'];
-	
-	
+	$courseType = $_POST['course_type'];	
 	
 	$query = http_build_query($arr);
 	header("Location: ../registration.php?class=$he&$query1&select=$courseType&courseName=$courseName#education");
@@ -192,36 +210,24 @@ elseif(isset($_POST['course_name'])){
 	
 }
 
-elseif(isset($_POST['course_type'])){
+elseif(isset($_POST['course_type']) && $hidden != 'he'){
 	
 		
-	$val= array(simple_crypt($name,'e'),simple_crypt($dob,'e'),simple_crypt($email,'e'),simple_crypt($contact,'e'),simple_crypt($gname,'e'),simple_crypt($gcontact,'e'),simple_crypt($address,'e'),simple_crypt($he,'e'),simple_crypt($inst,'e'),simple_crypt($yop,'e'),simple_crypt($gender, 'e'),$edu, $dept, $university, $college, $school);
+	$val= array(simple_crypt($name,'e'),simple_crypt($dob,'e'),simple_crypt($email,'e'),simple_crypt($contact,'e'),simple_crypt($gname,'e'),simple_crypt($gcontact,'e'),simple_crypt($address,'e'),simple_crypt($he,'e'),simple_crypt($inst,'e'),simple_crypt($yop,'e'),simple_crypt($gender, 'e'),$edu, $dept, $university, $college, $school, $he_other, $sub_combo);
 	$query1 = http_build_query($val);	
 	
 	$courseType = $_POST['course_type'];
 	
-	/*$query = "select course_name from courses where course_type = '$courseType'";
-	$result = mysqli_query($conn, $query);
-	$i=20;
-	while($row = mysqli_fetch_array($result)){
-		$arr[$i]= simple_crypt($row['course_name'], 'e');
-		$i++;
-	}
-	$max = $i-20;
-	$query = http_build_query($arr);*/
-	header("Location: ../registration.php?class=$he&select=$courseType#education");
+	
+	header("Location: ../registration.php?class=$he&$query1&select=$courseType#education");
 	exit();
 	
 }
 
-elseif(isset($_POST['he'])){
-	 
-
-	
-	$val= array(simple_crypt($name,'e'),simple_crypt($dob,'e'),simple_crypt($email,'e'),simple_crypt($contact,'e'),simple_crypt($gname,'e'),simple_crypt($gcontact,'e'),simple_crypt($address,'e'),simple_crypt($he,'e'),simple_crypt($inst,'e'),simple_crypt($yop,'e'),simple_crypt($gender, 'e'));
-	$query1 = http_build_query($val);
-	
-	//$courseType = $_POST['course_type'];	
+elseif(isset($_POST['he']) && $hidden == 'he'){
+	 	
+	$val= array(simple_crypt($name,'e'),simple_crypt($dob,'e'),simple_crypt($email,'e'),simple_crypt($contact,'e'),simple_crypt($gname,'e'),simple_crypt($gcontact,'e'),simple_crypt($address,'e'),simple_crypt($he,'e'),simple_crypt($inst,'e'),simple_crypt($yop,'e'),simple_crypt($gender, 'e'),$edu, $dept, $university, $college, $school, $he_other, $sub_combo);
+	$query1 = http_build_query($val);	
 	
 	header("Location: ../registration.php?class=$he&$query1&#education");
 	exit();	

@@ -36,10 +36,22 @@
 						</a>
 					</li>
 					<li class="link">
-						<a href="students.php">
+						<a href="#collapse-poststd" data-toggle="collapse" aria-control="collapse-poststd">
 							<i class="fa fa-graduation-cap" aria-hidden="true"></i>
 							<span class="hidden-sm hidden-xs">Students</span>
 						</a>
+						<ul class="collapse collapsable" id="collapse-poststd" style="margin:0px; padding:0px; ">
+							<li>
+								<a href="students_all.php">
+									<span>All Students</span>
+								</a>
+							</li>
+							<li>
+								<a href="students_profile.php">
+									<span>Profile Updation Requests</span>
+								</a>
+							</li>
+						</ul>
 					</li>
 					
 					<li class="link active">

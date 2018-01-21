@@ -1,0 +1,107 @@
+
+.stu-con{
+	margin:25px;
+	background:#fff;	
+	padding:30px 20px;
+}
+
+.stu-con:first-child{
+	margin-top:5px;
+}
+
+.stu-con:last-child{
+	margin-bottom:5px;
+}
+
+.stu-con .no-apprv{
+	color:#c9302c;
+	font-weight:500;
+}
+	
+.stu-con h4{
+	margin: 0px;
+	margin-bottom:10px;
+	color:teal;
+}
+
+.stu-con h3{
+	margin: 0px;
+	margin-bottom:10px;
+	color:#212121;
+	text-align:center;
+	padding:10px 0px;
+}
+
+.stu-con table tr td{
+	vertical-align: top;
+	padding:3px;
+}
+
+.stu-con table tr .data{
+	color:#212121;
+}
+
+.stu-con .data .send-mail{
+	border:none;
+	background:none;
+	color: #2067b0;
+}
+
+.stu-con .data .send-mail:hover{
+	text-decoration:underline;
+}
+
+.stu-con .data .send-mail:focus{
+	outline:none;
+}
+
+.action span{
+	padding: 0px 5px;
+}
+
+.action button{
+	margin:2px;
+}
+
+.filter-wrapper ul{
+	list-style-type:none;
+}
+
+.filter-wrapper ul li{
+	float:left;
+	padding: 5px 20px;
+}
+
+.search-form input{
+	height:30px;
+	
+}
+
+.form-group{
+	padding:0px;
+	padding-left:10px!important;
+}
+
+.form-group select{
+	
+	height:30px;
+}
+
+.filter-row{
+	margin-top:2%;
+	padding-right:2%;
+}
+
+
+
+@media screen and (max-width: 767px) {
+	.search-form button{
+		margin-left:2%;
+	}
+	
+	.stu-con h4{
+		margin-top:4%;
+		border-bottom: 1px solid #dcdcdc;
+		padding-bottom:3%;
+	}
+}

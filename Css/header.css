@@ -3,6 +3,16 @@
 	border-radius:0px;
 }
 
+@media screen and (max-width: 767px) {
+  
+  	.navbar{
+		background:#002147!important;
+		border:none;
+	}
+	.navbar-toggle{
+		border:none!important;
+	}
+}
 
 .actv{
 	border-top:1px solid #DEF2F3;
@@ -147,14 +157,14 @@
 	.brand-sm p{
 		font-family:"Times New Roman", Georgia, Serif;
 		color:white;
-		font-size:14px;
+		font-size:16px;
 		display:inline-block;
 	}
 
 	.brand-sm p span{
 		font-family:"Times New Roman", Georgia, Serif;
 		color:white;
-		font-size:21px;
+		font-size:24px;
 	}	
   }
   

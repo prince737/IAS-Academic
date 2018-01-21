@@ -104,10 +104,22 @@
 						</a>
 					</li>
 					<li class="link">
-						<a href="students.php">
+						<a href="#collapse-poststd" data-toggle="collapse" aria-control="collapse-poststd">
 							<i class="fa fa-graduation-cap" aria-hidden="true"></i>
 							<span class="hidden-sm hidden-xs">Students</span>
 						</a>
+						<ul class="collapse collapsable" id="collapse-poststd" style="margin:0px; padding:0px; ">
+							<li>
+								<a href="students_all.php">
+									<span>All Students</span>
+								</a>
+							</li>
+							<li>
+								<a href="students_profile.php">
+									<span>Profile Updation Requests</span>
+								</a>
+							</li>
+						</ul>
 					</li>
 					
 					<li class="link">
@@ -290,9 +302,7 @@
 																		</div>
 																	</div>
 																</div>
-															</form>
-															
-															<a class="btn btn-xs btn-warning" href="students.php", role="button">Details</a>
+															</form>														
 														</td>
 													</tr>
 												  '; 
@@ -303,7 +313,7 @@
 									</tbody>
 								</table>
 								<div class="clearfix">
-									<a class="text-link pull-right" href="students.php">View all students</a>
+									<a class="text-link pull-right" href="students_all.php">View all students</a>
 								</div>
 							</div>
 						</div>

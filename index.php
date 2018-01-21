@@ -36,6 +36,13 @@
 	<div class="container-fluid for-sm">
 		<div class="row cover">
 			
+			<p class="heading" data-aos="fade-up" data-aos-duration="700" data-aos-anchor-placement="center-center" data-aos-delay="100" data-aos-once="true">Where True Learning Begins...</p>
+			<p class="text" data-aos="fade-up" data-aos-duration="700" data-aos-delay="200" data-aos-once="true" >Lorem ipsum Excepteur amet adipisicing fugiat velit nisi.Lorem ipsum Excepteur amet adipisicing fugiat velit nisi. Lorem ipsum Excepteur amet adipisicing fugiat velit nisi.Lorem ipsum Excepteur amet adipisicing fugiat velit nisi.</p>
+			<div class="clearfix">
+				<h6 class="pull-right" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300" data-aos-once="true">Enroll Now</h6>
+			</div>
+			<p class="scroll"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></p><br>
+			<p class="sc">SCROLL</p>
 		</div>
 	</div>
 	
@@ -222,14 +229,14 @@
 
 	<div class="container">
 		<div class="row enroll" >
-			<div class="col-sm-4 slogan" data-aos="fade-right" data-aos-once="true">
+			<div class="col-sm-4 slogan" data-aos="zoom-in-up" data-aos-duration="1000" data-aos-once="true">
 				EDUCATION FOR A BETTER FUTURE!
 			</div>
-			<div class="col-sm-5 mission">
+			<div class="col-sm-5 mission" data-aos="zoom-in-up" data-aos-duration="1000" data-aos-once="true">
 				The mission of the Institute of Applied Science is to help prepare outstanding educators, scholars, and researchers, through research on the science and art of teaching and learning, the application of clinical processes, the effective uses of technology, and the analysis and development of leadership and educational policy.
 			</div>
 			<div class="col-sm-3">
-				<a class="enroll-btn btn" href="registration.php"  data-aos="fade-left" data-aos-once="true">ENROLL NOW</a>
+				<a class="enroll-btn btn" href="registration.php" data-aos="zoom-in-up" data-aos-duration="1000"  data-aos-once="true">ENROLL NOW</a>
 			</div>
 		</div>
 
@@ -243,11 +250,11 @@
 				<h1>Have a look at our Gallery</h1>
 				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.<br><a href="gallery.php">Browse All!</a>
 </p>
-				<img data-aos="fade-up-left" data-aos-duration="1000" data-aos-delay="300" src="images/3.jpg"></img>
+				<img data-aos="fade-up-left" data-aos-duration="1000" data-aos-once="true" data-aos-delay="300" src="images/3.jpg"></img>
 			</div>
 			<div class="col-md-6 righty">
-				<img src="images/1.jpg" class="first" data-aos="fade-up-right" data-aos-duration="1000" data-aos-delay="300" ></img>
-				<img src="images/demo.jpg" class="second" data-aos="fade-up-right" data-aos-duration="1000" data-aos-delay="300" ></img>
+				<img src="images/1.jpg" class="first" data-aos="fade-up-right" data-aos-once="true" data-aos-duration="1000" data-aos-delay="300" ></img>
+				<img src="images/demo.jpg" class="second" data-aos="fade-up-right" data-aos-once="true" data-aos-duration="1000" data-aos-delay="300" ></img>
 
 			</div>
 				
@@ -363,7 +370,7 @@
 				
 				</div>
 				
-				<div class="col-sm-6 side">
+				<div class="col-sm-6 side hidden-xs">
 				
 					<table>
 						<tr>
@@ -553,9 +560,9 @@
 	
 	</script>
 	
-	<script>
+	<!--<script>
 		alert(window.location.href);
-	</script>
+	</script>-->
     
 </body>
 

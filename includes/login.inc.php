@@ -84,20 +84,15 @@ elseif(isset($_POST['resetPwd'])) {
 	} 
 	else
 	{
-		$sql = "select * from students where stu_email = '$emailr' and stu_approvalstatus=1";
+		$sql = "select * from students where stu_email = '$emailr' AND stu_approvalstatus=1";
 		$result = mysqli_query($conn, $sql);
 		$resultCheck = mysqli_num_rows($result);
 		if($resultCheck < 1)
 		{	
-			$row = mysqli_fetch_array($result);
-			if($row['stu_approvalstatus'] == 0){
-				header("Location: ../login.php?l=na");
+			
+				header("Location: ../login.php?l=invalid");
 				exit();
-			}
-			else{
-				header("Location: ../login.php?l=erre");
-				exit();
-			}
+			
 		}
 		else{
 			$str = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
