@@ -48,7 +48,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>                        
 				</button>
-				<a href="index.php" class="pull-left"><img src="images/logo.jpg" height="35" width="35" style="margin:8px;"></a>
+				<a href="index.php" class="pull-left hidden-xs"><img src="images/logo.jpg" height="35" width="48" style="margin:8px;"></a>
 				<a class="navbar-brand" href="index.php"><span class="brand"><span>I</span>NSTITUTE OF <span>A</span>PPLIED <span>S</span>CIENCE</span></a>
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">      

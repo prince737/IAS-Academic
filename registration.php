@@ -33,7 +33,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>                        
 				</button>
-				<a href="index.php" class="pull-left"><img src="images/logo.jpg" height="35" width="48" style="margin:8px;"></a>
+				<a href="index.php" class="pull-left hidden-xs"><img src="images/logo.jpg" height="35" width="48" style="margin:8px;"></a>
 				<a class="navbar-brand" href="index.php"><span class="brand"><span>I</span>NSTITUTE OF <span>A</span>PPLIED <span>S</span>CIENCE</span></a>
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">      
@@ -223,19 +223,19 @@
 									<label for="address">NAME OF YOUR SCHOOL:</label>
 										<input type="text" class="form-control" name="school" value="';
 										if(isset($_GET['15'])){echo $_GET['15'];} 
-										echo' " required/>
+										echo'" required/>
 								</div>
 								<div class="form-group ">
 									<label for="address">BOARD:</label>
 										<input type="text" class="form-control" name="university" value="';
 										if(isset($_GET['13'])){echo $_GET['13'];} 
-										echo' " required/>
+										echo'" required/>
 								</div>
 								<div class="form-group ">
 									<label for="address">YOUR SUBJECT COMBINATION (Separated by commas  " , " ):</label>
 										<input type="text" class="form-control" name="sub_combo" value="';
 										if(isset($_GET['17'])){echo $_GET['17'];} 
-										echo' " required/>
+										echo'" required/>
 								</div>
 							';	
 							
@@ -247,13 +247,13 @@
 									<label for="address">NAME OF YOUR SCHOOL:</label>
 										<input type="text" class="form-control" name="school" value="';
 										if(isset($_GET['15'])){echo $_GET['15'];} 
-										echo' " required/>
+										echo'" required/>
 								</div>
 								<div class="form-group ">
 									<label for="address">BOARD:</label>
 										<input type="text" class="form-control" name="university" value="';
 										if(isset($_GET['13'])){echo $_GET['13'];} 
-										echo' " required/>
+										echo'" required/>
 								</div>
 							';	
 						}

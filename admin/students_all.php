@@ -310,7 +310,7 @@
 								
 								if(isset($_POST['search'])){
 									
-									echo '<h5 style="text-align:center;">Displaying '.$count.' Result/s on "'.$search.'"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="students_all.php">View All</a></h5>';
+									echo '<h5 style="text-align:center;">'.$count.' matching record/s found on "'.$search.'"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="students_all.php">View All</a></h5>';
 								}
 								while($row = mysqli_fetch_array($result)) {
 								  echo'
@@ -334,20 +334,20 @@
 													</td>
 													
 													<div class="modal fade" id="Modalmail'.$i.'"  >
-													<div class="modal-dialog modal-sm">
-														<div class="modal-content" >
-															<div class="modal-header">
-																<button type="button" class="close" data-dismiss="modal">&times;</button>	<h4>Contact Student</h4>				
+														<div class="modal-dialog modal-sm">
+															<div class="modal-content" >
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal">&times;</button>	<h4>Contact Student</h4>				
+																</div>
+																<div class="modal-body">
+																	Sure to deny '.$row['stu_email'].'?
+																</div> 
+																<div class="modal-footer">
+																	
+																</div>		
 															</div>
-															<div class="modal-body">
-																Sure to deny '.$row['stu_email'].'?
-															</div> 
-															<div class="modal-footer">
-																
-															</div>		
 														</div>
-													</div>
-												</div>							
+													</div>							
 													
 												</tr>
 												<tr>

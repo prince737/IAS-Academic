@@ -287,7 +287,7 @@
 															</div> 
 															<div class="modal-footer">
 																<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-																<button type="submit" name="sreply" class="btn btn-success">Send Reply</button>
+																<button type="submit" name="qsreply" class="btn btn-success">Send Reply</button>
 															</div>		
 														</div>
 													</div>

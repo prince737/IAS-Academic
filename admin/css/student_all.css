@@ -105,3 +105,101 @@
 		padding-bottom:3%;
 	}
 }
+
+
+
+/*FOR UPDATION PAGE*/
+
+
+.form-wrapper table{
+	margin-bottom:0px;
+}
+
+.form-wrapper .table-wrap{
+	padding:20px;
+	background:#fff;
+}
+
+.table-wrap h4{
+	color:teal;
+}
+
+.stu-info{	
+	background:#fff;
+}
+
+.stu-info table tr td:nth-child(1){
+	padding-top:20px;
+	padding-left:20px;
+}
+
+.stu-info table tr td:nth-child(2){
+	line-height:28px;
+	padding-left:3%;
+	padding-top:2%;
+	width:100%;
+}
+
+.stu-info span{
+	color:#212121;
+}
+
+.content-inner .current{
+	background: #1ab394;
+	color:#fff;
+	border:none;
+	border:1px solid #1ab394;
+}
+
+.content-inner .current:focus{
+	background: #1ab394;
+	color:#fff;
+	outline:none;
+	border:1px solid #1ab394;
+	box-shadow:none;
+}
+
+.modal-cnt{
+	border-radius:0px;
+	width:80%!important;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:20%;
+}
+
+.modal-cnt .modal-header{
+	height:50px;
+	padding-top:5px;
+	padding-bottom:10px;
+	background-color:#1ab394;
+}
+
+.modal-cnt h4{
+	color:#fff;
+}
+
+.modal-cnt .approve{
+	background:#1ab394;
+	border:none;
+}
+
+.modal-cnt .approve:focus{
+	background:#1ab394;
+	outline:none;
+	border:none;
+}
+
+.modal-cnt .close{
+	font-size:40px;
+	font-weight:300;
+	margin-right:-50px;
+	margin-top:-15px;
+	color:white;
+	opacity:1;
+}
+
+@media screen and (min-width: 1100px) {
+	.content .search-form{
+		float:right!important;
+	}
+}

@@ -1,5 +1,5 @@
 <footer>
-		<div class="container">
+		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-3">
 					<h4 style="border-bottom:1px solid white; padding-bottom: 5px;">Copyright &copy; 2016 IAS</h4>

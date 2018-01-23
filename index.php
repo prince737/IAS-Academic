@@ -322,13 +322,7 @@
 		<div class="col-md-12 contact-form">
 			<h2>Contact Us</h2>
 			<p class="text">Have doubts in mind? How about sharing then with us? We would be happy to hear from you.</p>
-			<?php
-					if(isset($_GET['qs']) && $_GET['qs'] == 1){
-						echo '
-							<p class="success">Thank You for reaching us. We will get in touch at the earliest.</p>
-						';
-					}					
-				?>
+			
 			<div class="row">
 				<div class="col-md-6" id="contact">
 				
@@ -362,7 +356,7 @@
 						<div class="col-md-12">
 							<div class="form-group ">
 								<textarea class="form-control" id="msg" rows="3" placeholder="Message" name="message"  required></textarea>
-								<button type="submit" id="submit" name="submit" class="btn btn-default submit">Send Query</button>
+								<button type="submit" id="submit" name="qsubmit" class="btn btn-default submit">Send Query</button>
 							</div>
 						</div>
 					</form>

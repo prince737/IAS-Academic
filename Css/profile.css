@@ -14,7 +14,6 @@ body{
 	border-bottom:5px solid #343436;
 	background:#212121;
 	margin-bottom:0px;
-	height:70px;
 	padding-top:0.5%;
 }
 .brand{
@@ -27,7 +26,24 @@ body{
 .brand span{
 	font-family:"Times New Roman", Georgia, Serif;
 	color:white;
-	font-size:27px;
+	font-size:30px;
+}
+
+.navbar form button{
+	background:#212121;
+	color:white;
+	margin: 5px 10px;
+	border:none;
+	outline:none;
+}
+
+@media screen and (max-width: 700px) {
+	.brand{
+		font-size:15px;
+	}
+	.brand span{
+		font-size:27px;
+	}
 }
 
 .form{
@@ -134,6 +150,14 @@ body{
 #account-wrapper .header{
 	font-size:25px;
 	color:#795548;
+	display:inline-block;
+	margin-top:0px;
+}
+
+#account-wrapper .pending{
+	background:#1ab394;
+	color:White;
+	margin-top:8px;
 }
 
 #account-wrapper .header1{
@@ -297,8 +321,10 @@ footer{
 }
 
 #btnOpenFileDialog{
-	margin:0% 18%;
+	display:block;
 	width: 180px;
+	margin-left:auto;
+	margin-right:auto;
 }
 
 #btnOpenFileDialog:focus{

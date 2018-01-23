@@ -1,16 +1,16 @@
 <?php
 	session_start();
 	include 'includes/simple-crypt.inc.php';
-	include 'dbh.inc.php';
+	include 'includes/dbh.inc.php';
 	
 	if(!isset($_GET['tKr']) || !isset($_GET['em'])){
 		header("Location: index.php");
 		exit();
 	}
 	
-	$email = mysqli_real_escape_string($conn, $_GET['tKr']);
+	$email = mysqli_real_escape_string($conn, $_GET['em']);
 	$email = simple_crypt( $email, 'd' );
-	$token = mysqli_real_escape_string($conn, $_GET['em']);
+	$token = mysqli_real_escape_string($conn, $_GET['tKr']);
 	$sql = "select * from students where stu_email='$email' and stu_token='$token';" ;
 	$result = mysqli_query($conn, $sql);
 	$resultCheck = mysqli_num_rows($result);

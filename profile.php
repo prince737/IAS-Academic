@@ -33,14 +33,14 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>                        
 				</button>
-				<a href="index.php" class="pull-left"><img src="images/logo.jpg" height="35" width="45" style="margin:8px;"></a>
+				<a href="index.php" class="pull-left hidden-xs"><img src="images/logo.jpg" height="35" width="45" style="margin:8px;"></a>
 				<a class="navbar-brand" href="index.php"><span class="brand"><span>I</span>NSTITUTE OF <span>A</span>PPLIED <span>S</span>CIENCE</span></a>
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">      
 				<ul class="nav navbar-nav navbar-right"" role="menu" aria-labelledby="dropdownMenu">
 					
 					<li>
-						<form class="form navbar-form" action="includes/logout.inc.php" method="POST">
+						<form class="navbar-form"  action="includes/logout.inc.php" method="POST">
 							<button type="submit" name="logout"><span class="fa fa-sign-out"></span>Log Out</button>
 						</form>
 					</li>
@@ -63,72 +63,14 @@
 	
 	<div class="container-fluid profile-wrapper">
 		<div class="row">
-			<div class="col-md-3 navigation shadow" >
-				<div class="img-name">
-				<?php
-					$row = mysqli_fetch_array($result);
-						echo '
-							<img class="img-thumbnail" src="'.$row['stu_imageLocation'].'" /> 
-							<form action="includes/change.inc.php" method="POST" enctype="multipart/form-data">
-								<input type="file" id="fileLoader" accept=".jpg, .jpeg, .png" onchange="this.form.submit();" name="image"/>
-								<input type="hidden" name="id"  value="'.$row['stu_id'].'"></input>
-								<input type="button" class="btn btn-default btn-sm" id="btnOpenFileDialog" value = "Change Image" onclick="openfileDialog();" />
-							<p class="name">'.$row['stu_name'].'</p>
-							</form>
-						'; 		
-				?>
-				</div>
-				<div class="nav-menu shadow">
-					<ul> 
-						<li class="link">
-							<a href="admin.php">
-								<i class="fa fa-home" aria-hidden="true"></i>PROFILE HOME</span>
-							</a>
-						</li>
-						<li class="link active">
-							<a href="admin.php">
-								<i class="fa fa-cogs" aria-hidden="true"></i>ACCOUNT SETTINGS</span>
-							</a>
-						</li>
-						<li class="link">
-							<a href="admin.php">
-								<i class="fa fa-book" aria-hidden="true"></i>CHANGE COURSE</span>
-							</a>
-						</li>
-						<li class="link">
-							<a href="admin.php">
-								<i class="fa fa-plus-square-o" aria-hidden="true"></i>APPLY FOR ANOTHER COURSE</span>
-							</a>
-						</li>
-						<li class="link">
-							<a href="admin.php">
-								<i class="fa fa-download" aria-hidden="true"></i>DOWNLOADS</span>
-							</a>
-						</li>
-						<li class="link">
-							<a href="admin.php">
-								<i class="fa fa-pencil" aria-hidden="true"></i>EXAMS</span>
-							</a>
-						</li>
-						<li class="link">
-							<a href="admin.php">
-								<i class="fa fa-list-alt" aria-hidden="true"></i>RESULTS</span>
-							</a>
-						</li>
-						<li class="link logout">
-							<form action="includes/logout.inc.php" method="POST">
-								<button type="submit" name="logout"><span class="fa fa-sign-out"></span>LOG OUT</button>
-							</form>
-						</li>
-						
-						
-					</ul>	
-				</div>
-				
-			</div>
+			<?php
+				include('profile_sidebar.php');
+			?>
 			<div class="col-md-9 content shadow">
 				<div id="account-wrapper">
 					<p class="header">Basic Information</p>
+					<a href="pending_updates.php" class="btn btn-xs pull-right pending hidden-xs"><span class="fa fa-spinner"></span> View Pending Updates</a>
+					<div class="clearfix"></div>
 					<p class="header1">Please note: Apart from your <b>Picture</b> and <b>Password</b> any changes you make here will only take effect after they are approved by the adminstrator</p>
 					<div class="container-fluid">
 						<div class="row">
@@ -192,7 +134,7 @@
 										<p class="heading">CONTACT NUMBER<span id="edit4" class="edit">Edit</span></p>
 										<p class="value" id="value4"><?php echo $row['stu_contact']; ?></p>
 										<input type="hidden" name="id" value="<?php echo $row['stu_id']; ?>"></input>				
-										<input type="text" name="contact" class="form-control input"  id="input4" value="<?php echo $row['stu_contact']; ?>"></input>
+										<input type="text" name="contact" class="form-control input"  id="input4" value="<?php echo $row['stu_contact']; ?>" maxlength="10"></input>
 										<button id="save4" name="save_contact" class="btn btn-primary btn-sm save">Request Change</button>
 									</div>
 								</div>
@@ -216,7 +158,7 @@
 										<p class="heading">GUARDIAN'S CONTACT <span id="edit6" class="edit">Edit</span></p>
 										<p class="value" id="value6"><?php echo $row['stu_gurdiancontact']; ?></p>
 										<input type="hidden" name="id" value="<?php echo $row['stu_id']; ?>"></input>			
-										<input type="text" name="gcontact" class="form-control input"  id="input6" value="<?php echo $row['stu_gurdiancontact']; ?>"></input>
+										<input type="text" name="gcontact" class="form-control input"  id="input6" value="<?php echo $row['stu_gurdiancontact']; ?>" maxlength="10"></input>
 										<button id="save6" name="save_gcontact" class="btn btn-primary btn-sm save">Request Change</button>
 									</div>
 								</div>
@@ -497,7 +439,7 @@
 								';
 							}						
 						?>	
-							
+							<a href="pending_updates.php" class="btn btn-xs pending hidden-lg hidden-md"><span class="fa fa-spinner"></span> View Pending Updates</a>
 						
 					</div>
 				</div>				

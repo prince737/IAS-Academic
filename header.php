@@ -66,8 +66,12 @@
 								</ul>
 
 							</li>
-						
-							<li class="dropdown">
+							<li>
+								<a href="login.php" class="smoothScroll">ONLINE EXAMS</a>
+								
+							</li>
+							
+							<!--<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">ONLINE EXAMS<span class="caret"></span></a>
 								<ul class="dropdown-menu" >
 									
@@ -76,7 +80,7 @@
 									<li><a tabindex="-1" href="#">AVAILABLE EXAMS</a></li>
 
 								</ul>
-							</li>
+							</li>-->
 							<li>
 								<a href="gallery.php" class="smoothScroll">GALLERY</a>
 								
@@ -94,6 +98,10 @@
 									<li><a tabindex="-1" href="contact.php">SIKKIM</a></li>
 
 								</ul>
+							</li>
+							<li>
+								<a href="login.php" class="smoothScroll">LOG IN</a>
+								
 							</li>
 						</ul>
 					</div>

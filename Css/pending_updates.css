@@ -1,0 +1,23 @@
+body{
+	overflow-x:hidden!important;
+}
+
+.content{
+	min-height:100vh;
+	
+	/*padding-bottom: 70px;
+    background-image: url(../images/border.png);
+    background-repeat: no-repeat;
+    background-position: center bottom;
+	background-size: 100% 10%;*/
+}
+.content h4{
+	margin:0px;
+	color:teal;
+	display:inline-block;
+}
+
+.content .pending{
+	background:#1ab394;
+	color:White;
+}

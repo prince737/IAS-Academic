@@ -28,6 +28,19 @@
 			</div>
 		';			
 	}
+	if(isset($_GET['update_success']))
+	{
+		echo '			    
+		    <div id="success-modal">
+				<div class="modalconent">
+					<h3 style="color:teal;">Information</h3>
+					<hr>	
+					<p class="para">Student\'s profile updation request was successfully approved.</p> 
+					<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+				</div>
+			</div>
+		';			
+	}
 		
 	
 ?>
@@ -39,6 +52,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
      <link rel="stylesheet" type="text/css" href="css/default.css">
 	<link rel="stylesheet" type="text/css" href="css/notices.css">
+	<link rel="stylesheet" type="text/css" href="css/student_all.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" type="image/jpg" href="../images/logo.jpg" />
@@ -204,21 +218,258 @@
 					</header>
 				</div>
 				
-				
+				<div id="content">
+					<header>
+						<h2 class="page_title">Student's Profile Updation requests</h2>	
+					</header>	
+					<div class="content-inner">
+						<div class="row">
+							<div class="col-md-2">
+								<button type="submit" class="btn btn-default btn-sm current" id="profile" name="search"><span class="fa fa-wrench"><span> Profile Updation Requests</button>
+							</div>
+							<div class="col-md-2">
+								<button type="submit" class="btn btn-default btn-sm " id="change" name="search"><span class="fa fa-exchange"><span> Course Change Requests</button>
+							</div>
+							<div class="col-md-2">
+								<button type="submit" class="btn btn-default btn-sm " id="add" name="search"><span class="fa fa-plus-circle"><span> Course Addition Requests</button>
+							</div>
+							<div class="col-md-6">
+								<form action="students_profile.php" method="POST" class="navbar-form search-form navbar-right" role="search" style="margin-top:0px;">
+									<div class="form-group">
+									<input type="text" name="field" class="form-control" placeholder="Name or Registration No">
+									</div>
+									<button type="submit" class="btn btn-default btn-sm" name="search"><span class="fa fa-search"><span>   Search</button>
+								</form>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<?php	
+						
+							if(isset($_POST['search'])){
+								$search = mysqli_real_escape_string($conn, $_POST['field']);
+								$query = "select DISTINCT stu_id, stu_imageLocation, stu_name, course_name, center_name, stu_registrationNo from students INNER JOIN student_profile_update ON stu_id = student_id INNER JOIN courses on cid=course_id INNER JOIN centers on students.center_id=centers.center_id where stu_name LIKE '%$search%' OR stu_registrationNo LIKE '%$search%'";
+								
+								$result = mysqli_query($conn, $query);
+								$count = mysqli_num_rows($result);
+							}
+							else{
+								$query = "select DISTINCT stu_id, stu_imageLocation, stu_name, course_name, center_name, stu_registrationNo from students INNER JOIN student_profile_update ON stu_id = student_id INNER JOIN courses on cid=course_id INNER JOIN centers on students.center_id=centers.center_id";
+								$result= mysqli_query($conn, $query);
+							}
+							
+							if(isset($_POST['search']) && $count === 0){
+									
+								echo '<h5 style="text-align:center;">No Result Found.     <a href="students_profile.php">View All</a></h5>';
+							}	
+							echo '<div id="form-wrapper">';		
+							while($data=mysqli_fetch_array($result)){
+								echo '
+								<div class="form-wrapper" >
+										<div class="stu-info">
+											<table>
+												<tr>
+													<td>
+														<img src="../'.$data['stu_imageLocation'].'" height="120" width="120" ></img>
+													</td>
+													<td>
+														Name: <span style="padding-left:12.7%;">'.$data['stu_name'].'</span><br>
+														Registration Number: <span style="padding-left:2%;">'.$data['stu_registrationNo'].'</span><br>
+														Course Name: <span style="padding-left:7%;">'.$data['course_name'].'</span><br>
+														Center Name: <span style="padding-left:7.5%;">'.$data['center_name'].'</span>
+													</td>
+												</tr>
+											</table>		
+										</div>
+									<div class="table-wrap">
+									<h4>Updation Requests</h4>
+									<table class="table table-bordered" >
+										<thead class="thead-dark">
+											<tr>
+												<th>#</th>
+												<th>Attribute</th>									
+												<th>Current Value</th>
+												<th>Requested Value</th>									
+												<th>Actions</th>											
+											</tr>
+										</thead>
+										<tbody>		
+								';
+									
+									
+								$query = "select * from students INNER JOIN student_profile_update ON stu_id = student_id AND stu_id=".$data['stu_id']." AND spu_status=0";
+								$res= mysqli_query($conn, $query);
+								$i=1;
+								while($row = mysqli_fetch_array($res)){
+									echo '
+																			
+										<tr>
+										<td class="col-md-1">'.$i.'</td>
+									';											
+									$attr = $row['spu_field'];
+									$attrName= findAttribute($attr);
+									$query="select ".$attr." from students where stu_id=".$row['stu_id']."";
+									$res1=mysqli_query($conn, $query);
+									$row_attr = mysqli_fetch_array($res1);
+									echo '
+										<td class="col-md-2">'.$attrName.'</td>
+										<td class="col-md-3">'.$row_attr[$attr].'</td>
+										<td class="col-md-4">'.$row['spu_newValue'].'</td>
+										<td class="col-md-2">
+											<button class="btn btn-success btn-xs" data-target="#Modalapprv'.$row['stu_id'].$attr.'" data-toggle="modal">Approve</button>
+											<div class="modal fade" id="Modalapprv'.$row['stu_id'].$attr.'"  >
+												<div class="modal-dialog">
+													<div class="modal-content modal-cnt" >
+														<div class="modal-header">
+																
+															<button type="button" class="close" data-dismiss="modal">&times;</button>	
+															<h4>Approve Request?</h4>
+														</div>
+														<div class="modal-body">
+																	
+															<form action="includes/stu_update.inc.php" method="POST">
+																<input type="hidden" name="newValue" value="'.$row['spu_newValue'].'"/>
+																<input type="hidden" name="id" value="'.$row['stu_id'].'"/>
+																<input type="hidden" name="attr" value="'.$attr.'"/>
+																
+																<p>Sure to approve '.$row['stu_name'].'\'s request to update his '.$attrName.'?</p>
+																<p><b>This cannot be reverted.</b></p>
+																
+																<button class="btn btn-success btn-sm pull-right approve" name="approve-update"><span class="fa fa-thumbs-up"> Approve</button>
+																<div class="clearfix"></div>
+															</form>
+														</div> 																
+													</div>
+												</div>
+											</div>		
+											<button class="btn btn-danger btn-xs">Deny</button>	
+										</td>
+										</tr>
+										
+									';
+									$i++;
+								}
+								
+								
+								echo '
+											</tbody>
+										</table>
+									</div>
+								</div>	
+								
+								';
+								
+							}
+							echo '</div>'
+						?>	
+						
+						<div id="add-wrap">
+							on this special day, i wish you all the very best, all the joy you can ever have and may you be blessed abundantly today, tomorrow and the days to come! May you have a fantastic birthday and many more to come. have a blast. stay blessed. stay safe. enjoy safely.
+						</div>
+						<div id="change-wrap">
+							Java Developer?
+							Do you code fast enough?
+							Get code suggestions while writing code directly to your Java IDE.
+							Join +30,000 developers that code better and faster using Codota. 
+						</div>
+							
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>	
-
+	
+	
 	
 	<script src="../js/jquery-3.2.1.min.js"></script>	
 	<script src="../js/bootstrap.js"></script>
+	<script src="js/default.js"></script>
 	<script>
 		window.onload = function () {
 			document.getElementById('button').onclick = function () {
 				document.getElementById('success-modal').style.display = "none"
-				window.location.replace('students.php');
+				window.location.replace('students_profile.php');
 			};
 		};
 	</script>
+	<script>
+		$(document).ready(function(){
+			$("#add-wrap").hide();
+			$("#change-wrap").hide();
+			$("#add").click(function(){
+				$("#form-wrapper").fadeOut();
+				$("#add-wrap").fadeIn();
+				$("#change-wrap").fadeOut();
+				$("#add").addClass('current');
+				$("#change").removeClass('current');
+				$("#profile").removeClass('current');
+			});
+			$("#change").click(function(){
+				$("#form-wrapper").fadeOut();
+				$("#change-wrap").fadeIn();
+				$("#add-wrap").fadeOut();
+				$("#change").addClass('current');
+				$("#add").removeClass('current');
+				$("#profile").removeClass('current');
+			});
+			$("#profile").click(function(){
+				$("#form-wrapper").fadeIn();
+				$("#change-wrap").fadeOut();
+				$("#add-wrap").fadeOut();
+				$("#add").removeClass('current');
+				$("#change").removeClass('current');
+				$("#profile").addClass('current');
+			});
+		});
+	</script>
 </body>
 </html>
+
+<?php
+		function findAttribute($attr){
+			if($attr == 'stu_name'){
+				return 'Name';
+			}
+			elseif($attr == 'stu_gurdianname'){
+				return 'Guardian\'s Name';
+			}
+			elseif($attr == 'stu_address'){
+				return 'Address';
+			}
+			elseif($attr == 'stu_subjectCombo'){
+				return 'Subject Combination';
+			}
+			elseif($attr == 'stu_dob'){
+				return 'Date of Birth';
+			}
+			elseif($attr == 'stu_gender'){
+				return 'Subject Gender';
+			}
+			elseif($attr == 'stu_email'){
+				return 'Email';
+			}
+			elseif($attr == 'stu_contact'){
+				return 'Contact';
+			}
+			elseif($attr == 'stu_gcontact'){
+				return 'Guardian\'s Contact';
+			}
+			elseif($attr == 'stu_currentinstitute'){
+				return 'Current Institute';
+			}
+			elseif($attr == 'stu_university'){
+				return 'Board / University';
+			}
+			elseif($attr == 'stu_highestdegree'){
+				return 'Class / Course';
+			}
+			elseif($attr == 'stu_dept'){
+				return 'Department';
+			}
+			elseif($attr == 'stu_yop'){
+				return 'Year of Passing';
+			}
+			elseif($attr == 'stu_currentStatus'){
+				return 'Current Status';
+			}
+		}
+	?>
