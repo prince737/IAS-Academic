@@ -100,7 +100,29 @@
 								</ul>
 							</li>
 							<li>
-								<a href="login.php" class="smoothScroll">LOG IN</a>
+							
+								<?php
+									if(isset($_SESSION['student'])){
+										$email = $_SESSION['student'];
+										$query = "select * from students where stu_email='$email'";
+										$result = mysqli_query($conn, $query);
+										$row=mysqli_fetch_array($result);
+										echo '<a href="profile.php" class="smoothScroll">PROFILE</a>';
+									}
+									elseif(isset($_COOKIE['student'])){
+										$email = $_COOKIE['student'];
+										$query = "select * from students where stu_email='$email'";
+										$result = mysqli_query($conn, $query);
+										$row=mysqli_fetch_array($result);
+										echo '<a href="profile.php" class="smoothScroll">PROFILE</a>';
+									}
+									else{
+										echo '<a href="login.php" class="smoothScroll">LOG IN</a>';
+									}
+									
+									
+								?>
+								
 								
 							</li>
 						</ul>

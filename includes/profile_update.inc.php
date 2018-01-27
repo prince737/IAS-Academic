@@ -731,10 +731,43 @@
 				exit();
 			}
 	}
+	elseif(isset($_POST['save'])){
+		$id  = mysqli_real_escape_string($conn, $_POST['id']);
+		$attr  = mysqli_real_escape_string($conn, $_POST['attr']);
+		$newVal= mysqli_real_escape_string($conn, $_POST['newVal']);
+		
+		$query="update student_profile_update set spu_newValue = '$newVal' where student_id=$id AND spu_field='$attr'";
+		if(!mysqli_query($conn, $query)){
+			header("Location: ../pending_updates.php?err");
+			exit();
+		}
+		else{
+			header("Location: ../pending_updates.php");
+			exit();
+		}
+	}
+	elseif(isset($_POST['rmvReq'])){
+		$id  = mysqli_real_escape_string($conn, $_POST['id']);
+		$attr  = mysqli_real_escape_string($conn, $_POST['attr']);
+		
+		$query="delete from student_profile_update where student_id=$id AND spu_field='$attr' AND spu_status=0";
+		if(!mysqli_query($conn, $query)){
+			header("Location: ../pending_updates.php?err");
+			exit();
+		}
+		else{
+			header("Location: ../pending_updates.php");
+			exit();
+		}
+		
+		
+	}
 	else{
 		header("Location: ../profile.php");
 		exit();
 	}
+	
+	
 	
 	
 	function getClass(){

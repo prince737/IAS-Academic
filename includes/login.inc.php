@@ -14,7 +14,6 @@ include 'simple-crypt.inc.php';
 if(isset($_POST['submit'])) 
 {
 	
-	
 	$email = mysqli_real_escape_string($conn, $_POST['email']);
 	$pwd = mysqli_real_escape_string($conn, $_POST['pwd']);	
 	$remember = mysqli_real_escape_string($conn, $_POST['remember']);	
@@ -49,7 +48,7 @@ if(isset($_POST['submit']))
 					$hashedPwdCheck = password_verify($pwd, $row['stu_password']);
 					if($hashedPwdCheck == false)
 					{
-						$mail= $row['stu_email'];
+						$mail= simple_crypt( $row['stu_email'], 'e' );
 						header("Location: ../login.php?m=$mail&l=pdm");
 						exit();
 					}

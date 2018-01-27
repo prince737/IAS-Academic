@@ -18,6 +18,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/home.css">
 	<link rel="stylesheet" type="text/css" href="css/header.css">
+	<link rel="stylesheet" type="text/css" href="css/footer.css">
     <link rel="stylesheet" type="text/css" href="css/animate.css">
 	<link rel="stylesheet" type="text/css" href="css/aos.css">
 	<link rel="stylesheet" type="text/css" href="vendor/css/lightslider.css">
@@ -530,7 +531,6 @@
 		if(!this.value.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/))
 		{
 			$('#error_email').html('Please provide a valid email address.').css('color', '#D32F2F').css('padding-top','10px').css('font-size','16px');
-			 $(this).focus(); 
 			 $('#email').css('border', '2px solid #D32F2F');
 			return false;
 		} 
@@ -543,7 +543,6 @@
 		if(!this.value.match(/^[0-9]{10}$/))
 		{
 			$('#error_contact').html('Please provide a valid Contact Number.').css('color', '#D32F2F').css('padding-top','10px').css('font-size','16px');
-			 $(this).focus(); 
 			 $('#phone').css('border', '2px solid #D32F2F');
 			return false;
 		} 

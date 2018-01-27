@@ -13,9 +13,10 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Student Profile | IAS</title>
+	<title>Pending Updates | IAS</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/profile.css">
+    <link rel="stylesheet" type="text/css" href="css/animate.css">
     <link rel="stylesheet" type="text/css" href="css/pending_updates.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -63,14 +64,79 @@
 	
 	<div class="container-fluid profile-wrapper">
 		<div class="row">
-			<?php
-				include('profile_sidebar.php');
-			?>
+			<div class="col-md-3 navigation shadow" >
+				<div class="img-name">
+				<?php
+					$row = mysqli_fetch_array($result);
+						echo '
+							<img class="img-thumbnail" src="'.$row['stu_imageLocation'].'" /> 
+							<form action="includes/change.inc.php" method="POST" enctype="multipart/form-data">
+								<input type="file" id="fileLoader" accept=".jpg, .jpeg, .png" onchange="this.form.submit();" name="image"/>
+								<input type="hidden" name="id"  value="'.$row['stu_id'].'"></input>
+								<input type="button" class="btn btn-default btn-sm" id="btnOpenFileDialog" value = "Change Image" onclick="openfileDialog();" />
+							<p class="name">'.$row['stu_name'].'</p>
+							</form>
+						'; 		
+				?>
+				</div>
+				<div class="nav-menu shadow">
+					<ul> 
+						<li class="link">
+							<a href="admin.php">
+								<i class="fa fa-home" aria-hidden="true"></i>PROFILE HOME</span>
+							</a>
+						</li>
+						<li class="link">
+							<a href="profile.php">
+								<i class="fa fa-cogs" aria-hidden="true"></i>ACCOUNT SETTINGS</span>
+							</a>
+						</li>
+						<li class="link">
+							<a href="change_course.php">
+								<i class="fa fa-book" aria-hidden="true"></i>CHANGE COURSE / CENTER</span>
+							</a>
+						</li>
+						<li class="link">
+							<a href="add_course.php">
+								<i class="fa fa-plus-square-o" aria-hidden="true"></i>APPLY FOR ANOTHER COURSE</span>
+							</a>
+						</li>
+						<li class="link active">
+							<a href="#">
+								<i class="fa fa-spinner" aria-hidden="true"></i>VIEW PENDING UPDATES</span>
+							</a>
+						</li>
+						<li class="link">
+							<a href="admin.php">
+								<i class="fa fa-download" aria-hidden="true"></i>DOWNLOADS</span>
+							</a>
+						</li>
+						<li class="link">
+							<a href="admin.php">
+								<i class="fa fa-pencil" aria-hidden="true"></i>EXAMS</span>
+							</a>
+						</li>
+						<li class="link">
+							<a href="admin.php">
+								<i class="fa fa-list-alt" aria-hidden="true"></i>RESULTS</span>
+							</a>
+						</li>
+						<li class="link logout">
+							<form action="includes/logout.inc.php" method="POST">
+								<button type="submit" name="logout"><span class="fa fa-sign-out"></span>LOG OUT</button>
+							</form>
+						</li>
+						
+						
+					</ul>	
+				</div>
+				
+			</div>
 			<div class="col-md-9 content shadow">
 			
-						<h4>Queued Updates</h4>
+				<h4>Queued Updates</h4>
 					 
-						<a href="profile.php" class="btn btn-xs pending pull-right hidden-xs"><span class="fa fa-cogs"></span> Back to Account Settings</a>				
+				<a href="profile.php" class="btn btn-xs pending pull-right hidden-xs"><span class="fa fa-cogs"></span> Back to Account Settings</a>				
 					
 				<hr>
 				
@@ -92,6 +158,7 @@
 										<th>Attribute</th>									
 										<th>Current Value</th>
 										<th>Requested Value</th>										
+										<th>Actions</th>									
 									</tr>
 								</thead>
 								<tbody>	
@@ -101,12 +168,67 @@
 							$attrName= findAttribute($attr);
 								echo '
 									<tr>
-										<td class="col-md-1">'.$i.'</td>
-										<td class="col-md-2">'.$attrName.'</td>
-										<td class="col-md-3">'.$row[$attr].'</td>
-										<td class="col-md-4">'.$row_spu['spu_newValue'].'</td>
+									<form action="includes/profile_update.inc.php" method="POST">
+										<td>'.$i.'</td>
+										<td>'.$attrName.'</td>
+										<td>'.$row[$attr].'</td>
+										<td><span id="val'.$i.'">'.$row_spu['spu_newValue'].'</span>
+											<input type="text" name="newVal" id="newVal'.$i.'" value="'.$row_spu['spu_newValue'].'"/>
+										</td>
+										<td>
+											
+												<input type="hidden" name="id" value="'.$row['stu_id'].'"/>
+												<input type="hidden" name="attr" value="'.$attr.'"/>
+												
+												<button type="button" class="btn btn-danger btn-xs" name="delete_req" data-target="#Modalrem'.$i.'" data-toggle="modal">Delete</button>	
+												
+												
+												<div class="modal fade modalrem" id="Modalrem'.$i.'">
+													<div class="modal-dialog">
+														<div class="modal-content modal-cnt" >
+															<div class="modal-header">
+																	
+															<button type="button" class="close" data-dismiss="modal">&times;</button>	
+																<h4><i class="fa fa-bullhorn animated infinite tada" aria-hidden="true"></i> SURE ABOUT DELETING YOUR REQUEST?</h4>
+															</div>
+															<div class="modal-body">
+																Deleting your request would mean that your <b>'.$attrName.'</b> won\'t be queued for updation anymore.<br><br>
+																Are you sure about doing this?<br><br>
+																	
+																<button name="rmvReq" class="btn btn-danger btn-sm request" >Yes, please remove</button>
+																<button type="button" class="btn btn-success btn-sm no" data-dismiss="modal">No, keep the Request</button>
+															</div> 																
+														</div>
+													</div>
+												</div>
+												
+												
+												
+												<button type="button" class="btn btn-warning btn-xs" id="edit'.$i.'">Edit</button>	
+												<button name="save"class="btn btn-success btn-xs " id="save'.$i.'">Save</button>	
+											
+										</td>
+										<script src="js/jquery-3.2.1.min.js"></script>   
+										<script>
+											$(document).ready(function() {
+												$("#newVal'.$i.'").hide();
+												$("#save'.$i.'").hide();
+												
+												$("#edit'.$i.'").on("click", function () {
+													$("#newVal'.$i.'").show();
+													$("#save'.$i.'").show();
+													$("#edit'.$i.'").hide();
+													$("#val'.$i.'").hide();
+													
+												}) ;															
+														
+											})
+										</script>
 										
+									</form>	
 									</tr>
+									
+									
 										
 							';
 							$i++;
@@ -203,6 +325,8 @@
 			};
 		};
 	</script>
+	
+	
 	
 	<script>
 		 $('#new-pwd,#renew-pwd').on('keyup', function () {

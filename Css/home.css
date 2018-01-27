@@ -451,24 +451,7 @@ body{
 
 /*FOOTER STYLES BEGINS HERE% */
 
-footer{
-	background: #002147;
-	color: #eee;
-	padding:20px;
-	font-family: 'Roboto', sans-serif;
-	font-weight: 300;
-	font-size: 15px;
-}
 
-.fa{
-	padding:5px;
-	font-size: 45px;
-}
-
-footer ul{
-	list-style-type: none;
-	padding: 0px;
-}
 
 
 /*STYLES FOR CONTACT FORM*/
@@ -479,6 +462,7 @@ footer ul{
 	background:#232a34;
 	padding:2% 7% 4% 7%;
     background-attachment: fixed;
+	margin-bottom:-30px;
 }
 
 .contact-form h2{

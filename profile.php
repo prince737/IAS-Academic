@@ -63,9 +63,74 @@
 	
 	<div class="container-fluid profile-wrapper">
 		<div class="row">
-			<?php
-				include('profile_sidebar.php');
-			?>
+			<div class="col-md-3 navigation shadow" >
+				<div class="img-name">
+				<?php
+					$row = mysqli_fetch_array($result);
+						echo '
+							<img class="img-thumbnail" src="'.$row['stu_imageLocation'].'" /> 
+							<form action="includes/change.inc.php" method="POST" enctype="multipart/form-data">
+								<input type="file" id="fileLoader" accept=".jpg, .jpeg, .png" onchange="this.form.submit();" name="image"/>
+								<input type="hidden" name="id"  value="'.$row['stu_id'].'"></input>
+								<input type="button" class="btn btn-default btn-sm" id="btnOpenFileDialog" value = "Change Image" onclick="openfileDialog();" />
+							<p class="name">'.$row['stu_name'].'</p>
+							</form>
+						'; 		
+				?>
+				</div>
+				<div class="nav-menu shadow">
+					<ul> 
+						<li class="link">
+							<a href="admin.php">
+								<i class="fa fa-home" aria-hidden="true"></i>PROFILE HOME</span>
+							</a>
+						</li>
+						<li class="link active">
+							<a href="#">
+								<i class="fa fa-cogs" aria-hidden="true"></i>ACCOUNT SETTINGS</span>
+							</a>
+						</li>
+						<li class="link">
+							<a href="change_course.php">
+								<i class="fa fa-book" aria-hidden="true"></i>CHANGE COURSE / CENTER</span>
+							</a>
+						</li>
+						<li class="link">
+							<a href="add_course.php">
+								<i class="fa fa-plus-square-o" aria-hidden="true"></i>APPLY FOR ANOTHER COURSE</span>
+							</a>
+						</li>
+						<li class="link">
+							<a href="pending_updates.php">
+								<i class="fa fa-plus-square-o" aria-hidden="true"></i>VIEW PENDING UPDATES</span>
+							</a>
+						</li>
+						<li class="link">
+							<a href="admin.php">
+								<i class="fa fa-download" aria-hidden="true"></i>DOWNLOADS</span>
+							</a>
+						</li>
+						<li class="link">
+							<a href="admin.php">
+								<i class="fa fa-pencil" aria-hidden="true"></i>EXAMS</span>
+							</a>
+						</li>
+						<li class="link">
+							<a href="admin.php">
+								<i class="fa fa-list-alt" aria-hidden="true"></i>RESULTS</span>
+							</a>
+						</li>
+						<li class="link logout">
+							<form action="includes/logout.inc.php" method="POST">
+								<button type="submit" name="logout"><span class="fa fa-sign-out"></span>LOG OUT</button>
+							</form>
+						</li>
+						
+						
+					</ul>	
+				</div>
+				
+			</div>
 			<div class="col-md-9 content shadow">
 				<div id="account-wrapper">
 					<p class="header">Basic Information</p>
@@ -628,12 +693,13 @@
 						<h3 style="color:teal;">Information</h3>
 						<hr>	
 						<p class="para">'.$_GET['success'].' was successfully queued for update. We will notify you once your request is approved by our administrator. </p> 
-						<p class="para"><a href="#">View all pending updates</a></p>
+						<p class="para"><a href="pending_updates.php">View all pending updates</a></p>
 						<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
 					</div>
 				</div>
 			';			
 		}
+		
 		if(isset($_GET['successChange']))
 		{
 			echo '			    
@@ -724,7 +790,7 @@
 						<h3 style="color:teal;">Information</h3>
 						<hr>	
 						<p class="para">Email id you entered is already in use. Please provide a different one.</p> 
-						<p class="para"><a href="#">View all pending updates</a></p>
+						<p class="para"><a href="pending_updates.php">View all pending updates</a></p>
 						<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
 					</div>
 				</div>
@@ -738,7 +804,7 @@
 						<h3 style="color:teal;">Information</h3>
 						<hr>	
 						<p class="para">The value you entered is same as the existing one. Any pending updation request for the attribute has been cancelled. </p> 
-						<p class="para"><a href="#">View all pending updates</a></p>
+						<p class="para"><a href="pending_updates.php">View all pending updates</a></p>
 						<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
 					</div>
 				</div>
@@ -752,7 +818,7 @@
 						<h3 style="color:teal;">Information</h3>
 						<hr>	
 						<p class="para">The value you entered is not valid. Please try again.</p>
-						<p class="para"><a href="#">View all pending updates</a></p>	
+						<p class="para"><a href="pending_updates.php">View all pending updates</a></p>	
 						<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
 					</div>
 				</div>

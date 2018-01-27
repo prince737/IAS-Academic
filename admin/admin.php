@@ -256,7 +256,7 @@
 								<header>
 									<div class="clearfix">
 										<h5 class="pull-left">Pending Approval</h5>
-										<a class="btn btn-xs btn-warning pull-right" href="#" role="button">Do something</a>
+										<a class="btn btn-xs btn-warning pull-right" href="students_profile.php" role="button">Profile Update Requests</a>
 									</div>
 								</header>
 								<?php

@@ -37,9 +37,9 @@
 			<div class="col-sm-4 navigation">
 				<ul>
 					<li ><a href="#" class="select" style="color:#ab5443;">Admission Process</a></li>
-					<li><a href="direct_adm.html">Direct Admission</a></li>
-					<li><a href="SET.html">Scholarship Entrance Test (SET)</a></li>
-					<li><a href="provisional.html">Provisional Admission</a></li>
+					<li><a href="direct_adm.php">Direct Admission</a></li>
+					<li><a href="SET.php">Scholarship Entrance Test (SET)</a></li>
+					<li><a href="provisional.php">Provisional Admission</a></li>
 				</ul>
 			</div>
 			<div class="col-sm-8 ">

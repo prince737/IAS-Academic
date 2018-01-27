@@ -27,11 +27,11 @@
 						</li>
 						<li class="link">
 							<a href="admin.php">
-								<i class="fa fa-book" aria-hidden="true"></i>CHANGE COURSE</span>
+								<i class="fa fa-book" aria-hidden="true"></i>CHANGE COURSE / CENTER</span>
 							</a>
 						</li>
 						<li class="link">
-							<a href="admin.php">
+							<a href="add_course.php">
 								<i class="fa fa-plus-square-o" aria-hidden="true"></i>APPLY FOR ANOTHER COURSE</span>
 							</a>
 						</li>

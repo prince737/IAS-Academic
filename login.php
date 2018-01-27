@@ -71,7 +71,14 @@
 				?>
 				<img src="images/no-photo.jpg" class="dp">
 				<form class="form" action="includes/login.inc.php" method="POST">
-					<input type="email" name="email" id="email" placeholder="E-mail" class="form-control" value="<?php if(isset($_GET['m'])){$decrypted = simple_crypt( $_GET['m'], 'd' );echo $decrypted;} ?>" required>	
+					<input type="email" name="email" id="email" placeholder="E-mail" class="form-control" 
+					value="<?php 
+								if(isset($_GET['m'])){
+									$decrypted = simple_crypt( $_GET['m'], 'd' );
+									echo $decrypted;
+								} 
+							?>" 
+					required>	
 					<input type="password" id="pwd" name="pwd" class="form-control" placeholder="Password" required>	
 					<button type="submit" name="submit" id="submit" class="submit">Log In</button><br>
 					<p id="error_email" style="text-align:center;"></p>
@@ -158,7 +165,6 @@
 		if(!this.value.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/))
 		{
 			$('#error_email').html('Please provide a valid email address.').css('color', '#D32F2F').css('font-size','16px');
-			 $(this).focus(); 
 			 $('#email').css('border', '2px solid #D32F2F');
 			return false;
 		} 
@@ -170,7 +176,6 @@
 	$('#pwd').on('blur', function(){
 		if(this.value.length < 8){
 			$('#error_pwd').html('Passwords must be atleast 8 characters long.').css('color', '#D32F2F').css('font-size','16px');
-			$(this).focus(); 
 			$('#pwd').css('border', '2px solid #D32F2F');
 			$('#submit').prop('disabled',true);
 			return false;
