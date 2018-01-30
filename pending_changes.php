@@ -155,6 +155,7 @@
 								<thead class="thead-dark">
 									<tr>
 										<th>#</th>								
+										<th>Status</th>								
 										<th>Center</th>
 										<th>Current Course</th>										
 										<th>Request Course</th>									
@@ -167,7 +168,18 @@
 							echo '
 								<tr>
 									<form action="includes/course.inc.php" method="POST">
-										<td>'.$i.'</td>';
+										<td>'.$i.'</td>
+										';
+										
+										if($row_cor['change_status'] == 0){
+											echo '<td><span class="label label-warning">Pending</span></td>';
+										}
+										elseif($row_cor['change_status'] == 1){
+											echo '<td><span class="label label-success">Approved</span></td>';
+										}
+										elseif($row_cor['change_status'] == 2){
+											echo '<td><span class="label label-danger">Denied</span></td>';
+										}
 										
 										//CENTER NAME
 										$query="select center_name from centers where center_id=".$row_cor['center_id'];
@@ -186,18 +198,28 @@
 										$result3=mysqli_query($conn, $query);
 										$row3=mysqli_fetch_array($result3);										
 										echo '<td>'.$row3['course_name'].'</td>
-																					
+										
+											
+
+
+										
 										<td>
 														
 											<input type="hidden" name="id" value="'.$id.'"/>
 											<input type="hidden" name="newcor" value="'.$row_cor['new_course_id'].'"/>
-											<input type="hidden" name="oldcor" value="'.$row_cor['old_course_id'].'"/>
-														
-											<button type="button" class="btn btn-danger btn-xs" name="delete_req" data-target="#Modalrem'.$i.'" data-toggle="modal"> Remove</button>		
+											<input type="hidden" name="oldcor" value="'.$row_cor['old_course_id'].'"/>';
+											
+											if($row_cor['change_status'] == 0){
+												echo '<button type="button" class="btn btn-danger btn-xs" name="delete_req" data-target="#Modalrem'.$i.'" data-toggle="modal"> Remove</button>	';
+											}
+											else{
+												echo '<button class="btn btn-danger btn-xs" name="delete_list" > Delete from Li</button>	';
+											}											
+												
 											
 											
 											
-											<div class="modal fade modalrem" id="Modalrem'.$i.'">
+											echo '<div class="modal fade modalrem" id="Modalrem'.$i.'">
 												<div class="modal-dialog">
 													<div class="modal-content modal-cnt" >
 														<div class="modal-header">
@@ -255,6 +277,7 @@
 								<thead class="thead-dark">
 									<tr>
 										<th>#</th>								
+										<th>status</th>								
 										<th>Course</th>
 										<th>Current Center</th>										
 										<th>Request Center</th>									
@@ -267,7 +290,19 @@
 							echo '
 								<tr>
 									<form action="includes/center.inc.php" method="POST">
-										<td>'.$i.'</td>';
+										<td>'.$i.'</td>
+										';
+										
+										if($row_cen['cchange_status'] == 0){
+											echo '<td><span class="label label-warning">Pending</span></td>';
+										}
+										elseif($row_cen['cchange_status'] == 1){
+											echo '<td><span class="label label-success">Approved</span></td>';
+										}
+										elseif($row_cen['cchange_status'] == 2){
+											echo '<td><span class="label label-danger">Denied</span></td>';
+										}
+										
 										
 										//COURSE NAME
 										$query="select course_name from courses where course_id=".$row_cen['course_id'];
@@ -291,13 +326,20 @@
 											<input type="hidden" name="id" value="'.$id.'"/>
 											<input type="hidden" name="cor" value="'.$row_cen['course_id'].'"/>
 											<input type="hidden" name="newcen" value="'.$row_cen['new_center_id'].'"/>
-											<input type="hidden" name="oldcen" value="'.$row_cen['old_center_id'].'"/>
+											<input type="hidden" name="oldcen" value="'.$row_cen['old_center_id'].'"/>';
+											
+											if($row_cen['cchange_status'] == 0){
+												echo '<button type="button" class="btn btn-danger btn-xs" name="delete_req" data-target="#Modalcen'.$i.'" data-toggle="modal">Remove</button>';
+											}
+											else{
+												echo '<button type="button" class="btn btn-danger btn-xs" name="delete_clist" > Delete from List</button>	';
+											}
 														
-											<button type="button" class="btn btn-danger btn-xs" name="delete_req" data-target="#Modalcen'.$i.'" data-toggle="modal">Remove</button>		
+													
 											
 											
 											
-											<div class="modal fade modalrem" id="Modalcen'.$i.'">
+											echo'<div class="modal fade modalrem" id="Modalcen'.$i.'">
 												<div class="modal-dialog">
 													<div class="modal-content modal-cnt" >
 														<div class="modal-header">
@@ -414,6 +456,19 @@
 					<h3 style="color:teal;">Information</h3>
 					<hr>	
 					<p class="para">Your request to change the center "'.$_GET['centerrem'].'" was successfully removed.</p> 
+					<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+				</div>
+			</div>
+		';			
+	}
+	if(isset($_GET['rem-list']) )
+	{
+		echo '			    
+			<div id="success-modal">
+				<div class="modalconent">
+					<h3 style="color:teal;">Information</h3>
+					<hr>	
+					<p class="para">Entry was successfully removed from the display list.</p> 
 					<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
 				</div>
 			</div>

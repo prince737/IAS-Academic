@@ -138,7 +138,7 @@ if(isset($_POST['register']))
 				$date = date("m/d/Y");				
 				
 				
-				$sql = "insert into students (stu_name, cid, center_id, stu_gender, stu_address, stu_gurdianname, stu_gurdiancontact, stu_highestdegree, stu_yearofpass, stu_currentinstitute, stu_dept, stu_university, stu_subjectCombo, stu_currentStatus, stu_dob, stu_contact, stu_email, stu_dateofadmission, stu_password, stu_approvalstatus) values ('$name', $cid, $centerid, '$gender', '$address', '$gname', '$gcontact', '$he', '$yop', '$inst',  '$dept', '$university', '$sub_combo', '$edu', '$dob', '$contact', '$email', '$date', '$hashedPwd', 0)";
+				$sql = "insert into students (stu_name, center_id, stu_gender, stu_address, stu_gurdianname, stu_gurdiancontact, stu_highestdegree, stu_yearofpass, stu_currentinstitute, stu_dept, stu_university, stu_subjectCombo, stu_currentStatus, stu_dob, stu_contact, stu_email, stu_dateofadmission, stu_password, stu_approvalstatus) values ('$name', $centerid, '$gender', '$address', '$gname', '$gcontact', '$he', '$yop', '$inst',  '$dept', '$university', '$sub_combo', '$edu', '$dob', '$contact', '$email', '$date', '$hashedPwd', 0)";
 				mysqli_query($conn, $sql);		
 				
 				$fileExt = explode('.', $fileName);

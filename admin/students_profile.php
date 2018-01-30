@@ -228,7 +228,7 @@
 								<button type="submit" class="btn btn-default btn-sm current" id="profile" name="search"><span class="fa fa-wrench"><span> Profile Updation Requests</button>
 							</div>
 							<div class="col-md-2">
-								<button type="submit" class="btn btn-default btn-sm " id="change" name="search"><span class="fa fa-exchange"><span> Course Change Requests</button>
+								<button type="submit" class="btn btn-default btn-sm " id="change"  onclick="location.href='change-requests.php';"><span class="fa fa-exchange"><span> Course Change Requests</button>
 							</div>
 							<div class="col-md-2">
 								<button type="submit" class="btn btn-default btn-sm " id="add" name="search"><span class="fa fa-plus-circle"><span> Course Addition Requests</button>
@@ -243,6 +243,8 @@
 							</div>
 						</div>
 						<div class="clearfix"></div>
+						
+						<div id="profile-wrap">
 						<?php	
 						
 							if(isset($_POST['search'])){
@@ -281,6 +283,7 @@
 											</table>		
 										</div>
 									<div class="table-wrap">
+									
 									<h4>Updation Requests</h4>
 									<table class="table table-bordered" >
 										<thead class="thead-dark">
@@ -362,14 +365,6 @@
 							echo '</div>'
 						?>	
 						
-						<div id="add-wrap">
-							on this special day, i wish you all the very best, all the joy you can ever have and may you be blessed abundantly today, tomorrow and the days to come! May you have a fantastic birthday and many more to come. have a blast. stay blessed. stay safe. enjoy safely.
-						</div>
-						<div id="change-wrap">
-							Java Developer?
-							Do you code fast enough?
-							Get code suggestions while writing code directly to your Java IDE.
-							Join +30,000 developers that code better and faster using Codota. 
 						</div>
 							
 					</div>
@@ -391,36 +386,7 @@
 			};
 		};
 	</script>
-	<script>
-		$(document).ready(function(){
-			$("#add-wrap").hide();
-			$("#change-wrap").hide();
-			$("#add").click(function(){
-				$("#form-wrapper").fadeOut();
-				$("#add-wrap").fadeIn();
-				$("#change-wrap").fadeOut();
-				$("#add").addClass('current');
-				$("#change").removeClass('current');
-				$("#profile").removeClass('current');
-			});
-			$("#change").click(function(){
-				$("#form-wrapper").fadeOut();
-				$("#change-wrap").fadeIn();
-				$("#add-wrap").fadeOut();
-				$("#change").addClass('current');
-				$("#add").removeClass('current');
-				$("#profile").removeClass('current');
-			});
-			$("#profile").click(function(){
-				$("#form-wrapper").fadeIn();
-				$("#change-wrap").fadeOut();
-				$("#add-wrap").fadeOut();
-				$("#add").removeClass('current');
-				$("#change").removeClass('current');
-				$("#profile").addClass('current');
-			});
-		});
-	</script>
+	
 </body>
 </html>
 

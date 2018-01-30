@@ -159,7 +159,7 @@
 	box-shadow:none;
 }
 
-.modal-cnt{
+.modal-cnt, .modal-deny{
 	border-radius:0px;
 	width:80%!important;
 	margin-left:auto;
@@ -174,7 +174,14 @@
 	background-color:#1ab394;
 }
 
-.modal-cnt h4{
+.modal-deny .modal-header{
+	height:50px;
+	padding-top:5px;
+	padding-bottom:10px;
+	background-color:#C62828;
+}
+
+.modal-cnt h4, .modal-deny h4{
 	color:#fff;
 }
 
@@ -189,7 +196,7 @@
 	border:none;
 }
 
-.modal-cnt .close{
+.modal-cnt .close, .modal-deny .close{
 	font-size:40px;
 	font-weight:300;
 	margin-right:-50px;
@@ -203,3 +210,6 @@
 		float:right!important;
 	}
 }
+
+
+

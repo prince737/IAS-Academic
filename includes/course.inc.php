@@ -2,7 +2,7 @@
 session_start();
 include 'dbh.inc.php';
 
-if(isset($_POST['type']) || isset($_POST['type1']) && !isset($_POST['request']) && !isset($_POST['name']) && !isset($_POST['request_change'])){
+if((isset($_POST['type']) || isset($_POST['type1'])) && !isset($_POST['request']) && !isset($_POST['name']) && !isset($_POST['request_change'])){
 	if(isset($_POST['type'])){	
 		$type = mysqli_real_escape_string($conn, $_POST['type']);
 		
@@ -47,7 +47,7 @@ elseif(isset($_POST['request'])){
 	$cenid=$row['center_id'];
 	echo $cenid;
 	
-	$query="insert into students_courses(student_id, course_id, center_id) values($id, $cid, $cenid)";
+	$query="insert into add_course(student_id, course_id, center_id) values($id, $cid, $cenid)";
 	if(!mysqli_query($conn,$query)){
 		header("Location: ../add_course.php?err");
 		exit();
@@ -165,6 +165,23 @@ elseif(isset($_POST['rmvReq'])){
 	}
 	else{
 		header("Location: ../pending_changes.php?courserem=$name");
+		exit();
+	}
+	
+}
+
+elseif(isset($_POST['delete_list'])){
+	$id= mysqli_real_escape_string($conn, $_POST['id']);
+	$newcor =mysqli_real_escape_string($conn, $_POST['newcor']);
+	$oldcor =mysqli_real_escape_string($conn, $_POST['oldcor']);
+	
+	$query = "delete from course_change where student_id=$id AND old_course_id=$oldcor AND new_course_id=$newcor";
+	if(!mysqli_query($conn, $query)){
+		header("Location: ../change-requests.php?err");
+		exit();
+	}
+	else{
+		header("Location: ../pending_changes.php?rem-list");
 		exit();
 	}
 	

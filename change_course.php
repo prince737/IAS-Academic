@@ -158,7 +158,7 @@
 								</label>';
 								 	
 						
-						$query="select * from students_courses INNER JOIN courses ON students_courses.course_id=courses.course_id where student_id =".$row['stu_id']."";
+						$query="select * from students_courses INNER JOIN courses ON students_courses.course_id=courses.course_id where student_id =".$row['stu_id']." AND sc_status IN(1,4)";
 						$res=mysqli_query($conn, $query);
 						$check = mysqli_num_rows($res);
 						if($check > 0){
@@ -226,11 +226,16 @@
 					
 					<div class="form-group ">
 						<?php
-							$sql="select * from students_courses INNER JOIN courses ON students_courses.course_id=courses.course_id where student_id =$id";
+							$sql="select * from students_courses INNER JOIN courses ON students_courses.course_id=courses.course_id where student_id =$id ";
 							$res=mysqli_query($conn, $sql);
 							while($row = mysqli_fetch_array($res)){
 								$arr[]=$row['course_name'];
 							}
+							
+							$sql="select * from students INNER JOIN courses on course_id=cid where stu_id=$id";
+							$res=mysqli_query($conn, $sql);
+							$row = mysqli_fetch_array($res);
+							$crs=$row['course_name'];
 							
 						?>
 						<label for="name">CHOOSE THE COURSE:</label>
@@ -252,16 +257,16 @@
 									$query="select course_name from courses where course_type='$type'";
 									$res=mysqli_query($conn, $query);
 									while($row = mysqli_fetch_array($res)){										
-										if(($row['course_name'] != $course) && !(in_array($row['course_name'], $arr))){
-											if(isset($_GET['name']) && $_GET['name'] == $row['course_name']){
+										if(($row['course_name'] != $course) && !(in_array($row['course_name'], $arr)) && $row['course_name'] != $crs){
+											/*if(isset($_GET['name']) && $_GET['name'] == $row['course_name']){
 												echo '<option value="'.$row['course_name'].'" selected>'.$row['course_name'].'</option>';												
 											}
 											elseif(isset($_GET['name']) && $_GET['name'] == 'Robotics with ARDUINO ' && $row['course_name'] == 'Robotics with ARDUINO & PID'){
 												echo '<option value="'.$row['course_name'].'" selected>'.$row['course_name'].'</option>';
 											}
-											else{
+											else{*/
 												echo '<option value="'.$row['course_name'].'">'.$row['course_name'].'</option>';
-											}
+											//}
 										}
 									}
 								}
@@ -346,7 +351,7 @@
 								</label>';
 								 	
 						
-						$query="select * from students_courses INNER JOIN courses ON students_courses.course_id=courses.course_id where student_id =".$row['stu_id']."";
+						$query="select * from students_courses INNER JOIN courses ON students_courses.course_id=courses.course_id where student_id =".$row['stu_id']." AND sc_status IN(1,4)";
 						$res=mysqli_query($conn, $query);
 						$check = mysqli_num_rows($res);
 						if($check > 0){

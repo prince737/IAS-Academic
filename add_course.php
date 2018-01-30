@@ -187,7 +187,7 @@
 					</div>	
 					<div class="form-group ">
 						<?php
-							$sql="select * from students_courses INNER JOIN courses ON students_courses.course_id=courses.course_id where student_id =$id";
+							$sql="select * from add_course INNER JOIN courses ON add_course.course_id=courses.course_id where student_id =$id";
 							$res=mysqli_query($conn, $sql);
 							while($row = mysqli_fetch_array($res)){
 								$arr[]=$row['course_name'];
@@ -299,9 +299,11 @@
 				
 				
 				<?php		
-					$query="select * from students_courses INNER JOIN courses ON students_courses.course_id=courses.course_id INNER JOIN centers ON centers.center_id=students_courses.center_id where student_id =$id and sc_status <> 4";
+					$query="select * from add_course INNER JOIN courses ON add_course.course_id=courses.course_id INNER JOIN centers ON centers.center_id=add_course.center_id where student_id =$id and add_status <> 4";
 					$res=mysqli_query($conn, $query);
+					
 					$check=mysqli_num_rows($res);
+					
 					$i=1;
 					if($check<1){
 						echo '<p>No pending requests found.</p>';
@@ -330,21 +332,21 @@
 										<td>'.$row['course_type'].'</td>
 										<td>'.$row['center_name'].'</td>
 										<td>';
-											if($row['sc_status'] == 0){
+											if($row['add_status'] == 0){
 												echo '<div class="label label-warning">Pending</div>';
 											}
-											elseif($row['sc_status'] == 1){
+											elseif($row['add_status'] == 1){
 												echo '<div class="label label-success">Approved</div>';
 											}
-											elseif($row['sc_status'] == 2){
+											elseif($row['add_status'] == 2){
 												echo '<div class="label label-danger">Denied</div>';
 											}
 										echo '</td>
 										<td>';
-											if($row['sc_status'] == 0){
+											if($row['add_status'] == 0){
 												echo '
 												<form action="includes/course.inc.php" method="POST">
-													<input type="hidden" name="sc_id" value="'.$row['sc_id'].'"/>
+													<input type="hidden" name="sc_id" value="'.$row['add_id'].'"/>
 													<button type="button" class="btn btn-danger btn-xs" name="delete_req" data-target="#Modalrem'.$i.'" data-toggle="modal">Remove Request</button>	
 													
 													<div class="modal fade modalrem" id="Modalrem'.$i.'">
@@ -368,7 +370,7 @@
 													
 												</form>';
 											}
-											elseif($row['sc_status'] == 1 || $row['sc_status'] == 2){
+											elseif($row['add_status'] == 1 || $row['add_status'] == 2){
 												echo '
 												<form action="includes/course.inc.php" method="POST">
 													<input type="hidden" name="sc_id" value="'.$row['sc_id'].'"/>

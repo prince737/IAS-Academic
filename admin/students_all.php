@@ -299,6 +299,13 @@
 									$result = mysqli_query($conn, $query);
 									$count = mysqli_num_rows($result);
 								}
+								elseif(isset($_GET['id'])){
+									$id=mysqli_real_escape_string($conn, $_GET['id']);
+									$query = "select * from students INNER JOIN courses ON course_id=cid INNER JOIN centers on students.center_id = centers.center_id where stu_id=$id";
+									$result = mysqli_query($conn, $query);
+									$count = mysqli_num_rows($result);
+									
+								}
 								else{
 									$sql='SELECT * FROM students, courses, centers where cid=course_id and students.center_id=centers.center_id order by stu_id desc LIMIT ' . $this_page_first_result . ',' .  $results_per_page;
 									$result = mysqli_query($conn, $sql);
