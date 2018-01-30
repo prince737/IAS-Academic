@@ -55,13 +55,15 @@
 	<?php
 		if(isset($_SESSION['student'])){
 			$email = $_SESSION['student'];
-			$query = "select * from students INNER JOIN courses ON course_id=cid where stu_email='$email'";
+			$query = "select * from students INNER JOIN students_courses ON student_id=stu_id INNER JOIN courses ON courses.course_id=students_courses.course_id where stu_email='$email'";
 		}
 		elseif(isset($_COOKIE['student'])){
 			$email = $_COOKIE['student'];
-			$query = "select * from students INNER JOIN courses ON course_id=cid where stu_email='$email'";
+			$query = "select * from students INNER JOIN students_courses ON student_id=stu_id INNER JOIN courses ON courses.course_id=students_courses.course_id where stu_email='$email'";
 		}
 		$result = mysqli_query($conn, $query);
+		
+		
 	?>
 	
 	<div class="container-fluid profile-wrapper">
@@ -69,6 +71,7 @@
 			<div class="col-md-3 navigation shadow" >
 				<div class="img-name">
 				<?php
+					
 					$row = mysqli_fetch_array($result);
 						echo '
 							<img class="img-thumbnail" src="'.$row['stu_imageLocation'].'" /> 

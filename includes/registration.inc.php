@@ -138,57 +138,76 @@ if(isset($_POST['register']))
 				$date = date("m/d/Y");				
 				
 				
-				$sql = "insert into students (stu_name, center_id, stu_gender, stu_address, stu_gurdianname, stu_gurdiancontact, stu_highestdegree, stu_yearofpass, stu_currentinstitute, stu_dept, stu_university, stu_subjectCombo, stu_currentStatus, stu_dob, stu_contact, stu_email, stu_dateofadmission, stu_password, stu_approvalstatus) values ('$name', $centerid, '$gender', '$address', '$gname', '$gcontact', '$he', '$yop', '$inst',  '$dept', '$university', '$sub_combo', '$edu', '$dob', '$contact', '$email', '$date', '$hashedPwd', 0)";
-				mysqli_query($conn, $sql);		
-				
-				$fileExt = explode('.', $fileName);
-				$fileActualExt = strtolower(end($fileExt));
-			
-				$allow = array('jpg', 'jpeg', 'png');
-				
-				if(in_array($fileActualExt, $allow)){
-					if($fileError === 0)
-					{
-						if($fileSize < 10050000){
-							
-							
-							$query="select stu_id from students where stu_email='$email'";
-							$result=mysqli_query($conn,$query);
-							while($row=mysqli_fetch_array($result)){
-								$fileNameNew = uniqid('', true).$row[stu_id].".".$fileActualExt;
-							}
-							$fileDest = '../StudentProfileImages/'.$fileNameNew;
-							$dest= 'StudentProfileImages/'.$fileNameNew;
-
-							move_uploaded_file($fileTmpName, $fileDest);
-				
-							echo $fileDest;	
-										
-							$query = "update students set stu_imageLocation='$dest' where stu_email = '$email'";
-							if(!mysqli_query($conn, $query)){
-								header("Location: ../registration.php?errsql");
-								exit();
-							}
-							else{
-								header("Location: ../registration.php?signup=success");
-								exit();
-							}		
-							
-						}
-						else{
-							header("Location: ../registration.php?err1");
-							exit();
-						}		
-					}
-					else{
-						header("Location: ../registration.php?err2");
+				$sql = "insert into students (stu_name, stu_gender, stu_address, stu_gurdianname, stu_gurdiancontact, stu_highestdegree, stu_yearofpass, stu_currentinstitute, stu_dept, stu_university, stu_subjectCombo, stu_currentStatus, stu_dob, stu_contact, stu_email, stu_dateofadmission, stu_password, stu_approvalstatus) values ('$name', '$gender', '$address', '$gname', '$gcontact', '$he', '$yop', '$inst',  '$dept', '$university', '$sub_combo', '$edu', '$dob', '$contact', '$email', '$date', '$hashedPwd', 0)";
+				if(!mysqli_query($conn, $sql)){
+					header("Location: ../registration.php?err111");
+					exit();
+				}
+				else{
+					$query="select stu_id from students where stu_email='$email'";
+					$result=mysqli_query($conn,$query);
+					$row=mysqli_fetch_array($result);
+					
+					$sql="insert into students_courses(student_id, course_id,center_id) values(".$row['stu_id'].", $cid, $centerid)";
+					if(!mysqli_query($conn, $sql)){
+						$query="delete from students where stu_email='$email'";
+						mysqli_query($conn,$query);
+						header("Location: ../registration.php?err122");
 						exit();
 					}
-				}	
-				else{
-					header("Location: registration.php?err3");
-					exit();
-				}				
+					else{					
+					
+				
+						$fileExt = explode('.', $fileName);
+						$fileActualExt = strtolower(end($fileExt));
+					
+						$allow = array('jpg', 'jpeg', 'png');
+						
+						if(in_array($fileActualExt, $allow)){
+							if($fileError === 0)
+							{
+								if($fileSize < 10050000){
+									
+									
+									$query="select stu_id from students where stu_email='$email'";
+									$result=mysqli_query($conn,$query);
+									while($row=mysqli_fetch_array($result)){
+										$fileNameNew = uniqid('', true).$row[stu_id].".".$fileActualExt;
+									}
+									$fileDest = '../StudentProfileImages/'.$fileNameNew;
+									$dest= 'StudentProfileImages/'.$fileNameNew;
+
+									move_uploaded_file($fileTmpName, $fileDest);
+						
+									echo $fileDest;	
+												
+									$query = "update students set stu_imageLocation='$dest' where stu_email = '$email'";
+									if(!mysqli_query($conn, $query)){
+										header("Location: ../registration.php?errsql");
+										exit();
+									}
+									else{
+										header("Location: ../registration.php?signup=success");
+										exit();
+									}		
+									
+								}
+								else{
+									header("Location: ../registration.php?err1");
+									exit();
+								}		
+							}
+							else{
+								header("Location: ../registration.php?err2");
+								exit();
+							}
+						}	
+						else{
+							header("Location: registration.php?err3");
+							exit();
+						}
+					}					
+				}					
 				
 			}
 		}

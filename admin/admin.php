@@ -56,7 +56,7 @@
 		';			
 	}
 	
-	if(isset($_GET['error']) || isset($_GET['m_n_snt']))
+	if(isset($_GET['error']) || isset($_GET['m_n_snt']) || isset($_GET['err']))
 	{
 		echo '			    
 		    <div id="success-modal">
