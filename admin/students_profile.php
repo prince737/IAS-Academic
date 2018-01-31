@@ -41,6 +41,19 @@
 			</div>
 		';			
 	}
+	if(isset($_GET['deny_success']))
+	{
+		echo '			    
+		    <div id="success-modal">
+				<div class="modalconent">
+					<h3 style="color:teal;">Information</h3>
+					<hr>	
+					<p class="para">Student\'s profile updation request was successfully denied.</p> 
+					<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+				</div>
+			</div>
+		';			
+	}
 		
 	
 ?>
@@ -249,14 +262,19 @@
 						
 							if(isset($_POST['search'])){
 								$search = mysqli_real_escape_string($conn, $_POST['field']);
-								$query = "select DISTINCT stu_id, stu_imageLocation, stu_name, course_name, center_name, stu_registrationNo from students INNER JOIN student_profile_update ON stu_id = student_id INNER JOIN courses on cid=course_id INNER JOIN centers on students.center_id=centers.center_id where stu_name LIKE '%$search%' OR stu_registrationNo LIKE '%$search%'";
+								$query = "select DISTINCT stu_id, stu_imageLocation, stu_name, course_name, center_name, registration_no from students INNER JOIN student_profile_update ON stu_id = student_id INNER JOIN students_courses ON stu_id = students_courses.student_id INNER JOIN courses on students_courses.course_id=courses.course_id INNER JOIN centers on students_courses.center_id=centers.center_id where (stu_name LIKE '%$search%' OR registration_no LIKE '%$search%') AND (spu_status=0)";
 								
 								$result = mysqli_query($conn, $query);
 								$count = mysqli_num_rows($result);
 							}
 							else{
-								$query = "select DISTINCT stu_id, stu_imageLocation, stu_name, course_name, center_name, stu_registrationNo from students INNER JOIN student_profile_update ON stu_id = student_id INNER JOIN courses on cid=course_id INNER JOIN centers on students.center_id=centers.center_id";
+								$query = "select DISTINCT stu_id, stu_imageLocation, stu_name, course_name, center_name, registration_no from students INNER JOIN student_profile_update ON stu_id = student_id INNER JOIN students_courses ON stu_id = students_courses.student_id INNER JOIN courses on students_courses.course_id=courses.course_id INNER JOIN centers on students_courses.center_id=centers.center_id where spu_status=0";
 								$result= mysqli_query($conn, $query);
+								$check = mysqli_num_rows($result);
+							}
+							
+							if($check < 1 AND !isset($_POST['search'])){
+								echo '<br><h5 style="text-align:center;">No records yet!</h5>';
 							}
 							
 							if(isset($_POST['search']) && $count === 0){
@@ -275,7 +293,7 @@
 													</td>
 													<td>
 														Name: <span style="padding-left:12.7%;">'.$data['stu_name'].'</span><br>
-														Registration Number: <span style="padding-left:2%;">'.$data['stu_registrationNo'].'</span><br>
+														Registration Number: <span style="padding-left:2%;">'.$data['registration_no'].'</span><br>
 														Course Name: <span style="padding-left:7%;">'.$data['course_name'].'</span><br>
 														Center Name: <span style="padding-left:7.5%;">'.$data['center_name'].'</span>
 													</td>
@@ -344,7 +362,33 @@
 													</div>
 												</div>
 											</div>		
-											<button class="btn btn-danger btn-xs">Deny</button>	
+											<button class="btn btn-danger btn-xs" data-target="#Modaldeny'.$row['stu_id'].$attr.'" data-toggle="modal"><span class="fa fa-thumbs-o-down"> Deny</button>
+											
+											<div class="modal fade" id="Modaldeny'.$row['stu_id'].$attr.'"  >
+												<div class="modal-dialog">
+													<div class="modal-content modal-deny">
+														<div class="modal-header">
+																			
+															<button type="button" class="close" data-dismiss="modal">&times;</button>	
+															<h4>Deny Request?</h4>
+														</div>
+														<div class="modal-body">
+																	
+															<form action="includes/stu_update.inc.php" method="POST">
+																<input type="hidden" name="newValue" value="'.$row['spu_newValue'].'"/>
+																<input type="hidden" name="id" value="'.$row['stu_id'].'"/>
+																<input type="hidden" name="attr" value="'.$attr.'"/>
+															
+																<p>Sure to deny '.$row['stu_name'].'\'s request to update his '.$attrName.'?</b>?</p>
+																<p><b>This cannot be reverted!</b></p>
+																
+																<button class="btn btn-danger btn-sm pull-right deny" name="deny-update"><span class="fa fa-thumbs-down"> Deny</button>
+																<div class="clearfix"></div>
+															</form>
+														</div> 																
+													</div>
+												</div>
+											</div>	
 										</td>
 										</tr>
 										

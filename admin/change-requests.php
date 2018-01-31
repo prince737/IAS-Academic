@@ -395,6 +395,7 @@
 			</div>
 		';			
 	}
+	
 	if(isset($_GET['update_denied']))
 	{
 		echo '			    

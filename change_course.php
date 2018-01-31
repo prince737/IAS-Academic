@@ -144,21 +144,8 @@
     					<label> CHOOSE THE COURSE YOU WANT TO CHANGE:</label><br>
 					<?php
 							
-						$query="select * from students inner join courses on cid=course_id where stu_id =".$rowMain['stu_id']."";
-						$res=mysqli_query($conn, $query);
-						$row=mysqli_fetch_array($res);
-						$course1=$row['course_name'];
-						echo ' <label class="radio-inline">
-								  <input type="radio" value="'.$row['course_id'].'" name="optradio"';
-								  if(isset($_GET['radio']) && ($_GET['radio'] == $row['course_id'])){
-									  echo ' checked';
-								  }
-								  
-								  echo '>'.$row['course_name'].'
-								</label>';
-								 	
 						
-						$query="select * from students_courses INNER JOIN courses ON students_courses.course_id=courses.course_id where student_id =".$row['stu_id']." AND sc_status IN(1,4)";
+						$query="select * from students_courses INNER JOIN courses ON students_courses.course_id=courses.course_id where student_id =".$rowMain['stu_id']." AND registration_no IS NOT NULL";
 						$res=mysqli_query($conn, $query);
 						$check = mysqli_num_rows($res);
 						if($check > 0){
@@ -336,22 +323,8 @@
 					<div class="form-group ">
     					<label> CHOOSE THE COURSE FOR WHICH YOU WANT TO CHANGE CENTER:</label><br>
 					<?php
-							
-						$query="select * from students inner join courses on cid=course_id where stu_id =".$rowMain['stu_id']."";
-						$res=mysqli_query($conn, $query);
-						$row=mysqli_fetch_array($res);
-						$course1=$row['course_name'];
-						echo ' <label class="radio-inline">
-								  <input onchange="this.form.submit()" type="radio" value="'.$row['course_id'].'" name="radio"';
-								  if(isset($_GET['radioc']) && ($_GET['radioc'] == $row['course_id'])){
-									  echo ' checked';
-								  }
-								  
-								  echo '>'.$row['course_name'].'
-								</label>';
-								 	
 						
-						$query="select * from students_courses INNER JOIN courses ON students_courses.course_id=courses.course_id where student_id =".$row['stu_id']." AND sc_status IN(1,4)";
+						$query="select * from students_courses INNER JOIN courses ON students_courses.course_id=courses.course_id where student_id =".$rowMain['stu_id']." AND registration_no IS NOT NULL";
 						$res=mysqli_query($conn, $query);
 						$check = mysqli_num_rows($res);
 						if($check > 0){
@@ -383,20 +356,13 @@
 									
 									
 									while($row = mysqli_fetch_array($res)){
-										$query="select center_id from students where stu_id=".$rowMain['stu_id']." and cid=".$row['course_id']."";
+										
+										$query="select center_id from students_courses where student_id=".$rowMain['stu_id']." and course_id=".$row['course_id']." AND registration_no IS NOT NULL";
 										$res1=mysqli_query($conn, $query);
 										$count=mysqli_num_rows($res1);
-										if($count > 0){
-											$row1 = mysqli_fetch_array($res1);
-											$oldcid=$row1['center_id'];
-											
-										}else{
-											$query="select center_id from students_courses where student_id=".$rowMain['stu_id']." and course_id=".$row['course_id']." AND sc_status IN(0,4)";
-											$res1=mysqli_query($conn, $query);
-											$count=mysqli_num_rows($res1);
-											$row1 = mysqli_fetch_array($res1);
-											$oldcid=$row1['center_id'];
-										}
+										$row1 = mysqli_fetch_array($res1);
+										$oldcid=$row1['center_id'];
+										
 										
 										$query ="select * from centers where center_id = ".$row['center_id']."";
 										$result = mysqli_query($conn, $query);

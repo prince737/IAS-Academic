@@ -27,6 +27,20 @@
 			}
 		}
 	}
+	elseif(isset($_POST['deny-update'])){ //Profile update denial
+		$id = mysqli_real_escape_string($conn, $_POST['id']);
+		$attr = mysqli_real_escape_string($conn, $_POST['attr']);
+		
+		$query="update student_profile_update set spu_status=2 where student_id=$id AND spu_field='$attr'";
+		if(!mysqli_query($conn, $query)){
+			header("Location: ../students_profile.php?err1");
+			exit();
+		}
+		else{
+			header("Location: ../students_profile.php?deny_success");
+			exit();
+		}
+	}
 	elseif(isset($_POST['approve-course'])){ //course update approval
 		$id = mysqli_real_escape_string($conn, $_POST['id']);
 		$newcid = mysqli_real_escape_string($conn, $_POST['newValue']);
@@ -34,37 +48,22 @@
 		
 		
 		
-		$query ="select * from students where stu_id=$id";
+		$query ="select * from students_courses where student_id=$id AND course_id=$oldcid";
 		$res=mysqli_query($conn, $query);
 		$row=mysqli_fetch_array($res);
-		
-		if($row['cid'] === $oldcid){
-			$reg=substr_replace($row['stu_registrationNo'],$newcid,9,3);
-			echo $reg;
-			$sql="update students set stu_registrationNo='$reg' where stu_id=$id";
-			if(!mysqli_query($conn, $sql)){
-				header("Location: ../change-requests.php?err");
-				exit();
-			}
 			
-			
+		$reg=substr_replace($row['registration_no'],$newcid,9,3);
+		echo $reg;
+		$sql="update students_courses set registration_no='$reg', course_id=$newcid where student_id=$id AND course_id=$oldcid";
+		if(!mysqli_query($conn, $sql)){
+			header("Location: ../change-requests.php?erreeee");
+			exit();
 		}
-		else{
-			$query ="select * from students_courses where stu_id=$id AND course_id=$oldcid";
-			$res=mysqli_query($conn, $query);
-			$row=mysqli_fetch_array($res);
-			
-			$reg=substr_replace($row['registration_no'],$newcid,9,3);
-			$sql="update students_courses set registration_no='$reg' where stu_id=$id AND course_id=$oldcid";
-			if(!mysqli_query($conn, $sql)){
-				header("Location: ../change-requests.php?err");
-				exit();
-			}
-		}		
+				
 		
 		$query = "update course_change set change_status = 1 where student_id=$id AND old_course_id=$oldcid AND new_course_id=$newcid";
 		if(!mysqli_query($conn, $query)){
-			header("Location: ../change-requests.php?err");
+			header("Location: ../change-requests.php?errttttt");
 			exit();
 		}
 		else{

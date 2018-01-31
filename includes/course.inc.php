@@ -70,31 +70,24 @@ elseif(isset($_POST['request_change'])){
 	$cid=$row['course_id'];
 	
 	//FINDING CENTER ID OF THE COURSE
-	$query="select center_id from students where stu_id=$id and cid=$radio";
+	
+	$query="select center_id from students_courses where student_id=$id and course_id=$radio AND registration_no IS NOT NULL";
 	$res1=mysqli_query($conn, $query);
 	$count=mysqli_num_rows($res1);
-	if($count > 0){
-		$row1 = mysqli_fetch_array($res1);
-		$cenid=$row1['center_id'];
-		
-	}else{
-		$query="select center_id from students_courses where student_id=$id and course_id=$radio AND sc_status IN(0,4)";
-		$res1=mysqli_query($conn, $query);
-		$count=mysqli_num_rows($res1);
-		$row1 = mysqli_fetch_array($res1);
-		$cenid=$row1['center_id'];
-	}
+	$row1 = mysqli_fetch_array($res1);
+	$cenid=$row1['center_id'];
 	
+	echo $cenid;
 		
 	//ERASING PREVIOUS RECORDS IF ANY	
-	$query = "select * from course_change where new_course_id=$cid";
+	$query = "select * from course_change where new_course_id=$cid AND student_id=$id";
 	$res = mysqli_query($conn,$query);
 	$check = mysqli_num_rows($res);
 	
 	if($check > 0){
-		$query = "delete from course_change where new_course_id=$cid";
+		$query = "delete from course_change where new_course_id=$cid AND student_id=$id";
 		if(!mysqli_query($conn,$query)){
-			header("Location: ../change_course.php?erree");
+			header("Location: ../change_course.php?err");
 			exit();
 		}		
 	}
@@ -102,12 +95,12 @@ elseif(isset($_POST['request_change'])){
 	//INSERTING INTO TABLE
 	$query="insert into course_change(student_id, center_id, new_course_id, old_course_id) values($id, $cenid, $cid, $radio)";
 	if(!mysqli_query($conn,$query)){
-		header("Location: ../change_course.php?err");
-		exit();
+		/*header("Location: ../change_course.php?erreeeee");
+		exit();*/
 	}
 	else{
-		header("Location: ../change_course.php?courseQueued=1");
-		exit();
+		/*header("Location: ../change_course.php?courseQueued=1");
+		exit();*/
 	}
 }
 
