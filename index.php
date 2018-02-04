@@ -118,24 +118,30 @@
 		<div class="row notice-wrapper">
 			
 			<div class="col-md-6 notice-container">
-				<h4 class="label-primary"><span class="fa fa-arrow-right"></span>NOTICEBOARD</h4>
+				<h4 class="label-primary text-center">NOTICEBOARD</h4>
 				<div class="notice-board">
 					<div class="marquee">
 							
 							<?php
 								$query ="Select * from notices where notices_status=1 order by STR_TO_DATE(notices_date, '%M %d, %Y') DESC";
-								$result =@mysqli_query($conn,$query);		
+								$result =@mysqli_query($conn,$query);
+								$i=0;								
 								while($row = mysqli_fetch_array($result))
 								{
 									$phpdate = strtotime($row['notices_date']);
 									$date = date( 'd M, Y', $phpdate );
 									echo'
-										<div class=notice_data>
-											<span class="fa fa-file-text-o"></span>	
+										<div class=notice_data>';
+										if($i<4){
+											echo '<img src="images/new.jpg" height="20" width="20"></img>&nbsp;';
+										}
+											
+											echo '<span class="fa fa-file-text-o"></span>	
 											<a href="'.$row['notices_location'].'" target="_blank"><span>'.$date.'</span> | ' . $row['notices_content']. '</a>
 									
 										</div>	<br>
 									';
+									$i++;
 								}
 							?>
 							
@@ -147,7 +153,7 @@
 				
 			</div>
 			<div class="col-md-6 notice-container">				
-				<h4 class="label-primary"><span class="fa fa-arrow-right"></span> EVENTS & ANNOUNCEMENTS</h4>			
+				<h4 class="label-primary text-center"> EVENTS & ANNOUNCEMENTS</h4>			
 				<div class="notice-board">
 					<div class="marquee">
 												
@@ -161,15 +167,20 @@
 										$date1 = date( 'd M, Y', $phpdate );
 										$phpdate = strtotime($row['events_enddate']);
 										$date2 = date( 'd M, Y', $phpdate );
-										echo'
+										$i=0;
 										
-											<div class=notice_data>
-												<i class="fa fa-calendar" style="color:#795548;" aria-hidden="true"></i>
-												<a href="events.php"><span>'.$date1.'</span> | <span>'.$row['events_time'].' onwards | </span>' . $row['events_heading']. '</a>
 											
-											</div>	<br>
-											
-										';
+											if( strtotime('now') < strtotime($date2) ) {
+												echo '<div class="notice_data">';
+												if($i<4){
+													echo '<img src="images/new.jpg" height="20" width="20"></img>&nbsp;';
+												}
+												echo '<i class="fa fa-calendar" style="color:#795548;" aria-hidden="true"></i>
+													<a href="events.php"><span>Starts: '.$date1.'  Ends: '.$date2.'</span> | <span>From '.$row['events_starttime'].' to '.$row['events_endtime'].' | </span>' . $row['events_heading']. '</a>';
+												echo '</div>	<br>';	
+											}
+										
+										$i++;
 									}
 								}
 							?>
@@ -378,7 +389,7 @@
 						</tr>
 						<tr>
 							<td style="vertical-align:top;"><p><span class="fa fa-address-book-o"></span>Address : </p></td>
-							<td class="ans"><p >INSTITUTE OF APPLIED SCIENCE<br>
+							<td class="ans"><p>INSTITUTE OF APPLIED SCIENCE<br>
 					67B, Maharaja Thakur Road,<br>Dhakuria, Kolkata-700031</p></td>
 						</tr>
 					
@@ -553,9 +564,9 @@
 	
 	</script>
 	
-	<!--<script>
-		alert(window.location.href);
-	</script>-->
+	<script>
+		$('#home').addClass('actv');
+	</script>
     
 </body>
 

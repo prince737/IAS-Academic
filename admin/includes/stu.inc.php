@@ -74,11 +74,11 @@
 			$regNo .= '001';
 		}
 		
-		echo $regNo;
-				
 		
-		$query= "Update students set stu_approvalstatus=1 where stu_id = '$id'";	
+		$date = date("Y-m-d");			
 		
+		$query= "Update students set stu_approvalstatus=1, stu_dateofadmission='$date' where stu_id = '$id'";	
+		echo $query;
 		
 		if(mysqli_query($conn,$query)){
 			

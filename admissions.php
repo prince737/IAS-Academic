@@ -213,5 +213,8 @@
 				$('.bg').removeClass('bg');
 			});
 		</script>
+		<script>
+			$('#admn').addClass('actv');
+		</script>
 </body>
 </html>

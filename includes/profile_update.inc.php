@@ -721,7 +721,7 @@
 		$id  = mysqli_real_escape_string($conn, $_POST['id']);
 		$attr  = mysqli_real_escape_string($conn, $_POST['attr']);
 		
-		$query="delete from student_profile_update where student_id=$id AND spu_field='$attr' AND spu_status=1";
+		$query="delete from student_profile_update where student_id=$id AND spu_field='$attr' AND spu_status IN(1,2)";
 		if(!mysqli_query($conn, $query)){
 				header("Location: ../pending_updates.php?err");
 				exit();

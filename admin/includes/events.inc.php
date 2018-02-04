@@ -10,13 +10,14 @@ if(isset($_POST['submit'])){
 	$enddate = mysqli_real_escape_string($conn, $_POST['enddate']);
 	$heading = mysqli_real_escape_string($conn, $_POST['heading']);
 	$body = mysqli_real_escape_string($conn, $_POST['body']);
-	$time = mysqli_real_escape_string($conn, $_POST['time']);
+	$stime = mysqli_real_escape_string($conn, $_POST['stime']);
+	$etime = mysqli_real_escape_string($conn, $_POST['etime']);
 	
 	if(isset($_POST['save'])){
-		$query="insert into events(events_startdate, events_enddate, events_time, events_heading, events_body, events_status) values('$startdate', '$enddate', '$time', '$heading', '$body', 1)";
+		$query="insert into events(events_startdate, events_enddate, events_starttime, events_endtime, events_heading, events_body, events_status) values('$startdate', '$enddate', '$stime', '$etime', '$heading', '$body', 1)";
 	}
 	else{
-		$query="insert into events(events_startdate, events_enddate, events_time, events_heading, events_body, events_status) values('$startdate', '$enddate', '$time', '$heading', '$body', 0)";
+		$query="insert into events(events_startdate, events_enddate, events_starttime, events_endtime, events_heading, events_body, events_status) values('$startdate', '$enddate', '$stime', '$etime', '$heading', '$body', 0)";
 	}
 	
 	if(!mysqli_query($conn, $query)){
@@ -33,15 +34,19 @@ elseif(isset($_POST['update'])){
 	$enddate = mysqli_real_escape_string($conn, $_POST['enddate']);
 	$heading = mysqli_real_escape_string($conn, $_POST['heading']);
 	$body = mysqli_real_escape_string($conn, $_POST['body']);
-	$time = mysqli_real_escape_string($conn, $_POST['time']);
+	$stime = mysqli_real_escape_string($conn, $_POST['stime']);
+	$etime = mysqli_real_escape_string($conn, $_POST['etime']);
+	$eid = mysqli_real_escape_string($conn, $_POST['eid']);
+	
+	
 	
 	if(isset($_POST['save'])){
-		$query="update events set events_startdate='$startdate', events_enddate='$enddate', events_time='$time', events_heading='$heading', events_body='$body', events_status=1";
+		$query="update events set events_startdate='$startdate', events_enddate='$enddate', events_starttime='$stime', events_endtime='$etime', events_heading='$heading', events_body='$body', events_status=1 where eid=$eid";
 	}
 	else{
-		$query="update events set events_startdate='$startdate', events_enddate='$enddate', events_time='$time', events_heading='$heading', events_body='$body', events_status=0";
+		$query="update events set events_startdate='$startdate', events_enddate='$enddate', events_starttime='$stime', events_endtime='$etime', events_heading='$heading', events_body='$body', events_status=0 where eid=$eid";
 	}
-	
+	echo $query;
 	if(!mysqli_query($conn, $query)){
 		header("Location: ../active_events.php?err");
 		exit();

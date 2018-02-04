@@ -21,6 +21,12 @@ html,body{
 	font-size:16px;
 }
 
+.logout{
+	background:none;
+	border:none;
+	outline:none;
+}
+
 /*For success modal */
 
 #success-modal {

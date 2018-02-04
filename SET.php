@@ -36,10 +36,10 @@
 		
 			<div class="col-sm-4 navigation">
 				<ul>
-					<li ><a href="admissions.html" >Admission Process</a></li>
-					<li><a href="direct_adm.html">Direct Admission</a></li>
+					<li ><a href="admissions.php" >Admission Process</a></li>
+					<li><a href="direct_adm.php">Direct Admission</a></li>
 					<li><a href="#" class="select" style="color:#ab5443;">Scholarship Entrance Test (SET)</a></li>
-					<li><a href="provisional.html">Provisional Admission</a></li>
+					<li><a href="provisional.php">Provisional Admission</a></li>
 				</ul>
 			</div>
 			<div class="col-sm-8 ">
@@ -207,6 +207,9 @@
 				$(this).find('.dropdown-menu').stop(true, true).delay(100).fadeOut(100);
 				$('.bg').removeClass('bg');
 			});
+		</script>
+		<script>
+			$('#admn').addClass('actv');
 		</script>
 </body>
 </html>

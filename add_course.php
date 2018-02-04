@@ -87,12 +87,12 @@
 				<div class="nav-menu shadow">
 					<ul> 
 						<li class="link">
-							<a href="admin.php">
+							<a href="profile.php">
 								<i class="fa fa-home" aria-hidden="true"></i>PROFILE HOME</span>
 							</a>
 						</li>
 						<li class="link">
-							<a href="profile.php">
+							<a href="account_settings.php">
 								<i class="fa fa-cogs" aria-hidden="true"></i>ACCOUNT SETTINGS</span>
 							</a>
 						</li>
@@ -112,17 +112,17 @@
 							</a>
 						</li>
 						<li class="link">
-							<a href="admin.php">
+							<a href="505.php">
 								<i class="fa fa-download" aria-hidden="true"></i>DOWNLOADS</span>
 							</a>
 						</li>
 						<li class="link">
-							<a href="admin.php">
+							<a href="505.php">
 								<i class="fa fa-pencil" aria-hidden="true"></i>EXAMS</span>
 							</a>
 						</li>
 						<li class="link">
-							<a href="admin.php">
+							<a href="505.php">
 								<i class="fa fa-list-alt" aria-hidden="true"></i>RESULTS</span>
 							</a>
 						</li>

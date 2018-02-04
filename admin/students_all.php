@@ -2,6 +2,11 @@
 	session_start();
 	require_once('../includes/dbh.inc.php');
 	
+	if(!isset($_SESSION['admin'])){
+		header("Location: admin_login.php");
+		exit();
+	}
+	
 	if(isset($_GET['saprv']))
 	{
 		echo '			    
@@ -197,9 +202,9 @@
 									</a>
 								</li>
 								<li>	
-									<a href="#" class="logout">
-										<span class="fa fa-sign-out" aria-hidden="true">Log out
-									</a>
+									<form action="includes/adminlogout.inc.php" method="POST">
+										<button class="logout" name="alogout"><span class="fa fa-sign-out" aria-hidden="true">Log out</button>
+									</form>
 								</li>
 							</ul>
 						</div>
@@ -293,7 +298,7 @@
 								$this_page_first_result = ($page-1)*$results_per_page;
 								// retrieve selected results from database and display them on page
 								
-								if(isset($_POST['search'])){
+								/*if(isset($_POST['search'])){
 									$search = mysqli_real_escape_string($conn, $_POST['field']);
 									$query = "select * from students INNER JOIN courses ON course_id=cid INNER JOIN centers on students.center_id = centers.center_id where stu_name LIKE '%$search%' OR stu_email LIKE '%$search%' OR stu_registrationNo LIKE '%$search%' OR course_name LIKE '%$search%' OR center_name LIKE '%$search%' OR course_id LIKE '%$search%' OR centers.center_id LIKE '%$search%' OR stu_address LIKE '%$search%' OR stu_highestdegree LIKE '%$search%'";
 									$result = mysqli_query($conn, $query);
@@ -305,11 +310,11 @@
 									$result = mysqli_query($conn, $query);
 									$count = mysqli_num_rows($result);
 									
-								}
-								else{
-									$sql='SELECT * FROM students, courses, centers where cid=course_id and students.center_id=centers.center_id order by stu_id desc LIMIT ' . $this_page_first_result . ',' .  $results_per_page;
+								}*/
+								//else{
+									$sql='SELECT * FROM students INNER JOIN students_courses ON stu_id=student_id INNER JOIN courses on students_courses.course_id= courses.course_id INNER JOIN centers ON students_courses.center_id=centers.center_id LIMIT ' . $this_page_first_result . ',' .  $results_per_page;
 									$result = mysqli_query($conn, $sql);
-								}
+								//}
 																
 								
 								echo '<div class="row">';
@@ -383,7 +388,7 @@
 										<div class="col-md-4">
 											<h4>Education</h4>
 											<table>
-												<tr>
+												<!--<tr>
 													<td>Registration Number:</td>
 													<td class="data">';
 														if($row['stu_registrationNo'] == null){
@@ -392,19 +397,23 @@
 															echo $row['stu_registrationNo'];
 														}
 													echo '</td>
-												</tr>
+												</tr>-->
 												<tr>
 													<td>Date of Admimssion:</td>
 													<td class="data">'.$row['stu_dateofadmission'].'</td>
 												</tr>
 												<tr>
+													<td>Date of Application:</td>
+													<td class="data">'.$row['stu_dateofapplication'].'</td>
+												</tr>
+												<!--<tr>
 													<td>Course Opted:</td>
 													<td class="data">'.$row['course_name'].'</td>
 												</tr>	
 												<tr>
 													<td>Center:</td>
 													<td class="data">'.$row['center_name'].'</td>
-												</tr>';
+												</tr>-->';
 												
 												if($row['stu_highestdegree'] == 'Class XI' || $row['stu_highestdegree'] == 'Class XII'){
 													echo '<tr>

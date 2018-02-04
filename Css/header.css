@@ -99,6 +99,8 @@
 	float:left;
 }
 
+
+
 @media screen and (min-width: 1200px) {
 	.navbar{
 		height:120px;
@@ -115,7 +117,7 @@
 	
 	.nav.navbar-nav li a {
 		color: #DEF2F3;
-		font-size: 15px;
+		font-size: 14px;
 		
 	}
 
@@ -125,6 +127,19 @@
 		padding: 10px 20px;
 		margin-left:5px;
 		margin-right:10px;
+	}
+	
+	.nav.navbar-nav li ul li button{
+		color:#3277ae;
+		font-size:14px;
+		padding: 10px 20px;
+		margin-left:5px;
+		margin-right:10px;
+		border:none;
+		outline:none;
+		background:none;
+		width:97%;
+		text-align:left;
 	}
 
 
@@ -142,6 +157,11 @@
 	}
 
 	.nav.navbar-nav li ul li a:hover{
+		color:white;
+		background:#3277ae;
+	}
+	
+	.nav.navbar-nav li ul li button:hover{
 		color:white;
 		background:#3277ae;
 	}

@@ -180,24 +180,7 @@
 		</div>			
 	</div>
 	<br><br>
-
-	<div class="container-fluid" id="gallery">
-		<div class="row" >
-
-			<div class="col-md-6 left">
-				<h1>Have a look at our Gallery</h1>
-				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.<br><a href="gallery.php">Browse All!</a>
-</p>
-				<img data-aos="fade-up-left" data-aos-duration="1000" data-aos-delay="300" src="images/3.jpg"></img>
-			</div>
-			<div class="col-md-6 right">
-				<img src="images/1.jpg" class="first" data-aos="fade-up-right" data-aos-duration="1000" data-aos-delay="300" ></img>
-				<img src="images/demo.jpg" class="second" data-aos="fade-up-right" data-aos-duration="1000" data-aos-delay="300" ></img>
-
-			</div>
-				
-		</div>
-	</div>
+	
 
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -225,6 +208,9 @@
 	<script>
         AOS.init();
     </script>
+	<script>
+		$('#courses').addClass('actv');
+	</script>
 	
 	
 </body>

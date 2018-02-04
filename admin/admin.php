@@ -2,6 +2,14 @@
 	session_start();
 	require_once('../includes/dbh.inc.php');
 	
+	
+	
+	if(!isset($_SESSION['admin'])){
+		header("Location: admin_login.php");
+		exit();
+	}
+
+	
 	if(isset($_GET['msnt']))
 	{
 		echo '			    
@@ -237,10 +245,11 @@
 										<span class="label label-success">3</span>
 									</a>
 								</li>
-								<li>	
-									<a href="#" class="logout">
-										<span class="fa fa-sign-out" aria-hidden="true">Log out
-									</a>
+								<li>
+									<form action="includes/adminlogout.inc.php" method="POST">
+										<button class="logout" name="alogout"><span class="fa fa-sign-out" aria-hidden="true">Log out</button>
+									</form>
+									
 								</li>
 							</ul>
 						</div>

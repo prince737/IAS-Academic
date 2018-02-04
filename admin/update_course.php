@@ -2,6 +2,11 @@
 	session_start();
 	require_once('../includes/dbh.inc.php');
 	
+	if(!isset($_SESSION['admin'])){
+		header("Location: admin_login.php");
+		exit();
+	}
+	
 	if(isset($_GET['success']))
 	{
 		echo '			    
@@ -185,10 +190,9 @@
 						</a>
 					</li>
 					<li class="link online-exam">
-						<a href="#">
-							<i class="fa fa-tasks" aria-hidden="true"></i>
-							<span class="hidden-sm hidden-xs">Online Exams</span>
-						</a>
+						<form action="includes/adminlogout.inc.php" method="POST">
+							<button class="logout" name="alogout"><span class="fa fa-sign-out" aria-hidden="true">Log out</button>
+						</form>
 					</li>
 				</ul>				
 			</div>

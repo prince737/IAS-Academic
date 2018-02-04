@@ -135,12 +135,26 @@ if(isset($_POST['register']))
 					$he=$he_other;
 				}
 				
-				$date = date("m/d/Y");				
+				$date = date("Y-m-d");
+
+				$appId= date('d');	
+				$appId.= date('m');	
+				$appId.= date('y');	
 				
+				$query="select max(substr(stu_applicationId,7,5)) as max from students";
+				$res=mysqli_query($conn, $query);
+				$check=mysqli_num_rows($res);
+				if($check < 1){
+					$appId.='00001';
+				}
+				else{
+					$row=mysqli_fetch_array($res);
+					$appId .= str_pad($row['max'] + 1, 5, 0, STR_PAD_LEFT);
+				}
 				
-				$sql = "insert into students (stu_name, stu_gender, stu_address, stu_gurdianname, stu_gurdiancontact, stu_highestdegree, stu_yearofpass, stu_currentinstitute, stu_dept, stu_university, stu_subjectCombo, stu_currentStatus, stu_dob, stu_contact, stu_email, stu_dateofadmission, stu_password, stu_approvalstatus) values ('$name', '$gender', '$address', '$gname', '$gcontact', '$he', '$yop', '$inst',  '$dept', '$university', '$sub_combo', '$edu', '$dob', '$contact', '$email', '$date', '$hashedPwd', 0)";
+				$sql = "insert into students (stu_name, stu_gender, stu_address, stu_gurdianname, stu_gurdiancontact, stu_highestdegree, stu_yearofpass, stu_currentinstitute, stu_dept, stu_university, stu_subjectCombo, stu_currentStatus, stu_dob, stu_contact, stu_email, stu_dateofapplication, stu_applicationId, stu_password, stu_approvalstatus) values ('$name', '$gender', '$address', '$gname', '$gcontact', '$he', '$yop', '$inst',  '$dept', '$university', '$sub_combo', '$edu', '$dob', '$contact', '$email', '$date', '$appId', '$hashedPwd', 0)";
 				if(!mysqli_query($conn, $sql)){
-					header("Location: ../registration.php?err111");
+					header("Location: ../registration.php?err");
 					exit();
 				}
 				else{
@@ -152,7 +166,7 @@ if(isset($_POST['register']))
 					if(!mysqli_query($conn, $sql)){
 						$query="delete from students where stu_email='$email'";
 						mysqli_query($conn,$query);
-						header("Location: ../registration.php?err122");
+						header("Location: ../registration.php?err");
 						exit();
 					}
 					else{					
@@ -187,7 +201,14 @@ if(isset($_POST['register']))
 										exit();
 									}
 									else{
-										header("Location: ../registration.php?signup=success");
+										$name=simple_crypt($name,'e');
+										$course=simple_crypt($courseName,'e');
+										$center=simple_crypt($center,'e');
+										$appid=simple_crypt($appId,'e');
+										
+											
+										
+										header("Location: ../registration.php?success=$name&&crs=$course&&cen=$center&&appid=$appid");
 										exit();
 									}		
 									

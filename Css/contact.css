@@ -35,7 +35,7 @@ html, body {
 	padding:10px;
 }
 
-
+	
 
 
 /*BANNER SECTION*/
@@ -237,9 +237,57 @@ html, body {
 }
 
 
+.opening{
+	background:#da4d3c!important;
+    height:160px;
+	margin:20px 80px; 
+	color:#fff;
+	font-size:35px;
+	position: relative;
+	line-height:160px;
+}
 
+.opening:before{
+	content : "";
+	position: absolute;
+	left    : 12%;
+	top:-46%;
+	height   : 46%; 
+	border-left:10px solid #da4d3c;
+}
 
+.opening:after{
+	content : "";
+	position: absolute;
+	right    : 12%;
+	top:-46%;
+	height   : 46%; 
+	border-right:10px solid #da4d3c;
+}
 
+.opening p:before{	
+	content : "";
+	position: absolute;
+	width   : 3%; 
+	height:93%;
+	top:3%;
+	left:3%;
+	border-top:10px solid #fff;
+	border-bottom:10px solid #fff;
+	border-radius:60px;
+}
+
+.opening p:after{	
+	content : "";
+	position: absolute;
+	width   : 3%; 
+	height:93%;
+	top:3%;
+	right:3%;
+	border-top:10px solid #fff;
+	border-bottom:10px solid #fff;
+	border-radius:60px;
+}
 
 
 /*MEDIA QUERIES*/

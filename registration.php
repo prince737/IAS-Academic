@@ -5,8 +5,7 @@
 	include 'includes/simple-crypt.inc.php';
 	
 	$query="select distinct course_type from courses;";
-	$resultType = mysqli_query($conn, $query);
-	
+	$resultType = mysqli_query($conn, $query);	
 		
 ?>
 
@@ -442,6 +441,35 @@
 			});
 		});
 	</script>	
-		
+	<script>
+		window.onload = function () {
+			document.getElementById('button').onclick = function () {
+				document.getElementById('success-modal').style.display = "none"
+				window.location.replace('registration.php');
+			};
+		};
+	</script>	
+
+	
+	<?php
+	
+		if(isset($_GET['success']))
+		{
+			echo '			    
+				<div id="success-modal">
+					<div class="modalconent">
+						<div class="head">
+							<span class="fa fa-check"></span>
+						</div>	
+						<p class="hello">Hello '. strtok(simple_crypt($_GET['success'],'d'), ' ').'!</p>
+						<p>Greetings for the day! Your application for registering you as a student of Course: <b>'.simple_crypt($_GET['crs'],'d').'</b> at Center: <b>'.simple_crypt($_GET['cen'],'d').'</b> having Application No: <b>'.simple_crypt($_GET['appid'],'d').'</b> Dated: <b>'.date('d/m/Y').'</b> is successfully submitted and is waiting for approval. You shall be notified once your request is approved.</p><br>
+						
+						<button id="button" class="btn btn-sm">Close</button><br><br>	
+						<a href="index.php">Back to home</a>
+					</div>
+				</div>
+			';			
+		}
+	?>	
 </body>
 </html>

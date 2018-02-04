@@ -39,12 +39,113 @@
 	</ol>
 	<div class="container">
 		
-		<div class="row row-centered">
+		<!--<div class="row row-centered">
 			<div class="col-md-10 col-centered">
 				<p class="banner">Find all our upcoming events below</p>
 				<p class="helper">*click on a event to find out more</p>
 				<div class="monthly" id="mycalendar"></div>
 			</div>
+		</div>-->
+		
+		<div class="row">
+			<div class="col-md-8 event-contain">
+				<h3>Upcoming Events</h3><br>
+				<div class="event-wrap">
+					
+
+
+
+					<?php
+						// connect to database
+						require_once('includes/dbh.inc.php');
+						// define how many results you want per page
+						$results_per_page = 10;
+						// find out the number of results stored in database
+						$sql='SELECT * FROM events where events_status=1';
+						$result = mysqli_query($conn, $sql);
+						$number_of_results = mysqli_num_rows($result);
+						// determine number of total pages available
+						$number_of_pages = ceil($number_of_results/$results_per_page);
+						// determine which page number visitor is currently on
+						if (!isset($_GET['page'])) {
+						  $page = 1;
+						} else {
+						  $page = $_GET['page'];
+						}
+						// determine the sql LIMIT starting number for the results on the displaying page
+						$this_page_first_result = ($page-1)*$results_per_page;
+						// retrieve selected results from database and display them on page
+						$sql='SELECT * FROM events where events_status=1 LIMIT ' . $this_page_first_result . ',' .  $results_per_page;
+						$result = mysqli_query($conn, $sql);
+						while($row = mysqli_fetch_array($result)){
+							$phpdate = strtotime($row['events_startdate']);
+							$date1 = date( 'd M, Y', $phpdate );
+							$phpdate = strtotime($row['events_enddate']);
+							$date2 = date( 'd M, Y', $phpdate );
+							
+							//if(strtotime('now') < strtotime($date2)){
+							
+								echo '
+									
+									<div class="col-md-2"><img class="hidden-xs" src="images/event.jpg" height="80" width="80"></img></div>
+											<div class="col-md-10">
+												<div class="ehead">
+													'.$row['events_heading'].'
+												</div><br>
+												<small>Starts: '.$date1.'</small>
+												<small>&nbsp;&nbsp;Ends: '.$date2.'&nbsp;&nbsp;&nbsp;|</small>
+												<small>&nbsp;Starting Time : '.$row['events_starttime'].'</small>
+												<small>&nbsp;&nbsp;Ending Time : '.$row['events_endtime'].'</small>
+												<div class="desc">
+													'.$row['events_body'].'
+												</div>
+											</div>
+									<hr style="border: 0.5px solid #909090;">	
+										
+								';
+							//}
+							
+						}
+						// display the links to the pages
+						$prev=$page-1;
+						$next=$page+1;
+						echo '<ul class="pagination">';
+						if($prev >=1){
+							echo '
+								<li><a href="events.php?page=' . $prev . '">&laquo;</a><li>
+							';
+						}
+						
+						
+						for ($p=1;$p<=$number_of_pages;$p++) {
+							$selected = $p == $page ? 'class="selected"' : '';
+							echo '
+								<li><a '.$selected.' href="events.php?page=' . $p . '">' . $p . '</a><li>
+							';
+							
+						}
+						if($next <= $number_of_pages && $number_of_pages >= 2){
+							echo '
+								<li><a href="events.php?page=' . $next . '">&raquo;</a><li>
+							';
+						}
+						echo '</ul>';
+					?>	
+					
+					
+				</div>
+				
+			</div>
+			<div class="col-md-4">
+				
+				<div class="monthly" id="mycalendar"></div>
+				<div class="sidebar">
+					<h4>What is Lorem Ipsum?</h4>
+					<img src="images/demo.jpg" height="140" width="250" style="margin:20px 0px; display:block;"></img><br>
+					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+				</div>			
+			</div>
+		
 		</div>
 	
 	
@@ -81,8 +182,8 @@
 						"name": "'.$row['events_heading'].'<br>'.$row['events_body'].'",
 						"startdate": "'.$row['events_startdate'].'",
 						"enddate": "'.$row['events_enddate'].'",
-						"starttime": "'.$row['events_time'].'",
-						"endtime": "2:00",
+						"starttime": "'.$row['events_starttime'].'",
+						"endtime": "'.$row['events_endtime'].'",
 						"color": "'.$colors[$index].'",
 						"url": ""
 				';
@@ -121,7 +222,7 @@
   			$(this).find('.dropdown-menu').stop(true, true).delay(100).fadeOut(100);
   			$('.bg').removeClass('bg');
 		});
-    </script>
+    </script>	
 	
 </body>
 </html>

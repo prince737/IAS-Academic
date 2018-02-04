@@ -2,6 +2,11 @@
 	session_start();
 	require_once('../includes/dbh.inc.php');
 	
+	if(!isset($_SESSION['admin'])){
+		header("Location: admin_login.php");
+		exit();
+	}
+	
 	if(isset($_GET['success']))
 	{
 		echo '			    
@@ -194,9 +199,9 @@
 									</a>
 								</li>
 								<li>	
-									<a href="#" class="logout">
-										<span class="fa fa-sign-out" aria-hidden="true">Log out
-									</a>
+									<form action="includes/adminlogout.inc.php" method="POST">
+										<button class="logout" name="alogout"><span class="fa fa-sign-out" aria-hidden="true">Log out</button>
+									</form>
 								</li>
 							</ul>
 						</div>
@@ -220,8 +225,12 @@
 									<input type="text" class="form-control" name="enddate" required id="datepicker1" placeholder="End Date (YYYY-MM-DD)">
 								</div>
 								<div class="form-group">
-									<label class="sr-only">Time</label>
-									<input type="text" class="form-control" name="time" required id="datepicker1" placeholder="Starting Time (hh:mm am/pm)" maxlength="8">
+									<label class="sr-only">Starting Time</label>
+									<input type="text" class="form-control" name="stime" required placeholder="Starting Time (hh:mm am/pm)" maxlength="8">
+								</div>
+								<div class="form-group">
+									<label class="sr-only">Ending Time</label>
+									<input type="text" class="form-control" name="etime" required placeholder="Ending Time (hh:mm am/pm)" maxlength="8">
 								</div>
 								<div class="form-group">
 									<label class="sr-only">Heading</label>

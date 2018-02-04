@@ -173,24 +173,14 @@
 			<div class="col-sm-6 " id="skm">
 			
 				<div class="col-sm-12 offices" data-aos="fade-up" data-aos-once="true" data-aos-delay="300">
-					<div class="col-sm-5 map">
-						<div class="map-link">
-							<a href="http://www.maps.google.com" target="_blank">GET DIRECTIONS</a>
-							<div class="arrow"></div>
-						</div>
-					</div>
 					
-					<div class="col-sm-7 addrs">
+					
+					<div class="col-sm-12 text-center">
 						<p class="bname">SIKKIM</p>
 						
-						<p class="addrs-data">PXXXXXXX<br>
-						XXXXXXXXXXXXX<br>
-						XXXXXXX<br><br>
-						Phone:<br>
-						 	 	+91 123-456-7890<br><br>
-						Email:<br>
-						 	 	 iasacademicmail@gmail.com<br>
-						</p>
+						<div class="opening">
+							<p>OPENING SOON!</p>
+						</div>
 						
 						<button class="cntct-btn" data-target="#Modal" data-toggle="modal" >Questions in Mind?</button>
 						
@@ -202,24 +192,13 @@
 			<div class="col-sm-6 " >
 			
 				<div class="col-sm-12 offices" data-aos="fade-up" data-aos-once="true" data-aos-delay="300">
-					<div class="col-sm-5 map">
-						<div class="map-link">
-							<a href="http://www.maps.google.com" target="_blank">GET DIRECTIONS</a>
-							<div class="arrow"></div>
-						</div>
-					</div>
-					
-					<div class="col-sm-7 addrs">
+					<div class="col-sm-12 text-center">
 						<p class="bname">DURGAPUR</p>
 						
-						<p class="addrs-data">PXXXXXXX<br>
-						XXXXXXXXXXXXX<br>
-						XXXXXXX<br><br>
-						Phone:<br>
-						 	 	+91 123-456-7890<br><br>
-						Email:<br>
-						 	 	 iasacademicmail@gmail.com<br></p>
-								 
+						<div class="opening">
+							<p>OPENING SOON!</p>
+						</div>
+						
 						<button class="cntct-btn" data-target="#Modal" data-toggle="modal" >Questions in Mind?</button>
 						
 					</div>
@@ -229,27 +208,15 @@
 			<div class="col-sm-6 " data-aos="fade-up" data-aos-once="true" data-aos-delay="300" id="sili">
 			
 				<div class="col-sm-12 offices">
-					<div class="col-sm-5 map">
-						<div class="map-link">
-							<a href="http://www.maps.google.com" target="_blank">GET DIRECTIONS</a>
-							<div class="arrow"></div>
-						</div>
-					</div>
-					
-					<div class="col-sm-7 addrs">
+					<div class="col-sm-12 text-center">
 						<p class="bname">SILIGURI</p>
+						<div class="opening">
+							<p>OPENING SOON!</p>
+						</div>
 						
-						<p class="addrs-data">PXXXXXXX<br>
-						XXXXXXXXXXXXX<br>
-						XXXXXXX<br><br>
-						Phone:<br>
-						 	 	+91 123-456-7890<br><br>
-						Email:<br>
-						 	 	 iasacademicmail@gmail.com<br>
-						</p>
-								 
 						
 						<button class="cntct-btn" data-target="#Modal" data-toggle="modal" >Questions in Mind?</button>
+						
 					</div>
 				</div>
 			</div>
@@ -368,6 +335,9 @@
 				window.location = "contact.php";
 			};
 		};
+	</script>
+	<script>
+		$('#contact').addClass('actv');
 	</script>
 		
 		

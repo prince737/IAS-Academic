@@ -3,32 +3,35 @@
 			<div class="row">
 				<div class="col-sm-4 col-xs-12">
 					<p class="brand"><span>I</span>NSTITUTE OF <span>A</span>PPLIED <span>S</span>CIENCE</p>
-					<p class="tag">Where true learning begins...</p>
+					<p class="tag">Where true learning begins ...</p>
 				</div>
 				<div class="col-sm-2 col-xs-6">
 					<ul>
-						<li><a href="notices.php">NOTICES</a></li>
-						<li><a href="#">CAREER</a></li>
-						<li><a href="courses.php?crX=10+2%20Entrance%20Exams">ACADEMICS</a></li>						
+						
+						
+						<li><a href="admissions.php">ADMISSIONS</a></li>
+						<li><a href="courses.php?crX=10+2%20Entrance%20Exams">ACADEMICS</a></li>	
+						<li><a href="505.php">CAREER</a></li>						
 					</ul>
 				</div>
 				<div class="col-sm-2 col-xs-6">
 					<ul>						
-						<li><a href="admissions.php">ADMISSIONS</a></li>
-						<li><a href="#">DOWNLOADS</a></li><br>
+						<li><a href="events.php">EVENTS</a></li>
+						<li><a href="notices.php">NOTICES</a></li>	<br>					
+						
 						
 					</ul>
 				</div>
 				<div class="col-sm-2 col-xs-6">
 					<ul>						
 						<li><a href="gallery.php">GALLERY</a></li>
-						<li><a href="events.php">EVENTS</a></li>						
-						<li><a href="#">FAQs</a></li>
+						<li><a href="505.php">DOWNLOADS</a></li>				
+						<li><a href="505.php">FAQs</a></li>
 					</ul>
 				</div>
 				<div class="col-sm-2 col-xs-6">
 					<ul>						
-						<li><a href="#">ABOUT US</a></li>
+						<li><a href="505.php">ABOUT US</a></li>
 						<li><a href="contact.php">BRANCHES</a></li>
 					</ul>
 						

@@ -25,7 +25,7 @@
 							<tr>	
 								<td valign="center" style="line-height:30px;">
 									<p class="brand"><span>I</span>NSTITUTE OF <span>A</span>PPLIED <span>S</span>CIENCE</p>
-									<p class="tag">Where true learning begins...</p>
+									<p class="tag">Where true learning begins ...</p>
 								
 								</td>
 							</tr>
@@ -36,9 +36,9 @@
 					
 					<div class="col-lg-7 menu">
 						<ul class="nav navbar-nav" role="menu" aria-labelledby="dropdownMenu">
-							<li><a href="index.php">HOME</a></li>
+							<li><a href="index.php" id="home">HOME</a></li>
 							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">COURSES<span class="caret"></span></a>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="courses">COURSES<span class="caret"></span></a>
 								<ul class="dropdown-menu" >
 									<?php
 										include_once 'includes/dbh.inc.php';
@@ -55,7 +55,7 @@
 								</ul>
 							</li>
 							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">ADMISSIONS<span class="caret"></span></a>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="admn">ADMISSIONS<span class="caret"></span></a>
 								<ul class="dropdown-menu" >
 									
 									<li><a tabindex="-1" href="admissions.php">ADMISSION PROCESS</a></li>
@@ -67,26 +67,17 @@
 
 							</li>
 							<li>
-								<a href="login.php" class="smoothScroll">ONLINE EXAMS</a>
+								<a href="login.php" class="smoothScroll" id="exam">ONLINE EXAMS</a>
 								
 							</li>
 							
-							<!--<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">ONLINE EXAMS<span class="caret"></span></a>
-								<ul class="dropdown-menu" >
-									
-									<li><a tabindex="-1" href="login.php">LOGIN</a></li>
-									<li><a tabindex="-1" href="registration.php">ENROLL NOW</a></li>
-									<li><a tabindex="-1" href="#">AVAILABLE EXAMS</a></li>
-
-								</ul>
-							</li>-->
+							
 							<li>
 								<a href="gallery.php" class="smoothScroll">GALLERY</a>
 								
 							</li>
 							<li class="dropdown">
-								<a href="contact.html" class="dropdown-toggle" data-toggle="dropdown">CONTACT<span class="caret"></span></a>
+								<a href="contact.html" class="dropdown-toggle" data-toggle="dropdown" id="contact">CONTACT<span class="caret"></span></a>
 								<ul class="dropdown-menu pull-left" >
 									
 									<li><a tabindex="-1" href="contact.php">CORPORATE OFFICE</a></li>
@@ -99,7 +90,7 @@
 
 								</ul>
 							</li>
-							<li>
+							<li class="dropdown">
 							
 								<?php
 									if(isset($_SESSION['student'])){
@@ -107,17 +98,33 @@
 										$query = "select * from students where stu_email='$email'";
 										$result = mysqli_query($conn, $query);
 										$row=mysqli_fetch_array($result);
-										echo '<a href="profile.php" class="smoothScroll">PROFILE</a>';
+										echo '<a href="profile.php" class="dropdown-toggle" data-toggle="dropdown">ACCOUNT<span class="caret"></span></a>
+											  <ul class="dropdown-menu pull-right" >
+									
+												  <li><a tabindex="-1" href="profile.php">PROFILE HOME</a></li>
+												  <li><a tabindex="-1" href="profile.php">ACCOUNT SETTINGS</a></li>
+												  <li><form action="includes/logout.inc.php" method="POST"><button name="logout" tabindex="-1" class="logout" >LOGOUT</button></form></li>
+											  </ul>	
+										';
 									}
 									elseif(isset($_COOKIE['student'])){
 										$email = $_COOKIE['student'];
 										$query = "select * from students where stu_email='$email'";
 										$result = mysqli_query($conn, $query);
 										$row=mysqli_fetch_array($result);
-										echo '<a href="profile.php" class="smoothScroll">PROFILE</a>';
+										echo '<a href="profile.php" class="dropdown-toggle" data-toggle="dropdown">ACCOUNT<span class="caret"></span></a>
+											  <ul class="dropdown-menu pull-right" >
+									
+												  <li><a tabindex="-1" href="profile.php">PROFILE HOME</a></li>
+												  <li><a tabindex="-1" href="profile.php">ACCOUNT SETTINGS</a></li>
+												  <li><form action="includes/logout.inc.php" method="POST"><button name="logout" tabindex="-1" class="logout" >LOGOUT</button></form></li>
+											  </ul>	
+										';
 									}
 									else{
-										echo '<a href="login.php" class="smoothScroll">LOG IN</a>';
+										echo '<a href="login.php" class="smoothScroll">LOG IN</a>
+											  
+										';
 									}
 									
 									

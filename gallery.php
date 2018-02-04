@@ -80,27 +80,12 @@
 				</ul>
 			</li>
 			<li class="link">
-				<a href="#collapse-post11" data-toggle="collapse" aria-control="collapse-post11">
-					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-					<span >ONLINE EXAMS</span>
+				
+				<a href="505.php">
+					<i class="fa fa-home" aria-hidden="true"></i>
+					<span>ONLINE EXAMS</span>
 				</a>
-				<ul class="collapse collapsable" id="collapse-post11" style="margin:0px; padding:0px; ">
-					<li>
-						<a href="admin_notices.php">
-							<span>LOGIN</span>
-						</a>
-					</li>
-					<li>
-						<a href="active_notices.php">
-							<span>ENROLL NOW</span>
-						</a>
-					</li>
-					<li>
-						<a href="active_notices.php">
-							<span>AVAILABLE EXAMS</span>
-						</a>
-					</li>
-				</ul>
+				
 			</li>
 			
 			<li class="link active">
@@ -151,6 +136,47 @@
 						</a>
 					</li>
 				</ul>
+			</li>
+			<li>
+				<?php
+					if(isset($_SESSION['student'])){
+						$email = $_SESSION['student'];
+						$query = "select * from students where stu_email='$email'";
+						$result = mysqli_query($conn, $query);
+						$row=mysqli_fetch_array($result);
+						echo '<a href="profile.php" class="dropdown-toggle" data-toggle="dropdown">ACCOUNT<span class="caret"></span></a>
+							  <ul class="dropdown-menu pull-right" >
+					
+							  <li><a tabindex="-1" href="profile.php">PROFILE HOME</a></li>
+								  <li><a tabindex="-1" href="profile.php">ACCOUNT SETINGS</a></li>
+								  <li><form action="includes/logout.inc.php" method="POST"><button name="logout" tabindex="-1" class="logout" >LOGOUT</button></form></li>
+							  </ul>	
+						';
+					}
+					elseif(isset($_COOKIE['student'])){
+						$email = $_COOKIE['student'];
+						$query = "select * from students where stu_email='$email'";
+						$result = mysqli_query($conn, $query);
+						$row=mysqli_fetch_array($result);
+						echo '<a href="profile.php" class="dropdown-toggle" data-toggle="dropdown">ACCOUNT<span class="caret"></span></a>
+							  <ul class="dropdown-menu pull-right" >
+									
+								  <li><a tabindex="-1" href="profile.php">PROFILE HOME</a></li>
+								  <li><a tabindex="-1" href="profile.php">ACCOUNT SETINGS</a></li>
+								  <li><form action="includes/logout.inc.php" method="POST"><button name="logout" tabindex="-1" class="logout" >LOGOUT</button></form></li>
+							  </ul>	
+						';
+					}
+					else{
+						echo '<a href="login.php" class="smoothScroll">LOG IN</a>
+								  
+						';
+					}
+									
+				
+				?>
+								
+								
 			</li>
 		</ul>				
 

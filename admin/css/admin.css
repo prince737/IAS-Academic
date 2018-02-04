@@ -287,4 +287,9 @@ $mySidebar .link > ul > li{
 	margin-top:10%;!important;
 }
 
+.logout{
+	background:none;
+	border:none;
+	outline:none;
+}
 

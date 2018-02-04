@@ -2,6 +2,11 @@
 	session_start();
 	require_once('../includes/dbh.inc.php');	
 	
+	if(!isset($_SESSION['admin'])){
+		header("Location: admin_login.php");
+		exit();
+	}
+	
 	if(isset($_GET['success']))
 	{
 		echo '			    
@@ -210,9 +215,9 @@
 									</a>
 								</li>
 								<li>	
-									<a href="#" class="logout">
-										<span class="fa fa-sign-out" aria-hidden="true">Log out
-									</a>
+									<form action="includes/adminlogout.inc.php" method="POST">
+										<button class="logout" name="alogout"><span class="fa fa-sign-out" aria-hidden="true">Log out</button>
+									</form>
 								</li>
 							</ul>
 						</div>
@@ -242,7 +247,7 @@
 											<div class="row notice-row">
 											<div class="col-md-1 col-xs-2 col-sm-1 status-padding">
 										';
-										if($row['events_status']==1){
+										if($row['events_status']==1 && strtotime('now') < strtotime($date2)){
 											echo '<span class="label label-success label-sm">Active</span>';
 										}
 										else{
@@ -255,18 +260,19 @@
 												<p>'.$row['events_body'].'</p>
 												<small>Starts '.$date1.'</small>
 												<small>&nbsp;&nbsp;Ends '.$date2.'</small>
-												<small>&nbsp;&nbsp;Starting Time '.$row['events_time'].'</small>
+												<small>&nbsp;&nbsp;Starting Time '.$row['events_starttime'].'</small>
+												<small>&nbsp;&nbsp;Ending Time '.$row['events_endtime'].'</small>
 												
 											</div>	
 											<div class="col-md-3 col-xs-10 col-sm-5 col-xs-offset-2 col-sm-offset-0 col-md-offset-0 col-lg-offset-0">
 												<div class="notice-actions">
 													<form action="includes/events.inc.php" method="POST" enctype="multipart/form-data">';
-														if($row['events_status']==1){
+														if($row['events_status']==1 && strtotime('now') < strtotime($date2)){
 															echo '<button type="submit" class="btn btn-xs btn-default" role="button" name="deactivate" >
 															<span class="fa fa-ban" aria-hidden="true">&nbsp;Deactivate</span>
 														</button> ';
 														}
-														else{
+														elseif($row['events_status']==0){
 															echo '<button type="submit" class="btn btn-xs btn-default" role="button" name="activate" >
 															<span class="fa fa-unlock" aria-hidden="true">&nbsp;Activate</span>
 														</button> ';
@@ -288,7 +294,7 @@
 																		<h6>*Leave as it is if no changes are required</h6>	
 																	</div>
 																	<div class="modal-body">
-																		<input type="hidden" value="'.$row['eid'].'" name="nid"></input>
+																		<input type="hidden" value="'.$row['eid'].'" name="eid"></input>
 																		
 																		
 																		
@@ -302,7 +308,11 @@
 																		</div>
 																		<div class="form-group">
 																			<label for="datepicker">Update Start Time</label>
-																			<input type="text" class="form-control" name="time"" value="'.$row['events_time'].'" maxlength="8"/>
+																			<input type="text" class="form-control" name="stime"" value="'.$row['events_starttime'].'" maxlength="8"/>
+																		</div>
+																		<div class="form-group">
+																			<label for="datepicker">Update End Time</label>
+																			<input type="text" class="form-control" name="etime"" value="'.$row['events_endtime'].'" maxlength="8"/>
 																		</div>
 																		<div class="form-group">
 																			<label for="datepicker">Update Heading</label>
