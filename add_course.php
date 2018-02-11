@@ -349,7 +349,7 @@
 											if($row['add_status'] == 0){
 												echo '
 												<form action="includes/course.inc.php" method="POST">
-													<input type="hidden" name="sc_id" value="'.$row['add_id'].'"/>
+													<input type="hidden" name="add_id" value="'.$row['add_id'].'"/>
 													<button type="button" class="btn btn-danger btn-xs" name="delete_req" data-target="#Modalrem'.$i.'" data-toggle="modal">Remove Request</button>	
 													
 													<div class="modal fade modalrem" id="Modalrem'.$i.'">
@@ -364,7 +364,7 @@
 																	Removing your request would mean that you won\'t be able to add the course <b>\''.$row['course_name'].'\'</b>  to your profile.<br><br>
 																	Are you sure about doing this?<br><br>
 																	
-																	<button name="request" class="btn btn-danger btn-sm request" >Yes, remove</button>
+																	<button name="delete_req" class="btn btn-danger btn-sm request" >Yes, remove</button>
 																	<button type="button" class="btn btn-success btn-sm no" data-dismiss="modal">No, keep the Request</button>
 																</div> 																
 															</div>

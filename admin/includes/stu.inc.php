@@ -25,10 +25,25 @@
 		while($row = mysqli_fetch_array($result)){ 
 			$centerid = $row['center_id'];
 		}
-		echo $cid.'<br>';
-		echo $centerid.'<br>';
 		
-				
+		//Setting student id
+		
+		$roll='IAS/';
+		$roll.=date('Y').'/';
+		$sql = "select max(right(stu_roll,4)) as max_roll from students";
+		$res=mysqli_query($conn,$sql);
+		$num=mysqli_num_rows($res);
+		$row=mysqli_fetch_array($res);
+		
+		if($num<1){
+			$roll.='0001';
+		}
+		else{
+			$roll.=str_pad($row['max_roll'] + 1,4,"0",STR_PAD_LEFT);
+		}
+		
+		//SETTING REGISTRATION NUMBER
+			
 		$regNo = '9119';
 		
 		//selecting center number
@@ -52,7 +67,7 @@
 			}
 		}
 		
-		//Student roll no Generation
+		//Student registration no Generation
 		$query = "select max(registration_no) as max from students_courses where center_id=$centerid and course_id = $cid";
 		$result = mysqli_query($conn, $query);
 		$resultCheck = mysqli_num_rows($result);
@@ -65,9 +80,9 @@
 				$regNo .= '001';
 			}
 			else{
-				$roll = substr($row['max'], -3);
-				$roll = str_pad($roll + 1,3,"0",STR_PAD_LEFT);
-				$regNo .= $roll;
+				$roll1 = substr($row['max'], -3);
+				$roll1 = str_pad($roll1 + 1,3,"0",STR_PAD_LEFT);
+				$regNo .= $roll1;
 			}
 		}	
 		else{
@@ -77,7 +92,7 @@
 		
 		$date = date("Y-m-d");			
 		
-		$query= "Update students set stu_approvalstatus=1, stu_dateofadmission='$date' where stu_id = '$id'";	
+		$query= "Update students set stu_approvalstatus=1, stu_dateofadmission='$date', stu_roll='$roll' where stu_id = '$id'";	
 		echo $query;
 		
 		if(mysqli_query($conn,$query)){
@@ -90,7 +105,7 @@
 				
 				mysqli_query($conn,$query);
 				if(isset($_POST['approve_stu'])){
-					header("Location: ../students.php?err222");	
+					header("Location: ../students_all.php?err222");	
 				}
 				else{
 					header("Location: ../admin.php?err111");	
@@ -98,7 +113,7 @@
 			}
 			else{		
 				if(isset($_POST['approve_stu'])){
-					header("Location: ../students.php?saprv='$name'");	
+					header("Location: ../students_all.php?saprv='$name'");	
 				}
 				else{
 					header("Location: ../admin.php?saprv='$name'");	
@@ -107,7 +122,7 @@
 		}
 		else{
 			if(isset($_POST['approve_stu'])){
-				header("Location: ../students.php?err33");	
+				header("Location: ../students_all.php?err33");	
 			}
 			else{
 				header("Location: ../admin.php?er44r");	

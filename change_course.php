@@ -54,11 +54,11 @@
 	<?php
 		if(isset($_SESSION['student'])){
 			$email = $_SESSION['student'];
-			$query = "select * from students where stu_email='$email'";
+			$query = "select * from students INNER JOIN students_courses ON stu_id=student_id where stu_email='$email'";
 		}
 		elseif(isset($_COOKIE['student'])){
 			$email = $_COOKIE['student'];
-			$query = "select * from students where stu_email='$email'";
+			$query = "select * from students INNER JOIN students_courses ON stu_id=student_id where stu_email='$email'";
 		}
 		$result = mysqli_query($conn, $query);
 	?>
@@ -173,7 +173,8 @@
 								$id = $rowMain['stu_id'];
 								$course=$rowMain['course_name'];
 								$arr=array('Class X', 'Class XI', 'Class XII', 'Btech', 'Mtech');
-								$class=$row['stu_highestdegree'];
+								$class=$rowMain['stu_highestdegree'];
+								echo $class;
 								if( !(in_array($class, $arr))){
 									$class="Other";
 								}
@@ -218,7 +219,11 @@
 							while($row = mysqli_fetch_array($res)){
 								$arr[]=$row['course_name'];
 							}
-							
+							$sql="select * from course_change INNER JOIN courses ON new_course_id=courses.course_id where student_id =$id ";
+							$res=mysqli_query($conn, $sql);
+							while($row = mysqli_fetch_array($res)){
+								array_push($arr,$row['course_name']);
+							}
 							
 						?>
 						<label for="name">CHOOSE THE COURSE:</label>
@@ -240,16 +245,16 @@
 									$query="select course_name from courses where course_type='$type'";
 									$res=mysqli_query($conn, $query);
 									while($row = mysqli_fetch_array($res)){										
-										if(($row['course_name'] != $course) && !(in_array($row['course_name'], $arr)) && $row['course_name'] != $crs){
-											/*if(isset($_GET['name']) && $_GET['name'] == $row['course_name']){
+										if(!in_array($row['course_name'], $arr)){
+											if(isset($_GET['name']) && $_GET['name'] == $row['course_name']){
 												echo '<option value="'.$row['course_name'].'" selected>'.$row['course_name'].'</option>';												
 											}
 											elseif(isset($_GET['name']) && $_GET['name'] == 'Robotics with ARDUINO ' && $row['course_name'] == 'Robotics with ARDUINO & PID'){
 												echo '<option value="'.$row['course_name'].'" selected>'.$row['course_name'].'</option>';
 											}
-											else{*/
+											else{
 												echo '<option value="'.$row['course_name'].'">'.$row['course_name'].'</option>';
-											//}
+											}
 										}
 									}
 								}

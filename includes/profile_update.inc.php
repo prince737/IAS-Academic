@@ -17,7 +17,7 @@
 		$row_stu = getRow();
 		if(!preg_match("/^[A-Za-z]*\s{1}[A-Za-z]*$/", $name))
 		{
-			header("Location: ../profile.php?invalid");
+			header("Location: ../account_settings.php?invalid");
 			exit();		
 		}
 		else{
@@ -28,7 +28,7 @@
 				$result= mysqli_query($conn, $query);
 				$query = "delete from student_profile_update where student_id='$id' AND spu_field='stu_name'";
 				mysqli_query($conn, $query);
-				header("Location: ../profile.php?same");
+				header("Location: ../account_settings.php?same");
 				exit();
 					
 			}
@@ -37,22 +37,22 @@
 				$query="insert into student_profile_update(student_id, spu_field, spu_newValue) values($id, 'stu_name', '$name')";
 				if(!mysqli_query($conn, $query)){
 					echo 'err';
-					header("Location: ../profile.php?err");
+					header("Location: ../account_settings.php?err");
 					exit();
 				}
 				else{
-					header("Location: ../profile.php?success=Name");
+					header("Location: ../account_settings.php?success=Name");
 					exit();
 				}
 			}
 			else{
 				$query="update student_profile_update set spu_newValue='$name' where student_id='$id' AND spu_field='stu_name'";
 				if(!mysqli_query($conn, $query)){
-					header("Location: ../profile.php?err");
+					header("Location: ../account_settings.php?err");
 					exit();
 				}
 				else{
-					header("Location: ../profile.php?success=Name");
+					header("Location: ../account_settings.php?success=Name");
 					exit();
 				}
 			}
@@ -67,7 +67,7 @@
 		$row_stu = getRow();
 		if(!preg_match("/^[A-Za-z]*\s{1}[A-Za-z]*$/", $gname))
 		{
-			header("Location: ../profile.php?invalid");
+			header("Location: ../account_settings.php?invalid");
 			exit();		
 		}
 		else{
@@ -78,7 +78,7 @@
 				$result= mysqli_query($conn, $query);
 				$query = "delete from student_profile_update where student_id='$id' AND spu_field='stu_gurdianname'";
 				mysqli_query($conn, $query);
-				header("Location: ../profile.php?same");
+				header("Location: ../account_settings.php?same");
 				exit();
 					
 			}
@@ -87,22 +87,22 @@
 				$query="insert into student_profile_update(student_id, spu_field, spu_newValue) values($id, 'stu_gurdianname', '$gname')";
 				if(!mysqli_query($conn, $query)){
 					echo 'err';
-					header("Location: ../profile.php?err");
+					header("Location: ../account_settings.php?err");
 					exit();
 				}
 				else{
-					header("Location: ../profile.php?success=Guardian's Name");
+					header("Location: ../account_settings.php?success=Guardian's Name");
 					exit();
 				}
 			}
 			else{
 				$query="update student_profile_update set spu_newValue='$gname' where student_id='$id' AND spu_field='stu_gurdianname'";
 				if(!mysqli_query($conn, $query)){
-					header("Location: ../profile.php?err");
+					header("Location: ../account_settings.php?err");
 					exit();
 				}
 				else{
-					header("Location: ../profile.php?success=Guardian's Name");
+					header("Location: ../account_settings.php?success=Guardian's Name");
 					exit();
 				}
 			}
@@ -124,7 +124,7 @@
 			$result= mysqli_query($conn, $query);
 			$query = "delete from student_profile_update where student_id='$id' AND spu_field='stu_dob'";
 			mysqli_query($conn, $query);
-			header("Location: ../profile.php?same");
+			header("Location: ../account_settings.php?same");
 			exit();
 				
 		}
@@ -132,22 +132,22 @@
 		if($check < 1){
 			$query="insert into student_profile_update(student_id, spu_field, spu_newValue) values($id, 'stu_dob', '$dob')";
 			if(!mysqli_query($conn, $query)){
-				header("Location: ../profile.php?err");
+				header("Location: ../account_settings.php?err");
 				exit();
 			}
 			else{
-				header("Location: ../profile.php?success=Date of Birth");
+				header("Location: ../account_settings.php?success=Date of Birth");
 				exit();
 			}
 		}
 		else{
 			$query="update student_profile_update set spu_newValue='$dob' where student_id='$id' AND spu_field='stu_dob'";
 			if(!mysqli_query($conn, $query)){
-				header("Location: ../profile.php?err");
+				header("Location: ../account_settings.php?err");
 				exit();
 			}
 			else{
-				header("Location: ../profile.php?success=Date of Birth");
+				header("Location: ../account_settings.php?success=Date of Birth");
 				exit();
 			}
 		}		
@@ -167,7 +167,7 @@
 			$result= mysqli_query($conn, $query);
 			$query = "delete from student_profile_update where student_id='$id' AND spu_field='stu_gender'";
 			mysqli_query($conn, $query);
-			header("Location: ../profile.php?same");
+			header("Location: ../account_settings.php?same");
 			exit();
 				
 		}
@@ -175,22 +175,22 @@
 		if($check < 1){
 			$query="insert into student_profile_update(student_id, spu_field, spu_newValue) values($id, 'stu_gender', '$gender')";
 			if(!mysqli_query($conn, $query)){
-				header("Location: ../profile.php?err");
+				header("Location: ../account_settings.php?err");
 				exit();
 			}
 			else{
-				header("Location: ../profile.php?success=Gender");
+				header("Location: ../account_settings.php?success=Gender");
 				exit();
 			}
 		}
 		else{
 			$query="update student_profile_update set spu_newValue='$gender' where student_id='$id' AND spu_field='stu_gender'";
 			if(!mysqli_query($conn, $query)){
-				header("Location: ../profile.php?err");
+				header("Location: ../account_settings.php?err");
 				exit();
 			}
 			else{
-				header("Location: ../profile.php?success=Gender");
+				header("Location: ../account_settings.php?success=Gender");
 				exit();
 			}
 		}		
@@ -205,7 +205,7 @@
 		$row_stu = getRow();
 		if(!filter_var($email, FILTER_VALIDATE_EMAIL))
 		{
-			header("Location: ../profile.php?invalid");
+			header("Location: ../account_settings.php?invalid");
 			exit();		
 		}		
 		else{
@@ -213,7 +213,7 @@
 			$res=mysqli_query($conn,$query);
 			$emailCheck = mysqli_num_rows($res);
 			if($emailCheck > 1){
-				header("Location: ../profile.php?errmail");
+				header("Location: ../account_settings.php?errmail");
 				exit();	
 			}
 			
@@ -223,7 +223,7 @@
 				$result= mysqli_query($conn, $query);
 				$query = "delete from student_profile_update where student_id='$id' AND spu_field='stu_email'";
 				mysqli_query($conn, $query);
-				header("Location: ../profile.php?same");
+				header("Location: ../account_settings.php?same");
 				exit();
 					
 			}
@@ -232,22 +232,22 @@
 				$query="insert into student_profile_update(student_id, spu_field, spu_newValue) values($id, 'stu_email', '$email')";
 				if(!mysqli_query($conn, $query)){
 					echo 'err';
-					header("Location: ../profile.php?err");
+					header("Location: ../account_settings.php?err");
 					exit();
 				}
 				else{
-					header("Location: ../profile.php?success=Email");
+					header("Location: ../account_settings.php?success=Email");
 					exit();
 				}
 			}
 			else{
 				$query="update student_profile_update set spu_newValue='$email' where student_id='$id' AND spu_field='stu_email'";
 				if(!mysqli_query($conn, $query)){
-					header("Location: ../profile.php?err");
+					header("Location: ../account_settings.php?err");
 					exit();
 				}
 				else{
-					header("Location: ../profile.php?success=Email");
+					header("Location: ../account_settings.php?success=Email");
 					exit();
 				}
 			}
@@ -268,7 +268,7 @@
 			$result= mysqli_query($conn, $query);
 			$query = "delete from student_profile_update where student_id='$id' AND spu_field='stu_contact'";
 			mysqli_query($conn, $query);
-			header("Location: ../profile.php?same");
+			header("Location: ../account_settings.php?same");
 			exit();
 				
 		}
@@ -276,22 +276,22 @@
 		if($check < 1){
 			$query="insert into student_profile_update(student_id, spu_field, spu_newValue) values($id, 'stu_contact', '$contact')";
 			if(!mysqli_query($conn, $query)){
-				header("Location: ../profile.php?err");
+				header("Location: ../account_settings.php?err");
 				exit();
 			}
 			else{
-				header("Location: ../profile.php?success=Contact");
+				header("Location: ../account_settings.php?success=Contact");
 				exit();
 			}
 		}
 		else{
 			$query="update student_profile_update set spu_newValue='$contact' where student_id='$id' AND spu_field='stu_contact'";
 			if(!mysqli_query($conn, $query)){
-				header("Location: ../profile.php?err");
+				header("Location: ../account_settings.php?err");
 				exit();
 			}
 			else{
-				header("Location: ../profile.php?success=Contact");
+				header("Location: ../account_settings.php?success=Contact");
 				exit();
 			}
 		}		
@@ -310,7 +310,7 @@
 			$result= mysqli_query($conn, $query);
 			$query = "delete from student_profile_update where student_id='$id' AND spu_field='stu_gurdiancontact'";
 			mysqli_query($conn, $query);
-			header("Location: ../profile.php?same");
+			header("Location: ../account_settings.php?same");
 			exit();
 				
 		}
@@ -318,22 +318,22 @@
 		if($check < 1){
 			$query="insert into student_profile_update(student_id, spu_field, spu_newValue) values($id, 'stu_gurdiancontact', '$gcontact')";
 			if(!mysqli_query($conn, $query)){
-				header("Location: ../profile.php?err");
+				header("Location: ../account_settings.php?err");
 				exit();
 			}
 			else{
-				header("Location: ../profile.php?success=Guardian's Contact");
+				header("Location: ../account_settings.php?success=Guardian's Contact");
 				exit();
 			}
 		}
 		else{
 			$query="update student_profile_update set spu_newValue='$gcontact' where student_id='$id' AND spu_field='stu_gurdiancontact'";
 			if(!mysqli_query($conn, $query)){
-				header("Location: ../profile.php?err");
+				header("Location: ../account_settings.php?err");
 				exit();
 			}
 			else{
-				header("Location: ../profile.php?success=Guardian's Contact");
+				header("Location: ../account_settings.php?success=Guardian's Contact");
 				exit();
 			}
 		}		
@@ -352,7 +352,7 @@
 			$result= mysqli_query($conn, $query);
 			$query = "delete from student_profile_update where student_id='$id' AND spu_field='stu_address'";
 			mysqli_query($conn, $query);
-			header("Location: ../profile.php?same");
+			header("Location: ../account_settings.php?same");
 			exit();
 				
 		}
@@ -360,22 +360,22 @@
 		if($check < 1){
 			$query="insert into student_profile_update(student_id, spu_field, spu_newValue) values($id, 'stu_address', '$address')";
 			if(!mysqli_query($conn, $query)){
-				header("Location: ../profile.php?err");
+				header("Location: ../account_settings.php?err");
 				exit();
 			}
 			else{
-				header("Location: ../profile.php?success=Address");
+				header("Location: ../account_settings.php?success=Address");
 				exit();
 			}
 		}
 		else{
 			$query="update student_profile_update set spu_newValue='$address' where student_id='$id' AND spu_field='stu_address'";
 			if(!mysqli_query($conn, $query)){
-				header("Location: ../profile.php?err");
+				header("Location: ../account_settings.php?err");
 				exit();
 			}
 			else{
-				header("Location: ../profile.php?success=Address");
+				header("Location: ../account_settings.php?success=Address");
 				exit();
 			}
 		}		
@@ -394,7 +394,7 @@
 			$result= mysqli_query($conn, $query);
 			$query = "delete from student_profile_update where student_id='$id' AND spu_field='stu_currentinstitute'";
 			mysqli_query($conn, $query);
-			header("Location: ../profile.php?same");
+			header("Location: ../account_settings.php?same");
 			exit();
 				
 		}
@@ -402,17 +402,17 @@
 		if($check < 1){
 			$query="insert into student_profile_update(student_id, spu_field, spu_newValue) values($id, 'stu_currentinstitute', '$school')";
 			if(!mysqli_query($conn, $query)){
-				header("Location: ../profile.php?err");
+				header("Location: ../account_settings.php?err");
 				exit();
 			}
 			else{
 				$class = getClass();
 				if($class == 'Class X' || $class == 'Class XI' || $class == 'Class XII'){
-					header("Location: ../profile.php?success=School");
+					header("Location: ../account_settings.php?success=School");
 					exit();
 				}
 				else{
-					header("Location: ../profile.php?success=College");
+					header("Location: ../account_settings.php?success=College");
 					exit();
 				}
 			}
@@ -420,17 +420,17 @@
 		else{
 			$query="update student_profile_update set spu_newValue='$school' where student_id='$id' AND spu_field='stu_currentinstitute'";
 			if(!mysqli_query($conn, $query)){
-				header("Location: ../profile.php?err");
+				header("Location: ../account_settings.php?err");
 				exit();
 			}
 			else{
 				$class = getClass();
 				if($class == 'Class X' || $class == 'Class XI' || $class == 'Class XII'){
-					header("Location: ../profile.php?success=School");
+					header("Location: ../account_settings.php?success=School");
 					exit();
 				}
 				else{
-					header("Location: ../profile.php?success=College");
+					header("Location: ../account_settings.php?success=College");
 					exit();
 				}
 			}
@@ -451,7 +451,7 @@
 			$result= mysqli_query($conn, $query);
 			$query = "delete from student_profile_update where student_id='$id' AND spu_field='stu_university'";
 			mysqli_query($conn, $query);
-			header("Location: ../profile.php?same");
+			header("Location: ../account_settings.php?same");
 			exit();
 				
 		}
@@ -459,17 +459,17 @@
 		if($check < 1){
 			$query="insert into student_profile_update(student_id, spu_field, spu_newValue) values($id, 'stu_university', '$board')";
 			if(!mysqli_query($conn, $query)){
-				header("Location: ../profile.php?err");
+				header("Location: ../account_settings.php?err");
 				exit();
 			}
 			else{
 				$class = getClass();
 				if($class == 'Class X' || $class == 'Class XI' || $class == 'Class XII'){
-					header("Location: ../profile.php?success=Board");
+					header("Location: ../account_settings.php?success=Board");
 					exit();
 				}
 				else{
-					header("Location: ../profile.php?success=University");
+					header("Location: ../account_settings.php?success=University");
 					exit();
 				}
 			}
@@ -477,17 +477,17 @@
 		else{
 			$query="update student_profile_update set spu_newValue='$board' where student_id='$id' AND spu_field='stu_university'";
 			if(!mysqli_query($conn, $query)){
-				header("Location: ../profile.php?err");
+				header("Location: ../account_settings.php?err");
 				exit();
 			}
 			else{
 				$class = getClass();
 				if($class == 'Class X' || $class == 'Class XI' || $class == 'Class XII'){
-					header("Location: ../profile.php?success=Board");
+					header("Location: ../account_settings.php?success=Board");
 					exit();
 				}
 				else{
-					header("Location: ../profile.php?success=University");
+					header("Location: ../account_settings.php?success=University");
 					exit();
 				}
 			}
@@ -507,7 +507,7 @@
 			$result= mysqli_query($conn, $query);
 			$query = "delete from student_profile_update where student_id='$id' AND spu_field='stu_highestdegree'";
 			mysqli_query($conn, $query);
-			header("Location: ../profile.php?same");
+			header("Location: ../account_settings.php?same");
 			exit();
 				
 		}
@@ -515,17 +515,17 @@
 		if($check < 1){
 			$query="insert into student_profile_update(student_id, spu_field, spu_newValue) values($id, 'stu_highestdegree', '$he')";
 			if(!mysqli_query($conn, $query)){
-				header("Location: ../profile.php?err");
+				header("Location: ../account_settings.php?err");
 				exit();
 			}
 			else{
 				$class = getClass();
 				if($class == 'Class X' || $class == 'Class XI' || $class == 'Class XII'){
-					header("Location: ../profile.php?success=Class");
+					header("Location: ../account_settings.php?success=Class");
 					exit();
 				}
 				else{
-					header("Location: ../profile.php?success=Course");
+					header("Location: ../account_settings.php?success=Course");
 					exit();
 				}
 			}
@@ -533,17 +533,17 @@
 		else{
 			$query="update student_profile_update set spu_newValue='$he' where student_id='$id' AND spu_field='stu_highestdegree'";
 			if(!mysqli_query($conn, $query)){
-				header("Location: ../profile.php?err");
+				header("Location: ../account_settings.php?err");
 				exit();
 			}
 			else{
 				$class = getClass();
 				if($class == 'Class X' || $class == 'Class XI' || $class == 'Class XII'){
-					header("Location: ../profile.php?success=Class");
+					header("Location: ../account_settings.php?success=Class");
 					exit();
 				}
 				else{
-					header("Location: ../profile.php?success=Course");
+					header("Location: ../account_settings.php?success=Course");
 					exit();
 				}
 			}
@@ -563,7 +563,7 @@
 			$result= mysqli_query($conn, $query);
 			$query = "delete from student_profile_update where student_id='$id' AND spu_field='stu_subjectCombo'";
 			mysqli_query($conn, $query);
-			header("Location: ../profile.php?same");
+			header("Location: ../account_settings.php?same");
 			exit();
 				
 		}
@@ -571,22 +571,22 @@
 		if($check < 1){
 			$query="insert into student_profile_update(student_id, spu_field, spu_newValue) values($id, 'stu_subjectCombo', '$subject')";
 			if(!mysqli_query($conn, $query)){
-				header("Location: ../profile.php?err");
+				header("Location: ../account_settings.php?err");
 				exit();
 			}
 			else{
-				header("Location: ../profile.php?success=Subject Combination");
+				header("Location: ../account_settings.php?success=Subject Combination");
 				exit();
 			}
 		}
 		else{
 			$query="update student_profile_update set spu_newValue='$subject' where student_id='$id' AND spu_field='stu_subjectCombo'";
 			if(!mysqli_query($conn, $query)){
-				header("Location: ../profile.php?err");
+				header("Location: ../account_settings.php?err");
 				exit();
 			}
 			else{
-				header("Location: ../profile.php?success=Subject Combination");
+				header("Location: ../account_settings.php?success=Subject Combination");
 				exit();
 			}
 		}		
@@ -605,7 +605,7 @@
 			$result= mysqli_query($conn, $query);
 			$query = "delete from student_profile_update where student_id='$id' AND spu_field='stu_dept'";
 			mysqli_query($conn, $query);
-			header("Location: ../profile.php?same");
+			header("Location: ../account_settings.php?same");
 			exit();
 				
 		}
@@ -613,22 +613,22 @@
 		if($check < 1){
 			$query="insert into student_profile_update(student_id, spu_field, spu_newValue) values($id, 'stu_dept', '$dept')";
 			if(!mysqli_query($conn, $query)){
-				header("Location: ../profile.php?err");
+				header("Location: ../account_settings.php?err");
 				exit();
 			}
 			else{
-				header("Location: ../profile.php?success=Department");
+				header("Location: ../account_settings.php?success=Department");
 				exit();
 			}
 		}
 		else{
 			$query="update student_profile_update set spu_newValue='$dept' where student_id='$id' AND spu_field='stu_dept'";
 			if(!mysqli_query($conn, $query)){
-				header("Location: ../profile.php?err");
+				header("Location: ../account_settings.php?err");
 				exit();
 			}
 			else{
-				header("Location: ../profile.php?success=Department");
+				header("Location: ../account_settings.php?success=Department");
 				exit();
 			}
 		}		
@@ -647,7 +647,7 @@
 			$result= mysqli_query($conn, $query);
 			$query = "delete from student_profile_update where student_id='$id' AND spu_field='stu_yearofpass'";
 			mysqli_query($conn, $query);
-			header("Location: ../profile.php?same");
+			header("Location: ../account_settings.php?same");
 			exit();
 				
 		}
@@ -655,22 +655,22 @@
 		if($check < 1){
 			$query="insert into student_profile_update(student_id, spu_field, spu_newValue) values($id, 'stu_yearofpass', '$yop')";
 			if(!mysqli_query($conn, $query)){
-				header("Location: ../profile.php?err");
+				header("Location: ../account_settings.php?err");
 				exit();
 			}
 			else{
-				header("Location: ../profile.php?success=Year of Passing");
+				header("Location: ../account_settings.php?success=Year of Passing");
 				exit();
 			}
 		}
 		else{
 			$query="update student_profile_update set spu_newValue='$yop' where student_id='$id' AND spu_field='stu_yearofpass'";
 			if(!mysqli_query($conn, $query)){
-				header("Location: ../profile.php?err");
+				header("Location: ../account_settings.php?err");
 				exit();
 			}
 			else{
-				header("Location: ../profile.php?success=Year of Passing");
+				header("Location: ../account_settings.php?success=Year of Passing");
 				exit();
 			}
 		}		
@@ -689,7 +689,7 @@
 			$result= mysqli_query($conn, $query);
 			$query = "delete from student_profile_update where student_id='$id' AND spu_field='stu_currentStatus'";
 			mysqli_query($conn, $query);
-			header("Location: ../profile.php?same");
+			header("Location: ../account_settings.php?same");
 			exit();
 				
 		}
@@ -697,22 +697,22 @@
 		if($check < 1){
 			$query="insert into student_profile_update(student_id, spu_field, spu_newValue) values($id, 'stu_currentStatus', '$cur')";
 			if(!mysqli_query($conn, $query)){
-				header("Location: ../profile.php?err");
+				header("Location: ../account_settings.php?err");
 				exit();
 			}
 			else{
-				header("Location: ../profile.php?success=Current Status");
+				header("Location: ../account_settings.php?success=Current Status");
 				exit();
 			}
 		}
 		else{
 			$query="update student_profile_update set spu_newValue='$cur' where student_id='$id' AND spu_field='stu_currentStatus'";
 			if(!mysqli_query($conn, $query)){
-				header("Location: ../profile.php?err");
+				header("Location: ../account_settings.php?err");
 				exit();
 			}
 			else{
-				header("Location: ../profile.php?success=Current Status");
+				header("Location: ../account_settings.php?success=Current Status");
 				exit();
 			}
 		}		

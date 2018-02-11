@@ -95,19 +95,19 @@ elseif(isset($_POST['request_change'])){
 	//INSERTING INTO TABLE
 	$query="insert into course_change(student_id, center_id, new_course_id, old_course_id) values($id, $cenid, $cid, $radio)";
 	if(!mysqli_query($conn,$query)){
-		/*header("Location: ../change_course.php?erreeeee");
-		exit();*/
+		header("Location: ../change_course.php?erreeeee");
+		exit();
 	}
 	else{
-		/*header("Location: ../change_course.php?courseQueued=1");
-		exit();*/
+		header("Location: ../change_course.php?courseQueued=1");
+		exit();
 	}
 }
 
 elseif(isset($_POST['delete_req'])){
-	$scid = mysqli_real_escape_string($conn, $_POST['sc_id']);
+	$id = mysqli_real_escape_string($conn, $_POST['add_id']);
 	
-	$query="delete from students_courses where sc_id=$scid ";
+	$query="delete from add_course where add_id=$id ";
 	$id = mysqli_real_escape_string($conn, $_POST['id']);
 	if(!mysqli_query($conn, $query)){
 		header("Location: ../add_course.php?err");

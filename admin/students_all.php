@@ -298,23 +298,23 @@
 								$this_page_first_result = ($page-1)*$results_per_page;
 								// retrieve selected results from database and display them on page
 								
-								/*if(isset($_POST['search'])){
+								if(isset($_POST['search'])){
 									$search = mysqli_real_escape_string($conn, $_POST['field']);
-									$query = "select * from students INNER JOIN courses ON course_id=cid INNER JOIN centers on students.center_id = centers.center_id where stu_name LIKE '%$search%' OR stu_email LIKE '%$search%' OR stu_registrationNo LIKE '%$search%' OR course_name LIKE '%$search%' OR center_name LIKE '%$search%' OR course_id LIKE '%$search%' OR centers.center_id LIKE '%$search%' OR stu_address LIKE '%$search%' OR stu_highestdegree LIKE '%$search%'";
+									$query = "select * from students where stu_name LIKE '%$search%' OR stu_email LIKE '%$search%' OR stu_address LIKE '%$search%' OR stu_highestdegree LIKE '%$search%' OR stu_roll LIKE '%$search%'";
 									$result = mysqli_query($conn, $query);
 									$count = mysqli_num_rows($result);
 								}
 								elseif(isset($_GET['id'])){
 									$id=mysqli_real_escape_string($conn, $_GET['id']);
-									$query = "select * from students INNER JOIN courses ON course_id=cid INNER JOIN centers on students.center_id = centers.center_id where stu_id=$id";
+									$query = "select * from students where stu_id=$id";
 									$result = mysqli_query($conn, $query);
 									$count = mysqli_num_rows($result);
 									
-								}*/
-								//else{
-									$sql='SELECT * FROM students INNER JOIN students_courses ON stu_id=student_id INNER JOIN courses on students_courses.course_id= courses.course_id INNER JOIN centers ON students_courses.center_id=centers.center_id LIMIT ' . $this_page_first_result . ',' .  $results_per_page;
+								}
+								else{
+									$sql='SELECT DISTINCT * FROM students LIMIT ' . $this_page_first_result . ',' .  $results_per_page;
 									$result = mysqli_query($conn, $sql);
-								//}
+								}
 																
 								
 								echo '<div class="row">';
@@ -346,13 +346,17 @@
 													</td>
 													
 													<div class="modal fade" id="Modalmail'.$i.'"  >
-														<div class="modal-dialog modal-sm">
+														<div class="modal-dialog">
 															<div class="modal-content" >
 																<div class="modal-header">
 																	<button type="button" class="close" data-dismiss="modal">&times;</button>	<h4>Contact Student</h4>				
 																</div>
 																<div class="modal-body">
-																	Sure to deny '.$row['stu_email'].'?
+																	<div class="form-group ">
+																		<label for="address">YOUR MESSAGE:</label>
+																		<textarea class="form-control" id="address" rows="3" name="address" required></textarea>
+																	</div>
+																	<button type="button" class="btn btn-success">Send Email</button>
 																</div> 
 																<div class="modal-footer">
 																	
@@ -388,16 +392,10 @@
 										<div class="col-md-4">
 											<h4>Education</h4>
 											<table>
-												<!--<tr>
-													<td>Registration Number:</td>
-													<td class="data">';
-														if($row['stu_registrationNo'] == null){
-															echo '<span class="no-apprv">Student not yet Approved</span>';
-														}else{
-															echo $row['stu_registrationNo'];
-														}
-													echo '</td>
-												</tr>-->
+												<tr>
+													<td>Student Id:</td>
+													<td class="data">'.$row['stu_roll'].'</td>
+												</tr>
 												<tr>
 													<td>Date of Admimssion:</td>
 													<td class="data">'.$row['stu_dateofadmission'].'</td>
@@ -406,14 +404,7 @@
 													<td>Date of Application:</td>
 													<td class="data">'.$row['stu_dateofapplication'].'</td>
 												</tr>
-												<!--<tr>
-													<td>Course Opted:</td>
-													<td class="data">'.$row['course_name'].'</td>
-												</tr>	
-												<tr>
-													<td>Center:</td>
-													<td class="data">'.$row['center_name'].'</td>
-												</tr>-->';
+												';
 												
 												if($row['stu_highestdegree'] == 'Class XI' || $row['stu_highestdegree'] == 'Class XII'){
 													echo '<tr>
@@ -539,11 +530,62 @@
 												</div>												
 											</form>
 										</div>	
+										
+										
+										<div class="col-md-12">
+											<h4 class="text-center">Academic Details</h4>
+											<table class="table table-bordered">
+												<thead>
+													<tr>
+														<th>#</th>
+														<th>Registration No</th>									
+														<th>Course</th>
+														<th>Center</th>											
+													</tr>
+												</thead>
+												<tbody>
+											';
+											$query="select * from students_courses INNER JOIN courses on students_courses.course_id= courses.course_id INNER JOIN centers ON students_courses.center_id=centers.center_id where student_id=".$row['stu_id']."";
+											$res=mysqli_query($conn, $query);
+											$j=1;
+											while($row_cor=mysqli_fetch_array($res)){
+													
+												echo'
+													<tr>
+														<td>'.$j.'</td>
+														<td>';
+															if($row_cor['registration_no'] == null){
+																echo '<span class="no-apprv">Student not yet Approved</span>';
+															}else{
+																echo $row_cor['registration_no'];
+															}
+															echo '
+														</td>
+														<td>'.$row_cor['course_name'].'</td>
+														<td>'.$row_cor['center_name'].'</td>
+													</tr>';
+												$j++;	
+														
+											}		
+										
+										
+										
+											
+									
+									echo '
+									</tbody>
+									</table>
+									</div>
 									</div>			
 								    ';
 									$i++;
 								}
-								echo '
+								
+								
+								
+								echo '					
+								
+								
 								</div>
 								</div>'
 								;

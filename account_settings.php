@@ -651,7 +651,7 @@
 		window.onload = function () {
 			document.getElementById('button').onclick = function () {
 				document.getElementById('success-modal').style.display = "none"
-				window.location.replace('profile.php');
+				window.location.replace('account_settings.php');
 			};
 		};
 	</script>

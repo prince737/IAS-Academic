@@ -267,18 +267,18 @@
 						
 							if(isset($_POST['search'])){
 								$search = mysqli_real_escape_string($conn, $_POST['field']);
-								$query = "select DISTINCT stu_id, stu_imageLocation, stu_name, course_name, center_name, registration_no from students INNER JOIN student_profile_update ON stu_id = student_id INNER JOIN students_courses ON stu_id = students_courses.student_id INNER JOIN courses on students_courses.course_id=courses.course_id INNER JOIN centers on students_courses.center_id=centers.center_id where (stu_name LIKE '%$search%' OR registration_no LIKE '%$search%') AND (spu_status=0)";
+								$query = "select DISTINCT stu_id, stu_imageLocation, stu_name, stu_roll from students INNER JOIN student_profile_update ON stu_id = student_id where (stu_name LIKE '%$search%' OR stu_roll LIKE '%$search%') AND (spu_status=0)";
 								
 								$result = mysqli_query($conn, $query);
 								$count = mysqli_num_rows($result);
 							}
 							else{
-								$query = "select DISTINCT stu_id, stu_imageLocation, stu_name, course_name, center_name, registration_no from students INNER JOIN student_profile_update ON stu_id = student_id INNER JOIN students_courses ON stu_id = students_courses.student_id INNER JOIN courses on students_courses.course_id=courses.course_id INNER JOIN centers on students_courses.center_id=centers.center_id where spu_status=0";
+								$query = "select DISTINCT stu_id, stu_imageLocation, stu_name, stu_roll from students INNER JOIN student_profile_update ON stu_id = student_id  where spu_status=0";
 								$result= mysqli_query($conn, $query);
 								$check = mysqli_num_rows($result);
 							}
 							
-							if($check < 1 AND !isset($_POST['search'])){
+							if(isset($check) AND $check < 1 AND !isset($_POST['search'])){
 								echo '<br><h5 style="text-align:center;">No records yet!</h5>';
 							}
 							
@@ -297,10 +297,9 @@
 														<img src="../'.$data['stu_imageLocation'].'" height="120" width="120" ></img>
 													</td>
 													<td>
-														Name: <span style="padding-left:12.7%;">'.$data['stu_name'].'</span><br>
-														Registration Number: <span style="padding-left:2%;">'.$data['registration_no'].'</span><br>
-														Course Name: <span style="padding-left:7%;">'.$data['course_name'].'</span><br>
-														Center Name: <span style="padding-left:7.5%;">'.$data['center_name'].'</span>
+														Name: <span style="padding-left:5%;">'.$data['stu_name'].'</span><br>
+														Student Id: <span style="padding-left:2%;">'.$data['stu_roll'].'</span><br>
+														
 													</td>
 												</tr>
 											</table>		
