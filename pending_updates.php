@@ -147,7 +147,7 @@
 					$check=mysqli_num_rows($res);
 					$i=1;
 					if($check<1){
-						echo '<p>No records found.</p>';
+						echo '<p>No queued updates.</p>';
 					}
 					else{
 						echo '
@@ -248,7 +248,7 @@
 					$check=mysqli_num_rows($res);
 					$i=1;
 					if($check<1){
-						echo '<p>No records found.</p>';
+						echo '<p>No approved changes.</p>';
 					}
 					else{
 						
@@ -386,7 +386,7 @@
 				return 'Date of Birth';
 			}
 			elseif($attr == 'stu_gender'){
-				return 'Subject Gender';
+				return 'Gender';
 			}
 			elseif($attr == 'stu_email'){
 				return 'Email';
@@ -414,6 +414,15 @@
 			}
 			elseif($attr == 'stu_currentStatus'){
 				return 'Current Status';
+			}
+			elseif($attr == 'stu_category'){
+				return 'Category';
+			}
+			elseif($attr == 'stu_blood'){
+				return 'Blood Group';
+			}
+			elseif($attr == 'stu_religion'){
+				return 'Religion';
 			}
 		}
 	?>

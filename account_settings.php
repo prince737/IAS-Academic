@@ -266,6 +266,43 @@
 							</div>
 						</div>
 						<div class="row">
+							<form action="includes/profile_update.inc.php" method="POST">
+								<div class="col-md-6">
+									<div class="form-group">
+										<p class="heading">CATEGORY<span id="editt1" class="edit">Edit</span></p>
+										<p class="value" id="valuee1"><?php echo $row['stu_category']; ?></p>
+										<input type="hidden" name="id" value="<?php echo $row['stu_id']; ?>"></input>				
+										<input type="text" name="category" class="form-control input"  id="inputt1" value="<?php echo $row['stu_category']; ?>"></input>
+										<button id="savee1" name="save_category" class="btn btn-primary btn-sm save">Request Change</button>
+									</div>
+								</div>
+							</form>
+							<form action="includes/profile_update.inc.php" method="POST">
+								<div class="col-md-6">
+									<div class="form-group">
+										<p class="heading">BLOOD GROUP<span id="editt2" class="edit">Edit</span></p>
+										<p class="value" id="valuee2"><?php echo $row['stu_blood']; ?></p>	
+										<input type="hidden" name="id" value="<?php echo $row['stu_id']; ?>"></input>
+										<input type="text" name="blood" class="form-control input"  id="inputt2" value="<?php echo $row['stu_blood']; ?>"></input>
+										<button id="savee2" name="save_blood" class="btn btn-primary btn-sm save">Request Change</button>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="row">
+							<form action="includes/profile_update.inc.php" method="POST">
+								<div class="col-md-6">
+									<div class="form-group">
+										<p class="heading">Religion<span id="editt3" class="edit">Edit</span></p>
+										<p class="value" id="valuee3"><?php echo $row['stu_religion']; ?></p>	
+										<input type="hidden" name="id" value="<?php echo $row['stu_id']; ?>"></input>
+										<input type="text" name="religion" class="form-control input"  id="inputt3" value="<?php echo $row['stu_religion']; ?>"></input>
+										<button id="savee3" name="save_religion" class="btn btn-primary btn-sm save">Request Change</button>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="row">
 							<form action="includes/profile_update.inc.php" method="POST">	
 								<div class="col-md-12">
 									<div class="form-group">
@@ -278,6 +315,7 @@
 								</div>
 							</form>
 						</div>
+						
 						<p class="header" style="font-size:25px; padding:30px 0px; border-bottom:1px solid #f3f3f4;">Education</p>
 						
 						<?php
@@ -639,6 +677,27 @@
 		  $( "#save13" ).toggle(),
 		  $("#value13").toggle(),
 		  $("#edit13").toggleHTML('Edit', 'Cancel');	
+		});
+		
+		$( "#editt1").click(function() {
+		  $( "#inputt1" ).toggle(),
+		  $( "#savee1" ).toggle(),
+		  $("#valuee1").toggle(),
+		  $("#editt1").toggleHTML('Edit', 'Cancel');	
+		});
+		
+		$( "#editt2").click(function() {
+		  $( "#inputt2" ).toggle(),
+		  $( "#savee2" ).toggle(),
+		  $("#valuee2").toggle(),
+		  $("#editt2").toggleHTML('Edit', 'Cancel');	
+		});
+		
+		$( "#editt3").click(function() {
+		  $( "#inputt3" ).toggle(),
+		  $( "#savee3" ).toggle(),
+		  $("#valuee3").toggle(),
+		  $("#editt3").toggleHTML('Edit', 'Cancel');	
 		});
 				
 		$.fn.toggleHTML = function(a, b) {

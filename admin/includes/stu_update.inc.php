@@ -56,14 +56,14 @@
 		echo $reg;
 		$sql="update students_courses set registration_no='$reg', course_id=$newcid where student_id=$id AND course_id=$oldcid";
 		if(!mysqli_query($conn, $sql)){
-			header("Location: ../change-requests.php?erreeee");
+			header("Location: ../change-requests.php?err");
 			exit();
 		}
 				
 		
 		$query = "update course_change set change_status = 1 where student_id=$id AND old_course_id=$oldcid AND new_course_id=$newcid";
 		if(!mysqli_query($conn, $query)){
-			header("Location: ../change-requests.php?errttttt");
+			header("Location: ../change-requests.php?err");
 			exit();
 		}
 		else{

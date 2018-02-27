@@ -41,13 +41,18 @@
 					<span >COURSES</span>
 				</a>
 				<ul class="collapse collapsable" id="collapse-post" style="margin:0px; padding:0px; ">
-					<li><a tabindex="-1" href="courses.php?ee=1">10+2 ENTRANCE EXAMS</a></li>
-					<li><a tabindex="-1" href="courses.php?be">BOARD EXAMS</a></li>
-					<li><a tabindex="-1" href="courses.php?bec">BOARD & ENTRANCE COMBINED</a></li>
-					<li><a tabindex="-1" href="courses.php?gpi">GATE / PSU / IES</a></li>
-					<li><a tabindex="-1" href="courses.php?ce">COMPETITIVE EXAMS</a></li>
-					<li><a tabindex="-1" href="courses.php?tpw">TRAINING AND PROJECT WORKS</a></li>
-					<li><a tabindex="-1" href="courses.php?its">IAS TEST SERIES</a></li>
+					<?php
+						include_once 'includes/dbh.inc.php';
+
+						$query = "Select distinct course_type from courses";
+						$result= mysqli_query($conn, $query);
+										
+						if($result){
+							while($row= mysqli_fetch_array($result)){
+								echo '<li><a tabindex="-1" href="courses.php?crX='.$row['course_type'].'">'.strtoupper($row['course_type']).'</a></li>';
+							}
+						}									
+					?>	
 				</ul>
 			</li>
 			

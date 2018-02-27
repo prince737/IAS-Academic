@@ -332,7 +332,7 @@
 												echo '<button type="button" class="btn btn-danger btn-xs" name="delete_req" data-target="#Modalcen'.$i.'" data-toggle="modal">Remove</button>';
 											}
 											else{
-												echo '<button type="button" class="btn btn-danger btn-xs" name="delete_clist" > Delete from List</button>	';
+												echo '<button class="btn btn-danger btn-xs" name="delete_clist">Delete from List</button>	';
 											}
 														
 													

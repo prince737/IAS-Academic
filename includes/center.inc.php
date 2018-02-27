@@ -71,3 +71,20 @@ elseif(isset($_POST['rmvReq'])){
 	}
 	
 }
+elseif(isset($_POST['delete_clist'])){
+	$id= mysqli_real_escape_string($conn, $_POST['id']);
+	$newcen =mysqli_real_escape_string($conn, $_POST['newcen']);
+	$oldcen =mysqli_real_escape_string($conn, $_POST['oldcen']);
+	$cor =mysqli_real_escape_string($conn, $_POST['cor']);	
+	
+	
+	$query="delete from center_change where student_id=$id AND old_center_id=$oldcen AND new_center_id=$newcen AND course_id=$cor";
+	if(!mysqli_query($conn, $query)){
+		header("Location: ../pending_changes.php?err");
+		exit();
+	}
+	else{
+		header("Location: ../pending_changes.php?");
+		exit();
+	}
+}

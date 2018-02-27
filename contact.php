@@ -68,13 +68,12 @@
 					<div class="col-sm-7 addrs" id="co">
 						<p class="bname cor-ofc">CORPORATE OFFICE</p>
 						
-						<p class="addrs-data">67B, MAHARAJA THAKUR ROAD<br>
-						DHAKURIA, <br>
-						KOLKATA-700031<br><br>
+						<p class="addrs-data">67 B, M.T. ROAD<br>
+						DHAKURIA, KOLKATA-700031<br><br>
 						Phone:<br>
-						+91 891-046-2774<br><br>
+						+91 700-329-8045<br><br>
 						Email:<br>
-						corporateoffice_ias@gmail.com<br>
+						mail@iasacademic.in<br>
 						</p>
 						
 						<button class="cntct-btn" data-target="#Modal" data-toggle="modal" >Questions in Mind?</button>
@@ -96,13 +95,12 @@
 					<div class="col-sm-7 addrs">
 						<p class="bname">KOLKATA</p>
 						
-						<p class="addrs-data">67B, MAHARAJA THAKUR ROAD<br>
-						DHAKURIA, <br>
-						KOLKATA-700031<br><br>
+						<p class="addrs-data">67 B, MAHARAJA THAKUR ROAD<br>
+						DHAKURIA, KOLKATA-700031<br><br>
 						Phone:<br>
-						+91 891-046-2774<br><br>
+						+91 985-153-1638<br><br>
 						Email:<br>
-						 	iasacademicmail@gmail.com<br>
+						 	mail@iasacademic.in<br>
 						</p>
 						
 						<button class="cntct-btn" data-target="#Modal" data-toggle="modal" >Questions in Mind?</button>
@@ -124,13 +122,13 @@
 					<div class="col-sm-7 addrs">
 						<p class="bname">HOWRAH</p>
 						
-						<p class="addrs-data">PARBATI<br>
-						XXXXXXXXXXXXX<br>
-						XXXXXXX<br><br>
+						<p class="addrs-data">
+						2/2/2 TARAPADA CHATTERJEE LANE<br>
+						HOWRAH - 711103<br><br>
 						Phone:<br>
-						 	+91 877-779-4425<br><br>
+						 	+91 900-771-8592<br><br>
 						Email:<br>
-						 	 	 iasacademicmail@gmail.com<br>
+						 	 	 mail@iasacademic.in<br>
 						</p>
 						
 						<button class="cntct-btn" data-target="#Modal" data-toggle="modal" >Questions in Mind?</button>
@@ -154,13 +152,13 @@
 					<div class="col-sm-7 addrs">
 						<p class="bname">BERHAMPORE</p>
 						
-						<p class="addrs-data">3rd FLOOR, MUNICIPAL MARKET COMPLEX<br>
-						RANIBAGAN MORE CROSSING,  <br>
+						<p class="addrs-data">3rd FLOOR <br>MUNICIPAL MARKET COMPLEX<br>
+						RANIBAGAN MORE CROSSING  <br>
 						BERHAMPORE<br><br>
 						Phone:<br>
-						 	+91 985-116-5385<br><br>
+						 	+91 704-449-2842<br><br>
 						Email:<br>
-						 	 	iasacademicmail@gmail.com<br>
+						 	 	mail@iasacademic.in<br>
 						</p>
 						
 						<button class="cntct-btn" data-target="#Modal" data-toggle="modal" >Questions in Mind?</button>

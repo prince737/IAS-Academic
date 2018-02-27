@@ -43,6 +43,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/default.css">
 	<link rel="stylesheet" type="text/css" href="css/notices.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/css/chosen.min.css">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -229,11 +230,26 @@
 									<input type="file" class="form-control" name="file" id="doc" accept=".pdf, .doc" required/>
 								</div>
 								
+								<div class="form-group ">
+									<select class="form-control chosen_select" id="he" name="classes[]" required multiple data-placeholder="Choose who this notice is for">	
+										<?php	
+											$query ="select course_name,course_type from courses";
+											$result=mysqli_query($conn,$query);
+											$i=0;
+											while($row = mysqli_fetch_array($result)){												
+												echo '<option>'.$row['course_name'].' - '.$row['course_type'].'</option>';
+											}	
+										?>		
+										
+									</select>	
+								</div>
+								
 								<div class="checkbox">
 									<label>
 										<input type="checkbox" name="save">Publish Notice when I click on save
 									</label>
 								</div>
+								
 								<div class="clearfix">
 									<button type="submit" class="btn btn-primary pull-right" name="submit">Save / Publish</button>
 								</div>
@@ -250,8 +266,19 @@
 	<script src="../js/jquery-3.2.1.min.js"></script>	
 	<script src="../js/bootstrap.js"></script>
 	<script src="js/default.js"></script>
+	<script src="../vendor/js/chosen.jquery.min.js"></script>
+	<script>
+		$(".chosen_select").chosen({
+			disable_search_threshold: 10,
+			no_results_text: "Oops, nothing found!",
+			width: "100%"
+		});
+
+	
+	</script>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	
 	<script>
 	  $( function() {
 		$( "#datepicker" ).datepicker({

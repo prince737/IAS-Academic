@@ -2,11 +2,16 @@
 	
 	session_start();
 	require_once('includes/dbh.inc.php');
+	require_once 'vendor/autoload_captcha.php';
 	include 'includes/simple-crypt.inc.php';
 	
 	$query="select distinct course_type from courses;";
 	$resultType = mysqli_query($conn, $query);	
-		
+	$siteKey = '6LdQkkgUAAAAAIv9oUIc0BmKAkBlp7_ZInUS3Kyx
+';
+$secret = '6LdQkkgUAAAAAC0MnZcqFhQ100nXEB_o-wAuExdi
+';
+$lang = 'en';	
 ?>
 
 
@@ -48,14 +53,18 @@
 				<div class="heading">Register</div>
 				<p class="require">All the fields below are required.*</p>
 				<?php
-					if(isset($_GET['signup']) && ($_GET['signup'] == 'emailtaken'))
+					if(isset($_GET['signup']) && ($_GET['signup'] == 'emailtaken') || isset($_GET['wrongcaptcha']))
 						{
-							echo '<p class="error" style="text-align:center; ">Please review the errors below. </p>';
+							echo '<p class="error"  "><span class="fa fa-exclamation-triangle"></span>   Please review the errors below!</p>';
 						}
 					if(isset($_GET['signup']) && ($_GET['signup'] == 'empty'))
 						{
 							echo '<p class="error" style="text-align:center; ">All fields are required. Please fill them carefully. </p>';
-						}	
+						}
+					if(isset($_GET['emp']) && ($_GET['emp'] == '1'))
+						{
+							echo '<p class="error" style="text-align:center; "><span class="fa fa-exclamation-triangle"></span>   Some fields were left blank. You need to start over again.</p>';
+						}			
 				?>
 				<form action="includes/registration.inc.php" method="POST" enctype="multipart/form-data" id="form">
 				    <div class="item"><span>1</span>  Your Basic Info</div>
@@ -79,7 +88,7 @@
   					</div>
 					<div class="form-group ">
 						<label for="datepicker">DATE OF BIRTH (yyyy-mm-dd):</label>
-    					<input type="text" class="form-control" id="datepicker" name="date" value="<?php if(isset($_GET['1'])){echo simple_crypt($_GET[1],'d');} ?>"" required/>
+    					<input type="text" class="form-control" id="datepicker" name="date" value="<?php if(isset($_GET['1'])){echo simple_crypt($_GET[1],'d');} ?>" required/>
   					</div>
 					<div class="form-group ">
 						<label for="email">EMAIL:</label>
@@ -88,11 +97,11 @@
 						<?php
 							if(isset($_GET['em']))
 							{
-								echo '<p class="error">Please provide a valid email address. </p>';
+								echo '<p class="error1">Please provide a valid email address. </p>';
 							}
 							if(isset($_GET['signup']) && ($_GET['signup'] == 'emailtaken'))
 							{
-								echo '<p class="error">Email id already registered, please use a different one. </p>';
+								echo '<p class="error1"><span class="fa fa-exclamation-triangle"></span>    Email id already registered, please use a different one! </p>';
 							}
 							
 						?>
@@ -131,11 +140,52 @@
 							}
 						?>
   					</div>
+					<div class="item"><span>2</span>  ADDRESS</div>
 					<div class="form-group ">
-						<label for="address">FULL ADDRESS:</label>
-    					<textarea class="form-control" id="address" rows="3" name="address" required><?php if(isset($_GET['6'])){echo simple_crypt($_GET[6],'d');} ?></textarea>
+						<label for="street">STREET ADDRESS / LOCALITY:</label>
+						<textarea required class="form-control" name="street" id="street" rows="3" style="resize:none"><?php if(isset($_GET['21'])){echo $_GET['21'];} ?></textarea> 
+					</div>
+					
+					<div class="form-group ">
+						<label for="city">CITY:</label>
+						<input type="text" required class="form-control" id="city" value="<?php if(isset($_GET['23'])){echo $_GET['23'];} ?>" name="city"> 
+					</div>
+					<div class="form-group ">
+						<label for="state">STATE:</label>
+						<input type="text" id="state" required class="form-control" value="<?php if(isset($_GET['24'])){echo $_GET['24'];} ?>" name="state"> 
+					</div>
+					<div class="form-group ">
+						<label for="pin">PIN CODE:</label>
+    					<input type="text" required class="form-control" id="pin" value="<?php if(isset($_GET['22'])){echo $_GET['22'];} ?>" name="pin">	
   					</div>
-					<div class="item" id="education"><span>2</span>  Education</div>
+					
+					
+					<div class="item"><span>3</span>  For Identity Card</div>
+						
+						<div class="form-group ">
+							<label for="pin">RELIGION:</label>
+							<input type="text" required class="form-control" value="<?php if(isset($_GET['18'])){echo $_GET[18];} ?>" name="religion"> 
+						</div>
+						<div class="form-group ">
+							<label for="cpwd">BLOOD GROUP:</label>
+							<input type="text" required class="form-control" value="<?php if(isset($_GET['19'])){echo $_GET[19];} ?>" name="blood"> 
+						</div>
+						<div class="form-group ">
+							<label>CATEGORY:</label><br>
+							<label class="radio-inline">
+							    <input type="radio" value="General" name="category" <?php if(isset($_GET['20']) && $_GET['20']=='General'){echo 'checked';} ?> required>General
+							</label>
+							<label class="radio-inline">
+							    <input type="radio" value="SC" name="category"  <?php if(isset($_GET['20']) && $_GET['20']=='SC'){echo 'checked';} ?>>SC
+							</label>
+							<label class="radio-inline">
+							    <input type="radio" value="ST" name="category"  <?php if(isset($_GET['20']) && $_GET['20']=='ST'){echo 'checked';} ?>>ST
+							</label>
+							<label class="radio-inline">
+							    <input type="radio" value="OBC" name="category"  <?php if(isset($_GET['20']) && $_GET['20']=='OBC'){echo 'checked';} ?>>OBC
+							</label>
+						</div>
+					<div class="item" id="education"><span>4</span>  Education</div>
 					<div class="form-group ">
 						<label for="he">EDUCATION YOU ARE CURRENTLY PURSUING:</label>
     					<select class="form-control" id="he" name="he" required ">
@@ -197,7 +247,7 @@
 										echo'" required/>
 								</div>
 								<div class="form-group ">
-									<label for="address">EXPECTED YEAR OF PASSING:</label>
+									<label for="address">(EXPECTED) YEAR OF PASSING:</label>
 										<input type="text" class="form-control" maxlength="4" name="yop" value="';
 										if(isset($_GET['9'])){echo simple_crypt($_GET['9'],'d');} 
 										echo'" required/>
@@ -270,9 +320,9 @@
 							
 							echo '
 								<div class="form-group ">
-									<label for="course">TYPE OF COURSE YOU ARE OPTING FOR:</label>
+									<label for="course">NAME OF THE COURSE:</label>
 									<select class="form-control" id="course" name="course_type" required onchange="this.form.submit()">
-										<option selected>Choose Course Type</option>
+										<option selected>Choose Course Name</option>
 							';
 							$type='';
 							while($row = mysqli_fetch_array($result)){
@@ -326,9 +376,9 @@
 							
 							echo '
 								<div class="form-group ">
-									<label for="course">NAME OF THE COURSE:</label>
+									<label for="course">TYPE OF COURSE YOU ARE OPTING FOR:</label>
 									<select class="form-control" id="course_name" name="course_name" required onchange="this.form.submit()">
-									<option selected>Choose Course Name</option>
+									<option selected>Choose Course Type</option>
 							';
 							
 							
@@ -403,14 +453,14 @@
 						}
 					
 					?>
-					<div class="item"><span>3</span>  Identity</div>
+					<div class="item"><span>5</span>  Identity</div>
 					<div class="form-group ">
 						<label for="img">UPLOAD PHOTO:</label>
     					<input type="file" class="form-control" name="image" id="img" accept=".jpg, .jpeg, .png" required />
-						<p style="color:teal;">Accepted types are jpg, png and jpeg. MAX Size 1mb.</p>
+						<p style="color:teal;">Accepted types are jpg, png and jpeg. Square dimensions preferred.(MAX Size 1mb)</p>
 						<p for="name" id="error_image"></p>
   					</div>
-					<div class="item"><span>4</span>  Password</div>
+					<div class="item"><span>6</span>  Password</div>
 					<div class="form-group ">
 						<label for="pwd">PASSWORD:</label>
     					<input type="password" required class="form-control" id="pwd" name="pwd"> 
@@ -419,6 +469,34 @@
 						<label for="cpwd">CONFIRM PASSWORD:</label>
     					<input type="password" required class="form-control" id="cpwd" name="cpwd"> 
   					</div>
+					
+			
+			
+					<?php
+						$no1=rand(1,30);
+						$no2=rand(1,30);
+						$operators = array("+", "-", "*");		
+						$operator = rand(0,2);	
+						$operator= $operators[$operator];	
+							
+					?>
+					<div class="item"><span>7</span>  Solve the Captcha</div>
+					<div class="captcha"><?php  echo $no1.' '.$operator.' '.$no2 ?></div>
+					
+					<input type="text" required class="form-control" id="captcha" name="captcha"> 
+					<input type="hidden" required class="form-control" value="<?php echo $no1; ?>" id="no1" name="no1"> 
+					<input type="hidden" required class="form-control" value="<?php echo $no2; ?>" id="no2" name="no2"> 
+					<input type="hidden" required class="form-control" value="<?php echo $operator; ?>" id="operator" name="operator"> 
+					<?php
+						if(isset($_GET['wrongcaptcha']))
+						{
+							echo '<p class="error1"><span class="fa fa-exclamation-triangle"></span>    Captcha answer provided was wrong.</p>';
+						}
+					?>
+					
+					<div class="checkbox">
+						<label><input type="checkbox" value="" required><span>I agree with the terms and conditions</span></label>
+					</div>
 					<p id="message" style="margin-top: 20px; font-size:16px;"></p>
 					<p id="message1" style="margin-top: 20px; font-size:16px;"></p>
   					<button type="submit" id="register" name="register" class="submit">Register</button>
@@ -431,6 +509,7 @@
 	<script src="js/jquery-3.2.1.min.js"></script>  	
 	<script src="js/register.js"></script>   
     <script src="js/bootstrap.js"></script>
+	
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	
 	<script>

@@ -121,16 +121,9 @@ elseif(isset($_POST['delete_req'])){
 elseif(isset($_POST['remove'])){
 	$scid = mysqli_real_escape_string($conn, $_POST['sc_id']);
 	$scstatus = mysqli_real_escape_string($conn, $_POST['sc_status']);
-	$query;
 	
-	if($scstatus == 1){
-		$query="update students_courses set sc_status=4 where sc_id=$scid ";
+	$query="delete from add_course where add_id=$scid ";
 		
-	}
-	elseif($scstatus == 2){
-		$query="delete from students_courses where sc_id=$scid ";
-	}
-	
 	if(!mysqli_query($conn, $query)){
 		header("Location: ../add_course.php?err");
 		exit();

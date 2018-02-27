@@ -189,7 +189,39 @@ input[type=file]{
 	color:teal;
 }
 
+.captcha{
+	font-size:30px;
+	text-align:center;
+	border:1px dotted #E53935;
+	color:#E53935;
+}
 
+.error{
+	padding:10px;
+	text-align:center;
+	border:1px solid #E53935;
+	background: #FFCDD2;
+	border-radius:3px;
+}
 
+input[type="checkbox"]{
+  width: 26px; /*Desired width*/
+  height: 26px; /*Desired height*/
+}
 
+.checkbox{
+	line-height:31px;
+}
 
+.checkbox label span{
+	margin-left:10px;
+	font-size:16px;
+	font-weight:bold;
+}
+
+.error1{
+	padding:10px;
+	text-align:center;
+	color:#E53935;
+	font-size:16px;
+}

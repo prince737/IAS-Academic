@@ -36,10 +36,17 @@
 		$row=mysqli_fetch_array($res);
 		
 		if($num<1){
+			
 			$roll.='0001';
 		}
 		else{
-			$roll.=str_pad($row['max_roll'] + 1,4,"0",STR_PAD_LEFT);
+			/*$year = substr($row['max_roll'], 5, 4);
+			if($year<YEAR(CURDATE())){
+				$roll.='0001';
+			}
+			else{*/
+				$roll.=str_pad($row['max_roll'] + 1,4,"0",STR_PAD_LEFT);
+			//}
 		}
 		
 		//SETTING REGISTRATION NUMBER

@@ -18,17 +18,17 @@
 			
 			$mail->SMTPDebug = 0;                                 // Enable verbose debug output
 			$mail->isSMTP();                                      // Set mailer to use SMTP
-			$mail->Host = 'smtp.mail.yahoo.com';  // Specify main and backup SMTP servers
+			$mail->Host = 'smtpout.asia.secureserver.net';  // Specify main and backup SMTP servers
 			$mail->SMTPAuth = true;                               // Enable SMTP authentication
-			$mail->Username = 'princedey51@yahoo.com';                 // SMTP username
-			$mail->Password = '9733581977';                           // SMTP password
+			$mail->Username = 'mail@iasacademic.in';                 // SMTP username
+			$mail->Password = '@3barpartha123';                           // SMTP password
 			$mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
 			$mail->Port = 465;                                    // TCP port to connect to
 
 			//Recipients
-			$mail->setFrom('princedey51@yahoo.com', 'Mailer');
+			$mail->setFrom('mail@iasacademic.in', 'Mailer');
 			$mail->addAddress($email); 
-			$mail->addReplyTo('info@example.com', 'Information');
+			$mail->addReplyTo('mail@iasacademic.in', 'Information');
 			$mail->addCC('cc@example.com');
 			$mail->addBCC('bcc@example.com');
 
@@ -36,8 +36,7 @@
 			$mail->isHTML(true);                                  // Set email format to HTML
 			$mail->Subject = 'Here is the subject';
 			$mail->Body    = $msg;
-			
-			$mail->send();
+			$mail->Send();
 			
 			$query = "update queries set q_replystatus = 1 where q_id = '$id';";
 			if(mysqli_query($conn, $query)){

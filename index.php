@@ -61,41 +61,31 @@
 						<li data-target="#my-slider" data-slide-to="1"></li>
 						<li data-target="#my-slider" data-slide-to="2"></li>
 						<li data-target="#my-slider" data-slide-to="3"></li>
-						<li data-target="#my-slider" data-slide-to="4"></li>
 					
 					</ol>
 
 					<div class="carousel-inner" role="listbox">
-                        <div class="item active">
-                             <img src="images/alexis-brown-85793.jpg" />
-                             <div class="carousel-caption">
-                                  <h1>Image 1</h1>
-                             </div >
-                        </div>
+						<div class="item active">
+							<a href="505.php" title="Click to Know More!">
+								 <img src="images/ias.png" />								 
+							</a> 
+						</div>
                         <div class="item">
-                             <img src="images/davide-cantelli-153517.jpg" />
-                             <div class="carousel-caption">
-                                  <h1>Image 2</h1>
-                             </div >
-                        </div>
+							<a href="courses.php?crX=IAS Test Series" title="Click to Know More!">
+                             <img src="images/Home2.png" />                            
+							 </a>
+                        </div>                       
                         <div class="item">
-                             <img src="images/roman-mager-59976.jpg" />
-                             <div class="carousel-caption">
-                                  <h1>Image 3</h1>
-                             </div >
+							<a href="courses.php?crX=GATE / PSU / IES" title="Click to Know More!">
+								 <img src="images/Home30.png" />								 
+							 </a>
                         </div>
-                        <div class="item">
-                             <img src="images/sergey-zolkin-21234.jpg" />
-                             <div class="carousel-caption">
-                                  <h1>Image 4</h1>
-                             </div >
-                        </div>
-                        <div class="item">
-                             <img src="images/tamara-menzi-1185481.jpg" />
-                             <div class="carousel-caption">
-                                  <h1>Image 5</h1>
-                             </div >
-                        </div>
+						<div class="item">
+							<a href="505.php" title="Click to Know More!">
+								 <img src="images/ard.png" />								 
+							</a> 
+						</div>
+						
 
 					</div>
 
@@ -329,7 +319,7 @@
 	
 	<div class="container-fluid top-pad">
 		
-		<div class="row">
+		<div class="row" >
 		
 		<div class="col-md-12 contact-form">
 			<h2>Contact Us</h2>
@@ -381,11 +371,11 @@
 					<table>
 						<tr>
 							<td><p><span class="fa fa-phone"></span>Call us : </p></td>
-							<td class="ans"><p >(033) 2657-3758</p></td>
+							<td class="ans"><p >+91 700-329-8045</p></td>
 						</tr>
 						<tr>
 							<td><p><span class="fa fa-envelope-o"></span>Email : </p></td>
-							<td class="ans"><p >support@ias.com</p></td>
+							<td class="ans"><p >mail@iasacademic.in</p></td>
 						</tr>
 						<tr>
 							<td style="vertical-align:top;"><p><span class="fa fa-address-book-o"></span>Address : </p></td>
@@ -410,13 +400,7 @@
 			<div class="col-sm-5 contactus" data-aos="fade-up" data-aos-once="true" data-aos-delay="300">
 				<p class="send-query">Send Your Queries</p>
 				<p class="bottomliner">We would be happy to hear from you</p>
-				<?php
-					if(isset($_GET['qs']) && $_GET['qs'] == 1){
-						echo '
-							<p class="success">Thank You for reaching us. We will get in touch at the earliest.</p>
-						';
-					}					
-				?>
+				
 				<form action="includes/contact.inc.php" method="POST">
   					<div class="form-group ">
     					

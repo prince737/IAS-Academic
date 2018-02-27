@@ -249,9 +249,12 @@
 								<button type="submit" class="btn btn-default btn-sm " id="change"  onclick="location.href='change-requests.php';"><span class="fa fa-exchange"><span> Course Change Requests</button>
 							</div>
 							<div class="col-md-2">
-								<button type="submit" class="btn btn-default btn-sm " id="add" name="search"><span class="fa fa-plus-circle"><span> Course Addition Requests</button>
+								<button type="submit" class="btn btn-default btn-sm " id="add" onclick="location.href='change_center.php';"><span class="fa fa-exchange"><span> Center Change Requests</button>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-2" style="margin-left:-5px;">
+								<button type="submit" class="btn btn-default btn-sm " id="add" onclick="location.href='course_add_requests.php';"><span class="fa fa-plus-circle"><span> Course Addition Requests</button>
+							</div>
+							<div class="col-md-4">
 								<form action="students_profile.php" method="POST" class="navbar-form search-form navbar-right" role="search" style="margin-top:0px;">
 									<div class="form-group">
 									<input type="text" name="field" class="form-control" placeholder="Name or Registration No">
@@ -456,7 +459,7 @@
 				return 'Date of Birth';
 			}
 			elseif($attr == 'stu_gender'){
-				return 'Subject Gender';
+				return 'Gender';
 			}
 			elseif($attr == 'stu_email'){
 				return 'Email';
@@ -484,6 +487,15 @@
 			}
 			elseif($attr == 'stu_currentStatus'){
 				return 'Current Status';
+			}
+			elseif($attr == 'stu_category'){
+				return 'Category';
+			}
+			elseif($attr == 'stu_blood'){
+				return 'Blood Group';
+			}
+			elseif($attr == 'stu_religion'){
+				return 'Religion';
 			}
 		}
 	?>

@@ -511,6 +511,7 @@
 												else{
 													echo '<button class="btn btn-xs btn-danger" data-target="#Modal'.$i.'" data-toggle="modal" name="deny_stu" type="button"><span class="fa fa-trash-o"></span>Delete</button>	';
 												}
+												echo '<a href="../ApplicationForm.php?sid='.$row['stu_id'].'" class="btn btn-xs btn-warning" style="min-width"><span class="fa fa-print"></span>Print</a>';
 												
 										  echo '<div class="modal fade" id="Modal'.$i.'"  >
 													<div class="modal-dialog modal-sm">

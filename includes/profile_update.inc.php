@@ -338,6 +338,134 @@
 			}
 		}		
 	}
+	elseif(isset($_POST['save_category'])){
+		$category = mysqli_real_escape_string($conn, $_POST['category']);
+		$query = "select * from student_profile_update where student_id='$id' AND spu_field='stu_category'";
+		$res = mysqli_query($conn, $query);
+		$check = mysqli_num_rows($res);
+		$row=mysqli_fetch_array($res);
+		$row_stu = getRow();
+		
+		if($row['spu_newValue'] != $category && $category == $row_stu['stu_category']){
+			
+			$query = "update student_profile_update set spu_newValue='' where stu_id='$id'";
+			$result= mysqli_query($conn, $query);
+			$query = "delete from student_profile_update where student_id='$id' AND spu_field='stu_category'";
+			mysqli_query($conn, $query);
+			header("Location: ../account_settings.php?same");
+			exit();
+				
+		}
+		
+		if($check < 1){
+			$query="insert into student_profile_update(student_id, spu_field, spu_newValue) values($id, 'stu_category', '$category')";
+			if(!mysqli_query($conn, $query)){
+				header("Location: ../account_settings.php?err");
+				exit();
+			}
+			else{
+				header("Location: ../account_settings.php?success=Category");
+				exit();
+			}
+		}
+		else{
+			$query="update student_profile_update set spu_newValue='$category' where student_id='$id' AND spu_field='stu_category'";
+			if(!mysqli_query($conn, $query)){
+				header("Location: ../account_settings.php?err");
+				exit();
+			}
+			else{
+				header("Location: ../account_settings.php?success=Category");
+				exit();
+			}
+		}		
+	}
+	elseif(isset($_POST['save_blood'])){
+		$blood = mysqli_real_escape_string($conn, $_POST['blood']);
+		$query = "select * from student_profile_update where student_id='$id' AND spu_field='stu_blood'";
+		$res = mysqli_query($conn, $query);
+		$check = mysqli_num_rows($res);
+		$row=mysqli_fetch_array($res);
+		$row_stu = getRow();
+		
+		if($row['spu_newValue'] != $blood && $blood == $row_stu['stu_blood']){
+			
+			$query = "update student_profile_update set spu_newValue='' where stu_id='$id'";
+			$result= mysqli_query($conn, $query);
+			$query = "delete from student_profile_update where student_id='$id' AND spu_field='stu_blood'";
+			mysqli_query($conn, $query);
+			header("Location: ../account_settings.php?same");
+			exit();
+				
+		}
+		
+		if($check < 1){
+			$query="insert into student_profile_update(student_id, spu_field, spu_newValue) values($id, 'stu_blood', '$blood')";
+			if(!mysqli_query($conn, $query)){
+				header("Location: ../account_settings.php?err");
+				exit();
+			}
+			else{
+				header("Location: ../account_settings.php?success=Blood Group");
+				exit();
+			}
+		}
+		else{
+			$query="update student_profile_update set spu_newValue='$blood' where student_id='$id' AND spu_field='stu_blood'";
+			if(!mysqli_query($conn, $query)){
+				header("Location: ../account_settings.php?err");
+				exit();
+			}
+			else{
+				header("Location: ../account_settings.php?success=Blood Group");
+				exit();
+			}
+		}		
+	}
+	
+	elseif(isset($_POST['save_religion'])){
+		$religion = mysqli_real_escape_string($conn, $_POST['religion']);
+		$query = "select * from student_profile_update where student_id='$id' AND spu_field='stu_religion'";
+		$res = mysqli_query($conn, $query);
+		$check = mysqli_num_rows($res);
+		$row=mysqli_fetch_array($res);
+		$row_stu = getRow();
+		
+		if($row['spu_newValue'] != $religion && $religion == $row_stu['stu_religion']){
+			
+			$query = "update student_profile_update set spu_newValue='' where stu_id='$id'";
+			$result= mysqli_query($conn, $query);
+			$query = "delete from student_profile_update where student_id='$id' AND spu_field='stu_religion'";
+			mysqli_query($conn, $query);
+			header("Location: ../account_settings.php?same");
+			exit();
+				
+		}
+		
+		if($check < 1){
+			$query="insert into student_profile_update(student_id, spu_field, spu_newValue) values($id, 'stu_religion', '$religion')";
+			if(!mysqli_query($conn, $query)){
+				header("Location: ../account_settings.php?err");
+				exit();
+			}
+			else{
+				header("Location: ../account_settings.php?success=Religion");
+				exit();
+			}
+		}
+		else{
+			$query="update student_profile_update set spu_newValue='$religion' where student_id='$id' AND spu_field='stu_religion'";
+			if(!mysqli_query($conn, $query)){
+				header("Location: ../account_settings.php?err");
+				exit();
+			}
+			else{
+				header("Location: ../account_settings.php?success=Religion");
+				exit();
+			}
+		}		
+	}
+
 	elseif(isset($_POST['save_address'])){
 		$address = mysqli_real_escape_string($conn, $_POST['address']);
 		$query = "select * from student_profile_update where student_id='$id' AND spu_field='stu_address'";

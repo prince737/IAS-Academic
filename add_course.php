@@ -376,8 +376,8 @@
 											elseif($row['add_status'] == 1 || $row['add_status'] == 2){
 												echo '
 												<form action="includes/course.inc.php" method="POST">
-													<input type="hidden" name="sc_id" value="'.$row['sc_id'].'"/>
-													<input type="hidden" name="sc_status" value="'.$row['sc_status'].'"/>
+													<input type="hidden" name="sc_id" value="'.$row['add_id'].'"/>
+													<input type="hidden" name="sc_status" value="'.$row['add_status'].'"/>
 													<button class="btn btn-warning btn-xs" name="remove">Remove</button>
 												</form>';
 											}											

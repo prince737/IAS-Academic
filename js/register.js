@@ -88,7 +88,7 @@ $( function() {
             $('#message').html('').css('color', '#5fcf80');
             $('#register').prop('disabled',false);
         } else{
-            $('#message').html('Passwords do not Match. Sign Up Disabled.').css('color', '#D32F2F');
+            $('#message').html('Passwords do not Match. Register button has been Disabled.').css('color', '#D32F2F');
             $('#register').prop('disabled',true);
         }
         });  

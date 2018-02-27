@@ -31,7 +31,7 @@
 				</div>
 				<div class="col-sm-2 col-xs-6">
 					<ul>						
-						<li><a href="505.php">ABOUT US</a></li>
+						<li><a href="about_us.php">ABOUT US</a></li>
 						<li><a href="contact.php">BRANCHES</a></li>
 					</ul>
 						
@@ -39,7 +39,6 @@
 			</div>
 			<div class="row links" >
 				<div class="a-contain">
-					<a href="#"><span class="fa fa-google-plus" aria-hidden="true"></span></a>
 					<a href="#" style="padding: 15px 20px;"><span class="fa fa-facebook-f"  aria-hidden="true"></span></a>
 					<a href="#" style="padding: 15px 18px;"><span class="fa fa-youtube" aria-hidden="true" ></span></a>
 					<a href="#" style="padding: 15px 17px;"><span class="fa fa-twitter" aria-hidden="true"></span></a>

@@ -14,7 +14,10 @@ $email = mysqli_real_escape_string($conn, $_POST['email']);
 $contact = mysqli_real_escape_string($conn, $_POST['contact']);
 $gname = mysqli_real_escape_string($conn, $_POST['gname']);
 $gcontact = mysqli_real_escape_string($conn, $_POST['gcontact']);
-$address = mysqli_real_escape_string($conn, $_POST['address']);
+$street = mysqli_real_escape_string($conn, $_POST['street']);
+$pin = mysqli_real_escape_string($conn, $_POST['pin']);
+$state = mysqli_real_escape_string($conn, $_POST['state']);
+$city = mysqli_real_escape_string($conn, $_POST['city']);
 $he = mysqli_real_escape_string($conn, $_POST['he']);
 $inst = mysqli_real_escape_string($conn, $_POST['inst']);
 $yop = mysqli_real_escape_string($conn, $_POST['yop']);
@@ -32,10 +35,37 @@ $hidden = $_POST['hidden'];
 $center = mysqli_real_escape_string($conn, $_POST['center_name']);
 $he_other = mysqli_real_escape_string($conn, $_POST['he_other']);
 $sub_combo = mysqli_real_escape_string($conn, $_POST['sub_combo']);
+$religion = mysqli_real_escape_string($conn, $_POST['religion']);
+$category = mysqli_real_escape_string($conn, $_POST['category']);
+$blood = mysqli_real_escape_string($conn, $_POST['blood']);
+$captcha = mysqli_real_escape_string($conn, $_POST['captcha']);
+$no1 = mysqli_real_escape_string($conn, $_POST['no1']);
+$no2 = mysqli_real_escape_string($conn, $_POST['no2']);
+$operator = mysqli_real_escape_string($conn, $_POST['operator']);
+
 
 // highest education - edu or he
 // current institute - school,college,inst
 //dept, stream, yop- btech mtech  
+
+    $ans=0;
+	switch($operator) {
+		case "+":
+		    $ans=$no1+$no2;  
+			break;
+		case "-":
+		    $ans=$no1-$no2;  
+			break;
+		case "*":
+		    $ans=$no1*$no2;  
+			break;	
+	}
+if($ans!=$captcha){
+	$val= array(simple_crypt($name,'e'),simple_crypt($dob,'e'),simple_crypt($email,'e'),simple_crypt($contact,'e'),simple_crypt($gname,'e'),simple_crypt($gcontact,'e'),simple_crypt($address,'e'),simple_crypt($he,'e'),simple_crypt($inst,'e'),simple_crypt($yop,'e'),simple_crypt($gender, 'e'),$edu, $dept, $university, $college, $school, $he_other, $sub_combo,$religion,$blood,$category,$street,$pin,$city,$state);
+	$query = http_build_query($val);		
+	header("Location: ../registration.php?$query&wrongcaptcha");	
+	exit();
+}
 
 if(isset($_POST['register']))
 {	
@@ -55,7 +85,7 @@ if(isset($_POST['register']))
 	
 		
 	
-	if(empty($name) || empty($gender) || empty($dob) || empty($email) || empty($contact) || empty($gname) || empty($gcontact) || empty($address) || empty($he) ||  empty($courseType) || empty($courseName) || empty($pwd) || empty($center)) {
+	if(empty($name) || empty($gender) || empty($dob) || empty($email) || empty($contact) || empty($gname) || empty($gcontact) || empty($street) || empty($pin) || empty($city) || empty($state) || empty($he) ||  empty($courseType) || empty($courseName) || empty($pwd) || empty($center)) {
 		$arr['emp'] = '1';	
 		$query = http_build_query($arr);
 		header("Location: ../registration.php?$query");	
@@ -101,7 +131,7 @@ if(isset($_POST['register']))
 			$resultCheck = mysqli_num_rows($result);
 			if($resultCheck > 0) 
 			{
-				$val= array(simple_crypt($name,'e'),simple_crypt($dob,'e'),simple_crypt($email,'e'),simple_crypt($contact,'e'),simple_crypt($gname,'e'),simple_crypt($gcontact,'e'),simple_crypt($address,'e'),simple_crypt($he,'e'),simple_crypt($inst,'e'),simple_crypt($yop,'e'),simple_crypt($gender, 'e'),$edu, $dept, $university, $college, $school, $he_other, $sub_combo);
+				$val= array(simple_crypt($name,'e'),simple_crypt($dob,'e'),simple_crypt($email,'e'),simple_crypt($contact,'e'),simple_crypt($gname,'e'),simple_crypt($gcontact,'e'),simple_crypt($address,'e'),simple_crypt($he,'e'),simple_crypt($inst,'e'),simple_crypt($yop,'e'),simple_crypt($gender, 'e'),$edu, $dept, $university, $college, $school, $he_other, $sub_combo,$religion,$blood,$category,$street,$pin,$city,$state);
 				$query = http_build_query($val);	
 				
 				header("Location: ../registration.php?$query&signup=emailtaken");	
@@ -152,7 +182,7 @@ if(isset($_POST['register']))
 					$appId .= str_pad($row['max'] + 1, 5, 0, STR_PAD_LEFT);
 				}
 				
-				$sql = "insert into students (stu_name, stu_gender, stu_address, stu_gurdianname, stu_gurdiancontact, stu_highestdegree, stu_yearofpass, stu_currentinstitute, stu_dept, stu_university, stu_subjectCombo, stu_currentStatus, stu_dob, stu_contact, stu_email, stu_dateofapplication, stu_applicationId, stu_password, stu_approvalstatus) values ('$name', '$gender', '$address', '$gname', '$gcontact', '$he', '$yop', '$inst',  '$dept', '$university', '$sub_combo', '$edu', '$dob', '$contact', '$email', '$date', '$appId', '$hashedPwd', 0)";
+				$sql = "insert into students (stu_name, stu_gender, stu_street, stu_pin, stu_city, stu_state, stu_gurdianname, stu_gurdiancontact, stu_religion, stu_category, stu_blood, stu_highestdegree, stu_yearofpass, stu_currentinstitute, stu_dept, stu_university, stu_subjectCombo, stu_currentStatus, stu_dob, stu_contact, stu_email, stu_dateofapplication, stu_applicationId, stu_password, stu_approvalstatus) values ('$name', '$gender', '$street', '$pin', '$city', '$state', '$gname', '$gcontact', '$religion', '$category', '$blood', '$he', '$yop', '$inst',  '$dept', '$university', '$sub_combo', '$edu', '$dob', '$contact', '$email', '$date', '$appId', '$hashedPwd', 0)";
 				if(!mysqli_query($conn, $sql)){
 					header("Location: ../registration.php?err");
 					exit();
@@ -237,7 +267,7 @@ if(isset($_POST['register']))
 } 
 elseif(isset($_POST['course_name']) && $hidden != 'he'){	
 		
-	$val= array(simple_crypt($name,'e'),simple_crypt($dob,'e'),simple_crypt($email,'e'),simple_crypt($contact,'e'),simple_crypt($gname,'e'),simple_crypt($gcontact,'e'),simple_crypt($address,'e'),simple_crypt($he,'e'),simple_crypt($inst,'e'),simple_crypt($yop,'e'),simple_crypt($gender, 'e'),$edu, $dept, $university, $college, $school, $he_other, $sub_combo);
+	$val= array(simple_crypt($name,'e'),simple_crypt($dob,'e'),simple_crypt($email,'e'),simple_crypt($contact,'e'),simple_crypt($gname,'e'),simple_crypt($gcontact,'e'),simple_crypt($address,'e'),simple_crypt($he,'e'),simple_crypt($inst,'e'),simple_crypt($yop,'e'),simple_crypt($gender, 'e'),$edu, $dept, $university, $college, $school, $he_other, $sub_combo,$religion,$blood,$category,$street,$pin,$city,$state);
 	$query1 = http_build_query($val);	
 	
 	$courseType = $_POST['course_type'];	
@@ -253,7 +283,7 @@ elseif(isset($_POST['course_name']) && $hidden != 'he'){
 elseif(isset($_POST['course_type']) && $hidden != 'he'){
 	
 		
-	$val= array(simple_crypt($name,'e'),simple_crypt($dob,'e'),simple_crypt($email,'e'),simple_crypt($contact,'e'),simple_crypt($gname,'e'),simple_crypt($gcontact,'e'),simple_crypt($address,'e'),simple_crypt($he,'e'),simple_crypt($inst,'e'),simple_crypt($yop,'e'),simple_crypt($gender, 'e'),$edu, $dept, $university, $college, $school, $he_other, $sub_combo);
+	$val= array(simple_crypt($name,'e'),simple_crypt($dob,'e'),simple_crypt($email,'e'),simple_crypt($contact,'e'),simple_crypt($gname,'e'),simple_crypt($gcontact,'e'),simple_crypt($address,'e'),simple_crypt($he,'e'),simple_crypt($inst,'e'),simple_crypt($yop,'e'),simple_crypt($gender, 'e'),$edu, $dept, $university, $college, $school, $he_other, $sub_combo,$religion,$blood,$category,$street,$pin,$city,$state);
 	$query1 = http_build_query($val);	
 	
 	$courseType = $_POST['course_type'];
@@ -266,7 +296,7 @@ elseif(isset($_POST['course_type']) && $hidden != 'he'){
 
 elseif(isset($_POST['he']) && $hidden == 'he'){
 	 	
-	$val= array(simple_crypt($name,'e'),simple_crypt($dob,'e'),simple_crypt($email,'e'),simple_crypt($contact,'e'),simple_crypt($gname,'e'),simple_crypt($gcontact,'e'),simple_crypt($address,'e'),simple_crypt($he,'e'),simple_crypt($inst,'e'),simple_crypt($yop,'e'),simple_crypt($gender, 'e'),$edu, $dept, $university, $college, $school, $he_other, $sub_combo);
+	$val= array(simple_crypt($name,'e'),simple_crypt($dob,'e'),simple_crypt($email,'e'),simple_crypt($contact,'e'),simple_crypt($gname,'e'),simple_crypt($gcontact,'e'),simple_crypt($address,'e'),simple_crypt($he,'e'),simple_crypt($inst,'e'),simple_crypt($yop,'e'),simple_crypt($gender, 'e'),$edu, $dept, $university, $college, $school, $he_other, $sub_combo,$religion,$blood,$category,$street,$pin,$city,$state);
 	$query1 = http_build_query($val);	
 	
 	header("Location: ../registration.php?class=$he&$query1&#education");

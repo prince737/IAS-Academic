@@ -406,9 +406,8 @@ body{
 }
 
 .review-content{
-	background:#48727f; /*#4f81bd;/*#eeece1;*/
+	background:#203B51; /*#4f81bd;/*#eeece1;*/
 	padding:20px;
-	border:1px solid #212121;
 	text-align:center;
 	min-height:400px;
 	max-height:400px;
@@ -443,6 +442,9 @@ body{
 	margin-bottom:7%;
 }
 
+.review .details{
+	color:#fff;
+}
 
 
 /*STYLES FOR ENQUIRY FORM*/
