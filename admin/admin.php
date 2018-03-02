@@ -185,6 +185,24 @@
 						</ul>
 					</li>
 					<li class="link">
+						<a href="#collapse-pos2" data-toggle="collapse" aria-control="collapse-post1">
+							<i class="fa fa-calendar" aria-hidden="true"></i>
+							<span class="hidden-sm hidden-xs">Study Material</span>
+						</a>
+						<ul class="collapse collapsable" id="collapse-pos2" style="margin:0px; padding:0px; ">
+							<li>
+								<a href="add_notes.php">
+									<span>Add New</span>
+								</a>
+							</li>
+							<li>
+								<a href="remove_notes.php">
+									<span>Remove Existing</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="link">
 						<a href="#collapse-post21" data-toggle="collapse" aria-control="collapse-post1">
 							<i class="fa fa-picture-o" aria-hidden="true"></i>
 							<span class="hidden-sm hidden-xs">Gallery</span>
@@ -293,7 +311,32 @@
 															<form action="includes/stu.inc.php" method="POST" id="stu_form">
 																<input type="hidden" value="'.$row['stu_email'].'" name="email"></input>
 																<input type="hidden" value="'.$row['stu_name'].'" name="name"></input>
-																<button class="btn btn-xs btn-success" type="submit" name="approve">Approve</button>
+																
+																<button class="btn btn-xs btn-success" data-target="#Modalappr'.$i.'" data-toggle="modal" type="button">Approve</button>
+																
+																<div class="modal fade" id="Modalappr'.$i.'">
+																	<div class="modal-dialog modal-sm">
+																		<div class="modal-content" >
+																			<div class="modal-header">
+																				<button type="button" class="close" data-dismiss="modal">&times;</button>	<h4>Approve Student?</h4>				
+																			</div>
+																			<div class="modal-body">
+																				Sure to approve '.$row['stu_name'].'?
+																			</div> 
+																			<div class="modal-footer">
+																				<button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">Close</button>
+																					<button type="submit" class="btn btn-success btn-xs" name="approve">Approve </button>
+																			</div>		
+																		</div>
+																	</div>
+																</div>
+																
+																
+																
+																
+																
+																
+																
 																<button class="btn btn-xs btn-danger" data-target="#Modal'.$i.'" data-toggle="modal" name="deny" type="button" >Deny</button>	
 																<div class="modal fade" id="Modal'.$i.'"  >
 																	<div class="modal-dialog modal-sm">

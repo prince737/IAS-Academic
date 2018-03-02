@@ -113,9 +113,20 @@
 			<div class="col-md-3 ">
 				<div class="col-md-12">
 					<div class="sidebar">
-						<h4>What is Lorem Ipsum?</h4>
-						<img src="images/demo.jpg" height="110" width="195" style="margin:20px 0px; display:block;"></img>
-						Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+						<h4>Robotics with Arduino and PID Control Technology</h4>
+						<img src="images/poster_ar.jpg" height="110" width="195" style="margin:20px 0px; display:block;"></img>
+						<p>This course contains:<p>
+						<ul>
+							<li>Introduction to ARDUINO</li>
+							<li>Interfacing of ARDUINO</li>
+							<li>Project work with ARDUINO</li>
+							<li>Advanced ARDUINO model with PID controller</li>
+						</ul>
+						<p>This is a certified course. Students will get certificate from IAS.
+						For more details please visit your nearest branch of IAS.</p>
+						
+						<a href="registration.php" style="color:#000; display:block; text-align:center; font-size:17px;"><b>Enroll Now!</b></a>
+						
 					</div>
 				
 				</div>

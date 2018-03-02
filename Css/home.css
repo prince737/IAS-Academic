@@ -564,6 +564,11 @@ body{
 	transition: 1s all ease!important;
 }
 
+.content-wlcm .fa-graduation-cap{
+	font-size:37px;
+	padding:18px 14px;
+}
+
 .content-wlcm span:hover{
 	transform: rotate(360deg)!important;
 	background:rgba(255,255,255,0.8);

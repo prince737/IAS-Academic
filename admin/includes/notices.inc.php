@@ -9,6 +9,19 @@ if(isset($_POST['submit'])){
 	$date = mysqli_real_escape_string($conn, $_POST['date']);
 	$body = mysqli_real_escape_string($conn, $_POST['body']);
 	
+	if($_POST['courses'][0]=='all'){
+		$query= "select * from courses";
+		$res=mysqli_query($conn,$query);
+		while($row=mysqli_fetch_array($res)){
+			$courses[] = $row['course_id'];
+		}
+	}
+	else{
+		foreach($_POST['courses'] as $course){
+			$courses[] = $course;
+		}
+	}
+	
 	if(isset($_POST['save'])){
 		$query="insert into notices(notices_content, notices_date, notices_status) values('$body', '$date', 1)";
 	}
@@ -48,6 +61,15 @@ if(isset($_POST['submit'])){
 					move_uploaded_file($fileTmpName, $fileDest);
 					$query ="update notices set notices_location='$dest' where nid='$id';";	
 					mysqli_query($conn, $query);
+					
+					//Inserting in notices_for
+					
+					foreach($courses as $course){
+						$courses[] = $course;			
+						$query="insert into notice_for values($id,$course)";
+						mysqli_query($conn,$query);
+					}
+					
 					header("Location: ../admin_notices.php?success");
 					exit();
 				}
@@ -92,6 +114,21 @@ elseif(isset($_POST['update'])){ //Notice Updating
 	$location = mysqli_real_escape_string($conn, $_POST['location']);
 	
 	$nid= mysqli_real_escape_string($conn, $_POST['nid']);
+	
+	if($_POST['courses'][0]=='all'){
+		$query= "select * from courses";
+		$res=mysqli_query($conn,$query);
+		while($row=mysqli_fetch_array($res)){
+			$courses[] = $row['course_id'];
+		}
+	}
+	else{
+		foreach($_POST['courses'] as $course){
+			$courses[] = $course;
+		}
+	}
+	
+	
 	if(isset($_POST['save'])){
 		$query="update notices set notices_date='$date', notices_content='$body', notices_status='1' where nid='$nid'";
 	}
@@ -108,65 +145,103 @@ elseif(isset($_POST['update'])){ //Notice Updating
 			exit();
 		}
 		else{
-			$fileName = $_FILES['files']['name'];
-			$fileTmpName = $_FILES['files']['tmp_name'];
-			$fileSize = $_FILES['files']['size'];
-			$fileError = $_FILES['files']['error'];
-			$fileType = $_FILES['files']['type'];
-				
-			$fileExt = explode('.', $fileName);
-			$fileActualExt = strtolower(end($fileExt));
-			$path = '../../'.$location;
-			echo $path;
-			if(!unlink($path)){
-				header("Location: ../active_notices.php?err");
-				exit();
-				echo 'error';
-			}
-			else{
-				
+			
+			
+			if ( $_FILES['files']['error'] != 4){
+				echo 'ddd';
+				$fileName = $_FILES['files']['name'];
+				$fileTmpName = $_FILES['files']['tmp_name'];
+				$fileSize = $_FILES['files']['size'];
+				$fileError = $_FILES['files']['error'];
+				$fileType = $_FILES['files']['type'];
 					
-				$allow = array('doc', 'pdf');
+				$fileExt = explode('.', $fileName);
+				$fileActualExt = strtolower(end($fileExt));
+				$path = '../../'.$location;
 				
-				if(in_array($fileActualExt, $allow)){
-					if($fileError === 0)
-					{
-						if($fileSize < 500000000){
-							$fileNameNew = uniqid("", true).'.'.$fileActualExt;
-							$fileDest = '../../notices/'.$fileNameNew;
-							echo $fileDest;
-							$dest = 'notices/'.$fileNameNew;
-							move_uploaded_file($fileTmpName, $fileDest);
-							$query ="update notices set notices_location='$dest' where nid='$nid';";	
-							mysqli_query($conn, $query);
-							header("Location: ../admin_notices.php?success");
-							exit();
+				if(!unlink($path)){
+					header("Location: ../active_notices.php?err");
+					exit();
+				}
+				else{
+					
+						
+					$allow = array('doc', 'pdf');
+					
+					if(in_array($fileActualExt, $allow)){
+						if($fileError === 0)
+						{
+							if($fileSize < 500000000){
+								$fileNameNew = uniqid("", true).'.'.$fileActualExt;
+								$fileDest = '../../notices/'.$fileNameNew;
+								echo $fileDest;
+								$dest = 'notices/'.$fileNameNew;
+								move_uploaded_file($fileTmpName, $fileDest);
+								$query ="update notices set notices_location='$dest' where nid='$nid';";	
+								mysqli_query($conn, $query);
+								
+								
+								$q1="delete from notice_for where notice_id=$nid";
+								mysqli_query($conn,$q1);
+								foreach($courses as $course){
+									$courses[] = $course;			
+									$query="insert into notice_for values($nid,$course)";
+									mysqli_query($conn,$query);
+								}
+								
+								
+								header("Location: ../active_notices.php?success");
+								exit();
+							}
+							else{
+								echo 'File too large.';
+							}		
 						}
 						else{
-							echo 'File too large.';
-						}		
-					}
+							echo 'Error uploading.';
+						}
+					}	
 					else{
-						echo 'Error uploading.';
+						echo 'File type not allowed.';
 					}
-				}	
-				else{
-					echo 'File type not allowed.';
 				}
+			}
+			else{
+				$q1="delete from notice_for where notice_id=$nid";
+				mysqli_query($conn,$q1);
+				foreach($courses as $course){
+					$courses[] = $course;			
+					$query="insert into notice_for values($nid,$course)";
+					mysqli_query($conn,$query);
+				}
+								
+								
+				header("Location: ../active_notices.php?success");
+				exit();
 			}
 		}
 	}
 }
 elseif(isset($_POST['delete'])){
 	$nid= mysqli_real_escape_string($conn, $_POST['nid']);
-	$query="delete from notices where nid='$nid'";
-	if(!mysqli_query($conn, $query)){
+	$query="select * from notices where nid='$nid'";
+	$res=mysqli_query($conn,$query);
+	$row=mysqli_fetch_array($res);
+	$path = "../../".$row['notices_location'];
+	if(!unlink($path)){
 		header("Location: ../active_notices.php?err");
 		exit();
 	}
 	else{
-		header("Location: ../active_notices.php?dlt");
-		exit();
+		$query="delete from notices where nid=".$row['nid'];
+		if(!mysqli_query($conn, $query)){
+			header("Location: ../active_notices.php?err");
+			exit();
+		}
+		else{
+			header("Location: ../active_notices.php?dlt");
+			exit();
+		}
 	}
 }
 elseif(isset($_POST['deactivate'])){
@@ -177,6 +252,7 @@ elseif(isset($_POST['deactivate'])){
 		exit();
 	}
 	else{
+		
 		header("Location: ../active_notices.php");
 		exit();
 	}	

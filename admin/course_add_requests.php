@@ -113,6 +113,24 @@
 						</ul>
 					</li>
 					<li class="link">
+						<a href="#collapse-pos2" data-toggle="collapse" aria-control="collapse-post1">
+							<i class="fa fa-calendar" aria-hidden="true"></i>
+							<span class="hidden-sm hidden-xs">Study Material</span>
+						</a>
+						<ul class="collapse collapsable" id="collapse-pos2" style="margin:0px; padding:0px; ">
+							<li>
+								<a href="add_notes.php">
+									<span>Add New</span>
+								</a>
+							</li>
+							<li>
+								<a href="remove_notes.php">
+									<span>Remove Existing</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="link">
 						<a href="#collapse-post21" data-toggle="collapse" aria-control="collapse-post1">
 							<i class="fa fa-picture-o" aria-hidden="true"></i>
 							<span class="hidden-sm hidden-xs">Gallery</span>

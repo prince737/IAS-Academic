@@ -62,18 +62,14 @@
 			$query = "select * from students INNER JOIN students_courses ON student_id=stu_id INNER JOIN courses ON courses.course_id=students_courses.course_id where stu_email='$email'";
 		}
 		$result = mysqli_query($conn, $query);
+		$count=mysqli_num_rows($result);
 		
 		
 	?>
 	
 	<div class="container-fluid profile-wrapper">
 		<div class="row"> 
-			<div class="cover hidden-xs">
-			
-				
-			
-			</div>		
-		
+					
 			<div class="col-md-3 navigation shadow" style="margin-top:20px;">
 				<div class="img-name">
 					<?php
@@ -95,15 +91,14 @@
 									</div>
 								</div>
 								</div><br>
-								<p class="name">'.$row['stu_name'].'</p>
+								<p class="name">'.$row['stu_roll'].'</p>
 							'; 		
 					?>
-					
 				</div>
 				<div class="nav-menu shadow">
 					<ul> 
-						<li class="link active">
-							<a href="#">
+						<li class="link ">
+							<a href="profile.php">
 								<i class="fa fa-home" aria-hidden="true"></i>PROFILE HOME</span>
 							</a>
 						</li>
@@ -127,8 +122,8 @@
 								<i class="fa fa-spinner" aria-hidden="true"></i>VIEW PENDING UPDATES</span>
 							</a>
 						</li>
-						<li class="link">
-							<a href="downloads.php">
+						<li class="link active">
+							<a href="505.php">
 								<i class="fa fa-download" aria-hidden="true"></i>DOWNLOADS</span>
 							</a>
 						</li>
@@ -153,112 +148,108 @@
 				</div>
 				
 			</div>
-			<div class="col-md-7 content shadow" style="margin-top:20px;">	
+			<div class="col-md-9 content shadow" style="margin-top:20px;">	
 				<div class="container-fluid" >
-				
-							
+		
 					<div class="row notice-wrapper">
+						<h4>Study Material / Assignments for your Courses</h4><br><br>
+							<?php
+							
+								echo '
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th>Name</th>
+												<th>Date</th>
+												<th>Course Name</th>									
+												<th>Notes Type</th>										
+												<th>Center</th>											
+												<th>View Note</th>												
+											</tr>
+										</thead>
+										<tbody>
+								';
+							
+								$query="select * from students_courses where student_id=".$row['stu_id'];
+								$res=mysqli_query($conn, $query);
+								while($rowc=mysqli_fetch_array($res)){
+									
+									$query="select * from notes inner join notes_center on nid=notes_center.notes_id inner join centers on centers.center_id= notes_center.center_id inner join courses on courses.course_id=notes.course_id where notes.course_id=".$rowc['course_id']." AND notes_center.center_id=".$rowc['center_id'];
+									$result=mysqli_query($conn,$query);
+									$j=1;
+									
+									while($row1=mysqli_fetch_array($result)){
+										echo '
+											
+											<tr>
+												<td>'.$j.'</td>
+												<td>'.$row1['notes_name'].'</td>
+												<td>'.$row1['notes_date'].'</td>
+												<td>'.$row1['course_name'].'</td>
+												<td>'.$row1['notes_type'].'</td>
+												<td>'.$row1['center_name'].'</td>
+												<td><a href="'.$row1['notes_location'].'" target="_blank" class="btn btn-xs btn-default">View Note</a></td>
+											
+											</tr>';
+										$j++;	
+											
+									}
+								}
+							
+							
+								
+								
+								echo '</tbody>
+								</table>	
+								';
+							
+							?>
+							<hr>
+							
+							<h4>Special Study Material / Assignments for you</h4><br><br>
+							<?php
+								echo '
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th>Note Name</th>
+												<th>Date</th>								
+												<th>Notes Type</th>											
+												<th>View Note</th>												
+											</tr>
+										</thead>
+										<tbody>
+								';
+								$roll=$row['stu_roll'];
+								$query="select * from notes_individual where sid ='$roll'";
+								$result=mysqli_query($conn,$query);
+								$j=1;
+								while($r=mysqli_fetch_array($result)){
+									
+									echo '
+											
+											<tr>
+												<td>'.$j.'</td>
+												<td>'.$r['notes_name'].'</td>
+												<td>'.$r['notes_date'].'</td>
+												<td>'.$r['notes_type'].'</td>
+												<td><a href="'.$r['notes_location'].'" target="_blank" class="btn btn-xs btn-default">View Note</a></td>
+											
+											</tr>';
+										$j++;	
+								}
+								echo '</tbody>
+								</table>	
+								';
+								
+							?>	
 						
-						<div class="col-md-6 notice-container">
-							<p >NOTICEBOARD</p>
-							<div class="notice-board">
-								<div class="marquee">
-										
-										<?php
-											$query ="Select * from notices where notices_status=1 order by STR_TO_DATE(notices_date, '%M %d, %Y') DESC";
-											$result =@mysqli_query($conn,$query);
-											$i=0;								
-											while($row1 = mysqli_fetch_array($result))
-											{
-												$phpdate = strtotime($row1['notices_date']);
-												$date = date( 'd M, Y', $phpdate );
-												echo'
-													<div class=notice_data>';
-													if($i<4){
-														echo '<img src="images/new.jpg" height="20" width="20"></img>&nbsp;';
-													}
-														
-														echo '<span class="fa fa-file-text-o"></span>	
-														<a href="'.$row1['notices_location'].'" target="_blank"><span>'.$date.'</span> | ' . $row1['notices_content']. '</a>
-												
-													</div>	<br>
-												';
-												$i++;
-											}
-										?>
-										
-									</div>	
-									
-							</div>
-							<a class="link btn btn-primary" href="notices.php">View All Notices</a>
-							
-							
-						</div>
-						<div class="col-md-6 notice-container">				
-							<p> EVENTS & ANNOUNCEMENTS</p>			
-							<div class="notice-board">
-								<div class="marquee">
-															
-										<?php
-											$query ="Select * from events where events_status=1";
-											$result1 =@mysqli_query($conn,$query);	
-											if($result1)
-											{
-													
-												while($row2 = mysqli_fetch_array($result1))
-												{
-													$phpdate = strtotime($row2['events_startdate']);
-													$date1 = date( 'd M, Y', $phpdate );
-													$phpdate = strtotime($row2['events_enddate']);
-													$date2 = date( 'd M, Y', $phpdate );
-													$i=0;
-													
-														
-														if( strtotime('now') < strtotime($date2) ) {
-															echo '<div class="notice_data">';
-															if($i<4){
-																echo '<img src="images/new.jpg" height="20" width="20"></img>&nbsp;';
-															}
-															echo '<i class="fa fa-calendar" style="color:#795548;" aria-hidden="true"></i>
-																<a href="events.php"><span>Starts: '.$date1.'  Ends: '.$date2.'</span> | <span>From '.$row2['events_starttime'].' to '.$row2['events_endtime'].' | </span>' . $row2['events_heading']. '</a>';
-															echo '</div>	<br>';	
-														}
-													
-													$i++;
-												}
-											}
-										?>
-									
-								</div>	
-							</div>
-							<a class="link btn btn-primary" href="events.php">View All Events</a>
-							
-						</div>
 					</div>
 				</div>	
 						
-			</div>	
-			<div class="col-md-2 courses">
-				<h3><?php echo $row['stu_roll']; ?></h3>
-				<h4>My Courses</h4>
-				<ul>
-					<?php
-						
-						$query="select * from students_courses natural join courses natural join centers where student_id=".$row['stu_id'];
-						$res=mysqli_query($conn,$query);
-						while($r=mysqli_fetch_array($res)){
-							echo '
-								<li>'.$r['course_name'].'</li>
-								'.$r['registration_no'].' <br>
-								'.$r['center_name'].' <br><br>
-							';
-						}
-					
-					?>
-					
-				</ul>
-				
-			</div>		
+			</div>					
 		</div>
 	</div>
 	<footer>

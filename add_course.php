@@ -13,7 +13,7 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Add Course | IAS</title>
+	<title>Downloads | IAS</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/profile.css">
     <link rel="stylesheet" type="text/css" href="css/pending_updates.css">
@@ -70,19 +70,28 @@
 		<div class="row">
 			<div class="col-md-3 navigation shadow" >
 				<div class="img-name">
-				<?php
-					
-					$row = mysqli_fetch_array($result);
-						echo '
-							<img class="img-thumbnail" src="'.$row['stu_imageLocation'].'" /> 
-							<form action="includes/change.inc.php" method="POST" enctype="multipart/form-data">
-								<input type="file" id="fileLoader" accept=".jpg, .jpeg, .png" onchange="this.form.submit();" name="image"/>
-								<input type="hidden" name="id"  value="'.$row['stu_id'].'"></input>
-								<input type="button" class="btn btn-default btn-sm" id="btnOpenFileDialog" value = "Change Image" onclick="openfileDialog();" />
-							<p class="name">'.$row['stu_name'].'</p>
-							</form>
-						'; 		
-				?>
+					<?php
+						
+						$row = mysqli_fetch_array($result);
+							echo '
+								<div class="contain">
+								<img class="img-thumbnail" src="'.$row['stu_imageLocation'].'" />
+								<div class="overlay">
+								    <div class="text">
+									
+										<form action="includes/change.inc.php" method="POST" enctype="multipart/form-data" >
+											<input type="file" id="fileLoader" accept=".jpg, .jpeg, .png" onchange="this.form.submit();" name="image"/>
+											<input type="hidden" name="id"  value="'.$row['stu_id'].'"></input>
+											<input type="button" class="btn btn-default btn-sm" id="btnOpenFileDialog" value = "Change Image" onclick="openfileDialog();" />
+										
+										</form>
+									
+									</div>
+								</div>
+								</div><br>
+								<p class="name">'.$row['stu_roll'].'</p>
+							'; 		
+					?>
 				</div>
 				<div class="nav-menu shadow">
 					<ul> 
@@ -112,7 +121,7 @@
 							</a>
 						</li>
 						<li class="link">
-							<a href="505.php">
+							<a href="downloads.php">
 								<i class="fa fa-download" aria-hidden="true"></i>DOWNLOADS</span>
 							</a>
 						</li>

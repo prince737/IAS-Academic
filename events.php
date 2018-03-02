@@ -139,11 +139,11 @@
 			<div class="col-md-4">
 				
 				<div class="monthly" id="mycalendar"></div>
-				<div class="sidebar">
+				<!--<div class="sidebar">
 					<h4>What is Lorem Ipsum?</h4>
 					<img src="images/demo.jpg" height="140" width="250" style="margin:20px 0px; display:block;"></img><br>
 					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-				</div>			
+				</div>-->			
 			</div>
 		
 		</div>

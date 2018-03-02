@@ -1,50 +1,24 @@
 <?php
 	session_start();
-	require_once('../includes/dbh.inc.php');
 	
+	include_once '../includes/dbh.inc.php';
 	if(!isset($_SESSION['admin'])){
 		header("Location: admin_login.php");
 		exit();
 	}
 	
-	if(isset($_GET['success']))
-	{
-		echo '			    
-		    <div id="success-modal">
-				<div class="modalconent">
-					<h3 style="color:teal;">Information</h3>
-					<hr>	
-					<p class="para">Notice / Event was added successfully.</p> 
-					<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
-				</div>
-			</div>
-		';			
-	}
-	if(isset($_GET['err']))
-	{
-		echo '			    
-		    <div id="success-modal">
-				<div class="modalconent">
-					<h3 style="color:teal;">Information</h3>
-					<hr>	
-					<p class="para">Something went wrong, please try again.</p> 
-					<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
-				</div>
-			</div>
-		';			
-	}
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=0.8">
-	<title>Create Event | IAS</title>
+	<title>Remove Notes | IAS</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/default.css">
 	<link rel="stylesheet" type="text/css" href="css/notices.css">
-	<link rel="stylesheet" type="text/css" href="../vendor/css/chosen.min.css">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/css/chosen.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" type="image/jpg" href="../images/logo.jpg" />
@@ -120,7 +94,7 @@
 							</li>
 						</ul>
 					</li>
-					<li class="link active">
+					<li class="link">
 						<a href="#collapse-post2" data-toggle="collapse" aria-control="collapse-post1">
 							<i class="fa fa-calendar" aria-hidden="true"></i>
 							<span class="hidden-sm hidden-xs">Events</span>
@@ -138,9 +112,9 @@
 							</li>
 						</ul>
 					</li>
-					<li class="link">
+					<li class="link active">
 						<a href="#collapse-pos2" data-toggle="collapse" aria-control="collapse-post1">
-							<i class="fa fa-calendar" aria-hidden="true"></i>
+							<i class="fa fa-book" aria-hidden="true"></i>
 							<span class="hidden-sm hidden-xs">Study Material</span>
 						</a>
 						<ul class="collapse collapsable" id="collapse-pos2" style="margin:0px; padding:0px; ">
@@ -150,7 +124,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="remove_notes.php">
+								<a href="#">
 									<span>Remove Existing</span>
 								</a>
 							</li>
@@ -226,111 +200,169 @@
 						</div>
 					</header>
 				</div>
-				
 				<div id="content">
 					<header>
-						<h2 class="page_title">Create a new Event</h2>	
-					</header>	
-					<div class="content-inner">
-						<div class="form-wrapper">
-							<form action="includes/events.inc.php" method="POST" enctype="multipart/form-data">
-								<div class="form-group">
-									<select class="form-control chosen_select" name="courses[]" required multiple data-placeholder="Choose who this event is for">	
-										<option value="all">ALL</option>
-										<?php	
-											$query ="select * from courses";
-											$result=mysqli_query($conn,$query);
-											$i=0;
-											while($row = mysqli_fetch_array($result)){												
-												echo '<option value="'.$row['course_id'].'">'.$row['course_name'].' - '.$row['course_type'].'</option>';
-											}	
-										?>	
+						<h2 class="page_title">Remove Existing Notes Or <a class="btn btn-xs btn-warning" href="remi_notes.php">Remove Notes for individual Students</a></h2>	
+						<form action="includes/notes.inc.php" method="POST">
+							<button type="submit" name="remove" class="pull-right btn btn-success btn-xs">Remove all that are at least 15 days old</button>
+						</form>	
+					</header>
+					<div class="form-wrapper" style="background:#fff;">
+						
+							<?php
+								$query="select * from notes inner join notes_center on nid=notes_center.notes_id inner join centers on centers.center_id= notes_center.center_id inner join courses on courses.course_id=notes.course_id";
+								$result=mysqli_query($conn,$query);
+								$j=1;
+								echo '
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th>Name</th>
+												<th>Date</th>
+												<th>Course Name</th>									
+												<th>Notes Type</th>										
+												<th>Center</th>											
+												<th>View Note</th>											
+												<th>Note Status</th>											
+												<th>Actions</th>											
+											</tr>
+										</thead>
+										<tbody>
+								';
+								while($row=mysqli_fetch_array($result)){
+									echo '
 										
-									</select>	
-								</div>
-								<div class="form-group">
-									<label class="sr-only">Start Date</label>
-									<input type="text" class="form-control" name="startdate" required id="datepicker" placeholder="Start Date (YYYY-MM-DD)">
-								</div>
-								<div class="form-group">
-									<label class="sr-only">End Date</label>
-									<input type="text" class="form-control" name="enddate" required id="datepicker1" placeholder="End Date (YYYY-MM-DD)">
-								</div>
-								<div class="form-group">
-									<label class="sr-only">Starting Time</label>
-									<input type="text" class="form-control" name="stime" required placeholder="Starting Time (hh:mm am/pm)" maxlength="8">
-								</div>
-								<div class="form-group">
-									<label class="sr-only">Ending Time</label>
-									<input type="text" class="form-control" name="etime" required placeholder="Ending Time (hh:mm am/pm)" maxlength="8">
-								</div>
-								<div class="form-group">
-									<label class="sr-only">Heading</label>
-									<input type="text" class="form-control" name="heading" placeholder="Short Heading (This will be displayed on Notice Board) " required />
-								</div>
-								<div class="form-group">
-									<label class="sr-only">Body</label>
-									<textarea class="form-control" name="body" placeholder="Body (This will be displayed on Events Page) " required ></textarea>
-								</div>
-																
-								<div class="checkbox">
-									<label>
-										<input type="checkbox" name="save">Publish Event when I click on save
-									</label>
-								</div>
-								<div class="clearfix">
-									<button type="submit" class="btn btn-primary pull-right" name="submit">Save / Publish</button>
-								</div>
-								
-							</form>
-						</div>
-					</div>	
+												<tr>
+													<td>'.$j.'</td>
+													<td>'.$row['notes_name'].'</td>
+													<td>'.$row['notes_date'].'</td>
+													<td>'.$row['course_name'].'</td>
+													<td>'.$row['notes_type'].'</td>
+													<td>'.$row['center_name'].'</td>
+													<td><a href="../'.$row['notes_location'].'" target="_blank" class="btn btn-xs btn-default">View Note</a></td>
+													<td>';
+														if($row['notes_status']=='Active'){
+															echo '<span class="label label-success label-sm">Active</span>';
+														}
+														else{
+															echo '<span class="label label-danger label-sm">Inactive</span';
+														}
+													
+													echo '</td>
+													<td>
+														<button type="button" class="btn btn-danger btn-xs"   data-target="#Modalrem'.$j.'" data-toggle="modal">Remove</button>
+														
+														
+														<div class="modal fade" id="Modalrem'.$j.'">
+														<div class="modal-dialog">
+															<div class="modal-content modal-cnt" >
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal">&times;</button>	
+																	<h4>Sure to Remove?</h4>
+																</div>
+																<div class="modal-body">
+																			
+																	<form action="includes/notes.inc.php" method="POST">
+																		<input type="hidden" value="'.$row['nid'].'" name="nid">
+																		<p>Are you sure you want to remove the note <b>'.$row['notes_name'].'</b> Dated: <b>'.$row['notes_date'].'</b> for the Course: <b>'.$row['course_name'].'</b> at Center: <b>'.$row['center_name'].'</b>? </p>
+																		
+																		<button class="btn btn-danger btn-sm pull-right approve" name="rem_one"><span class="fa fa-trash"> Remove</button>
+																		<div class="clearfix"></div>
+																	</form>
+																</div> 																
+															</div>
+														</div>
+													</div>
+														
+														
+														
+													</td>
+												</tr>';
+												$j++;	
+											
+								}
+								echo '</tbody>
+								</table>	
+								';
+							
+							?>
+						</form>
+					</div>		
 				</div>
 			</div>
 		</div>
 	</div>	
-
-
 	<script src="../js/jquery-3.2.1.min.js"></script>	
 	<script src="../js/bootstrap.js"></script>
 	<script src="js/default.js"></script>
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script>
-	  $( function() {
-		$( "#datepicker" ).datepicker({
-				changeMonth: true,
-				changeYear: true,
-				altField: "#datepicker",
-				altFormat: "yy-mm-dd",
-			});
-			
-		$( "#datepicker1" ).datepicker({
-				changeMonth: true,
-				changeYear: true,
-				altField: "#datepicker1",
-				altFormat: "yy-mm-dd",
-			});	
-	  });
-	</script>
-	<script src="../vendor/js/chosen.jquery.min.js"></script>
-	<script>
-		$(".chosen_select").chosen({
-			disable_search_threshold: 10,
-			no_results_text: "Oops, nothing found!",
-			width: "100%"
-		});
-
 	
-	</script>
+	
 	<script>
 		window.onload = function () {
 			document.getElementById('button').onclick = function () {
 				document.getElementById('success-modal').style.display = "none"
-				window.location.replace('new_event.php');
+				window.location.replace('remove_notes.php');
 			};
 		};
 	</script>
+	
+	<?php
+	
+		if(isset($_GET['err']))
+		{
+		echo '			    
+		    <div id="success-modal">
+				<div class="modalconent">
+					<h3 style="color:teal;">Information</h3>
+					<hr>	
+					<p class="para">Something went wrong, please try again.</p> 
+					<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+				</div>
+			</div>
+		';			
+		}
+		if(isset($_GET['NotFound']))
+		{
+		echo '			    
+		    <div id="success-modal">
+				<div class="modalconent">
+					<h3 style="color:teal;">Information</h3>
+					<hr>	
+					<p class="para">All Existing notes are less than 15 days old.</p> 
+					<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+				</div>
+			</div>
+		';			
+		}
+		if(isset($_GET['date']) && isset($_GET['rem']) )
+		{
+		echo '			    
+		    <div id="success-modal">
+				<div class="modalconent">
+					<h3 style="color:teal;">Information</h3>
+					<hr>	
+					<p class="para">Notes dated: <b>'.$_GET['date'].'</b> or earlier were successfully removed.</p> 
+					<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+				</div>
+			</div>
+		';			
+		}
+		if(isset($_GET['rem']) && !isset($_GET['date']))
+		{
+			echo '			    
+				<div id="success-modal">
+					<div class="modalconent">
+						<h3 style="color:teal;">Information</h3>
+						<hr>	
+						<p class="para">Requested Note was successfully removed.</p> 
+						<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+					</div>
+				</div>
+			';			
+		}
+	
+	?>
 
 </body>
-</html>
+</html>	

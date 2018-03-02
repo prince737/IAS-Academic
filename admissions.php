@@ -30,7 +30,7 @@
 	</div>
 	
 	<ol class="breadcrumb">
-		<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+		<li class="breadcrumb-item"><a href="index.php">Home</a></li>
 		<li class="breadcrumb-item active">Admissions</li>
 	</ol>
 	
@@ -40,16 +40,16 @@
 		
 			<div class="col-sm-4 navigation">
 				<ul>
-					<li ><a href="#" class="select" style="color:#ab5443;">Admission Process</a></li>
+					
 					<li><a href="direct_adm.php">Direct Admission</a></li>
 					<li><a href="SET.php">Scholarship Entrance Test (SET)</a></li>
 					<li><a href="provisional.php">Provisional Admission</a></li>
 				</ul>
 			</div>
 			<div class="col-sm-8 ">
-				<p class="title">Admission Process</p>
 				
-				<div class="text">
+				
+				<div class="text" style="margin-top:0px;">
 				
 					<p>When we admit a student to IAS, it's as if we're choosing a team to climb a very interesting, fairly rugged mountain—together. </p>
 					<p>We obviously want student who have the training, stamina and passion for the climb.</p>

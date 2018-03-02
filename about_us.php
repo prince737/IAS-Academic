@@ -37,14 +37,55 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8 about">
-				<h1>About Us</h1><br>
-				<img src="images/3.jpg" ></img><br><br>
-				<p>We here at Institute of Applied Science never compromise on quality. Individual attention is
-				given to each and every Student irrespective of one’s standing in the merit at any point of
-				time. We never increase our batch size beyond a limit; this facilitates proper Student-Faculty
-				interaction. Our faculty is always willing to clear doubts of Students even individually, if
-				required. Our Research and Development team works round the clock to ensure that our
-				teaching methodology, study material and course structure is constantly updated.</p>
+				<h3 class="text-center"><b>Dedicated to serve the STUDENTS</b></h3>
+
+					<p>Institute of Applied Science, established and directed by the alumni of Jadavpur University
+					and different IITs in India along with other reputed Institutions, is a noble organisation in the
+					field of education. Institute of Applied Science has been serving the students since 2000. The
+					Institute started its journey in the field of GATE training. A few years back Institute of
+					Applied Science has launched its other wings for trainings in other fields as Joint Entrance
+					Exams (JEE), National Eligibility and Entrance Test (NEET-UG) and Industrial Training
+					courses.</p>
+					<p>The classes are conducted by the experienced Professors of Institute of Applied Science and
+					experts from different resources. The special classes are conducted by the scholar students of
+					IIT Kharagpur, Jadavpur University, Calcutta Medical College, NRS Medical College etc.
+					We here at Institute of Applied Science never compromise on quality. Individual attention is
+					given to each and every student irrespective of one’s standing in the merit at any point of
+					time. We never increase our batch size beyond a limit; this facilitates proper Student-Faculty
+					interaction. Our faculty is always willing to clear doubts of students even individually, if
+					required. Our Research and Development (R&amp;D) team works round the clock to ensure that
+					our teaching methodology, study material and course structure is contemporarily updated.
+					Salient Features:</p>
+					<ul>
+						<li>Counselling, motivation and enhancement session for the students.</li>
+						<li>Exclusive study of the fundamental science.</li>
+						<li>Exclusive practice of the numeric problems.</li>
+						<li>Advance classes for conceptually smart students.</li>
+					</ul>
+					<p><b>Vision:</b></p>
+					<ul>
+						<li>To be the Top Performing and Most Admired in the Academic Regime.</li>
+						<li>The Institute of Applied Science will be a world leader in the integration of teaching
+					and learning.</li>
+					</ul>
+					
+					<p><b>Mission:<b></p>
+					<p>The mission of the Institute of Applied Science is to help prepare outstanding educators,
+					scholars, and researchers, and to advance the profession of education, as broadly defined,
+					through research on the science and art of teaching and learning, the application of clinical
+					processes, the effective uses of technology, and the analysis and development of leadership
+					and educational policy.</p>
+					<p><b>Values:</b></p>
+					<ul>
+						<li> Motivation and enhancement.</li>
+						<li>Academic excellence and integrity.</li>
+						<li>Outstanding teaching and service.</li>
+						<li>Scholarly research and professional leadership.</li>
+						<li>Integration of teaching, research, and service.</li>
+						<li>Individual and collective excellence.</li>
+						<li>Diversity, equity, and social justice.</li>
+						<li>Education of individuals across the life span.</li>
+					</ul>
 			</div>
 			<div class="col-md-4 hidden-xs">
 				<div class="sidebar">

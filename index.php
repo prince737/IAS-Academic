@@ -5,8 +5,7 @@
 	
 	
 	
-	$query ="Select * from events where events_status=1";
-	$result1 =@mysqli_query($conn,$query);	
+		
 
 ?>
 
@@ -34,7 +33,7 @@
 		include('header.php');
 	?>
 	
-	<div class="container-fluid for-sm">
+	<!--<div class="container-fluid for-sm">
 		<div class="row cover">
 			
 			<p class="heading" data-aos="fade-up" data-aos-duration="700" data-aos-anchor-placement="center-center" data-aos-delay="100" data-aos-once="true">Where True Learning Begins...</p>
@@ -45,10 +44,10 @@
 			<p class="scroll"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></p><br>
 			<p class="sc">SCROLL</p>
 		</div>
-	</div>
+	</div>-->
 	
 	
-	<div class="container-fluid carouseller">
+	<div class="container-fluid carouseller hidden-xs">
 		<div class="row">
 			<div class="col-sm-12 slide-show">
 				
@@ -66,7 +65,7 @@
 
 					<div class="carousel-inner" role="listbox">
 						<div class="item active">
-							<a href="505.php" title="Click to Know More!">
+							<a href="#" title="Click to Know More!">
 								 <img src="images/ias.png" />								 
 							</a> 
 						</div>
@@ -81,7 +80,7 @@
 							 </a>
                         </div>
 						<div class="item">
-							<a href="505.php" title="Click to Know More!">
+							<a href="courses.php?crX=Training & Project Work" title="Click to Know More!">
 								 <img src="images/ard.png" />								 
 							</a> 
 						</div>
@@ -102,6 +101,71 @@
 			</div>
 		</div>
 	</div>  <!--END OF  CAROUSEL -->
+	
+	
+	
+	<div class="container-fluid hidden-md hidden-lg">
+		<div class="row">
+			<div class="col-sm-12 slide-show">
+				
+				<div id="my-slider1" class="carousel slide" data-ride="carousel">
+
+
+					<ol class="carousel-indicators">
+
+						<li data-target="#my-slider1" data-slide-to="0" class="active"></li>
+						<li data-target="#my-slider1" data-slide-to="1"></li>
+						<li data-target="#my-slider1" data-slide-to="2"></li>
+					
+					</ol>
+
+					<div class="carousel-inner" role="listbox">
+						<div class="item active">
+							<a href="#" title="Click to Know More!">
+								 <img src="images/mob1.png" />								 
+							</a> 
+						</div>
+                        <div class="item">
+							<a href="courses.php?crX=IAS Test Series" title="Click to Know More!">
+                             <img src="images/mob2.png" />                            
+							 </a>
+                        </div>                       
+                        <div class="item">
+							<a href="courses.php?crX=GATE / PSU / IES" title="Click to Know More!">
+								 <img src="images/mob3.png" />								 
+							 </a>
+                        </div>					
+						
+
+					</div>
+
+					<a class="left carousel-control" href="#my-slider1" role="button" data-slide="prev">
+						<span  class="glyphicon glyphicon-chevron-left"aria-hidden="true"></span>
+					</a>
+					<a class="right carousel-control" href="#my-slider1" role="button" data-slide="next">
+						<span  class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+					</a>
+
+
+				</div>
+
+			</div>
+		</div>
+	</div>  <!--END OF  CAROUSEL -->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	<div class="container-fluid" >
 		
@@ -110,11 +174,17 @@
 			<div class="col-md-6 notice-container">
 				<h4 class="label-primary text-center">NOTICEBOARD</h4>
 				<div class="notice-board">
-					<div class="marquee">
+					<?php
+						$query ="Select * from notices where notices_status=1 order by STR_TO_DATE(notices_date, '%M %d, %Y') DESC";
+						$result =@mysqli_query($conn,$query);
+						$count=mysqli_num_rows($result);
+						if($count < 1){
+								echo '<span style="display:block; width:100%; text-align:center; font-size:18px;">Noticeboard shall be updated soon.</span>';
+						}
+						else{
+							echo'<div class="marquee">';
 							
-							<?php
-								$query ="Select * from notices where notices_status=1 order by STR_TO_DATE(notices_date, '%M %d, %Y') DESC";
-								$result =@mysqli_query($conn,$query);
+							
 								$i=0;								
 								while($row = mysqli_fetch_array($result))
 								{
@@ -133,9 +203,11 @@
 									';
 									$i++;
 								}
-							?>
 							
-						</div>	
+							
+							echo '</div>';	
+						}
+						?>
 						
 				</div>
 				<a class="link btn btn-primary" href="notices.php">View All Notices</a>
@@ -145,12 +217,19 @@
 			<div class="col-md-6 notice-container">				
 				<h4 class="label-primary text-center"> EVENTS & ANNOUNCEMENTS</h4>			
 				<div class="notice-board">
-					<div class="marquee">
+					
 												
 							<?php
-								if($result1)
-								{
-										
+								$query ="Select * from events where events_status=1";
+								$result1 =@mysqli_query($conn,$query);
+								$count=mysqli_num_rows($result1);
+								if($count < 1){
+										echo '<span style="display:block; width:100%; text-align:center; font-size:18px;">Events shall be updated soon.</span>';
+								}
+								
+								else
+								{						
+									echo '<div class="marquee">';	
 									while($row = mysqli_fetch_array($result1))
 									{
 										$phpdate = strtotime($row['events_startdate']);
@@ -172,10 +251,9 @@
 										
 										$i++;
 									}
+									echo '</div>';
 								}
 							?>
-						
-					</div>	
 				</div>
 				<a class="link btn btn-primary" href="events.php">View All Events</a>
 				
@@ -196,26 +274,39 @@
 				<div class="col-md-3">
 					<div class="content-wlcm" >
 						<span class="fa fa-thumbs-o-up" data-aos="fade-up" data-aos-delay="100" data-aos-once="true"></span>
-						<p data-aos="fade-up" data-aos-once="true" data-aos-delay="200">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+						<p data-aos="fade-up" data-aos-once="true" data-aos-delay="200" style="text-align:justify;">Institute of Applied Science, established and directed by the alumni of Jadavpur University and different IITs in India along with other reputed Institutions, is a noble organization in the field of education and has been serving the students since 2000.  </p>
 					</div>
 				</div>
 				
 				<div class="col-md-3">
 					<div class="content-wlcm">
-						<span class="fa fa-trophy" data-aos="fade-up" data-aos-once="true" data-aos-delay="100"></span>
-						<p data-aos="fade-up" data-aos-once="true" data-aos-delay="200">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+						<span class="fa fa-graduation-cap" data-aos="fade-up" data-aos-once="true" data-aos-delay="100"></span>
+						<p data-aos="fade-up" data-aos-once="true" data-aos-delay="200" style="text-align:justify;">Our admission process
+						is simple and we also
+						offer Scholarships to
+						deserving &amp; needy
+						students through a knowledge based screening process, IAS Scholarship Entrance Test (SET). </p>
 					</div>
 				</div>
 				<div class="col-md-3" >
 					<div class="content-wlcm" >
-						<span class="fa fa-hand-peace-o" data-aos="fade-up" data-aos-once="true" data-aos-delay="100"></span>
-						<p data-aos="fade-up" data-aos-once="true" data-aos-delay="200">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+						<span class="fa fa-trophy" data-aos="fade-up" data-aos-once="true" data-aos-delay="100"></span>
+						<p data-aos="fade-up" data-aos-once="true" data-aos-delay="200" style="text-align:justify;">IAS offers Scholarship Entrance
+						Test (SET) to the students who
+						are willing to admit in the
+						specific course in which the
+						minimum qualifying marks in
+						the Board Exams is not fulfilled.</p>
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="content-wlcm">
 						<span class="fa fa-snowflake-o" data-aos="fade-up" data-aos-once="true" data-aos-delay="100"></span>
-						<p data-aos="fade-up" data-aos-once="true" data-aos-delay="200">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+						<p data-aos="fade-up" data-aos-once="true" data-aos-delay="200" style="text-align:justify;">We are aimed to become an
+						international Institute through
+						our success and analysis and
+						development of leadership
+						and educational policy.</p>
 					</div>
 				</div>
 			
@@ -245,7 +336,7 @@
 	</div>  <!--Enroll container -->
 	
 	
-	<div class="container-fluid" id="gallery">
+	<!--<div class="container-fluid" id="gallery">
 		<div class="row" >
 
 			<div class="col-md-6 lefty">
@@ -261,11 +352,11 @@
 			</div>
 				
 		</div>
-	</div>
+	</div>-->
 
 	<!--GALLERY SECTION ENDS-->
 
-	<div class="container-fluid review-wrap">
+	<!--<div class="container-fluid review-wrap">
 		<h2>Hear From Our Students</h2>
 		<div class="container" >
 			<div class="row review">
@@ -313,7 +404,7 @@
 			</div>
 		</div>
 	
-	</div>
+	</div>-->
 	
 	
 	
@@ -453,14 +544,7 @@
 			pauseOnHover: true
 		});
 	</script>
-    <script src="js/jquery.stellar.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        $(window).stellar({
-        scrollProperty: 'scroll',
-        horizontalScrolling: false,
-        positionProperty: 'position'
-       });
-    </script>  
+
 	
 	<script>
     AOS.init();

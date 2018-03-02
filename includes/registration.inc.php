@@ -48,24 +48,7 @@ $operator = mysqli_real_escape_string($conn, $_POST['operator']);
 // current institute - school,college,inst
 //dept, stream, yop- btech mtech  
 
-    $ans=0;
-	switch($operator) {
-		case "+":
-		    $ans=$no1+$no2;  
-			break;
-		case "-":
-		    $ans=$no1-$no2;  
-			break;
-		case "*":
-		    $ans=$no1*$no2;  
-			break;	
-	}
-if($ans!=$captcha){
-	$val= array(simple_crypt($name,'e'),simple_crypt($dob,'e'),simple_crypt($email,'e'),simple_crypt($contact,'e'),simple_crypt($gname,'e'),simple_crypt($gcontact,'e'),simple_crypt($address,'e'),simple_crypt($he,'e'),simple_crypt($inst,'e'),simple_crypt($yop,'e'),simple_crypt($gender, 'e'),$edu, $dept, $university, $college, $school, $he_other, $sub_combo,$religion,$blood,$category,$street,$pin,$city,$state);
-	$query = http_build_query($val);		
-	header("Location: ../registration.php?$query&wrongcaptcha");	
-	exit();
-}
+    
 
 if(isset($_POST['register']))
 {	
@@ -82,7 +65,18 @@ if(isset($_POST['register']))
 	
 	
 	
-	
+	$ans=0;
+	switch($operator) {
+		case "+":
+		    $ans=$no1+$no2;  
+			break;
+		case "-":
+		    $ans=$no1-$no2;  
+			break;
+		case "*":
+		    $ans=$no1*$no2;  
+			break;	
+	}
 		
 	
 	if(empty($name) || empty($gender) || empty($dob) || empty($email) || empty($contact) || empty($gname) || empty($gcontact) || empty($street) || empty($pin) || empty($city) || empty($state) || empty($he) ||  empty($courseType) || empty($courseName) || empty($pwd) || empty($center)) {
@@ -123,6 +117,12 @@ if(isset($_POST['register']))
 		{
 			$query = http_build_query($arr);
 			header("Location: ../registration.php?$query");				
+		}
+		elseif($ans!=$captcha){
+			$val= array(simple_crypt($name,'e'),simple_crypt($dob,'e'),simple_crypt($email,'e'),simple_crypt($contact,'e'),simple_crypt($gname,'e'),simple_crypt($gcontact,'e'),simple_crypt($address,'e'),simple_crypt($he,'e'),simple_crypt($inst,'e'),simple_crypt($yop,'e'),simple_crypt($gender, 'e'),$edu, $dept, $university, $college, $school, $he_other, $sub_combo,$religion,$blood,$category,$street,$pin,$city,$state);
+			$query = http_build_query($val);		
+			header("Location: ../registration.php?$query&wrongcaptcha");	
+			exit();
 		}
 		else
 		{

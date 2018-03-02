@@ -114,7 +114,7 @@
 				<div class="col-sm-12 offices" data-aos="fade-up" data-aos-once="true" data-aos-delay="300" style="min-height:311px;">
 					<div class="col-sm-5 map">
 						<div class="map-link">
-							<a href="http://www.maps.google.com" target="_blank">GET DIRECTIONS</a>
+							<a href="https://www.google.co.in/maps/place/Tarapada+Chatterjee+Ln,+Shibpur,+Howrah,+West+Bengal+711103/@22.5657975,88.3122473,21z/data=!4m5!3m4!1s0x3a027833023bebe7:0xddc445139b1e0e95!8m2!3d22.5658747!4d88.3117751?hl=en" target="_blank">GET DIRECTIONS</a>
 							<div class="arrow"></div>
 						</div>
 					</div>

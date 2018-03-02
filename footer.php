@@ -24,9 +24,9 @@
 				</div>
 				<div class="col-sm-2 col-xs-6">
 					<ul>						
-						<li><a href="gallery.php">GALLERY</a></li>
+						<li><a href="505.php">GALLERY</a></li>
 						<li><a href="505.php">DOWNLOADS</a></li>				
-						<li><a href="505.php">FAQs</a></li>
+						<li><a href="faq.php">FAQs</a></li>
 					</ul>
 				</div>
 				<div class="col-sm-2 col-xs-6">

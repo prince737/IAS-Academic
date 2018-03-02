@@ -46,22 +46,42 @@
 						<div class="panel-heading">
 							
 							<h4 class="panel-title">
-								<a href="#panelbody1" data-toggle="collapse" data-parent="#accordion"><span class="glyphicon glyphicon-minus-sign picon"></span>Admission Process</a>
+								<a href="#panelbody1" data-toggle="collapse" data-parent="#accordion"><span class="glyphicon glyphicon-minus-sign picon"></span>General</a>
 							</h4>
 						</div>
 						
 						<div id="panelbody1" class="panel-collapse collapse in">
 							<div class="panel-body">
-								<p>When we admit a student to IAS, it's as if we're choosing a team to climb a very interesting, fairly rugged mountain—together. </p>
-								<p>We obviously want student who have the training, stamina and passion for the climb.</p>
-								<p>At the same time, we want each to add something useful or intriguing to the team, from a wonderful temperament or sense of humour to compelling personal experiences, to a wide range of individual gifts, talents, interests and achievements.</p>
-								<p>We are emphatically not looking for a batch of identical perfect climbers; we are looking for a richly varied team of capable people who will support, surprise and inspire each other.</p>
-								<p>Preparing yourself for your future, have to follow two things:
-									<ul>
-										<li>Making sure you're ready to do the hard work, and</li>
-										<li>Taking the time to really explore things that interest you, both inside and outside of the Institution.</li>
-									</ul>
-								</p>
+							
+								
+								<p><b>1. What is the Admission Procedure of IAS?</b><br>
+								It is elaborately described in the link given below:<br>
+								<a href="admissions.php">Browse Admission Process</a></p>
+
+								<p><b>2. Are all courses available at all centers of IAS?</b><br>
+								NO. Only the courses corresponding to the 10 th level and 10+2 level are available at all of the
+								existing centers of IAS. The availability for other courses is variable. Please contact
+								respective centers for further information.</p>
+
+								<p><b>3. Which center of IAS has the best faculty members?</b><br>
+								IAS tries to serve the students the best Quality Education. So IAS has the best faculty
+								members evenly and fairly distributed among all its centers.</p>
+
+								<p><b>4. Can I get scholarship for any course?</b><br>
+								Scholarship can be availed for most of the courses and eligibility for any scholarship is
+								determined by Scholarship Entrance Test (SET) of the respective course. Please contact
+								respective centers for further information.</p>
+
+								<p><b>5. Does IAS maintain regular contact with guardians?</b><br>
+								IAS is extremely concerned about the performance and upgradation of each student.
+								Regarding this IAS management or the faculty members may contact the guardians if required.
+								Besides IAS-Parents Meetings are organized on a regular basis.</p>
+
+								<p><b>6. What are the payment options available?</b><br>
+								IAS accepts payments throughDraft in favour of ‘INSTITUTE OF APPLIED SCIENCE’
+								payable at ‘KOLKATA’ or through cheques in favour of ‘INSTITUTE OF APPLIED
+								SCIENCE’. IAS also accepts payments in cash. Online Payment option will be available very
+								soon.</p>
 							</div>
 						</div>
 						
@@ -72,16 +92,27 @@
 						<div class="panel-heading">
 							
 							<h4 class="panel-title">
-								<a href="#panelbody2" data-toggle="collapse" data-parent="#accordion"><span class="glyphicon glyphicon-plus-sign picon"></span>Direct Admission</a>
+								<a href="#panelbody2" data-toggle="collapse" data-parent="#accordion"><span class="glyphicon glyphicon-plus-sign picon"></span>10th Level</a>
 							</h4>
 						</div>
 						
 						<div id="panelbody2" class="panel-collapse collapse">
 							<div class="panel-body">
-								<p>IAS offers direct admission option in all of its courses. </p>
-								<p>The direct admission is provided on the basis of percentage of marks secured by the student in his/her Board Examination or last school examination.</p>
-								<p>Each course has a specific percentage admission criterion.</p>
-								<p>However, if a student has not scored a minimum percentage admission criterion in Board/School Exam in Science & Maths (aggregate), then he/she will have to give our ‘Scholarship Entrance Test (SET)’. </p>
+								<p><b>1. What are the courses offered for 10 th level at IAS?</b><br>
+								For this time being the only available course for 10 th level at IAS is the IAS Test Series.</p>
+
+								<p><b>2. How the IAS Test Series helps a student to improve result?</b><br>
+								<ul>	
+									<li>Questions are made by teachers associated with reputed schools, colleges and universities.</li>
+									<li>The evaluation book for each student with their answer sheets is given.</li>
+									<li>10 Doubt Clearing Classes are organized.</li>						
+								
+								</ul> </p>
+
+								<p><b>3. When the IAS Test Series for 10 th level starts?</b><br>
+								Enrollments generally commence five months before the Board Exam. The dates of
+								enrolment and the exam dates along with all other required information will be available at
+								our Notice Board from time to time.</p>
 							</div>
 						</div>
 						
@@ -93,18 +124,43 @@
 						<div class="panel-heading">
 							
 							<h4 class="panel-title">
-								<a href="#panelbody3" data-toggle="collapse" data-parent="#accordion"><span class="glyphicon glyphicon-plus-sign picon"></span>Scholarship Entrance Test (SET)</a>
+								<a href="#panelbody3" data-toggle="collapse" data-parent="#accordion"><span class="glyphicon glyphicon-plus-sign picon"></span>10+2 Level</a>
 							</h4>
 						</div>
 						
 						<div id="panelbody3" class="panel-collapse collapse">
 							<div class="panel-body">
-								<p>IAS offers Scholarship Entrance Test (SET) to the students who are willing to admit in the specific course in which the minimum qualifying marks in the Board Exams is not fulfilled.</p>
-								<p>The syllabus of the entrance test is different for different courses and can be obtained from the information desk at the applying centre.</p>
-								<p>The admission test also gives an opportunity to the student to perform higher and get scholarship also. A student, who has been qualified for our direct admission criteria, can also sit for SET and get himself/herself a scholarship.</p>
-								<p>A student can appear in the SET for a maximum of two chances for seeking admission in a particular course.</p>
-								<p>If a student has taken direct admission and paid registration fee, admission fee & 1st instalment of the remaining fee, then he/she cannot appear for SET to avail any scholarship benefit.
-								</p>
+								<p><b>1. What are the courses offered for 10+2 level at IAS?</b><br>
+								Available courses for 10+2 level at IAS are,
+								<ol>
+									<li> Entrance Exam (Engineering / Medical / Engineering + Medical Combined)</li>
+									<li>  Board Exam (WBCHSE / CBSE / ISC)</li>
+									<li>  Board and Engineering Combined (WBCHSE+Engg / CBSE+Engg / ISC+Engg</li>
+									<li>Board and Medical Combined (WCHSE+Med / CBSE+Med / ISC+Med)</li>
+									<li> Board and Engineering and Medical Combined (WBCHSE+Comb / CBSE+Comb /
+								ISC+Comb)</li>
+									<li> IAS Test Series (For Board Exams)</li>
+									<li> IAS Test Series (For Entrance Exams)</li>
+								</ol>
+								</p>	
+								<p><b>2. How the IAS Test Series helps a student to improve result?</b><br>
+								<ul>
+									<li>Questions are made by teachers associated with reputed schools, colleges and
+								universities.</li>
+									<li>The evaluation book for each student with their answer sheets is given.</li>
+									<li>10 Doubt Clearing Classes are organized.</li>
+								</ul>
+								 </p>
+
+								<p><b>3. When the full time classes for 10+2 level starts?</b><br>
+								Enrollments generally commence in the month of March every year. The dates of
+								enrolment, classes and the exam dates along with all other required information will be
+								available at our Notice Board from time to time.</p>
+
+								<p><b>4. When the IAS Test Series for 10+2 level starts?</b><br>
+								Enrollments generally commence five months before the Board Exam. The dates of
+								enrolment and the exam dates along with all other required information will be available at
+								our Notice Board from time to time.</p>
 							</div>
 						</div>
 						
@@ -116,22 +172,49 @@
 						<div class="panel-heading">
 							
 							<h4 class="panel-title">
-								<a href="#panelbody4" data-toggle="collapse" data-parent="#accordion"><span class="glyphicon glyphicon-plus-sign picon"></span>Provisional Admission</a>
+								<a href="#panelbody4" data-toggle="collapse" data-parent="#accordion"><span class="glyphicon glyphicon-plus-sign picon"></span>Engineering Graduate Level</a>
 							</h4>
 						</div>
 						
 						<div id="panelbody4" class="panel-collapse collapse">
 							<div class="panel-body">
-								<p>If all documents and other requirements are fulfilled by the student, he/she is immediately given admission, however, in some cases provisional admission may be granted to some candidates. The reason behind provisional or temporary admission may be any of the following:
-									<ul>
-										<li>Incomplete documents</li>
-										<li>Incomplete or unsigned application form</li>
-										<li>Missing photographs</li>
-										<li>Less fee deposition.</li>
-										<li>Missing education certificates</li>
-										<li>Missing name change certificates</li>
-									</ul>
+								<p><b>1. What are the courses offered?</b><br>
+								<ul>
+									<li>GATE</li>
+									<li> IES / ESE</li>
+									<li>Training on Robotics with Arduino and PID Control Technology</li>
+								</ul>
 								</p>
+
+								<p><b>2. What are the branches offered by IAS for GATE, IES / ESE courses?</b><br>
+								At this time the branches offered are
+								<ul>
+									<li>Electrical Engineering (EE)</li>
+									<li>Electronics and Communication Engineering (ECE)</li>
+									<li>Instrumentation Engineering (IN)</li>
+									<li>Computer Science and Engineering (CSE</li>
+								</ul></p>
+							</div>
+						</div>
+						
+					</div>
+					
+					<div class="panel panel-primary">
+						
+						<div class="panel-heading">
+							
+							<h4 class="panel-title">
+								<a href="#panelbody5" data-toggle="collapse" data-parent="#accordion"><span class="glyphicon glyphicon-plus-sign picon"></span>Training Courses</a>
+							</h4>
+						</div>
+						
+						<div id="panelbody5" class="panel-collapse collapse">
+							<div class="panel-body">
+								<p><b>1. What are the training courses offered at IAS?</b><br>
+								For this time being IAS offers
+								<ul>
+									<li>Training on Robotics with Arduino and PID Control Technology</li>
+								</ul>
 							</div>
 						</div>
 						

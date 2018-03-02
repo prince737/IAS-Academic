@@ -144,7 +144,7 @@
 		if(mysqli_query($conn,$query))
 		{
 			if(isset($_POST['deny_stu'])){
-				header("Location: ../students.php?sdny='$name'");	
+				header("Location: ../students_all.php?sdny='$name'");	
 			}
 			else{
 				header("Location: ../admin.php?sdny='$name'");	

@@ -141,6 +141,24 @@
 						</ul>
 					</li>
 					<li class="link">
+						<a href="#collapse-pos2" data-toggle="collapse" aria-control="collapse-post1">
+							<i class="fa fa-calendar" aria-hidden="true"></i>
+							<span class="hidden-sm hidden-xs">Study Material</span>
+						</a>
+						<ul class="collapse collapsable" id="collapse-pos2" style="margin:0px; padding:0px; ">
+							<li>
+								<a href="add_notes.php">
+									<span>Add New</span>
+								</a>
+							</li>
+							<li>
+								<a href="remove_notes.php">
+									<span>Remove Existing</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="link">
 						<a href="#collapse-post21" data-toggle="collapse" aria-control="collapse-post21">
 							<i class="fa fa-picture-o" aria-hidden="true"></i>
 							<span class="hidden-sm hidden-xs">Gallery</span>
@@ -332,6 +350,7 @@
 											<img style="display:inline-block;" src="../'.$row['stu_imageLocation'].'" height="200" width="200" class="img-thumnail" /> 
 																							
 											<h3>'.$row['stu_name'].'</h3>
+											<h3 style="padding:0px;">'.$row['stu_roll'].'</h3>
 											
 													
 										</div>
@@ -375,8 +394,20 @@
 													<td class="data">'.$row['stu_gender'].'</td>
 												</tr>
 												<tr>
-													<td>Address:</td>
-													<td class="data">'.$row['stu_address'].'</td>
+													<td>Street:</td>
+													<td class="data">'.$row['stu_street'].'</td>
+												</tr>
+												<tr>
+													<td>City:</td>
+													<td class="data">'.$row['stu_city'].'</td>
+												</tr>
+												<tr>
+													<td>PIN:</td>
+													<td class="data">'.$row['stu_pin'].'</td>
+												</tr>
+												<tr>
+													<td>State:</td>
+													<td class="data">'.$row['stu_state'].'</td>
 												</tr>
 												<tr>
 													<td>Guardian:</td>
@@ -390,11 +421,19 @@
 											</table>
 										</div>	
 										<div class="col-md-4">
-											<h4>Education</h4>
+											<h4>Other Information</h4>
 											<table>
 												<tr>
-													<td>Student Id:</td>
-													<td class="data">'.$row['stu_roll'].'</td>
+													<td>Religion:</td>
+													<td class="data">'.$row['stu_religion'].'</td>
+												</tr>
+												<tr>
+													<td>Category:</td>
+													<td class="data">'.$row['stu_category'].'</td>
+												</tr>
+												<tr>
+													<td>Blood Group:</td>
+													<td class="data">'.$row['stu_blood'].'</td>
 												</tr>
 												<tr>
 													<td>Date of Admimssion:</td>
@@ -492,6 +531,7 @@
 													';													
 												}	
 												
+												
 													
 											echo '</table>
 										</div>		
@@ -502,11 +542,47 @@
 												<input type="hidden" value="'.$row['stu_email'].'" name="email"></input>
 												<input type="hidden" value="'.$row['stu_name'].'" name="name"></input>';
 												if($row['stu_approvalstatus']==0 ){
-													echo '<button class="btn btn-xs btn-success" type="submit" name="approve_stu"><span class="fa fa-thumbs-o-up"></span>Approve</button>';
+													echo '
+													
+													<button class="btn btn-xs btn-success" data-target="#Modalappr'.$i.'" data-toggle="modal" type="button">Approve</button>
+																
+													<div class="modal fade" id="Modalappr'.$i.'">
+														<div class="modal-dialog modal-sm">
+															<div class="modal-content" >
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal">&times;</button>	<h4>Approve Student?</h4>				
+																</div>
+																<div class="modal-body">
+																	Sure to approve '.$row['stu_name'].'?
+																</div> 
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">Close</button>
+																		<button type="submit" class="btn btn-success btn-xs" name="approve_stu">Approve </button>
+																</div>		
+															</div>
+														</div>
+													</div>';
 													echo '<button class="btn btn-xs btn-danger" data-target="#Modal'.$i.'" data-toggle="modal" name="deny_stu" type="button" ><span class="fa fa-trash-o"></span>Delete</button>	';
 												}
 												elseif($row['stu_approvalstatus']==2 ){
-													echo '<button class="btn btn-xs btn-success" type="submit" name="approve_stu"><span class="fa fa-thumbs-o-up"></span>Re-approve</button>';
+													echo '<button class="btn btn-xs btn-success" data-target="#Modalrappr'.$i.'" data-toggle="modal" type="button">Re-Approve</button>
+													
+													<div class="modal fade" id="Modalrappr'.$i.'">
+														<div class="modal-dialog modal-sm">
+															<div class="modal-content" >
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal">&times;</button>	<h4>Approve Student?</h4>				
+																</div>
+																<div class="modal-body">
+																	Sure to re-approve '.$row['stu_name'].'?
+																</div> 
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">Close</button>
+																		<button type="submit" class="btn btn-success btn-xs" name="approve_stu">Approve </button>
+																</div>		
+															</div>
+														</div>
+													</div>';
 												}												
 												else{
 													echo '<button class="btn btn-xs btn-danger" data-target="#Modal'.$i.'" data-toggle="modal" name="deny_stu" type="button"><span class="fa fa-trash-o"></span>Delete</button>	';

@@ -48,8 +48,7 @@
 	}
 	
 	
-	$query ="Select * from events";
-	$result =@mysqli_query($conn,$query);
+	
 	
 ?>
 
@@ -62,6 +61,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/default.css">
 	<link rel="stylesheet" type="text/css" href="css/active-notices.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/css/chosen.min.css">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -234,8 +234,8 @@
 						
 							
 							<?php
-								if($result)
-								{	
+								$query ="Select * from events";
+								$result=mysqli_query($conn, $query);
 									$i = 1;	
 									while($row = mysqli_fetch_array($result))
 									{
@@ -285,65 +285,7 @@
 															<span class="fa fa-pencil" aria-hidden="true">&nbsp;Edit</span>
 														</button> 
 														
-														
-														<div class="modal fade" id="Modal'.$i.'"  >
-															<div class="modal-dialog">
-																<div class="modal-content" >
-																	<div class="modal-header">
-																		<button type="button" class="close" data-dismiss="modal">&times;</button>	<h4 style="color:teal;">Update Event</h4>
-																		<h6>*Leave as it is if no changes are required</h6>	
-																	</div>
-																	<div class="modal-body">
-																		<input type="hidden" value="'.$row['eid'].'" name="eid"></input>
-																		
-																		
-																		
-																		<div class="form-group">
-																			<label for="datepicker">Update Start Date</label>
-																			<input type="text" class="form-control" name="startdate" id="datepicker"  value="'.$row['events_startdate'].'"/>
-																		</div>
-																		<div class="form-group">
-																			<label for="datepicker">Update End Date</label>
-																			<input type="text" class="form-control" name="enddate" id="datepicker2"  value="'.$row['events_enddate'].'"/>
-																		</div>
-																		<div class="form-group">
-																			<label for="datepicker">Update Start Time</label>
-																			<input type="text" class="form-control" name="stime"" value="'.$row['events_starttime'].'" maxlength="8"/>
-																		</div>
-																		<div class="form-group">
-																			<label for="datepicker">Update End Time</label>
-																			<input type="text" class="form-control" name="etime"" value="'.$row['events_endtime'].'" maxlength="8"/>
-																		</div>
-																		<div class="form-group">
-																			<label for="datepicker">Update Heading</label>
-																			<input type="text" class="form-control" name="heading"" value="'.$row['events_heading'].'"/>
-																		</div>
-																		<div class="form-group">
-																			<label for="body">Update Body</label>
-																			<textarea class="form-control" id="body'.$i.'" name="body" rows="5"></textarea>
-																		</div>
-																		<script>
-																			document.getElementById("body'.$i.'").value = "'.$row['events_body'].'";
-																		</script>
-																		
-																		
-																		<div class="checkbox">
-																			<label>
-																				<input type="checkbox" name="save">Publish Notice when I click on save
-																			</label>
-																		</div>
-																		
-																	</div> 
-																	<div class="modal-footer">
-																		<button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">Close</button>
-																		<button type="submit" class="btn btn-primary btn-xs" name="update">Save / Publish</button>
-																	</div>		
-																</div>
-															</div>
-														</div>
-														
-														
-																											
+																										
 														
 														<button class="btn btn-xs btn-default" type="button" role="buton" name="delete" data-target="#dModal'.$i.'" data-toggle="modal">
 															<span class="fa fa-remove" aria-hidden="true">&nbsp;Delete</span>
@@ -373,26 +315,102 @@
 										</div>
 										<hr>
 										';
-										$i++;
+										
+										
+										echo '
+										<form action="includes/events.inc.php" method="POST" enctype="multipart/form-data">
+											<div class="modal fade" id="Modal'.$i.'"  >
+												<div class="modal-dialog">
+													<div class="modal-content" >
+														<div class="modal-header">
+															<button type="button" class="close" data-dismiss="modal">&times;</button>	<h4 style="color:teal;">Update Event</h4>
+															<h6>*Leave as it is if no changes are required</h6>	
+														</div>
+														<div class="modal-body">
+															'.$row['eid'].'
+															<input type="hidden" value="'.$row['eid'].'" name="eid"></input>	
+															
+															 
+															<div class="form-group">
+																<select class="form-control chosen_select" name="courses[]" required multiple data-placeholder="Choose who this event is for">	
+																	<option value="all">ALL</option>	';
+																	
+																		$eventfor=array();
+																		$sql="select * from event_for where event_id=".$row['eid'];
+																		$res=mysqli_query($conn,$sql);
+																		while($ef=mysqli_fetch_array($res)){
+																			$eventfor[]=$ef['course_id'];
+																		}
+																		
+																		
+																		
+																		$query ="select * from courses";
+																		$resul=mysqli_query($conn,$query);										
+																		while($row1 = mysqli_fetch_array($resul)){	  
+																			if(in_array($row1['course_id'],$eventfor)){
+																				echo '<option value="'.$row1['course_id'].'" selected>'.$row1['course_name'].' - '.$row1['course_type'].'</option>';		
+																			}
+																			else{
+																				echo '<option value="'.$row1['course_id'].'">'.$row1['course_name'].' - '.$row1['course_type'].'</option>';
+																			}																			
+																			
+																		}	
+																echo '</select>	
+															</div>
+															
+																		
+															<div class="form-group">
+																<label for="datepicker">Update Start Date</label>
+																<input type="text" class="form-control" name="startdate" id="datepicker"  value="'.$row['events_startdate'].'"/>
+															</div>
+															<div class="form-group">
+																<label for="datepicker">Update End Date</label>
+																<input type="text" class="form-control" name="enddate" id="datepicker2"  value="'.$row['events_enddate'].'"/>
+															</div>
+															<div class="form-group">
+																<label for="datepicker">Update Start Time</label>
+																<input type="text" class="form-control" name="stime"" value="'.$row['events_starttime'].'" maxlength="8"/>
+															</div>
+															<div class="form-group">
+																<label for="datepicker">Update End Time</label>
+																<input type="text" class="form-control" name="etime"" value="'.$row['events_endtime'].'" maxlength="8"/>
+															</div>
+															<div class="form-group">
+																<label for="datepicker">Update Heading</label>
+																<input type="text" class="form-control" name="heading"" value="'.$row['events_heading'].'"/>
+															</div>
+															<div class="form-group">
+																<label for="body">Update Body</label>
+																<textarea class="form-control" name="body" rows="5">'.$row['events_body'].'</textarea>
+															</div>
+															
+																		
+																		
+															<div class="checkbox">
+																<label>
+																	<input type="checkbox" name="save">Publish Notice when I click on save
+																</label>
+															</div>
+															
+														</div> 
+														<div class="modal-footer">
+															<button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">Close</button>
+															<button type="submit" class="btn btn-primary btn-xs" name="update">Save / Publish</button>
+														</div>		
+													</div>
+												</div>
+											</div>
+										</form>
+										';
+										
+										global $i;
+										$i=$i+1;
+										
 									}
-								}
+								
 							?>
 						
-						<div class="row">
-							<div class="col-md-12">
-								<nav>
-									<ul class="pagination">
-										<li><a href="#">&laquo;</a></li>
-										<li><a href="#">1</a></li>
-										<li><a href="#">2</a></li>
-										<li><a href="#">3</a></li>
-										<li><a href="#">4</a></li>
-										<li><a href="#">5</a></li>
-										<li><a href="#">&raquo;</a></li>
-									</ul>
-								</nav>
-							</div>
-						</div>
+						
 					</div>										
 				</div> <!-- end of content-->
 			</div>
@@ -413,6 +431,16 @@
 				altFormat: "yy-mm-dd",
 			});
 	  });
+	</script>
+	<script src="../vendor/js/chosen.jquery.min.js"></script>
+	<script>
+		$(".chosen_select").chosen({
+			disable_search_threshold: 10,
+			no_results_text: "Oops, nothing found!",
+			width: "100%"
+		});
+
+	
 	</script>
 	<script>
 		window.onload = function () {

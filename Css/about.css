@@ -67,6 +67,12 @@ html, body {
 	line-height:25px;
 }
 
+.about ul li{
+	color:#212121;
+	font-size:16px;
+	line-height:25px;
+}
+
 .about h1::before{
 	content:"";
 	position:absolute;

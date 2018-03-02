@@ -98,14 +98,20 @@
 	$pdf->Ln(10);
 	
 	//ADDRESS FORMATTING
-	$addr = preg_replace('/(.*), (.*), /', "$1,$2\n", $row['stu_address']);
+	$addr = preg_replace('/(.*), (.*), /', "$1,$2\n", $row['stu_street']);
 	
 	//LEFT COLUMN
 	$pdf->SetFont('Times','BI',14);
 	$pdf->Cell(50 ,10,'Communication Address',0,1);
 	$pdf->SetX(15);
 	$pdf->SetFont('Arial','',10);
-	$pdf->MultiCell(50 ,5,$addr,0,1);
+	$pdf->MultiCell(80 ,5,$row['stu_street'],0,1);
+	$pdf->SetX(15);
+	$pdf->Cell(50 ,5,$row['stu_city'],0,1);
+	$pdf->SetX(15);
+	$pdf->Cell(50 ,5,'PIN- '.$row['stu_pin'],0,1);
+	$pdf->SetX(15);
+	$pdf->Cell(50 ,5,$row['stu_state'],0,1);
 	$pdf->SetX(15);
 	$pdf->Cell(50 ,5,'johndoe@example.com ',0,1);
 	

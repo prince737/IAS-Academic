@@ -62,6 +62,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/default.css">
 	<link rel="stylesheet" type="text/css" href="css/active-notices.css">
+	<link rel="stylesheet" type="text/css" href="../vendor/css/chosen.min.css">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -149,6 +150,24 @@
 							<li>
 								<a href="active_events.php">
 									<span>View Active</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="link">
+						<a href="#collapse-pos2" data-toggle="collapse" aria-control="collapse-post1">
+							<i class="fa fa-calendar" aria-hidden="true"></i>
+							<span class="hidden-sm hidden-xs">Study Material</span>
+						</a>
+						<ul class="collapse collapsable" id="collapse-pos2" style="margin:0px; padding:0px; ">
+							<li>
+								<a href="add_notes.php">
+									<span>Add New</span>
+								</a>
+							</li>
+							<li>
+								<a href="remove_notes.php">
+									<span>Remove Existing</span>
 								</a>
 							</li>
 						</ul>
@@ -291,20 +310,48 @@
 																		<input type="hidden" value="'.$row['notices_location'].'" name="location"></input>
 																		
 																		
+																		
+																		<div class="form-group">
+																			<select class="form-control chosen_select" name="courses[]" required multiple data-placeholder="Choose who this event is for">	
+																				<option value="all">ALL</option>	';
+																				
+																					$noticefor=array();
+																					$sql="select * from notice_for where notice_id=".$row['nid'];
+																					$res=mysqli_query($conn,$sql);
+																					while($nf=mysqli_fetch_array($res)){
+																						$noticefor[]=$nf['course_id'];
+																					}
+																					
+																					
+																					
+																					$query ="select * from courses";
+																					$resul=mysqli_query($conn,$query);										
+																					while($row1 = mysqli_fetch_array($resul)){	  
+																						if(in_array($row1['course_id'],$noticefor)){
+																							echo '<option value="'.$row1['course_id'].'" selected>'.$row1['course_name'].' - '.$row1['course_type'].'</option>';		
+																						}
+																						else{
+																							echo '<option value="'.$row1['course_id'].'">'.$row1['course_name'].' - '.$row1['course_type'].'</option>';
+																						}																			
+																						
+																					}	
+																			echo '</select>	
+																		</div>
+																		
+																		
+																		
 																		<div class="form-group">
 																			<label for="datepicker">Update Date</label>
 																			<input type="text" class="form-control" name="date" id="datepicker" placeholder="Date (YYYY-MM-DD)" value="'.$row['notices_date'].'"/>
 																		</div>
 																		<div class="form-group">
 																			<label for="body">Update Body</label>
-																			<textarea class="form-control" id="body'.$i.'" name="body"></textarea>
+																			<textarea class="form-control"  name="body">'.$row['notices_content'].'</textarea>
 																		</div>
-																		<script>
-																			document.getElementById("body'.$i.'").value = "'.$row['notices_content'].'";
-																		</script>
+																		
 																		<div class="form-group">
 																			<label for="files">Update File</label>
-																			<input type="file" class="form-control" name="files" id="doc" accept=".pdf, .doc" />
+																			<input type="file" class="form-control" name="files"  id="doc" accept=".pdf, .doc" />
 																		</div>
 																		
 																		<div class="checkbox">
@@ -356,21 +403,7 @@
 								}
 							?>
 						
-						<div class="row">
-							<div class="col-md-12">
-								<nav>
-									<ul class="pagination">
-										<li><a href="#">&laquo;</a></li>
-										<li><a href="#">1</a></li>
-										<li><a href="#">2</a></li>
-										<li><a href="#">3</a></li>
-										<li><a href="#">4</a></li>
-										<li><a href="#">5</a></li>
-										<li><a href="#">&raquo;</a></li>
-									</ul>
-								</nav>
-							</div>
-						</div>
+						
 					</div>										
 				</div> <!-- end of content-->
 			</div>
@@ -392,11 +425,21 @@
 			});
 	  });
 	</script>
+	<script src="../vendor/js/chosen.jquery.min.js"></script>
+	<script>
+		$(".chosen_select").chosen({
+			disable_search_threshold: 10,
+			no_results_text: "Oops, nothing found!",
+			width: "100%"
+		});
+
+	
+	</script>
 	<script>
 		window.onload = function () {
 			document.getElementById('button').onclick = function () {
 				document.getElementById('success-modal').style.display = "none"
-				window.location.replace('active-notices.php');
+				window.location.replace('active_notices.php');
 			};
 		};
 	</script>

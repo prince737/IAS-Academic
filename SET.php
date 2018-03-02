@@ -29,7 +29,8 @@
 	</div>
 	
 	<ol class="breadcrumb">
-		<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+		<li class="breadcrumb-item"><a href="index.php">Home</a></li>
+		<li class="breadcrumb-item"><a href="admissions.php">Admissions</a></li>
 		<li class="breadcrumb-item active">Scholarship Entrance Test (SET)</li>
 	</ol>
 	
@@ -39,7 +40,6 @@
 		
 			<div class="col-sm-4 navigation">
 				<ul>
-					<li ><a href="admissions.php" >Admission Process</a></li>
 					<li><a href="direct_adm.php">Direct Admission</a></li>
 					<li><a href="#" class="select" style="color:#ab5443;">Scholarship Entrance Test (SET)</a></li>
 					<li><a href="provisional.php">Provisional Admission</a></li>

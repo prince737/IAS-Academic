@@ -139,6 +139,24 @@
 						</ul>
 					</li>
 					<li class="link">
+						<a href="#collapse-pos2" data-toggle="collapse" aria-control="collapse-post1">
+							<i class="fa fa-calendar" aria-hidden="true"></i>
+							<span class="hidden-sm hidden-xs">Study Material</span>
+						</a>
+						<ul class="collapse collapsable" id="collapse-pos2" style="margin:0px; padding:0px; ">
+							<li>
+								<a href="add_notes.php">
+									<span>Add New</span>
+								</a>
+							</li>
+							<li>
+								<a href="remove_notes.php">
+									<span>Remove Existing</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="link">
 						<a href="#collapse-post21" data-toggle="collapse" aria-control="collapse-post1">
 							<i class="fa fa-picture-o" aria-hidden="true"></i>
 							<span class="hidden-sm hidden-xs">Gallery</span>
@@ -231,15 +249,16 @@
 								</div>
 								
 								<div class="form-group ">
-									<select class="form-control chosen_select" id="he" name="classes[]" required multiple data-placeholder="Choose who this notice is for">	
+									<select class="form-control chosen_select" id="he" name="courses[]" required multiple data-placeholder="Choose who this notice is for">	
+										<option value="all">ALL</option>
 										<?php	
-											$query ="select course_name,course_type from courses";
+											$query ="select * from courses";
 											$result=mysqli_query($conn,$query);
 											$i=0;
 											while($row = mysqli_fetch_array($result)){												
-												echo '<option>'.$row['course_name'].' - '.$row['course_type'].'</option>';
+												echo '<option value="'.$row['course_id'].'">'.$row['course_name'].' - '.$row['course_type'].'</option>';
 											}	
-										?>		
+										?>			
 										
 									</select>	
 								</div>
@@ -274,8 +293,8 @@
 			width: "100%"
 		});
 
-	
-	</script>
+			
+	</script>	
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	

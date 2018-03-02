@@ -54,18 +54,11 @@
 									?>	
 								</ul>
 							</li>
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="admn">ADMISSIONS<span class="caret"></span></a>
-								<ul class="dropdown-menu" >
-									
-									<li><a tabindex="-1" href="admissions.php">ADMISSION PROCESS</a></li>
-									<li><a tabindex="-1" href="direct_adm.php">DIRECT ADMISSION</a></li>
-									<li><a tabindex="-1" href="SET.php">SCHOLARSHIP ENTRANCE TEST (SET)</a></li>
-									<li><a tabindex="-1" href="provisional.php">PROVISIONAL ADMISSION</a></li>
-
-								</ul>
-
+							<li>
+								<a href="admissions.php" class="smoothScroll" id="admn">ADMISSIONS</a>
+								
 							</li>
+							
 							<li>
 								<a href="login.php" class="smoothScroll" id="exam">ONLINE EXAMS</a>
 								
@@ -73,7 +66,7 @@
 							
 							
 							<li>
-								<a href="gallery.php" class="smoothScroll">GALLERY</a>
+								<a href="505.php" class="smoothScroll">GALLERY</a>
 								
 							</li>
 							<li class="dropdown">
