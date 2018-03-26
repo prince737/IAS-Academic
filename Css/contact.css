@@ -240,7 +240,7 @@ html, body {
 .opening{
 	background:#da4d3c!important;
     height:160px;
-	margin:20px 80px; 
+	margin:20px 80px;
 	color:#fff;
 	font-size:35px;
 	position: relative;
@@ -317,13 +317,22 @@ html, body {
 
 
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   
   
 
 	.map{
 		display:none;
     }
+	
+	.opening{
+		margin:0px;
+		padding-top:17%;
+		color:#fff;
+		font-size:35px;
+		position: relative;
+		line-height:40px;
+	}
 	
 	
 }

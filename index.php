@@ -22,6 +22,7 @@
 	<link rel="stylesheet" type="text/css" href="css/aos.css">
 	<link rel="stylesheet" type="text/css" href="vendor/css/lightslider.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 	
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" type="image/jpg" href="images/logo.jpg" />
@@ -65,14 +66,14 @@
 
 					<div class="carousel-inner" role="listbox">
 						<div class="item active">
-							<a href="#" title="Click to Know More!">
-								 <img src="images/ias.png" />								 
+							<a href="" title="Click to Know More!">
+								<img src="images/SET218002.png" />   						 
 							</a> 
 						</div>
                         <div class="item">
 							<a href="courses.php?crX=IAS Test Series" title="Click to Know More!">
-                             <img src="images/Home2.png" />                            
-							 </a>
+								<img src="images/Home2.png" />									 
+							</a>
                         </div>                       
                         <div class="item">
 							<a href="courses.php?crX=GATE / PSU / IES" title="Click to Know More!">
@@ -152,18 +153,6 @@
 			</div>
 		</div>
 	</div>  <!--END OF  CAROUSEL -->
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 
@@ -517,7 +506,30 @@
 		</div>
 	</div>-->
 	
-
+	<!-- SET MODAL -->
+	
+	<div id="set" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content" >				
+				<div class="modal-body">
+						<p class="title"><span>IAS</span> TALENT SEARCH 2018</p>
+						<p class="know">through </p>
+						<p class="test">Scholarship Entrance Test</p>
+						<img src="images/set.png"></img>
+						<p class="know-hl">Medal and Certificates for best Performers </p>
+						<p class="know">And get upto 100% scholarship for tution fees of courses at IAS</p>
+						<a href="set_enroll.php" class="set_enroll btn" id="enroll">Enroll Now</a>
+					
+					
+					
+					
+				</div> 
+				<div class="modal-footer">
+					<a href="#"><i class="fa fa-arrow-left"></i>LEARN MORE</a>
+				</div>			
+			</div>
+		</div>
+	</div>
 	
 	<?php
 	
@@ -526,14 +538,18 @@
 	?>
 	
 
-    <script src="js/jquery-3.2.1.min.js"></script> 
-    <script src="js/bootstrap.js"></script>
-	<script src="js/aos.js"></script>
+    <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script> 	
+    <script src="js/bootstrap.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(window).on('load', function () {
+			$('#set').modal('show');
+		});
+	</script>	
 	
-	<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>	
+	<script src="js/aos.js"></script>	
 	<script src="js/jquery.marquee.js" type="text/javascript"></script>
 	
-
+	
 	<script>
 		$('.marquee').marquee({
 			duration: 10000,
@@ -635,6 +651,9 @@
 	<script>
 		$('#home').addClass('actv');
 	</script>
+	
+	
+	
     
 </body>
 

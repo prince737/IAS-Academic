@@ -159,7 +159,6 @@
 	
 <script src="js/jquery-3.2.1.min.js"></script>   
 <script src="js/bootstrap.js"></script>
-<script src="js/jquery-3.2.1.min.js"></script>
 <script>
 	$('#email').on('blur', function(){
 		if(!this.value.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/))
