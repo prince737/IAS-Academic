@@ -164,7 +164,7 @@
 				<h4 class="label-primary text-center">NOTICEBOARD</h4>
 				<div class="notice-board">
 					<?php
-						$query ="Select * from notices where notices_status=1 order by STR_TO_DATE(notices_date, '%M %d, %Y') DESC";
+						$query ="Select * from notices where notices_status=1 order by strtotime(notices_date) DESC";
 						$result =@mysqli_query($conn,$query);
 						$count=mysqli_num_rows($result);
 						if($count < 1){
@@ -512,6 +512,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content" >				
 				<div class="modal-body">
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
 						<p class="title"><span>IAS</span> TALENT SEARCH 2018</p>
 						<p class="know">through </p>
 						<p class="test">Scholarship Entrance Test</p>

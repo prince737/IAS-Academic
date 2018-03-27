@@ -272,8 +272,14 @@ elseif(isset($_POST['course_name']) && $hidden != 'he'){
 	
 	$courseType = $_POST['course_type'];	
 	
+	$courseType = $_POST['course_type'];
+	$query="select course_id from courses where course_name='$courseName' and course_type='$courseType'";
+	$res=mysqli_query($conn,$query);
+	$row=mysqli_fetch_array($res);
+	$courseId= $row['course_id'];
+	
 	$query = http_build_query($arr);
-	header("Location: ../registration.php?class=$he&$query1&select=$courseType&courseName=$courseName#education");
+	header("Location: ../registration.php?class=$he&$query1&select=$courseType&courseName=$courseName&cid=$courseId#education");
 	exit();
 	
 	
@@ -286,7 +292,6 @@ elseif(isset($_POST['course_type']) && $hidden != 'he'){
 	$val= array(simple_crypt($name,'e'),simple_crypt($dob,'e'),simple_crypt($email,'e'),simple_crypt($contact,'e'),simple_crypt($gname,'e'),simple_crypt($gcontact,'e'),simple_crypt($address,'e'),simple_crypt($he,'e'),simple_crypt($inst,'e'),simple_crypt($yop,'e'),simple_crypt($gender, 'e'),$edu, $dept, $university, $college, $school, $he_other, $sub_combo,$religion,$blood,$category,$street,$pin,$city,$state);
 	$query1 = http_build_query($val);	
 	
-	$courseType = $_POST['course_type'];
 	
 	
 	header("Location: ../registration.php?class=$he&$query1&select=$courseType#education");

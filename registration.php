@@ -418,15 +418,11 @@ $lang = 'en';
 						}
 						
 						
-						if(isset($_GET['courseName'])){
-							if($_GET['courseName'] == 'Robotics with ARDUINO '){
-								$name = 'Robotics with ARDUINO & PID';
-							}
-							else{
-								$name= $_GET['courseName'];
-							}
+						if(isset($_GET['cid'])){
 							
-							$query = "select center_id from course_center where course_id=(select course_id from courses where course_name = '$name')";
+							$cor_id= $_GET['cid'];
+														
+							$query = "select center_id from course_center where course_id='$cor_id'";
 							$res = mysqli_query($conn, $query);
 							
 							echo '

@@ -83,7 +83,7 @@
 
 								</ul>
 							</li>
-							<li class="dropdown">
+							<span class="clearfix hidden-lg hidden-md hidden-sm"></span>
 							
 								<?php
 									if(isset($_SESSION['student'])){
@@ -91,13 +91,16 @@
 										$query = "select * from students where stu_email='$email'";
 										$result = mysqli_query($conn, $query);
 										$row=mysqli_fetch_array($result);
-										echo '<a href="profile.php" class="dropdown-toggle" data-toggle="dropdown">ACCOUNT<span class="caret"></span></a>
+										echo '
+										    <li class="dropdown">
+											  <a href="profile.php" class="dropdown-toggle" data-toggle="dropdown">ACCOUNT<span class="caret"></span></a>
 											  <ul class="dropdown-menu pull-right" >
 									
 												  <li><a tabindex="-1" href="profile.php">PROFILE HOME</a></li>
 												  <li><a tabindex="-1" href="profile.php">ACCOUNT SETTINGS</a></li>
 												  <li><form action="includes/logout.inc.php" method="POST"><button name="logout" tabindex="-1" class="logout" >LOGOUT</button></form></li>
 											  </ul>	
+											</li>  
 										';
 									}
 									elseif(isset($_COOKIE['student'])){
@@ -105,18 +108,23 @@
 										$query = "select * from students where stu_email='$email'";
 										$result = mysqli_query($conn, $query);
 										$row=mysqli_fetch_array($result);
-										echo '<a href="profile.php" class="dropdown-toggle" data-toggle="dropdown">ACCOUNT<span class="caret"></span></a>
+										echo '
+										    <li class="dropdown">
+										       <a href="profile.php" class="dropdown-toggle" data-toggle="dropdown">ACCOUNT<span class="caret"></span></a>
 											  <ul class="dropdown-menu pull-right" >
 									
 												  <li><a tabindex="-1" href="profile.php">PROFILE HOME</a></li>
 												  <li><a tabindex="-1" href="profile.php">ACCOUNT SETTINGS</a></li>
 												  <li><form action="includes/logout.inc.php" method="POST"><button name="logout" tabindex="-1" class="logout" >LOGOUT</button></form></li>
 											  </ul>	
+											</li>  
 										';
 									}
 									else{
-										echo '<a href="login.php" class="smoothScroll">LOG IN</a>
-											  
+										echo '
+										   <li>
+											<a href="login.php" class="smoothScroll">LOG IN</a>
+										   </li>	
 										';
 									}
 									

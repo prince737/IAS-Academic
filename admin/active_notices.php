@@ -196,6 +196,12 @@
 							<span class="hidden-sm hidden-xs">Queries</span>
 						</a>
 					</li>
+					<li class="link">
+						<a href="set.php">
+							<i class="fa fa-pencil"></i>
+							<span class="hidden-sm hidden-xs">Scholarship Entrance Test</span>
+						</a>
+					</li>
 					<li class="link online-exam">
 						<a href="#">
 							<i class="fa fa-tasks" aria-hidden="true"></i>

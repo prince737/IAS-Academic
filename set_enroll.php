@@ -65,10 +65,11 @@
 						<div class="input-field col s12 m10 l7">
 							<select required name="exam">
 							  <option value="" disabled selected>Choose your option</option>
-							  <option value="01">Class IX</option>
-							  <option value="02">Class X</option>
-							  <option value="03">Class XI</option>
-							  <option value="04">Class XII</option>
+							  <option value="01">Class VIII</option>
+							  <option value="02">Class IX</option>
+							  <option value="03">Class X</option>
+							  <option value="04">Class XI</option>
+							  <option value="05">Class XII</option>
 							</select>
 							<label>Last Final Exam you appeared for:</label>
 						</div>

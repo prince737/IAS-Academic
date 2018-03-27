@@ -182,6 +182,12 @@
 							<span class="hidden-sm hidden-xs">Queries</span>
 						</a>
 					</li>
+					<li class="link">
+						<a href="set.php">
+							<i class="fa fa-pencil"></i>
+							<span class="hidden-sm hidden-xs">Scholarship Entrance Test</span>
+						</a>
+					</li>
 					<li class="link online-exam">
 						<a href="#">
 							<i class="fa fa-tasks" aria-hidden="true"></i>
@@ -281,7 +287,6 @@
 									<option value="0">All Pending Approval</option>
 									<option value="1">All Approved</option>									
 									<option value="2">All Denied</option>
-									
 								</select>
 							</div>	
 								
@@ -318,7 +323,7 @@
 								
 								if(isset($_POST['search'])){
 									$search = mysqli_real_escape_string($conn, $_POST['field']);
-									$query = "select * from students where stu_name LIKE '%$search%' OR stu_email LIKE '%$search%' OR stu_address LIKE '%$search%' OR stu_highestdegree LIKE '%$search%' OR stu_roll LIKE '%$search%'";
+									$query = "select * from students where stu_name LIKE '%$search%' OR stu_email LIKE '%$search%' OR stu_city LIKE '%$search%' OR stu_highestdegree LIKE '%$search%' OR stu_roll LIKE '%$search%'";
 									$result = mysqli_query($conn, $query);
 									$count = mysqli_num_rows($result);
 								}
@@ -644,10 +649,6 @@
 												$j++;	
 														
 											}		
-										
-										
-										
-											
 									
 									echo '
 									</tbody>
