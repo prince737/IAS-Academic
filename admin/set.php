@@ -213,17 +213,17 @@
 					</header>	
 					<div class="container-fluid">	
 						<div class="row filter-row">
-							<form action="set.php" method="POST">
+							<form action="set.php" method="GET">
 								<div class="form-group col-md-4 col-xs-6"  style="margin-top:10px;">					
 									<select class="form-control" required name="apprv" onchange="this.form.submit();">
-										<option <?php if(isset($_POST['apprv']) && $_POST['apprv']=='all'){echo 'selected';}?>value="all" >All Approval Status</option>
-										<option value="0" <?php if(isset($_POST['apprv']) && $_POST['apprv']==0){echo 'selected';}?>>All Pending</option>
-										<option value="1"<?php if(isset($_POST['apprv']) && $_POST['apprv']==1){echo 'selected';}?>>All Approved</option>									
-										<option value="2"<?php if(isset($_POST['apprv']) && $_POST['apprv']==2){echo 'selected';}?>>All Denied</option>									
+										<option value="all"<?php if(isset($_GET['apprv']) && $_GET['apprv']=='all'){echo 'selected';}?>>All Approval Status</option>
+										<option value="0" <?php if(isset($_GET['apprv']) && $_GET['apprv']=='0'){echo 'selected';}?>>All Pending</option>
+										<option value="1"<?php if(isset($_GET['apprv']) && $_GET['apprv']=='1'){echo 'selected';}?>>All Approved</option>									
+										<option value="2"<?php if(isset($_GET['apprv']) && $_GET['apprv']=='2'){echo 'selected';}?>>All Denied</option>									
 									</select>
 								</div>	
 							</form>
-								
+ 								
 								
 							<form action="set.php" method="POST" class="navbar-form navbar-right col-md-6 search-form" role="search" style="margin-top:10px;">
 								<div class="form-group">
@@ -262,8 +262,8 @@
 									$result = mysqli_query($conn, $query);
 									$count = mysqli_num_rows($result);
 								}
-								elseif(isset($_POST['apprv'])){
-									$apprv = mysqli_real_escape_string($conn, $_POST['apprv']);
+								elseif(isset($_GET['apprv'])){
+									$apprv = mysqli_real_escape_string($conn, $_GET['apprv']);
 									if($apprv=='all'){
 										$sql='SELECT  * FROM sett LIMIT ' . $this_page_first_result . ',' .  $results_per_page;
 										$result = mysqli_query($conn, $sql);
@@ -432,11 +432,13 @@
 													elseif($row['set_status']==1 ){
 														if($row['set_admitStatus']==0){
 															echo '<button class="btn btn-xs btn-success" type="button" 
-														data-target="#Modalgen'.$i.'" data-toggle="modal"">Generate Admit Card</button> ';
+														data-target="#Modalgen'.$i.'" data-toggle="modal">Generate Admit Card</button> ';
 														}
 														else{
-															echo '<button class="btn btn-xs btn-warning" type="button" 
-														">View Admit Card</button> ';
+															echo '<a href="SET_admit.php?id='.$row['id'].'" class="btn btn-xs btn-success" type="button" 
+														">View Admit Card</a> ';
+														echo '<button class="btn btn-xs btn-warning" type="button" 
+														data-target="#Modalupd'.$i.'" data-toggle="modal">Update Date / Time</button> ';
 														}
 														
 														echo '<button class="btn btn-xs btn-danger" type="button" data-target="#Modal'.$i.'" data-toggle="modal" name="deny_stu">Deny</button> ';
@@ -506,6 +508,29 @@
 																<div class="modal-footer">
 																	<button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">Close</button>
 																	<button type="submit" class="btn btn-success btn-xs" name="gen">Generate Admit Card </button>
+																</div>		
+															</div>
+														</div>
+													</div>													
+												</form>	
+
+												<form action="includes/set.inc.php" method="POST" id="stu_form">
+													<input type="hidden" value="'.$row['id'].'" name="id"></input>
+													<div class="modal fade" id="Modalupd'.$i.'">
+														<div class="modal-dialog modal-sm">
+															<div class="modal-content" >
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal">&times;</button>	<h4>Update date and time slot for '.$row['set_name'].'</h4>				
+																</div>
+																<div class="modal-body">
+																	<label for="date">UPDATE ASSIGNED DATE OF EXAM:</label>
+																	<input type="text" class="form-control" id="datepicker'.$i.'" name="date" required value="'.$row['set_dateAssigned'].'"/>
+																	<label for="time">UPDATE ASSIGNED TIME SLOT OF EXAM:</label>
+																	<input type="text" class="form-control" id="time" name="time" required value="'.$row['set_timeAssigned'].'"/>
+																</div> 
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">Close</button>
+																	<button type="submit" class="btn btn-success btn-xs" name="upd">Update assigned Date / Time</button>
 																</div>		
 															</div>
 														</div>

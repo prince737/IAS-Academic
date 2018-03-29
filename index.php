@@ -512,18 +512,15 @@
 		<div class="modal-dialog">
 			<div class="modal-content" >				
 				<div class="modal-body">
-				        <button type="button" class="close" data-dismiss="modal">&times;</button>
-						<p class="title"><span>IAS</span> TALENT SEARCH 2018</p>
-						<p class="know">through </p>
-						<p class="test">Scholarship Entrance Test</p>
-						<img src="images/set.png"></img>
-						<p class="know-hl">Medal and Certificates for best Performers </p>
-						<p class="know">And get upto 100% scholarship for tution fees of courses at IAS</p>
-						<a href="set_enroll.php" class="set_enroll btn" id="enroll">Enroll Now</a>
-					
-					
-					
-					
+				    <button type="button" class="close" data-dismiss="modal">&times;</button>
+					<p class="title"><span>IAS</span> TALENT SEARCH 2018</p>
+					<p class="know">through </p>
+					<p class="test">Scholarship Entrance Test</p>
+					<small class="small">(Tentative Date: 3rd Week of April)</small>
+					<img src="images/set.png"></img>
+					<p class="know-hl">Medal and Certificates for best Performers </p>
+					<p class="know">And get upto 100% scholarship for tution fees of courses at IAS</p>
+					<a href="set_enroll.php" class="set_enroll btn" id="enroll">Enroll Now</a>
 				</div> 
 				<div class="modal-footer">
 					<a href="#"><i class="fa fa-arrow-left"></i>LEARN MORE</a>

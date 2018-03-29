@@ -120,7 +120,7 @@
 		$res=mysqli_query($conn,$sql);
 		$row=mysqli_fetch_array($res);
 
-		$query="update sett set set_denyReason='$reason', set_status=2 where id='$id'";
+		$query="update sett set set_denyReason='$reason', set_status=2, set_admitStatus=0, set_dateAssigned='', set_timeAssigned='' where id='$id'";
 		if(!mysqli_query($conn,$query)){
 			header("Location: ../set.php?err");	
 			exit();
@@ -196,7 +196,7 @@
 
 		}	
 	}
-	elseif(isset($_POST['gen'])){
+	elseif(isset($_POST['gen']) || isset($_POST['upd'])){
 		$id = mysqli_real_escape_string($conn, $_POST['id']);
 		$date = mysqli_real_escape_string($conn, $_POST['date']);
 		$time = mysqli_real_escape_string($conn, $_POST['time']);

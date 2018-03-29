@@ -780,6 +780,13 @@ body{
 	font-weight:500;
 }
 
+#set .modal-body .small{
+	display:block;
+	text-align: center;
+	color:#d2ebef;
+	font-family: 'Lato', sans-serif;
+}
+
 #set img{
 	display:block;
 	margin-left:auto;

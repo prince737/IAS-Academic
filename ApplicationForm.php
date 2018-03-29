@@ -52,7 +52,7 @@
 	
 	$pdf->SetFont('Arial','UB',12);
 	$pdf->Cell(0 ,5,'STUDENT ENROLLMENT FORM',0,1,'C');
-	$pdf->Image($row['stu_imageLocation'],165,50,35,40);
+	//$pdf->Image($row['stu_imageLocation'],165,50,35,40);
 	
 	$pdf->SetY(55);
 	//NAME	
