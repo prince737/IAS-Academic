@@ -49,17 +49,17 @@
 		<div class="col l6 offset-l3 m10 offset-m1 s10 offset-s1">
 			<div class="form_wrapper z-depth-2">
 				<h5>Scholarship Entrance Test Enrollment Form</h5>
-				
+				<p style="color:teal;">Fields marked with * are mandatory</p>
 				<div class="row">
 					<form action="includes/set.inc.php" method="POST">
 						<div class="input-field col s12 m10 l7">
 							<input id="name" name="name" type="text" class="validate" required>
-							<label class="active" for="name">Full Name</label>
+							<label class="active" for="name">Full Name*</label>
 							<p for="name" id="error_name" class="error"></p>
 						</div>
 						<div class="input-field col s12 m10 l7">
 							<input id="gname" name="gname" type="text" class="validate" required>
-							<label class="active" for="gname">Father's / Guardian's Name</label>
+							<label class="active" for="gname">Father's / Guardian's Name*</label>
 							<p for="gname" id="error_gname" class="error"></p>
 						</div>
 						<div class="input-field col s12 m10 l7">
@@ -71,7 +71,7 @@
 							  <option value="04">Class XI</option>
 							  <option value="05">Class XII</option>
 							</select>
-							<label>Last Final Exam you appeared for:</label>
+							<label>Last Final Exam you appeared for:*</label>
 						</div>
 						<div class="input-field col s12 m10 l7">
 							<select required name="board">
@@ -81,7 +81,7 @@
 							  <option value="ICSE">ICSE</option>
 							  <option value="ISC">ISC</option>
 							</select>
-							<label>Examination Board:</label>
+							<label>Examination Board:*</label>
 						</div>
 						<div class="input-field col s12 m10 l7">
 							<select required name="center">
@@ -90,30 +90,29 @@
 							  <option value="03">BERHAMPORE</option>
 							  <option value="02">HOWRAH</option>
 							</select>
-							<label >Center where you would like to sit for the test:</label>
+							<label >Center where you would like to sit for the test:*</label>
 						</div>
 						<div class="input-field col s12 m12 l7">
 							<input id="sname" type="text" name="sname" required>
-							<label class="active" for="sname">Name of your School</label>
+							<label class="active" for="sname">Name of your School*</label>
 						</div>
 						<div class="input-field col s12">
 						  <textarea id="address" class="materialize-textarea" name="address" required></textarea>
-						  <label for="address">Full Communication Address</label>
+						  <label for="address">Full Communication Address*</label>
 						</div>
 						<div class="input-field col s12 m12 l7">
-						  <input id="email" type="email" class="validate" name="email" required>
+						  <input id="email" type="email" class="validate" name="email">
 						  <label for="email">Email</label>
 						  <p for="email" id="error_email" class="error"></p>
 						</div>
 						<div class="input-field col s12 m12 l7">
-						  <input id="contact" type="text" name="contact" required maxlength="10">
-						  <label for="contact">Contact No</label>
+						  <input id="contact" type="text" name="contact" class="validate" required maxlength="10">
+						  <label for="contact">Contact No*</label>
 						  <p for="name" id="error_contact" class="error"></p>
 						</div>
 						<div class="input-field col s12 m12 l7">
-						  <input id="wp" type="text" name="wp" required maxlength="10">
+						  <input id="wp" type="text" name="wp" maxlength="10">
 						  <label for="wp">Whatsapp No</label>
-						  <p for="name" id="error_wp" class="error"></p>
 						</div>	
 						<div class="input-field col s12 m10 l7">
 							<select required name="language">
@@ -121,7 +120,7 @@
 							  <option value="English">ENGLISH</option>
 							  <option value="Bengali">BENGALI</option>
 							</select>
-							<label>Choose your preferred Examination Language:</label>
+							<label>Choose your preferred Examination Language:*</label>
 						</div>
 						<div class="clearfix"></div>
 						<button class="btn waves-effect waves-light" type="submit" name="submit">Submit</button>
@@ -150,34 +149,6 @@
 		};
 	</script>	
 	<script>
-		$('#name').on('blur', function(){
-			if(!this.value.match(/^[A-Za-z]*\s{1}[A-Za-z]*$/))
-			{
-				$('#error_name').html('<span class="fa fa-exclamation-triangle"></span>  Please provide a valid full name.').addClass('error_active').css('display', 'block');
-				return false;
-			} 
-			$('#error_name').html('').css('display', 'none');  
-			
-		});	
-		$('#gname').on('blur', function(){
-			if(!this.value.match(/^[A-Za-z]*\s{1}[A-Za-z]*$/))
-			{
-				$('#error_gname').html('<span class="fa fa-exclamation-triangle"></span>  Please provide a valid full name.').addClass('error_active').css('display', 'block');
-				return false;
-			} 
-			$('#error_gname').html('').css('display', 'none');  
-			
-		});	
-		
-		$('#email').on('blur', function(){
-			if(!this.value.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/))
-			{
-				$('#error_email').html('<span class="fa fa-exclamation-triangle"></span>  Please provide a valid email.').addClass('error_active').css('display', 'block');
-				return false;
-			} 
-			$('#error_email').html('').css('display', 'none');  
-			
-		});	
 		
 		$('#contact').on('blur', function(){
 			if(!this.value.match(/^[0-9]{10}$/))
@@ -186,15 +157,6 @@
 				return false;
 			} 
 			$('#error_contact').html('').css('display', 'none');  
-			
-		});	
-		$('#wp').on('blur', function(){
-			if(!this.value.match(/^[0-9]{10}$/))
-			{
-				$('#error_wp').html('<span class="fa fa-exclamation-triangle"></span>  Please provide a valid Contact Number.').addClass('error_active').css('display', 'block');
-				return false;
-			} 
-			$('#error_wp').html('').css('display', 'none');  
 			
 		});	
 	</script>
@@ -210,7 +172,7 @@
 							<span class="fa fa-check"></span>
 						</div>	
 						<p class="hello">Hello '. strtok(simple_crypt($_GET['success'],'d'), ' ').'!</p>
-						<p>Greetings for the day! Your application for participating in IAS talent Search 2018 through Scholarship Entrance Test at Center: <b>'.simple_crypt($_GET['cen'],'d').'</b> having Application No: <b>'.simple_crypt($_GET['appid'],'d').'</b> Dated: <b>'.date('d/m/Y').'</b> is successfully submitted and is waiting for approval. You shall be notified once your request is approved.</p><br>
+						<p style="text-align:justify;">Greetings for the day! Your application for participating in IAS talent Search 2018 through Scholarship Entrance Test at Center: <b>'.simple_crypt($_GET['cen'],'d').'</b> having Application No: <b>'.simple_crypt($_GET['appid'],'d').'</b> Dated: <b>'.date('d/m/Y').'</b> is successfully submitted and is waiting for approval. You shall be notified once your request is approved. Please note down your Application No. for further references.</p><br>
 						
 						<button id="button" class="btn btn-sm button">Close</button><br><br>	
 						<a href="index.php">Back to home</a>

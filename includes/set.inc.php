@@ -24,16 +24,8 @@ if(isset($_POST['submit'])){
 	$wp = mysqli_real_escape_string($conn, $_POST['wp']);
 	$language = mysqli_real_escape_string($conn, $_POST['language']);
 
-	if(empty($name) || empty($gname) || empty($exam) || empty($board) || empty($center) || empty($sname) || empty($address) || empty($email) || empty($contact) || empty($wp) || empty($language)){
+	if(empty($name) || empty($gname) || empty($exam) || empty($board) || empty($center) || empty($sname) || empty($address) || empty($contact) || empty($language)){
 		header("Location: ../set_enroll.php?error_code=676");	
-		exit();
-	}
-	$query="select * from sett where set_email='$email'";
-	$res=mysqli_query($conn,$query);
-	$count=mysqli_num_rows($res);
-	$row=mysqli_fetch_array($res);
-	if($count>0){
-		header("Location: ../set_enroll.php?error_code=576");	
 		exit();
 	}
 	
@@ -68,12 +60,25 @@ if(isset($_POST['submit'])){
 		$appId .= '0001';
 	}
 	
+	if($center==01){
+		$cn='KOLKATA';
+	}
+	elseif($center==02){
+		$cn='HOWRAH';
+	}
 	
+	else{
+		$cn='BERHAMPORE';
+	}	
 	
 	
 	$query = "insert into sett(set_no, set_applicationNo, set_name, set_gname, set_finalExam, set_board, set_center, set_school, set_address, set_email, set_contact, set_wp, set_language, set_year) values($temp, '$appId', '$name', '$gname', '$exam', '$board', $center, '$sname', '$address', '$email', '$contact', '$wp', '$language', $year)";
-	
-	if(mysqli_query($conn,$query)){
+
+	if(!mysqli_query($conn,$query)){
+		header("Location: ../set_enroll.php?error_code=496");	
+		exit();
+	}
+	elseif(!empty($email)){
 		if($exam==01){
 			$c='CLASS VIII';
 		}
@@ -88,21 +93,8 @@ if(isset($_POST['submit'])){
 		}
 		else{
 			$c='CLASS XII';
-		}
-		
-				
-		if($center==01){
-			$cn='KOLKATA';
-		}
-		elseif($center==02){
-			$cn='HOWRAH';
-		}
-		
-		else{
-			$cn='BERHAMPORE';
-		}
-		
-		echo $c;
+		}			
+			
 		
 		$msg= '			
 			<div class="email-background" style="background: #eee;">
@@ -159,9 +151,9 @@ if(isset($_POST['submit'])){
 			}
 			else{
 				$name=simple_crypt($name,'e');
-				$appid=simple_crypt($appId,'e');									
-						
-				header("Location: ../set_enroll.php?success=$name&&appid=$appid");
+				$appid=simple_crypt($appId,'e');
+				$cen=simple_crypt($cn,'e');		
+				header("Location: ../set_enroll.php?success=$name&appid=$appid&cen=$cen");
 				exit();
 			}		
 			
@@ -171,8 +163,36 @@ if(isset($_POST['submit'])){
 			exit();
 		}
 	}
-	else{
-		header("Location: ../set_enroll.php?error_code=496");	
+	elseif(empty($email)){
+		$name=simple_crypt($name,'e');
+		$appid=simple_crypt($appId,'e');
+		$cen=simple_crypt($cn,'e');				
+		header("Location: ../set_enroll.php?success=$name&appid=$appid&cen=$cen");
 		exit();
 	}
+}
+elseif(isset($_POST['admit'])){
+	$email = mysqli_real_escape_string($conn, $_POST['email']);
+	$roll = mysqli_real_escape_string($conn, $_POST['roll']);
+
+
+	if(empty($email) || empty($roll)){
+		header("Location: ../set_admit.php?empty");	
+		exit();
+	}
+
+	$sql = "select * from sett where set_rollNo='$roll' and set_email='$email' and set_admitStatus=1";
+	$res = mysqli_query($conn,$sql);
+	$row=mysqli_fetch_array($res);
+	$check = mysqli_num_rows($res);
+	if($check != 1){
+		header("Location: ../set_admit.php?error=618");	
+		exit();
+	}
+	else{
+		header("Location: ../admin/SET_admit.php?id=".$row['id']);	
+		exit();
+	}
+
+
 }

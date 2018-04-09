@@ -17,6 +17,14 @@
 	padding:30px;
 }
 
+.form_wrapper_admit{
+	background:#fff;
+	border-top:7px solid #bcaaa4 ; 
+	margin: 0 auto;
+	margin-top:-100px;
+	padding:30px;
+}
+
 .link{
 	display:block;
 	color:#fff;

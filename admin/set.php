@@ -223,6 +223,14 @@
 									</select>
 								</div>	
 							</form>
+
+							<form action="set.php" method="POST">
+								<div class="form-group col-md-4 col-xs-6" >					
+									<div class="checkbox" >
+										<label><input type="checkbox" name="no_email" style="width: 20px; height: 20px;" onChange="this.form.submit()" <?php if(isset($_POST['no_email'])){echo 'checked';}?>  value="1"><span style="font-size: 16px; line-height: 27px; margin-left: 5px;">No email Id specified</span></label>
+									</div>
+								</div>	
+							</form>
  								
 								
 							<form action="set.php" method="POST" class="navbar-form navbar-right col-md-6 search-form" role="search" style="margin-top:10px;">
@@ -239,7 +247,7 @@
 						<div class="form-wrapper">
 							
 							<?php
-								$results_per_page = 10;
+								$results_per_page = 1000;
 								// find out the number of results stored in database
 								$sql='SELECT * FROM sett';
 								$result = mysqli_query($conn, $sql);
@@ -259,6 +267,11 @@
 								if(isset($_POST['search'])){
 									$search = mysqli_real_escape_string($conn, $_POST['field']);
 									$query = "select * from sett where set_name LIKE '%$search%' OR set_email LIKE '%$search%' OR set_applicationNo LIKE '%$search%' OR set_rollNo LIKE '%$search%' OR set_language LIKE '%$search%' OR set_dateAssigned = '$search'";
+									$result = mysqli_query($conn, $query);
+									$count = mysqli_num_rows($result);
+								}
+								elseif(isset($_POST['no_email'])){
+									$query = "select * from sett where set_email=''";
 									$result = mysqli_query($conn, $query);
 									$count = mysqli_num_rows($result);
 								}
@@ -285,6 +298,10 @@
 								if(isset($_POST['search'])){
 									
 									echo '<h5 style="text-align:center;">'.$count.' matching record/s found on "'.$search.'"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="set.php">View All</a></h5>';
+								}
+								elseif(isset($_POST['no_email'])){
+									
+									echo '<h5 style="text-align:center;">Displaying '.$count.' students who haven\'t specified an email Id. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="set.php">View All</a></h5>';
 								}
 								while($row = mysqli_fetch_array($result)) {
 									if($row['set_finalExam']==01){

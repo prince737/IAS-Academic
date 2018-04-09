@@ -491,7 +491,7 @@ $lang = 'en';
 					?>
 					
 					<div class="checkbox">
-						<label><input type="checkbox" value="" required><span>I agree with the terms and conditions</span></label>
+						<label><input type="checkbox" value="" required><span>I agree with the terms and conditions.</span></label><a data-target="#terms" data-toggle="modal" class="tnc">Read T&C</a>
 					</div>
 					<p id="message" style="margin-top: 20px; font-size:16px;"></p>
 					<p id="message1" style="margin-top: 20px; font-size:16px;"></p>
@@ -500,6 +500,65 @@ $lang = 'en';
 			</div>
 		</div>
 	</div> 
+
+	<div class="modal fade" id="terms">
+		<div class="modal-dialog">
+			<div class="modal-content" >
+				<div class="modal-body">	
+					<button type="button" class="close" data-dismiss="modal">&times;</button>					
+					<h4>IAS TERMS AND CONDITIONS</h4>	
+					<div class="tc">
+						<ol>
+							<li>The user should certify that he/she is at least 18 (eighteen) years of age or has the
+								adequate consent of a parent or legal guardian.</li>
+							<li>All prices and fees, unless otherwise specified are in INR.</li>
+							<li>All prices, fees and availability of courses are subject to change without prior notice
+at the sole discretion of Institute of Applied Science (IAS).</li>
+							<li>Scholarship can only be availed by the student over the tuition fees.</li>
+							<li>Any request for cancellation of studentship during the mid-term shall not be
+entertained.</li>
+							<li>The user agrees to provide authenticate and true information. IAS reserves the right to
+confirm and validate the information and other details provided by the user at any
+point of time. If upon confirmation such user details are found to be flawed or
+incorrect (wholly or partly), IAS has the right in its sole discretion to reject the
+registration and debar the user from IAS, without prior intimation whatsoever and
+without the refund of the paid amount.</li>
+							<li>Any change in the information given to the Institute shall be updated without failure.
+Failure of such updating may result in the expulsion of the student from the Institute.</li>
+							<li>The user agrees to be abide by the rules and Code of Conduct of the Institute.</li>
+							<li>Any student enrolled with IAS will have to regularly work hard. In case the teacher
+feel that the student is not working hard, creating indiscipline or using unfair means in
+the institute, irregular in attendance, not responding properly, he/she may be expelled
+from the Institute. The decision of the Centre-In- charge in this regard will be final and
+binding on the student/parent. No fee or part of the fee will be refunded in such cases.</li>
+							<li>If any student absents himself/herself for more than 10 days continuously without any
+prior written application, he/she will not be allowed to attend/join the classes and will
+not be given any test paper(s), he/she may be deemed to be expelled from the
+Institute. No separate intimation will be sent to the parents. No fee or part of the fee
+paid/encashed will be refunded in such cases. The decision of the Centre-In- charge in
+this regard will be final and binding on the students &amp; parents.</li>
+							<li>If any student undergoing any Training Course or Seminar or Workshop at IAS absents himself/herself for at most one day, he/she may not be allowed to sit for evaluation test/tests of that respective course and may not get certificate from IAS as the reason of incompletion of respective course. 
+</li>
+							<li>After depositing money towards Registration &amp; Admission, if a student becomes
+disinterested in the Institute due to any reason whatsoever and wants to take his/her
+money back, the Institute will not refund the money deposited towards Registration
+fee/Admission fee. However, if a student applies for refund before the
+commencement of course/classes, only admission fee and first instalment of tuition
+fee will be refunded along with post-dated cheques submitted, if any. The
+registration/admission fee deposited towards a particular course will not be adjusted
+against any other course.</li>
+							<li>If any student/parent insists on lump sum payment of fee, the Institute can accept the
+same. The refund policy for such students will be same as students, who would pay
+the fee in instalments.</li>
+							<li>If a student is absent or misses a test, he/she can collect his/her question paper from
+the office within 10 days from the date of the test, failing which the question paper
+will not be given to him/her.</li>
+						</ol>
+					</div>	
+				</div> 		
+			</div>
+		</div>
+	</div>
 	
 		
 	<script src="js/jquery-3.2.1.min.js"></script>  	

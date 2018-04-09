@@ -9,8 +9,8 @@
 	
 	if(isset($_GET['success']))
 	{
-		echo '			    
-		    <div id="success-modal">
+		echo '
+			<div id="success-modal">
 				<div class="modalconent">
 					<h3 style="color:teal;">Information</h3>
 					<hr>	
