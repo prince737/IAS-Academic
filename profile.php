@@ -16,6 +16,7 @@
 	<title>Profile | IAS</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/profile.css">
+    <link rel="stylesheet" type="text/css" href="css/profile_new.css">
     <link rel="stylesheet" type="text/css" href="css/pending_updates.css">
 	<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"
   integrity="sha384-OHBBOqpYHNsIqQy8hL1U+8OXf9hH6QRxi0+EODezv82DfnZoV7qoHAZDwMwEJvSw"
@@ -55,52 +56,67 @@
 	<?php
 		if(isset($_SESSION['student'])){
 			$email = $_SESSION['student'];
-			$query = "select * from students INNER JOIN students_courses ON student_id=stu_id INNER JOIN courses ON courses.course_id=students_courses.course_id where stu_email='$email'";
+			$query = "select * from students INNER JOIN students_courses ON student_id=stu_id INNER JOIN courses ON courses.course_id=students_courses.course_id INNER JOIN centers ON centers.center_id=students_courses.center_id where stu_email='$email'";
 		}
 		elseif(isset($_COOKIE['student'])){
 			$email = $_COOKIE['student'];
-			$query = "select * from students INNER JOIN students_courses ON student_id=stu_id INNER JOIN courses ON courses.course_id=students_courses.course_id where stu_email='$email'";
+			$query = "select * from students INNER JOIN students_courses ON student_id=stu_id INNER JOIN courses ON courses.course_id=students_courses.course_id INNER JOIN centers ON centers.center_id=students_courses.center_id where stu_email='$email'";
 		}
 		$result = mysqli_query($conn, $query);
-		
+		$row = mysqli_fetch_array($result);
 		
 	?>
-	
-	<div class="container-fluid profile-wrapper">
-		<div class="row"> 
-			<div class="cover hidden-xs">
-			
-				
-			
-			</div>		
-		
-			<div class="col-md-3 navigation shadow" style="margin-top:20px;">
-				<div class="img-name">
-					<?php
+
+	<div class="containers">
+    	<div class="row">
+         	<div class="col-sm-12">
+         		<div class="cover_wrap">
+         			<div class="cover">         				
+         			</div>
+         			<div class="data">
+         				<div class="row">
+         					<div class="col-sm-3 text-center">
+         						<img class="img" <?php echo 'src="'.$row['stu_imageLocation'].'"'; ?> />
+         					</div>
+         					<div class="col-sm-3 text-center">
+         						<p class="res"><?php echo $row['stu_name']; ?></p>
+         						<p class="query">Full Name</p>
+         					</div>
+         					<div class="col-sm-3 text-center">
+         						<p class="res"><?php echo $row['stu_roll']; ?></p>
+         						<p class="query">Roll Number</p>
+         					</div>
+         					<div class="col-sm-3 text-center">
+         						<p class="res"><?php echo $row['center_name']; ?></p>
+         						<p class="query">Center</p>
+         					</div>
+         				</div>
+         			</div>
+         		</div>
+         	</div>         	
+    	</div>
+    	<div class="row row2">
+        	<div class="col-sm-3">
+        		<div class="courses">
+        			<p class="chead">My Courses</p>
+        			<ul>
+						<?php
+							
+							$query="select * from students_courses natural join courses natural join centers where student_id=".$row['stu_id'];
+							$res=mysqli_query($conn,$query);
+							while($r=mysqli_fetch_array($res)){
+								echo '
+									<li><span class="cname">'.$r['course_name'].'</span><br>
+									<span class="reg">'.$r['registration_no'].' </span><br>
+									<span class="cen">'.$r['center_name'].' </span></li>
+								';
+							}
 						
-						$row = mysqli_fetch_array($result);
-							echo '
-								<div class="contain">
-								<img class="img-thumbnail" src="'.$row['stu_imageLocation'].'" />
-								<div class="overlay">
-								    <div class="text">
-									
-										<form action="includes/change.inc.php" method="POST" enctype="multipart/form-data" >
-											<input type="file" id="fileLoader" accept=".jpg, .jpeg, .png" onchange="this.form.submit();" name="image"/>
-											<input type="hidden" name="id"  value="'.$row['stu_id'].'"></input>
-											<input type="button" class="btn btn-default btn-sm" id="btnOpenFileDialog" value = "Change Image" onclick="openfileDialog();" />
-										
-										</form>
-									
-									</div>
-								</div>
-								</div><br>
-								<p class="name">'.$row['stu_name'].'</p>
-							'; 		
-					?>
-					
-				</div>
-				<div class="nav-menu shadow">
+						?>						
+					</ul>
+        		</div>
+
+        		<div class="nav-menu shadow">
 					<ul> 
 						<li class="link active">
 							<a href="#">
@@ -150,117 +166,19 @@
 						
 						
 					</ul>	
-				</div>
-				
-			</div>
-			<div class="col-md-7 content shadow" style="margin-top:20px;">	
-				<div class="container-fluid" >
-				
-							
-					<div class="row notice-wrapper">
-						
-						<div class="col-md-6 notice-container">
-							<p >NOTICEBOARD</p>
-							<div class="notice-board">
-								<div class="marquee">
-										
-										<?php
-											$query ="Select * from notices where notices_status=1 order by STR_TO_DATE(notices_date, '%M %d, %Y') DESC";
-											$result =@mysqli_query($conn,$query);
-											$i=0;								
-											while($row1 = mysqli_fetch_array($result))
-											{
-												$phpdate = strtotime($row1['notices_date']);
-												$date = date( 'd M, Y', $phpdate );
-												echo'
-													<div class=notice_data>';
-													if($i<4){
-														echo '<img src="images/new.jpg" height="20" width="20"></img>&nbsp;';
-													}
-														
-														echo '<span class="fa fa-file-text-o"></span>	
-														<a href="'.$row1['notices_location'].'" target="_blank"><span>'.$date.'</span> | ' . $row1['notices_content']. '</a>
-												
-													</div>	<br>
-												';
-												$i++;
-											}
-										?>
-										
-									</div>	
-									
-							</div>
-							<a class="link btn btn-primary" href="notices.php">View All Notices</a>
-							
-							
-						</div>
-						<div class="col-md-6 notice-container">				
-							<p> EVENTS & ANNOUNCEMENTS</p>			
-							<div class="notice-board">
-								<div class="marquee">
-															
-										<?php
-											$query ="Select * from events where events_status=1";
-											$result1 =@mysqli_query($conn,$query);	
-											if($result1)
-											{
-													
-												while($row2 = mysqli_fetch_array($result1))
-												{
-													$phpdate = strtotime($row2['events_startdate']);
-													$date1 = date( 'd M, Y', $phpdate );
-													$phpdate = strtotime($row2['events_enddate']);
-													$date2 = date( 'd M, Y', $phpdate );
-													$i=0;
-													
-														
-														if( strtotime('now') < strtotime($date2) ) {
-															echo '<div class="notice_data">';
-															if($i<4){
-																echo '<img src="images/new.jpg" height="20" width="20"></img>&nbsp;';
-															}
-															echo '<i class="fa fa-calendar" style="color:#795548;" aria-hidden="true"></i>
-																<a href="events.php"><span>Starts: '.$date1.'  Ends: '.$date2.'</span> | <span>From '.$row2['events_starttime'].' to '.$row2['events_endtime'].' | </span>' . $row2['events_heading']. '</a>';
-															echo '</div>	<br>';	
-														}
-													
-													$i++;
-												}
-											}
-										?>
-									
-								</div>	
-							</div>
-							<a class="link btn btn-primary" href="events.php">View All Events</a>
-							
-						</div>
-					</div>
-				</div>	
-						
-			</div>	
-			<div class="col-md-2 courses">
-				<h3><?php echo $row['stu_roll']; ?></h3>
-				<h4>My Courses</h4>
-				<ul>
-					<?php
-						
-						$query="select * from students_courses natural join courses natural join centers where student_id=".$row['stu_id'];
-						$res=mysqli_query($conn,$query);
-						while($r=mysqli_fetch_array($res)){
-							echo '
-								<li>'.$r['course_name'].'</li>
-								'.$r['registration_no'].' <br>
-								'.$r['center_name'].' <br><br>
-							';
-						}
-					
-					?>
-					
-				</ul>
-				
-			</div>		
-		</div>
-	</div>
+				</div>				
+        	</div>
+        	<div class="col-sm-9">
+        		<div class="main">
+        			ffffff
+        		</div>
+        	</div>
+        </div>
+    </div>
+	
+	
+
+
 	<footer>
 		<div class="container">
 			<div class="row">
@@ -272,8 +190,7 @@
 				
 			</div>
 		</div>
-	</footer>
-	
+	</footer>	
 	
 	<script src="js/jquery-3.2.1.min.js"></script>   	
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>

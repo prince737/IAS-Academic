@@ -37,16 +37,6 @@ body{
 	outline:none;
 }
 
-/*COVER */
-
-.cover{
-	position:relative;
-	margin-top:-25px;
-	background-image: url("../images/profile.png");
-	height:511px;
-	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2);
-}
-
 
 .reg-wrap{
 	height:150px;
@@ -80,29 +70,11 @@ body{
 }
 
 .active a{
-	color:#304FFE!important;
+	color:#03a9f4!important;
 }
 
 .active i{
-	color:#304FFE!important;
-}
-
-.courses{
-	background:#3F51B5;
-	margin-top:20px;
-	color:#fff;
-	padding:5px;
-	padding-left:30px;
-	padding-right:0px;
-	border-top:5px solid #F4792C;
-}
-
-.courses h3{
-	color:#F4792C;
-}
-
-.courses h4{
-	text-decoration:underline;
+	color:#03a9f4!important;
 }
 
 
@@ -130,15 +102,15 @@ body{
 .contain {
   position: relative;
   width:230px;
-  height:auto;
+  height:230px;
 	margin-left:auto;
 	margin-right:auto;
 }
 
-.image {
+.contain img{
   display: block;
-  width: 100%;
-  height: auto;
+  width: 230px;
+  height: 230px;
 }
 
 .overlay {
@@ -176,7 +148,7 @@ body{
 }
 
 .nav-menu{
-	margin-top:20px;
+	margin-top:10px;
 	background:#fff;
 	padding:10px;
 	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2);
@@ -203,7 +175,7 @@ body{
 }
 
 .nav-menu ul .logout{
-	background:#304FFE; /*20bd99*/
+	background:#03a9f4; /*20bd99*/
 }
 
 .nav-menu form button{
@@ -418,90 +390,5 @@ footer{
 #btnOpenFileDialog:focus{
 	outline:none;
 }
-
-
-/*Notices*/
-
-
-.notice_data{
-	background:#E8E8E8;
-	padding:10px 20px;
-	border-radius: 50px;
-}
-
-.notice_data span{
-	color: #795548;
-	font-weight:bold;
-}
-
-.notice_data a{
-	color: #212121;
-	text-decoration:none;
-}
-
-.notice_data a:hover{
-	color: #1e5085;
-	text-decoration:none;
-	
-}
-
-
-.notice-board{
-	border:3px solid #dcdcdc;
-	border-top:none;
-	min-height:320px;
-	max-height:330px;
-	margin:0px 20px 20px 20px;
-	margin-bottom:0px;
-	
-}
-
-.notice-container p{
-	text-align:center;
-	font-size:18px;
-	margin:0px 20px;
-	padding:8px;
-	color:white;
-	margin-top:30px;
-	background:#48727F;
-}
-
-.notice-container .link{
-	margin:10px 20px; 
-	display:block;
-	background:#48727F;
-	color:#fff;
-}
-
-	
-.marquee table{
-	width:100%;
-}
-
-
-
-.marquee table tr td{
-	padding: 10px;
-	margin:0px;
-	
-}
-.marquee{
-	max-height:320px;
-	min-height:320px;
-	overflow:hidden;
-	padding: 0px 10px;
-}
-
-.marquee .date{
-	font-size:14px;
-	color:#795548;
-}
-
-.marquee p{
-	margin:0px;
-}
-
-
-
 
 
