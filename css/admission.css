@@ -1,0 +1,201 @@
+*{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+	background:#f5f5f5;
+}
+
+
+/*BANNER*/
+
+.admission-banner{
+	margin-top:-20px;
+	background-image: url("../images/baim-hanif-89800.jpg");
+	background-repeat: no-repeat;
+	background-attachment:fixed;
+    background-size: cover;
+	text-align:center;
+}
+
+.admission-banner h2{
+	font-weight:900;
+	
+	opacity:0.8;
+	color: white;  /*#F4E76E*/
+	padding:10px;
+}
+
+.admission-banner p{
+	color:white;
+	font-size:20px;
+	
+}
+
+.breadcrumb{
+	background:#ab5443;
+	border-radius:0px;
+	height:45px;
+	font-size:18px;
+}
+
+.breadcrumb >.active {
+  color: black;
+}
+
+.breadcrumb >.breadcrumb-item a {
+   
+    color: white;
+}
+
+/* Main COntent */
+
+.content{
+	margin-top:50px;
+	
+}
+
+.navigation ul{
+	list-style-type:none;
+	font-size:22px;
+	border-right: 1px solid #e5e5e5;
+}
+
+.navigation ul li a{
+	color:#293352;
+	transition:color 0.2s ease-in-out;
+	display:block;
+	width:100%;
+	padding:0px 10px;
+}
+
+
+.navigation ul li a:hover{
+	border-right:2px solid #ab5443;
+	color:#ab5443;
+	text-decoration:none;
+}
+.select{
+	border-right:2px solid #ab5443;
+}
+
+.navigation ul li{
+	
+	padding: 10px 0px;
+}
+
+
+.title{
+	font-weight:500;
+	font-size:45px;
+	color:#2d2e2e;
+	position: relative;
+	z-index : 1;
+	padding-bottom:20px;
+}
+
+.title:before{
+	content : "";
+  position: absolute;
+  left    : 0;
+  bottom  : 0;
+  height  : 1px;
+  width   : 12%; 
+  border-bottom:3px solid #01a2a6;
+}
+
+
+.text{
+	margin-top:30px;
+}
+
+.text p{
+	font-size:16px;
+	color:#686868;
+}
+
+.text ul li{
+	font-size:16px;
+	color:#686868;
+}
+
+.panel-title a{
+	display:block;
+	width:100%;
+}
+
+.panel-title a:focus{
+	text-decoration:none;
+}
+
+.panel{
+	margin-top:30px;
+}
+
+.panel > .panel-heading {
+    background-image: none;
+    background-color: #48727F;
+}
+
+.picon{
+	padding-right:10px;
+}
+
+
+
+/*MEDIA QUERIES*/
+
+@media screen and (min-width: 768px) {
+	
+
+	.admission-banner{
+	  height:330px;
+	  padding-top:85px;
+  }
+	
+	
+	.navigation ul{
+		
+		height:300px;
+	}
+	
+	.breadcrumb{
+		padding-left:130px;
+	}
+	
+	.panel-mob{
+		display:none;
+		
+	}
+}
+
+
+
+@media screen and (max-width: 768px) {
+  
+  	.brand-div{
+		display:none;
+	}
+	
+}
+
+@media screen and (max-width: 767px) {
+  
+  	.content{
+		display:none;
+	}
+	
+}
+  
+  @media screen and (min-width: 1200px) {
+	.navbar{
+		height:120px;
+	}
+}
+  
+  
+  

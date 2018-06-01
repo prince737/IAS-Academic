@@ -1,0 +1,166 @@
+*{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+}
+
+html{
+	background: #f3f3f4;	
+	margin: 0;
+    padding: 0;
+}
+
+
+ body {
+	background:	#f3f3f4;
+    margin: 0;
+    padding: 0;
+}
+
+
+.notices-banner{
+	background-image: url("../images/events.jpg");
+	background-size: cover;
+	text-align:center;
+	background-attachment:fixed;
+	margin-top:-20px;
+	position: relative;
+}
+
+.notices-banner h2{
+	font-weight:900;
+	opacity:0.8;
+	color: white;  /*#F4E76E*/
+	padding:10px;
+	animation-delay: 0.5s;
+}
+
+.notices-banner p{
+	color:white;
+	font-size:20px;
+	animation-delay: 0.5s;
+}
+
+.breadcrumb{
+	background:#ab5443;
+	border-radius:0px;
+	font-size:16px;
+}
+
+.breadcrumb >.active {
+  color: black;
+}
+
+.breadcrumb >.breadcrumb-item a {
+    color: white;
+}
+
+#exTab{
+	background:#f8f8f8;
+	border-top: 8px solid #e8e8e8;
+}
+
+#exTab .heading{
+  color : #2954a2;
+  font-size:30px;
+  font-weight:500;
+  padding: 20px 0px 10px 0px;
+}	
+
+.tab-content{
+	padding-left:10px;
+	padding-right:10px;
+	padding-top:5px;
+	font-size: 16px;
+}
+
+.tab-content p{
+	color:#37474F;
+	line-height:30px;
+}
+
+.tab-content h3{
+	font-size:20px;
+	font-weight:300;
+}
+
+#exTab ul{
+	border-bottom: 1px solid #2954a2!important;
+}
+
+#exTab ul li{
+	margin-right:3%;
+	min-width: 100px;
+	text-align:center;
+}
+
+#exTab .enroll{
+	color: #f4792c;
+	font-size:20px;
+	
+}
+
+.nav-tabs .active a{
+	background:#2954a2!important;
+	color:white!important;
+	border-radius:0px;
+}
+
+.nav-tabs li a{
+	color:#212121!important;
+	font-size:17px;
+}	
+
+#course_links{
+	background:#2954a2;
+	border-top: 8px solid #f4792c ;
+}	
+
+#course_links p{
+	font-size:30px;
+	color: #fff;
+	text-align:center;
+	padding-top:10px;
+	border-bottom: 2px solid #f4792c;
+}
+
+#course_links ul{
+	list-style-type:none;
+}
+
+#course_links ul li{
+	padding: 10px 0px;
+}
+
+#course_links ul li a{
+	color:#fff;
+}
+
+
+
+footer{
+	margin-top:0px;
+}
+
+
+
+@media screen and (min-width: 768px) {
+  .breadcrumb{
+	  
+	height:40px;
+  }
+  .notices-banner{
+	  height:260px;
+	  padding-top:65px;
+  }
+  .notices-banner h2{
+		margin-left:auto;
+		margin-right:auto;
+	}
+	.breadcrumb{
+		padding-left:90px;
+	}
+	
+}
+
+
+	
