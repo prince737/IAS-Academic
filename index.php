@@ -164,7 +164,7 @@
 				<h4 class="label-primary text-center">NOTICEBOARD</h4>
 				<div class="notice-board">
 					<?php
-						$query ="Select * from notices where notices_status=1 order by strtotime(notices_date) DESC";
+						$query ="Select * from notices where notices_status=1";
 						$result =@mysqli_query($conn,$query);
 						$count=mysqli_num_rows($result);
 						if($count < 1){
@@ -508,7 +508,7 @@
 	
 	<!-- SET MODAL -->
 	
-	<div id="set" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel" aria-hidden="true">
+	<!--<div id="set" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content" >				
 				<div class="modal-body">
@@ -527,7 +527,7 @@
 				</div>			
 			</div>
 		</div>
-	</div>
+	</div>-->
 	
 	<?php
 	
