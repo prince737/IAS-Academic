@@ -1,0 +1,28 @@
+.links{
+	height: auto;
+	color:#fff;
+	margin: 0 20px;
+	width: 250px;
+	padding: 10px 20px;
+}
+
+.links a{
+	display: block;
+	color:#f8f8f8;
+}
+
+.qd{
+	background-color: #3f51b5;
+}
+
+.papers{
+	background-color: #4cb050;
+}
+
+.exams{
+	background-color: #f67c01;
+}
+
+.results{
+	background-color: #ff5353;
+}

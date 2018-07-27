@@ -169,8 +169,8 @@
 				</div>				
         	</div>
         	<div class="col-sm-9">
-        		<div class="main">
-        			ffffff
+        		<div class="main" >
+        			<center><h4 style="padding-top: 180px;">This section will be updated very soon...</h4></center>
         		</div>
         	</div>
         </div>

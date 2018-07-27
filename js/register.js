@@ -13,31 +13,6 @@ $( function() {
 	
 	//INput field validations
 	
-	$('#name').on('blur', function(){
-		if(!this.value.match(/^[A-Za-z]*\s{1}[A-Za-z]*$/))
-		{
-			$('#error_name').html('Please provide a valid full name.').css('color', '#D32F2F').css('padding-top','10px').css('font-size','16px');
-			 $(this).focus();
-			 $('#name').css('border', '2px solid #D32F2F');
-			return false;
-		} 
-        $('#error_name').html('');  
-		$('#name').css('border', 'none');	
-        
-	});	
-
-	$('#gname').on('blur', function(){
-		if(!this.value.match(/^[A-Za-z]*\s{1}[A-Za-z]*$/))
-		{
-			$('#error_gname').html('Please provide a valid full name.').css('color', '#D32F2F').css('padding-top','10px').css('font-size','16px');
-			 $(this).focus(); 
-			 $('#gname').css('border', '2px solid #D32F2F');
-			return false;
-		} 
-        $('#error_gname').html('');    
-		$('#gname').css('border', 'none');			
-        
-	});	
 
 	$('#contact').on('blur', function(){
 		if(!this.value.match(/^[0-9]{10}$/))

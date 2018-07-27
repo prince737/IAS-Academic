@@ -1,0 +1,20 @@
+header a{
+	margin-left:10px;
+}
+.mcq, .cdl, .nat, .mamcq{
+	display:none;
+	margin: 20px 0px!important;
+}
+
+.summernote{
+	display:none;
+	margin: 20px 0;
+}
+
+#success-modal{
+	display:none;
+}
+
+#success-modal .modalconent h3{
+	color:teal;
+}

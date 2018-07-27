@@ -87,22 +87,11 @@ if(isset($_POST['register']))
 	else 
 	{
 		//check if input characters are valid		
-		
-		if(!preg_match("/^[A-Za-z]*\s{1}[A-Za-z]*$/", $name))
-		{
-			$arr['nm'] = '1';		
-		}
-		
+				
 		if(!filter_var($email, FILTER_VALIDATE_EMAIL))
 		{
 			$arr['em'] = '1';			
-		}
-		
-		if(!preg_match("/^[A-Za-z]*\s{1}[A-Za-z]*$/", $gname))
-		{
-			$arr['gnm'] = '1';		
-		}
-		
+		}		
 		if(!preg_match("/^[0-9]{10}$/", $contact))
 		{
 			$arr['ct'] = '1';		

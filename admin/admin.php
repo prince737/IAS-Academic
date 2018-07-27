@@ -233,7 +233,7 @@
 						</a>
 					</li>
 					<li class="link online-exam">
-						<a href="#">
+						<a href="online_exam.php">
 							<i class="fa fa-tasks" aria-hidden="true"></i>
 							<span class="hidden-sm hidden-xs">Online Exams</span>
 						</a>
