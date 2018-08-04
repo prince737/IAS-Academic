@@ -207,8 +207,24 @@
 					<div class="inner-content">
 						<div class="form-wrapper">
 							<form id="questionForm" action="includes/question.inc.php" method="POST" enctype="multipart/form-data">
+
+								<div id="qadd">
+									<h3 id="label">Add questions for the following CDL Data</h3>
+									<a href="questions.php" class="btn btn-sm btn-warning pull-right">Reset</a>
+									<div class="clearfix"></div>
+									<div id="cdl_data"></div><br>
+									<div class="form-group">
+										<label>Choose Question Type:  </label>
+										<label class="radio-inline">
+											<input type="radio" name="cdltype" value="mcq">MCQ
+										</label>
+										<label class="radio-inline">
+											<input type="radio" name="cdltype" value="nat">NAT
+										</label>
+									</div>
+								</div>
 								
-								<label for="course">Choose a directory to add questions to:</label>
+								<label id="l2" for="course">Choose a directory to add questions to:</label>
 								<select class="form-control" id="qdir" name="qdir" required>
 									<option selected value="0">Select Directory</option>
 									<?php
@@ -222,7 +238,7 @@
 									?>
 								</select>
 
-								<label for="course">Choose the type of question:</label>
+								<label id="l1" for="course">Choose the type of question:</label>
 								<select class="form-control" id="qtype" name="qtype" required>
 									<option selected value="0">Select Question Type</option>
 									<option value="MCQ">MCQ</option>
@@ -265,11 +281,35 @@
 									</div>
 								</div>	
 
-								<div class="cdl" id="cdl">
-									<div id="cdl_data"></div>
-									<small>*You must save the CDL data before adding question linked to it.</small><br>
+								<div class="cdl" id="cdl">									
+									<div class="cdl_before">
+										<small>*You must save the CDL data before adding question linked to it.</small><br>										
+										<button type="submit" id="add_question" class="btn btn-primary" name="submit_cdl">Save Data</button>
+									</div>
+
+
+									<div id="cdlnat">
+										<div class="form-group">
+											<input type="text" class="form-control" name="nat_ans" id="cdlnat_ans" placeholder="Correct Answer">
+										</div>
+										<div class="clearfix">
+											<button type="submit" class="btn btn-primary" style="width:120px;">Save</button>
+										</div>
+									</div>
+
+									<div id="cdlmcq">
+										<div class="form-group">
+											<input type="text" class="form-control" name="option_no" id="cdlmcq_option" placeholder="Number of Options">
+										</div>
+										<div class="form-group">
+											<input type="text" class="form-control" name="mcq_ans" id="cdlmcq_ans" placeholder="Correct Answer">
+										</div>
+										<div class="clearfix">
+											<button type="submit" class="btn btn-primary" style="width:120px;">Save</button>
+										</div>
+									</div>
 									<input type="hidden" class="form-control" name="cdl_id" id="cdl_id">
-									<button type="submit" id="add_question" class="btn btn-primary" name="submit_cdl">Save Data</button>
+									<input type="hidden" class="form-control" name="cdl_dir" id="cdl_dir">
 								</div>	
 												
 							</form>

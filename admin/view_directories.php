@@ -1,29 +1,31 @@
 <?php
 	session_start();
-	require_once('../includes/dbh.inc.php');	
 	
+	include_once '../includes/dbh.inc.php';
 	if(!isset($_SESSION['admin'])){
 		header("Location: admin_login.php");
 		exit();
 	}
+	
 ?>
-
 
 <!DOCTYPE html>
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=0.8">
-	<title>Online Exams| IAS</title>
+	<title>Add Course | IAS</title>
+	<link rel="icon" type="image/jpg" href="../images/logo.jpg" />
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/default.css">
-	<link rel="stylesheet" type="text/css" href="css/active-notices.css">
-	<link rel="stylesheet" type="text/css" href="css/online_exam.css">
+	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" type="image/jpg" href="../images/logo.jpg" />
 </head>
-<body>
 
+<body>	
+
+	
+			
 	<div class="container-fluid display-table">
 		<div class="row display-table-row">
 			<div class="col-md-2 col-sm-1 hidden-xs display-table-cell valign-top" id="mySidebar">
@@ -54,14 +56,14 @@
 						</ul>
 					</li>
 					
-					<li class="link">
+					<li class="link active">
 						<a href="#collapse-post1c" data-toggle="collapse" aria-control="collapse-post1c">
 							<i class="fa fa-calendar-o" aria-hidden="true"></i>
 							<span class="hidden-sm hidden-xs">Courses</span>
 						</a>
 						<ul class="collapse collapsable" id="collapse-post1c" style="margin:0px; padding:0px; ">
 							<li>
-								<a href="add_course.php">
+								<a href="#">
 									<span>Add New</span>
 								</a>
 							</li>
@@ -84,7 +86,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="active_notices.php">
+								<a href="active_events.php">
 									<span>View Active</span>
 								</a>
 							</li>
@@ -97,13 +99,31 @@
 						</a>
 						<ul class="collapse collapsable" id="collapse-post2" style="margin:0px; padding:0px; ">
 							<li>
-								<a href="new_event.php">
+								<a href="add_event.php">
 									<span>Create New</span>
 								</a>
 							</li>
 							<li>
-								<a href="#">
+								<a href="active_events.php">
 									<span>View Active</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="link">
+						<a href="#collapse-pos2" data-toggle="collapse" aria-control="collapse-post1">
+							<i class="fa fa-book" aria-hidden="true"></i>
+							<span class="hidden-sm hidden-xs">Study Material</span>
+						</a>
+						<ul class="collapse collapsable" id="collapse-pos2" style="margin:0px; padding:0px; ">
+							<li>
+								<a href="add_notes.php">
+									<span>Add New</span>
+								</a>
+							</li>
+							<li>
+								<a href="remove_notes.php">
+									<span>Remove Existing</span>
 								</a>
 							</li>
 						</ul>
@@ -139,7 +159,7 @@
 						</a>
 					</li>
 					<li class="link online-exam">
-						<a href="#">
+						<a href="online_exam.php">
 							<i class="fa fa-tasks" aria-hidden="true"></i>
 							<span class="hidden-sm hidden-xs">Online Exams</span>
 						</a>
@@ -185,71 +205,160 @@
 					</header>
 				</div>
 				
-				<div id="content">
-					<header  class="clearfix">
-						<h2 class="page_title pull-left">Manage Online Exams</h2>
+				<div id="content">				
+					<header>
+						<h2 class="page_title">View All Directories</h2>	
 					</header>
 					
-					<div class="inner-content">
-						<div class="container">
-							<div class="row">
-								<div class="col-sm-3 links qd">
-									<h4>Question Directories</h4>
-									<a href="create_dir.php">Create Directory</a>
-									<a href="edit_dir.php">Edit Directory</a>
-									<a href="questions.php">Add Questions</a>
-									<a href="view_directories.php">View all Directories</a>
-								</div>
-								<div class="col-sm-3 links papers">
-									<h4>Exam Papers</h4>
-									<a href="#">Create new Paper</a>
-									<a href="#">Edit a Paper</a>
-									<a href="#">Search a Paper</a>
-									<a href="#">View all Papers</a>
-								</div>
-								<div class="col-sm-3 links exams">Exams</div>
-								<div class="col-sm-3 links results">Results</div>
-							</div>
-						</div>
-					</div>										
-				</div> <!-- end of content-->
+					<div class="content-inner">
+						<table id="example" class="display" style="width:100%">
+					        <thead>
+					            <tr>
+					                <th>Id</th>
+					                <th>Date of Creation</th>
+					                <th>Name</th>
+					                <th>Level</th>
+					                <th>MCQ</th>
+					                <th>MAMCQ</th>
+					                <th>NAT</th>
+					                <th>CDL</th>
+					                <th>Actions</th>
+					            </tr>
+					        </thead>
+					         <tbody>
+
+						<?php
+							$sql = "select * from directories";
+							$result=mysqli_query($conn, $sql);
+							
+							while($row = mysqli_fetch_array($result)){
+								$id = $row['dir_id'];
+
+								//NAT
+								$query = "select count(*) as nat from nat where nat_directory='$id'";
+								$res=mysqli_query($conn, $query);
+								$nat=mysqli_fetch_array($res);
+
+								//MCQ
+								$query = "select count(*) as mcq from mcq where mcq_directory='$id' and mcq_type='MCQ'";
+								$res=mysqli_query($conn, $query);
+								$mcq=mysqli_fetch_array($res);
+
+								//MMCQ
+								$query = "select count(*) as mmcq from mcq where mcq_directory='$id' and mcq_type='MAMCQ'";
+								$res=mysqli_query($conn, $query);
+								$mmcq=mysqli_fetch_array($res);
+
+								//MMCQ
+								$query = "select count(*) as cdl from cdl where cdl_directory='$id'";
+								$res=mysqli_query($conn, $query);
+								$cdl=mysqli_fetch_array($res);
+
+								//Creation Date
+								$date=substr($row['dir_id'],2,8);
+								$date = substr($date,0,2).'/'.substr($date,2,2).'/'.substr($date,4,4);
+
+								echo '
+									<tr>
+						                <td>'.$row['dir_id'].'</td>
+						                <td>'.$date.'</td>
+						                <td>'.$row['dir_name'].'</td>
+						                <td>'.$row['dir_level'].'</td>
+						                <td>'.$mcq['mcq'].'</td>
+						                <td>'.$mmcq['mmcq'].'</td>
+						                <td>'.$nat['nat'].'</td>
+						                <td>'.$cdl['cdl'].'</td>
+						                <td><a class="btn btn-xs btn-warning" href="#">Edit Directory</a></td>
+						            </tr>
+								';	
+							}
+
+						?>
+					            
+					    </table>
+						
+					</div>				
+				</div>
 			</div>
-		</div>	
-	</div>
+		</div>
+	</div>	
+	
+	<?php
+	
+		if(isset($_GET['success']))
+		{
+			echo '			    
+				<div id="success-modal">
+					<div class="modalconent">
+						<h3 style="color:teal;">Information</h3>
+						<hr>	
+						<p class="para">New Course was added successfully.</p> 
+						<button id="buttoner" class="btn btn-danger btn-sm pull-right">Close</button>
+					</div>
+				</div>
+			';			
+		}
+		if(isset($_GET['err']))
+		{
+			echo '			    
+				<div id="success-modal">
+					<div class="modalconent">
+						<h3 style="color:teal;">Information</h3>
+						<hr>	
+						<p class="para">Something went wrong, please try again.</p> 
+						<button id="buttoner" class="btn btn-danger btn-sm pull-right">Close</button>
+					</div>
+				</div>
+			';			
+		}
+		if(isset($_GET['crsExt']))
+		{
+			echo '			    
+				<div id="success-modal">
+					<div class="modalconent">
+						<h3 style="color:teal;">Information</h3>
+						<hr>	
+						<p class="para">Course Id you entered is already in use. Please provide a different one.</p> 
+						<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+					</div>
+				</div>
+			';			
+		}
+		
+		
+	
+	?>
+	
+	
+	
+	
+	
 
 	<script src="../js/jquery-3.2.1.min.js"></script>	
 	<script src="../js/bootstrap.js"></script>
-	<script src="js/default.js"></script>
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.18/r-2.2.2/datatables.min.js"></script>
 	<script>
-	  $( function() {
-		$( "#datepicker" ).datepicker({
-				changeMonth: true,
-				changeYear: true,
-				altField: "#datepicker",
-				altFormat: "yy-mm-dd",
-			});
-	  });
-	</script>
-	<script src="../vendor/js/chosen.jquery.min.js"></script>
-	<script>
-		$(".chosen_select").chosen({
-			disable_search_threshold: 10,
-			no_results_text: "Oops, nothing found!",
-			width: "100%"
-		});
-
-	
-	</script>
-	<script>
-		window.onload = function () {
-			document.getElementById('button').onclick = function () {
-				document.getElementById('success-modal').style.display = "none"
-				window.location.replace('active_events.php');
-			};
+		document.getElementById('buttoner').onclick = function () {
+			document.getElementById('success-modal').style.display = "none",
+			window.location.replace('add_course.php');
 		};
+		
+	
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+		    $('#example').DataTable();
+		} );
 	</script>
 	
+	
+	
+
 </body>
 </html>
+				
+				
+				
+				
+				
+				

@@ -1,11 +1,28 @@
 <?php
 	session_start();
 	require_once('../includes/dbh.inc.php');	
+	include '../includes/simple-crypt.inc.php';
+
 	
 	if(!isset($_SESSION['admin'])){
 		header("Location: admin_login.php");
 		exit();
 	}
+
+	$dname='';
+	$dlevel='';
+	$did='';
+
+	if(isset($_POST['qdir'])){
+		$dir= mysqli_real_escape_string($conn, $_POST['qdir']);
+		$sql = "select * from directories where dir_id='$dir'";
+		$result = mysqli_query($conn,$sql);
+		$row = mysqli_fetch_array($result);
+		$dname = $row['dir_name'];
+		$dlevel = $row['dir_level'];
+		$did = $row['dir_id'];
+	}
+
 ?>
 
 
@@ -13,16 +30,48 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=0.8">
-	<title>Online Exams| IAS</title>
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<title>Edit Directory| IAS</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/default.css">
-	<link rel="stylesheet" type="text/css" href="css/active-notices.css">
-	<link rel="stylesheet" type="text/css" href="css/online_exam.css">
+    <link rel="stylesheet" type="text/css" href="css/notices.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" type="image/jpg" href="../images/logo.jpg" />
+    <style>
+    	header a{
+    		margin-left:10px;
+    	}
+	</style>
 </head>
 <body>
+
+	<?php
+		if(isset($_GET['err'])){
+			echo '			    
+			    <div id="success-modal">
+					<div class="modalconent">
+						<h3 style="color:red;">Error</h3>
+						<hr>	
+						<p class="para">Something went wrong, close this dialog and try again.</p> 
+						<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+					</div>
+				</div>
+			';	
+		}
+		elseif(isset($_GET['lv'])){
+			echo '			    
+			    <div id="success-modal">
+					<div class="modalconent">
+						<h3 style="color:teal;">Information</h3>
+						<hr>	
+						<p class="para">The name and level of the Directory having Id  <b>\''.simple_crypt($_GET['id'],'d').'\'</b> was successfully updated to  <b>\''.simple_crypt($_GET['nm'],'d').'\'</b> and  <b>'.$_GET['lv'].'</b> respectively.</p> 
+						<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+					</div>
+				</div>
+			';	
+		}
+
+	?>
 
 	<div class="container-fluid display-table">
 		<div class="row display-table-row">
@@ -139,7 +188,7 @@
 						</a>
 					</li>
 					<li class="link online-exam">
-						<a href="#">
+						<a href="online_exam.php">
 							<i class="fa fa-tasks" aria-hidden="true"></i>
 							<span class="hidden-sm hidden-xs">Online Exams</span>
 						</a>
@@ -187,29 +236,62 @@
 				
 				<div id="content">
 					<header  class="clearfix">
-						<h2 class="page_title pull-left">Manage Online Exams</h2>
+						<h2 class="page_title pull-left">Edit a Directory</h2>
+						<a type="button" class="new pull-right btn-primary btn-xs" href="questions.php">Add Questions</a>
+						<a type="button" class="new pull-right btn-warning btn-xs" href="create_dir.php">Create Directory</a>
+						<a type="button" class="new pull-right btn-danger btn-xs" href="#">View all Directories</a>
 					</header>
 					
 					<div class="inner-content">
-						<div class="container">
-							<div class="row">
-								<div class="col-sm-3 links qd">
-									<h4>Question Directories</h4>
-									<a href="create_dir.php">Create Directory</a>
-									<a href="edit_dir.php">Edit Directory</a>
-									<a href="questions.php">Add Questions</a>
-									<a href="view_directories.php">View all Directories</a>
-								</div>
-								<div class="col-sm-3 links papers">
-									<h4>Exam Papers</h4>
-									<a href="#">Create new Paper</a>
-									<a href="#">Edit a Paper</a>
-									<a href="#">Search a Paper</a>
-									<a href="#">View all Papers</a>
-								</div>
-								<div class="col-sm-3 links exams">Exams</div>
-								<div class="col-sm-3 links results">Results</div>
-							</div>
+						<div class="form-wrapper">
+							<form action="#" method="POST" enctype="multipart/form-data">
+								
+								<label id="l2" for="course">Choose a directory to edit:</label>
+								<select class="form-control" id="qdir" name="qdir" onchange="this.form.submit()" required>
+									<option selected value="0">Select Directory</option>
+									<?php
+										$sql = 'select * from directories';
+										$result = mysqli_query($conn, $sql);
+										
+										while($row = mysqli_fetch_array($result)){
+											if(!empty($dname) && $dname==$row['dir_name']){
+												echo '<option value="'.$row['dir_id'].'" selected>'.$row['dir_name'].'</option>';
+											}
+											else{
+												echo '<option value="'.$row['dir_id'].'">'.$row['dir_name'].'</option>';
+											}
+										}										
+									
+									?>
+								</select>
+							</form>
+
+							<form action="includes/edit_dir.inc.php" method="POST" enctype="multipart/form-data">
+								<?php
+									if(!empty($dname) || !empty($dlevel))
+									{
+										echo '
+											<br>
+											<p><b>Note: </b>Type over current name and level to change them.</p>
+											<div class="form-group">
+												<label class="sr-only">Name of Directory</label>
+												<input type="text" class="form-control" name="name" required value = "'.$dname.'">
+											</div>
+
+											<div class="form-group">
+												<label class="sr-only">Level</label>
+												<input type="text" class="form-control" name="level" required value = "'.$dlevel.'">
+											</div>
+											<input type="hidden" class="form-control" name="did" required value = "'.$did.'">
+
+											<button type="submit" class="btn btn-primary" style="width:120px;" name="edit_dir">Save</button>
+											<a href="edit_dir.php" class="btn btn-warning">Reset</a>
+
+										';
+									}
+								?>								
+								
+							</form>
 						</div>
 					</div>										
 				</div> <!-- end of content-->
@@ -223,30 +305,10 @@
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script>
-	  $( function() {
-		$( "#datepicker" ).datepicker({
-				changeMonth: true,
-				changeYear: true,
-				altField: "#datepicker",
-				altFormat: "yy-mm-dd",
-			});
-	  });
-	</script>
-	<script src="../vendor/js/chosen.jquery.min.js"></script>
-	<script>
-		$(".chosen_select").chosen({
-			disable_search_threshold: 10,
-			no_results_text: "Oops, nothing found!",
-			width: "100%"
-		});
-
-	
-	</script>
-	<script>
 		window.onload = function () {
 			document.getElementById('button').onclick = function () {
 				document.getElementById('success-modal').style.display = "none"
-				window.location.replace('active_events.php');
+				window.location.replace('edit_dir.php');
 			};
 		};
 	</script>

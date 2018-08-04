@@ -11,10 +11,25 @@ header a{
 	margin: 20px 0;
 }
 
-#success-modal{
+#success-modal, #qadd, #cdlnat, #cdlmcq{
 	display:none;
+}
+
+#cdl_data{
+	background-color: #ffffff;
+	padding:20px;
 }
 
 #success-modal .modalconent h3{
 	color:teal;
+}
+
+#qadd #label{
+	color:teal;
+	float:left;
+	margin:0;
+}
+
+#cdl_data{
+	margin-top: 15px;
 }

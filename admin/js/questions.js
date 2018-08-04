@@ -8,6 +8,14 @@ $('#questionForm').on('submit', function(e){
 	var mamcq_answers = $('#mamcq_answers').val();
 	var qtype = $('#qtype').val();
 	var qdir = $('#qdir').val();
+
+	//cdl questions
+	var cdltype = $('input[name=cdltype]:checked').val();
+	var cdldir = $('#cdl_dir').val();
+	var cdlid = $('#cdl_id').val();
+	var cdlmcq_ans = $('#cdlmcq_ans').val();
+	var cdlnat_ans = $('#cdlnat_ans').val();
+	var cdlmcq_option = $('#cdlmcq_option').val();
 		
 	$.ajax({
 		type: $(this).attr('method'),
@@ -22,24 +30,45 @@ $('#questionForm').on('submit', function(e){
 			mcq_ans: mcq_ans,
 			nat_ans: nat_ans,
 			mamcq_answers: mamcq_answers,
+			cdltype: cdltype,
+			cdlmcq_ans: cdlmcq_ans,
+			cdlnat_ans: cdlnat_ans,
+			cdlmcq_option: cdlmcq_option,
+			cdlid: cdlid,
+			cdldir: cdldir,
 		},
 		success: function(data){
 			//$json = json_decode($json, true);
 			var response = data.msg;
-			if(data.cdl_id){
-				alert(data.cdl_id);
-			}
 			if(response.includes("Please")){
 				$('.para').html(response);
 				$('#success-modal').show();
 			}
-			else if(data.cdl_id){
-				$('#cdl_id').val(data.cdl_id);
+			else if(data.cdl_id || data.cdlquestion){
+				$('.para').html(response);
+				$('#success-modal').show();
+				$('input[name="cdltype"]').prop('checked', false);
+				$("#qadd").show();
 				$('#cdl_data').html(data.cdl_statement);
+				$("#qtype").val('0');
+				$("#qdir").val('0');
+				$("#qtype").hide();
+				$(".cdl_before").hide();
+				$("#qdir").hide();
+				$("#l1").hide();
+				$("#l2").hide();
+				$('#cdlmcq_ans').val('');
+				$('#cdlnat_ans').val('');
+				$('#cdlmcq_option').val('');
+				$('#summernote').summernote('code', '');
+				if(data.cdl_id){
+					$('#cdl_id').val(data.cdl_id);
+					$('#cdl_dir').val(data.cdl_dir);
+				}
 			}
 			else{
 				/*Success Message*/
-				$('.para').html(response);
+				$('.para').html(response+' <b>'+ qdir +'.</b>');
 				$('#success-modal').show();
 
 				/*Clearing text*/
@@ -102,5 +131,17 @@ $(document).ready(function(){
         	$('.summernote').hide();
         }
         
+    });
+
+    $('input:radio[name="cdltype"]').change(
+    function(){
+        if ($(this).is(':checked') && $(this).val() == 'mcq') {
+            $('#cdlmcq').show();
+            $('#cdlnat').hide();
+        }
+        else{
+        	$('#cdlnat').show();
+            $('#cdlmcq').hide();
+        }
     });
 });
