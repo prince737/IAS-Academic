@@ -73,8 +73,8 @@ if(isset($_POST['upload_all'])){
 					$insertQuery= "insert into notes_center(notes_id, center_id) values($id, $center)";			
 					mysqli_query($conn, $insertQuery);
 				}
-				header("Location: ../add_notes.php?success");
-				exit();
+				//header("Location: ../add_notes.php?success");
+				//exit();
 				
 			}
 			else{

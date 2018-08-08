@@ -13,10 +13,11 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=0.8">
-	<title>Add Course | IAS</title>
+	<title>View Directories | IAS</title>
 	<link rel="icon" type="image/jpg" href="../images/logo.jpg" />
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/default.css">
+    <link rel="stylesheet" type="text/css" href="css/notices.css">
 	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -206,8 +207,11 @@
 				</div>
 				
 				<div id="content">				
-					<header>
-						<h2 class="page_title">View All Directories</h2>	
+					<header class="clearfix">
+						<h2 class="page_title pull-left">View All Directories</h2>	
+						<a type="button" class="new pull-right btn-primary btn-xs" href="questions.php">Add Questions</a>
+						<a type="button" class="new pull-right btn-warning btn-xs" href="edit_dir.php">Edit Directory</a>
+						<a type="button" class="new pull-right btn-danger btn-xs" href="view_directories.php">View all Directories</a>
 					</header>
 					
 					<div class="content-inner">
@@ -222,7 +226,7 @@
 					                <th>MAMCQ</th>
 					                <th>NAT</th>
 					                <th>CDL</th>
-					                <th>Actions</th>
+					                <th>EDIT</th>
 					            </tr>
 					        </thead>
 					         <tbody>
@@ -268,7 +272,12 @@
 						                <td>'.$mmcq['mmcq'].'</td>
 						                <td>'.$nat['nat'].'</td>
 						                <td>'.$cdl['cdl'].'</td>
-						                <td><a class="btn btn-xs btn-warning" href="#">Edit Directory</a></td>
+						                <td>
+						                    <a  href="temp.php?did='.$row['dir_id'].'&type=NAT">NAT</a> 
+						                    <a href="#">MCQ</a>
+						                    <a  ref="#">MAMCQ</a>
+						                    <a  href="#">CDL</a>
+						                </td>
 						            </tr>
 								';	
 							}
@@ -347,7 +356,11 @@
 	</script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-		    $('#example').DataTable();
+		    $('#example').DataTable({
+		    	"columnDefs": [
+				    { "width": "12%", "targets": 8 }
+				]
+		    });
 		} );
 	</script>
 	

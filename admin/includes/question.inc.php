@@ -2,7 +2,7 @@
 	session_start();
 	include_once '../../includes/dbh.inc.php';
 
-	$question_desc = $_POST['question_desc'];
+	$question_desc = mysqli_real_escape_string($conn, $_POST['question_desc']);
 	$qtype = mysqli_real_escape_string($conn, $_POST['qtype']);
 	$qdir = mysqli_real_escape_string($conn, $_POST['qdir']);
 
@@ -134,7 +134,7 @@
 		$sql = "insert into cdl(cdl_statement, cdl_directory) values('$question_desc','$qdir')";
 		if(!mysqli_query($conn,$sql)){
 			$data = array(
-            	"msg"     => " went wrong, Please try again.",
+            	"msg"     => " went wrong, Please try again.".mysqli_error($conn),
         	);
 		}
 		else{
@@ -148,7 +148,7 @@
             	"cdl_dir" => $row['cdl_directory'],
             	"cdl_statement" => $row['cdl_statement']
         	);
-		}	
+		}
 		echo json_encode($data);
 	}
 	elseif($qtype == 'MAMCQ'){

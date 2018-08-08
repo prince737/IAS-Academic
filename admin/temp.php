@@ -1,40 +1,66 @@
 <?php
 	session_start();
-	require_once('../includes/dbh.inc.php');	
 	
+	include_once '../includes/dbh.inc.php';
 	if(!isset($_SESSION['admin'])){
 		header("Location: admin_login.php");
 		exit();
 	}
+	
 ?>
-
 
 <!DOCTYPE html>
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=0.8">
-	<title>Questions| IAS</title>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="css/question.css">
+	<title>Edit NAT | IAS</title>
+	<link rel="icon" type="image/jpg" href="../images/logo.jpg" />
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/default.css">
     <link rel="stylesheet" type="text/css" href="css/notices.css">
+	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" type="image/jpg" href="../images/logo.jpg" />
+    <style>
+    	.stu-con{
+			margin:5px;
+			background:#fff;	
+			padding:20px 20px;
+		}
+		.modal-dialog{
+			width:80%!important;
+			
+		}
+		.modal-content{
+			border-radius: 0px;
+		}
+	</style>
 </head>
-<body>
 
-	<div id="success-modal">
-		<div class="modalconent">
-			<h3>Information</h3>
-			<hr>	
-			<p><b class="para"></b></p> 
-			<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+<body>	
+
+
+	<div class="modal fade" id="editor">
+		<div class="modal-dialog">
+			<div class="modal-content" >
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>	<h3 style="color:red;">Edit NAT Question</h3>				
+				</div>
+				<div class="modal-body">
+					<p>Important: Be careful with Images. Removing an image from the editor will delete it from the database and thus the question won't contain that image even if you don't click on "Save" button.</p>
+					<textarea id="summernote" name="question_desc" required></textarea>
+					<input type="text" class="form-control" name="nat_ans" id="nat_ans" placeholder="Correct Answer">  
+				</div> 
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-success" name="remove-dash">Save</button>
+					<button type="submit" name="remove-db" class="btn btn-danger">Close</button>
+				</div>		
+			</div>
 		</div>
-	</div>
-
-
+	</div>	
+	
+			
 	<div class="container-fluid display-table">
 		<div class="row display-table-row">
 			<div class="col-md-2 col-sm-1 hidden-xs display-table-cell valign-top" id="mySidebar">
@@ -72,7 +98,7 @@
 						</a>
 						<ul class="collapse collapsable" id="collapse-post1c" style="margin:0px; padding:0px; ">
 							<li>
-								<a href="add_course.php">
+								<a href="#">
 									<span>Add New</span>
 								</a>
 							</li>
@@ -95,7 +121,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="active_notices.php">
+								<a href="active_events.php">
 									<span>View Active</span>
 								</a>
 							</li>
@@ -108,13 +134,31 @@
 						</a>
 						<ul class="collapse collapsable" id="collapse-post2" style="margin:0px; padding:0px; ">
 							<li>
-								<a href="new_event.php">
+								<a href="add_event.php">
 									<span>Create New</span>
 								</a>
 							</li>
 							<li>
-								<a href="#">
+								<a href="active_events.php">
 									<span>View Active</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="link">
+						<a href="#collapse-pos2" data-toggle="collapse" aria-control="collapse-post1">
+							<i class="fa fa-book" aria-hidden="true"></i>
+							<span class="hidden-sm hidden-xs">Study Material</span>
+						</a>
+						<ul class="collapse collapsable" id="collapse-pos2" style="margin:0px; padding:0px; ">
+							<li>
+								<a href="add_notes.php">
+									<span>Add New</span>
+								</a>
+							</li>
+							<li>
+								<a href="remove_notes.php">
+									<span>Remove Existing</span>
 								</a>
 							</li>
 						</ul>
@@ -196,135 +240,71 @@
 					</header>
 				</div>
 				
-				<div id="content">
-					<header  class="clearfix">
-						<h2 class="page_title pull-left">Add Questions</h2>
+				<div id="content">				
+					<header class="clearfix">
+						<h2 class="page_title pull-left">Edit Question</h2>	
 						<a type="button" class="new pull-right btn-primary btn-xs" href="questions.php">Add Questions</a>
 						<a type="button" class="new pull-right btn-warning btn-xs" href="edit_dir.php">Edit Directory</a>
 						<a type="button" class="new pull-right btn-danger btn-xs" href="view_directories.php">View all Directories</a>
 					</header>
+
+					<?php  
+						if(isset($_GET['did'])){ 
+							$did = $_GET['did'];
+							$type = $_GET['type'];
+							$sql = "select * from directories where dir_id='$did'";
+							$res = mysqli_query($conn,$sql);
+							$dir = mysqli_fetch_array($res);
+							$dname = $dir['dir_name']; 
+						}    
+					?>
+					<p class="dir" style="padding:15px 0px 0 20px;">Directory: <b><?php  echo $dname;    ?></b></p>
+					<p class="dir" style="padding:0 0px 0 20px; margin-bottom: -5px;">Question Type: <b><?php  echo $type;    ?></b></p>
+					<p id="dir" style="display:none;"><?php echo $did; ?></p>
+
+
+					<input type="text" class="form-control" id="search" placeholder="Search a NAT Question">
+
 					
-					<div class="inner-content">
-						<div class="form-wrapper">
-							<form id="questionForm" action="includes/question.inc.php" method="POST" enctype="multipart/form-data">
+					<div class="content-inner">
+						<div class="form-wrapper" id="data">
+							<?php
 
-								<div id="qadd">
-									<h3 id="label">Add questions for the following CDL Data</h3>
-									<a href="questions.php" class="btn btn-sm btn-warning pull-right">Reset</a>
-									<div class="clearfix"></div>
-									<div id="cdl_data"></div><br>
-									<div class="form-group">
-										<label>Choose Question Type:  </label>
-										<label class="radio-inline">
-											<input type="radio" name="cdltype" value="mcq">MCQ
-										</label>
-										<label class="radio-inline">
-											<input type="radio" name="cdltype" value="nat">NAT
-										</label>
-									</div>
-								</div>
-								
-								<label id="l2" for="course">Choose a directory to add questions to:</label>
-								<select class="form-control" id="qdir" name="qdir" required>
-									<option selected value="0">Select Directory</option>
-									<?php
-										$sql = 'select * from directories';
-										$result = mysqli_query($conn, $sql);
-										
-										while($row = mysqli_fetch_array($result)){
-											echo '<option value="'.$row['dir_id'].'">'.$row['dir_name'].'</option>';
-										}										
-									
-									?>
-								</select>
+								$sql = "select * from nat where nat_directory='$did'";
+								$res = mysqli_query($conn,$sql);
+								$count = mysqli_num_rows($res);
 
-								<label id="l1" for="course">Choose the type of question:</label>
-								<select class="form-control" id="qtype" name="qtype" required>
-									<option selected value="0">Select Question Type</option>
-									<option value="MCQ">MCQ</option>
-									<option value="NAT">NAT</option>
-									<option value="CDL">CDL</option>
-									<option value="MAMCQ">MAMCQ</option>									
-								</select>
-								<div class="form-group summernote">
-									<p><strong>Important:</strong> Do not use backspace key to remove an inserted image, instead click on the image and then click on the trashcan icon.</p>
-									<textarea id="summernote" name="question_desc" required></textarea>
-								</div>
-								<div class="mcq" id="mcq">
-									<div class="form-group">
-										<input type="text" class="form-control" name="option_no" id="option_no" placeholder="Number of Options">
-									</div>
-									<div class="form-group">
-										<input type="text" class="form-control" name="mcq_ans" id="mcq_ans" placeholder="Correct Answer">
-									</div>
-									<div class="clearfix">
-										<button type="submit" class="btn btn-primary" style="width:120px;" id="submit_mcq" name="submit_mcq">Save</button>
-									</div>
-								</div>
-								<div class="nat" id="nat">
-									<div class="form-group">
-										<input type="text" class="form-control" name="nat_ans" id="nat_ans" placeholder="Correct Answer">
-									</div>
-									<div class="clearfix">
-										<button type="submit" class="btn btn-primary" style="width:120px;" name="submit_nat">Save</button>
-									</div>
-								</div>
-								<div class="mamcq" id="mamcq">
-									<div class="form-group">
-										<input type="text" class="form-control" name="moption_no" id="moption_no" placeholder="Number of Options">
-									</div>
-									<div class="form-group">
-										<input type="text" class="form-control" name="mamcq_answers" id="mamcq_answers" placeholder="Correct Answers (Comma separated)">
-									</div>
-									<div class="clearfix">
-										<button type="submit" class="btn btn-primary" style="width:120px;" name="submit_mamcq">Save</button>
-									</div>
-								</div>	
-
-								<div class="cdl" id="cdl">									
-									<div class="cdl_before">
-										<small>*You must save the CDL data before adding question linked to it.</small><br>										
-										<button type="submit" id="add_question" class="btn btn-primary" name="submit_cdl">Save Data</button>
-									</div>
-
-
-									<div id="cdlnat">
-										<div class="form-group">
-											<input type="text" class="form-control" name="nat_ans" id="cdlnat_ans" placeholder="Correct Answer">
-										</div>
-										<div class="clearfix">
-											<button type="submit" class="btn btn-primary" style="width:120px;">Save</button>
-										</div>
-									</div>
-
-									<div id="cdlmcq">
-										<div class="form-group">
-											<input type="text" class="form-control" name="option_no" id="cdlmcq_option" placeholder="Number of Options">
-										</div>
-										<div class="form-group">
-											<input type="text" class="form-control" name="mcq_ans" id="cdlmcq_ans" placeholder="Correct Answer">
-										</div>
-										<div class="clearfix">
-											<button type="submit" class="btn btn-primary" style="width:120px;">Save</button>
-										</div>
-									</div>
-									<input type="hidden" class="form-control" name="cdl_id" id="cdl_id">
-									<input type="hidden" class="form-control" name="cdl_dir" id="cdl_dir">
-								</div>	
-												
-							</form>
+								$sql = "select * from nat where nat_directory='$did' LIMIT 10";
+								$res = mysqli_query($conn,$sql);
+								if(mysqli_num_rows($res) > 0){
+									while($nat = mysqli_fetch_array($res)){
+										echo '
+											<div class="stu-con">
+												<div class="statement" id="stmt'.$nat['nat_id'].'">'.$nat['nat_statement'].'</div>
+												<div class="answer" id="ans'.$nat['nat_id'].'">'.$nat['nat_answer'].'</div>
+												<button class="btn btn-primary btn-sm edit" id="'.$nat['nat_id'].'">Edit</button>
+											</div>
+										';
+									}
+								}
+								else{
+									echo '<div class="stu-con">No data found.</div>';
+								}
+							?>
+							
 						</div>
-					</div>	
-														
-				</div> <!-- end of content-->
+						<br>&nbsp;<button class="btn btn-success" id="show">Show more</button>
+						&nbsp;<a class="btn btn-warning" href="temp.php?did=<?php echo $did; ?>&type=NAT"" id="reset">Reset</a>
+						
+					</div>				
+				</div>
 			</div>
-		</div>	
-	</div>
+		</div>
+	</div>	
 
 	<script src="../js/jquery-3.2.1.min.js"></script>	
 	<script src="../js/bootstrap.js"></script>
-	<script src="js/default.js"></script>
-	<script src="js/questions.js"></script>
+	<script src="js/nat.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
 	<script>
 		$(document).ready(function() {
@@ -342,49 +322,18 @@
 			    }
 
 		    });
+		    var a=<?php echo $count; ?>;
+			if(a<=10){
+				$("#reset").hide();
+				$("#show").hide();
+			}
 		});
-
-		function sendFile(file, el) {
-			var form_data = new FormData();
-			form_data.append('file', file);
-			$.ajax({
-			    data: form_data,
-			    type: "POST",
-			    url: 'editor-upload.php',
-			    cache: false,
-			    contentType: false,
-			    processData: false,
-			    success: function(url) {
-			        $(el).summernote('editor.insertImage', url);
-			    }
-			});
-		}
-
-		function deleteFile(src) {
-		    $.ajax({
-		        data: {src : src},
-		        type: "POST",
-		        url: 'editor-delete.php', // replace with your url
-		        cache: false,
-		        success: function(resp) {
-		            console.log(resp);
-		        }
-		    });
-		}
-
-
 	</script>
-	<script>
-		window.onload = function () {
-			document.getElementById('button').onclick = function () {
-				document.getElementById('success-modal').style.display = "none";
-			};
-		};
-
-		
-	</script>
-
-
-	
 </body>
 </html>
+				
+				
+				
+				
+				
+				
