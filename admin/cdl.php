@@ -13,18 +13,119 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=0.8">
-	<title>View Directories | IAS</title>
+	<title>Edit CDL | IAS</title>
 	<link rel="icon" type="image/jpg" href="../images/logo.jpg" />
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/default.css">
     <link rel="stylesheet" type="text/css" href="css/notices.css">
-	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    	.stu-con{
+			margin:10px;
+			background:#fff;	
+			padding:20px 20px;
+			box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+		}
+		.modal-dialog{
+			width:80%!important;
+			
+		}
+		.modal-content{
+			border-radius: 0px;
+		}
+		#search{
+			margin-bottom: 15px;
+		}
+		#ans{
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+		#success-modal, .data, #id, #opt, #qid, #ans1, #opt1, #qid1, #save, #saveq,#type,#nat_mcq_id{
+			display:none;
+		}
+		#search_res{
+			text-align: center;
+			display:none;
+		}
+		.data{
+			padding:20px;
+			padding-top:0;
+			margin-top: 15px;
+			background-color: #e8e8e8;
+			max-height:700px;
+			overflow-y: scroll;
+		}
+	</style>
 </head>
 
 <body>	
 
+
+	<div class="modal fade" id="editor">
+		<div class="modal-dialog">
+			<div class="modal-content" >
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>	<h3 style="color:red;">Edit Question</h3>				
+				</div>
+				<div class="modal-body">
+					<p><b>Important:</b> Be careful with Images. Removing an image from the editor will delete it from the database and thus the question won't contain that image even if you don't click on "Save" button.</p>
+					<textarea id="summernote" required></textarea>
+					<input type="text" class="form-control" name="ans" id="ans" placeholder="Correct Answer">  
+					<input type="text" class="form-control" name="opt" id="opt" placeholder="No of Options"> 
+					<p id="qid" ></p>
+					<p id="type" ></p>
+					<p id="nat_mcq_id" ></p>
+					<p><b>After making any changes on an image or text color, please refresh the page for them to take effect.</b></p>
+				</div> 
+				<div class="modal-footer">
+					<center><button type="submit" class="btn btn-success" name="remove-dash" id="save" style="width:200px;">Save</button></center>
+					<center><button type="submit" class="btn btn-warning" name="remove-dash" id="saveq" style="width:200px;">Save</button></center>
+				</div>		
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="addques">
+		<div class="modal-dialog">
+			<div class="modal-content" >
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>	<h3 style="color:red;">Edit CDL Question</h3>		
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Choose Question Type:  </label>
+						<label class="radio-inline">
+							<input type="radio" name="cdltype" value="mcq">MCQ
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="cdltype" value="nat">NAT
+						</label>
+					</div>
+
+					<p><b>Important:</b> Be careful with Images. Removing an image from the editor will delete it from the database and thus the question won't contain that image even if you don't click on "Save" button.</p>
+					<textarea id="summernote1" required></textarea>
+					<input type="text" class="form-control" name="ans" id="ans1" placeholder="Correct Answer">  
+					<input type="text" class="form-control" name="opt" id="opt1" placeholder="No of Options"> 
+					<p id="qid1"></p>
+					<p><b>After making any changes on an image or text color, please refresh the page for them to take effect.</b></p>
+				</div> 
+				<div class="modal-footer">
+					<center><button type="submit" class="btn btn-success" name="remove-dash" id="saveques" style="width:200px;">Save</button></center>
+				</div>		
+			</div>
+		</div>
+	</div>	
+
+	<div id="success-modal">
+		<div class="modalconent">
+			<h3 style="color:teal;">Information</h3>
+			<hr>
+			<p><b class="para"></b></p>	
+			<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+		</div>
+	</div>
 	
 			
 	<div class="container-fluid display-table">
@@ -57,7 +158,7 @@
 						</ul>
 					</li>
 					
-					<li class="link active">
+					<li class="link">
 						<a href="#collapse-post1c" data-toggle="collapse" aria-control="collapse-post1c">
 							<i class="fa fa-calendar-o" aria-hidden="true"></i>
 							<span class="hidden-sm hidden-xs">Courses</span>
@@ -208,165 +309,125 @@
 				
 				<div id="content">				
 					<header class="clearfix">
-						<h2 class="page_title pull-left">View All Directories</h2>	
+						<h2 class="page_title pull-left">Edit Question</h2>	
 						<a type="button" class="new pull-right btn-primary btn-xs" href="questions.php">Add Questions</a>
 						<a type="button" class="new pull-right btn-warning btn-xs" href="edit_dir.php">Edit Directory</a>
 						<a type="button" class="new pull-right btn-danger btn-xs" href="view_directories.php">View all Directories</a>
 					</header>
+
+					<?php  
+						if(isset($_GET['did'])){ 
+							$did = $_GET['did'];
+							$sql = "select * from directories where dir_id='$did'";
+							$res = mysqli_query($conn,$sql);
+							$dir = mysqli_fetch_array($res);
+							$dname = $dir['dir_name']; 
+						}    
+					?>
+					<p class="dir" style="padding:15px 0px 0 20px;">Directory: <b><?php  echo $dname;    ?></b></p>
+					<p id="dir" style="display:none;"><?php echo $did; ?></p>
+
 					
 					<div class="content-inner">
-						<table id="example" class="display" style="width:100%">
-					        <thead>
-					            <tr>
-					                <th>Id</th>
-					                <th>Date of Creation</th>
-					                <th>Name</th>
-					                <th>Level</th>
-					                <th>MCQ</th>
-					                <th>MAMCQ</th>
-					                <th>NAT</th>
-					                <th>CDL</th>
-					                <th>EDIT</th>
-					            </tr>
-					        </thead>
-					         <tbody>
-
-						<?php
-							$sql = "select * from directories";
-							$result=mysqli_query($conn, $sql);
+						<input type="text" class="form-control" id="search" placeholder="Search">
+						<p id="search_res"><span id="no">5</span> results found on "<span id="string"></span>"</p>
+						<div class="form-wrapper" id="data">
 							
-							while($row = mysqli_fetch_array($result)){
-								$id = $row['dir_id'];
+							
+							<?php
 
-								//NAT
-								$query = "select count(*) as nat from nat where nat_directory='$id'";
-								$res=mysqli_query($conn, $query);
-								$nat=mysqli_fetch_array($res);
+								$sql = "select * from cdl where cdl_directory='$did'";
+								$res = mysqli_query($conn,$sql);
+								$count = mysqli_num_rows($res);
 
-								//MCQ
-								$query = "select count(*) as mcq from mcq where mcq_directory='$id' and mcq_type='MCQ'";
-								$res=mysqli_query($conn, $query);
-								$mcq=mysqli_fetch_array($res);
+								$sql = "select * from cdl where cdl_directory='$did' LIMIT 10";
+								$res = mysqli_query($conn,$sql);
+								if(mysqli_num_rows($res) > 0){
+									while($row = mysqli_fetch_array($res)){
+										echo '
+											<div class="stu-con">
+												<div class="statement" id="stmt'.$row['cdl_id'].'">'.$row['cdl_statement'].'</div><br>
+												<button class="btn btn-primary btn-xs edit" id="'.$row['cdl_id'].'">Edit Statement</button>
+												<button class="btn btn-primary btn-xs nat" id="nat'.$row['cdl_id'].'">Edit Linked NAT</button>
+												<button class="btn btn-primary btn-xs mcq" id="mcq'.$row['cdl_id'].'">Edit Linked MCQ</button>
+												<button class="btn btn-success btn-xs add" id="add'.$row['cdl_id'].'">Add Linked Question</button>
 
-								//MMCQ
-								$query = "select count(*) as mmcq from mcq where mcq_directory='$id' and mcq_type='MAMCQ'";
-								$res=mysqli_query($conn, $query);
-								$mmcq=mysqli_fetch_array($res);
+												<div id="nat_data'.$row['cdl_id'].'" class="data"></div>
+												<div id="mcq_data'.$row['cdl_id'].'" class="data"></div>
+											</div>
 
-								//MMCQ
-								$query = "select count(*) as cdl from cdl where cdl_directory='$id'";
-								$res=mysqli_query($conn, $query);
-								$cdl=mysqli_fetch_array($res);
 
-								//Creation Date
-								$date=substr($row['dir_id'],2,8);
-								$date = substr($date,0,2).'/'.substr($date,2,2).'/'.substr($date,4,4);
 
-								echo '
-									<tr>
-						                <td>'.$row['dir_id'].'</td>
-						                <td>'.$date.'</td>
-						                <td>'.$row['dir_name'].'</td>
-						                <td>'.$row['dir_level'].'</td>
-						                <td>'.$mcq['mcq'].'</td>
-						                <td>'.$mmcq['mmcq'].'</td>
-						                <td>'.$nat['nat'].'</td>
-						                <td>'.$cdl['cdl'].'</td>
-						                <td>
-						                    <a href="mcq.php?did='.$row['dir_id'].'&type=MCQ">MCQ</a>	
-						                    <a  href="mcq.php?did='.$row['dir_id'].'&type=MAMCQ">MAMCQ</a>     
-						                    <a  href="nat.php?did='.$row['dir_id'].'">NAT</a> 
-						                    <a  href="cdl.php?did='.$row['dir_id'].'">CDL</a>
-						                </td>
-						            </tr>
-								';	
-							}
-
-						?>
-					            
-					    </table>
+										';
+									}
+								}
+								else{
+									echo '<div class="stu-con">No data found.</div>';
+								}
+							?>
+							
+						</div>
+						<br>&nbsp;<button class="btn btn-success" id="show">Show more</button>
+						&nbsp;<a class="btn btn-warning" href="cdl.php?did=<?php echo $did; ?>" id="reset">Reset</a>
+						&nbsp;&nbsp;<span id="cwrap" style=" font-weight: bold;">Showing 1 to <span id="count" style=" font-weight: bold;"><?php if($count<10) echo $count; else echo'10'; ?></span> of <?php echo $count; ?> entries</span>
 						
 					</div>				
 				</div>
+
 			</div>
 		</div>
 	</div>	
-	
-	<?php
-	
-		if(isset($_GET['success']))
-		{
-			echo '			    
-				<div id="success-modal">
-					<div class="modalconent">
-						<h3 style="color:teal;">Information</h3>
-						<hr>	
-						<p class="para">New Course was added successfully.</p> 
-						<button id="buttoner" class="btn btn-danger btn-sm pull-right">Close</button>
-					</div>
-				</div>
-			';			
-		}
-		if(isset($_GET['err']))
-		{
-			echo '			    
-				<div id="success-modal">
-					<div class="modalconent">
-						<h3 style="color:teal;">Information</h3>
-						<hr>	
-						<p class="para">Something went wrong, please try again.</p> 
-						<button id="buttoner" class="btn btn-danger btn-sm pull-right">Close</button>
-					</div>
-				</div>
-			';			
-		}
-		if(isset($_GET['crsExt']))
-		{
-			echo '			    
-				<div id="success-modal">
-					<div class="modalconent">
-						<h3 style="color:teal;">Information</h3>
-						<hr>	
-						<p class="para">Course Id you entered is already in use. Please provide a different one.</p> 
-						<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
-					</div>
-				</div>
-			';			
-		}
-		
-		
-	
-	?>
-	
-	
-	
-	
-	
 
 	<script src="../js/jquery-3.2.1.min.js"></script>	
 	<script src="../js/bootstrap.js"></script>
-	<script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.18/r-2.2.2/datatables.min.js"></script>
+	<script src="js/cdl.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
 	<script>
-		document.getElementById('buttoner').onclick = function () {
-			document.getElementById('success-modal').style.display = "none",
-			window.location.replace('add_course.php');
-		};
-		
-	
-	</script>
-	<script type="text/javascript">
 		$(document).ready(function() {
-		    $('#example').DataTable({
-		    	"columnDefs": [
-				    { "width": "12%", "targets": 8 }
-				]
-		    });
-		} );
-	</script>
-	
-	
-	
+		    $('#summernote').summernote({
+		    	height: 400,
+		    	callbacks: {
+			        onImageUpload : function(files, editor, welEditable) {			 
+			            for(var i = files.length - 1; i >= 0; i--) {
+			                sendFile(files[i], this);
+			            }
+			        },
+			        onMediaDelete : function(target) {
+		                deleteFile(target[0].src);
+		            }
+			    }
 
+		    });
+
+		    $('#summernote1').summernote({
+		    	height: 400,
+		    	callbacks: {
+			        onImageUpload : function(files, editor, welEditable) {			 
+			            for(var i = files.length - 1; i >= 0; i--) {
+			                sendFile(files[i], this);
+			            }
+			        },
+			        onMediaDelete : function(target) {
+		                deleteFile(target[0].src);
+		            }
+			    }
+
+		    });
+
+		    var a=<?php echo $count; ?>;
+			if(a<=10){
+				$("#reset").hide();
+				$("#show").hide();
+			}
+		});
+	</script>
+	<script>
+		window.onload = function () {
+			document.getElementById('button').onclick = function () {
+				document.getElementById('success-modal').style.display = "none";
+			};
+		};
+	</script>
 </body>
 </html>
 				

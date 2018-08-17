@@ -7,20 +7,22 @@
 		$d='';
 		$count=$_POST['dataNewCount'];
 		$did=$_POST['did'];
+		$type=$_POST['type'];
 
-		$sql="select * from nat where nat_directory='$did' LIMIT $count";
+		$sql="select * from mcq where mcq_directory='$did' and mcq_type='$type' LIMIT $count";
 		$res=mysqli_query($conn,$sql);
 		
-		$sql="select * from nat where nat_directory='$did'";
+		$sql="select * from mcq where mcq_directory='$did' and mcq_type='$type'";
 		$result=mysqli_query($conn,$sql);
 		$c=mysqli_num_rows($result);
 
 		
 		while($row=mysqli_fetch_array($res)){
 			$d .= '<div class="stu-con">
-					<div class="statement" id="stmt'.$row['nat_id'].'">'.$row['nat_statement'].'</div>
-					<div class="answer" id="ans'.$row['nat_id'].'">'.$row['nat_answer'].'</div>
-					<button class="btn btn-primary btn-sm edit" id="'.$row['nat_id'].'">Edit</button>
+					<div class="statement" id="stmt'.$row['mcq_id'].'">'.$row['mcq_statement'].'</div>
+					<div class="answer" id="ans'.$row['mcq_id'].'">'.$row['mcq_answer'].'</div>
+					<b><div>No. of options: </b><span class="option" id="opt'.$row['mcq_id'].'">'.$row['mcq_options'].'</span></div><br>
+					<button class="btn btn-primary btn-sm edit" id="'.$row['mcq_id'].'">Edit</button>
 		     		</div>';			
 		}
 		if($c <= $count){
@@ -40,17 +42,19 @@
 		$d='';
 		$query=$_POST['query'];
 		$dir=$_POST['dir'];
+		$type=$_POST['type'];
 
-		$sql="select * from nat where nat_directory='$dir' and nat_statement LIKE '%$query%'";
+		$sql="select * from mcq where mcq_directory='$dir' and mcq_type='$type' and mcq_statement LIKE '%$query%'";
 		$res=mysqli_query($conn,$sql);
 		$c=mysqli_num_rows($res);
 
 		if($c>0){
 			while($row=mysqli_fetch_array($res)){
 				$d .= '<div class="stu-con">
-							<div class="statement" id="stmt'.$row['nat_id'].'">'.$row['nat_statement'].'</div><br>
-							<b>Answer: </b><span class="answer" id="ans'.$row['nat_id'].'">'.$row['nat_answer'].'</span><br><br>
-							<button class="btn btn-primary btn-sm edit" id="'.$row['nat_id'].'">Edit</button>
+							<div class="statement" id="stmt'.$row['mcq_id'].'">'.$row['mcq_statement'].'</div><br>
+							<b>Answer: </b><span class="answer" id="ans'.$row['mcq_id'].'">'.$row['mcq_answer'].'</span><br><br>
+							<b><div>No. of options: </b><span class="option" id="opt'.$row['mcq_id'].'">'.$row['mcq_options'].'</span></div><br>
+							<button class="btn btn-primary btn-sm edit" id="'.$row['mcq_id'].'">Edit</button>
 						</div>';			
 			}
 		}
@@ -69,8 +73,9 @@
 		$code = mysqli_real_escape_string($conn, $_POST['code']);
 		$ans = mysqli_real_escape_string($conn, $_POST['ans']);
 		$qid = mysqli_real_escape_string($conn, $_POST['qid']);
+		$opt = mysqli_real_escape_string($conn, $_POST['opt']);
 
-		$sql = "update nat set nat_statement='$code', nat_answer='$ans' where nat_id=$qid";
+		$sql = "update mcq set mcq_statement='$code', mcq_answer='$ans', mcq_options=$opt where mcq_id=$qid";
 		if(!mysqli_query($conn,$sql)){
 			$data = array(
 			    "error"     => "something went wrong",
@@ -79,6 +84,7 @@
 			$data = array(
 			    "val"     => $code,
 			    "ans"    => $ans,
+			    "opt"    => $opt,
 			);			
 		}
 		echo json_encode($data);
@@ -86,17 +92,19 @@
 	else{
 		$d='';
 		$dir=$_POST['dir'];
+		$type=$_POST['type'];
 
-		$sql="select * from nat where nat_directory='$dir' LIMIT 10";
+		$sql="select * from mcq where mcq_directory='$dir' and mcq_type='$type' LIMIT 10";
 		$res=mysqli_query($conn,$sql);
 		$c=mysqli_num_rows($res);
 
 		if($c>0){
 			while($row=mysqli_fetch_array($res)){
 				$d .= '<div class="stu-con">
-							<div class="statement" id="stmt'.$row['nat_id'].'">'.$row['nat_statement'].'</div><br>
-							<b>Answer: </b><span class="answer" id="ans'.$row['nat_id'].'">'.$row['nat_answer'].'</span><br><br>
-							<button class="btn btn-primary btn-sm edit" id="'.$row['nat_id'].'">Edit</button>
+							<div class="statement" id="stmt'.$row['mcq_id'].'">'.$row['mcq_statement'].'</div><br>
+							<b>Answer: </b><span class="answer" id="ans'.$row['mcq_id'].'">'.$row['mcq_answer'].'</span><br><br>
+							<b><div>No. of options: </b><span class="option" id="opt'.$row['mcq_id'].'">'.$row['mcq_options'].'</span></div><br>
+							<button class="btn btn-primary btn-sm edit" id="'.$row['mcq_id'].'">Edit</button>
 						</div>';			
 			}
 		}

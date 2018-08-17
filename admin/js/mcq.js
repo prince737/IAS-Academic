@@ -14,8 +14,11 @@ $(document).on('click', '.edit', function(e) {
 	var code = $('#'+sid).html();
 	var aid = 'ans'+this.id;
 	var ans = $('#'+aid).html();
+	var opt = 'opt'+this.id;
+	var opt = $('#'+opt).html();
 	
 	$('#ans').val(ans);
+	$('#opt').val(opt);
 	$('#summernote').summernote('code', code);
 	$('#editor').modal('show'); 
 });
@@ -26,12 +29,13 @@ var did=$("#dir").html();
 //Saving edited data
 $("#save").click(function() {
 	var ans=$("#ans").val();
+	var opt=$("#opt").val();
 	var qid=$("#qid").html();
 	var code = $('#summernote').summernote('code');
 	$.ajax({  
-	    url:"/iasacademic/admin/includes/nat.inc.php",  
+	    url:"/iasacademic/admin/includes/mcq.inc.php",  
 	    method:"POST",  
-	    data:{code:code, ans:ans, qid:qid},  
+	    data:{code:code, ans:ans, qid:qid, opt:opt},  
 	    dataType:"json",  
 	    success:function(data)  
 	    {  
@@ -42,6 +46,7 @@ $("#save").click(function() {
 	    	else{
 	    		$('#ans'+qid).html(data.ans);
 	    		$('#stmt'+qid).html(data.val);
+	    		$('#opt'+qid).html(data.opt);
 	    	}	  
 	    }  
 	}); 
@@ -49,14 +54,16 @@ $("#save").click(function() {
 
 //Loading data on request
 var dataCount=10;
+var type=$("#type").html();
+
 $("#reset").hide();
 $("#show").click(function() {
 	dataCount= dataCount + 5;
 	$("#show").html('Loading');  
 	$.ajax({  
-	    url:"/iasacademic/admin/includes/nat.inc.php",  
+	    url:"/iasacademic/admin/includes/mcq.inc.php",  
 	    method:"POST",  
-	    data:{dataNewCount:dataCount, did:did},  
+	    data:{dataNewCount:dataCount, did:did, type:type},  
 	    dataType:"json",  
 	    success:function(data)  
 	    {  
@@ -83,9 +90,9 @@ function load_data(query)
 	$("#show").hide();
 	$("#cwrap").hide();
     $.ajax({
-    	url:"/iasacademic/admin/includes/nat.inc.php",
+    	url:"/iasacademic/admin/includes/mcq.inc.php",
     	method:"POST",
-    	data:{query:query,dir:dir},
+    	data:{query:query, dir:dir, type:type},
 	    dataType:"json",
     	success:function(data)
     	{
@@ -108,9 +115,9 @@ $('#search').keyup(function(){
     else
     {
         $.ajax({
-	    	url:"/iasacademic/admin/includes/nat.inc.php",
+	    	url:"/iasacademic/admin/includes/mcq.inc.php",
 	    	method:"POST",
-	    	data:{dir:dir},
+	    	data:{dir:dir, type:type},
 		    dataType:"json",
 	    	success:function(data)
 	    	{

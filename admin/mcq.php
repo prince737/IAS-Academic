@@ -13,20 +13,20 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=0.8">
-	<title>Edit NAT | IAS</title>
+	<title>Edit MCQ / MAMCQ | IAS</title>
 	<link rel="icon" type="image/jpg" href="../images/logo.jpg" />
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/default.css">
     <link rel="stylesheet" type="text/css" href="css/notices.css">
 	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
     	.stu-con{
-			margin:5px;
+			margin:10px;
 			background:#fff;	
 			padding:20px 20px;
+			box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 		}
 		.modal-dialog{
 			width:80%!important;
@@ -34,6 +34,20 @@
 		}
 		.modal-content{
 			border-radius: 0px;
+		}
+		#search{
+			margin-bottom: 15px;
+		}
+		#ans{
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+		#success-modal{
+			display:none;
+		}
+		#search_res{
+			text-align: center;
+			display:none;
 		}
 	</style>
 </head>
@@ -48,17 +62,27 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>	<h3 style="color:red;">Edit NAT Question</h3>				
 				</div>
 				<div class="modal-body">
-					<p>Important: Be careful with Images. Removing an image from the editor will delete it from the database and thus the question won't contain that image even if you don't click on "Save" button.</p>
+					<p><b>Important:</b> Be careful with Images. Removing an image from the editor will delete it from the database and thus the question won't contain that image even if you don't click on "Save" button.</p>
 					<textarea id="summernote" name="question_desc" required></textarea>
-					<input type="text" class="form-control" name="nat_ans" id="nat_ans" placeholder="Correct Answer">  
+					<input type="text" class="form-control" name="ans" id="ans" placeholder="Correct Answer">  
+					<input type="text" class="form-control" name="opt" id="opt" placeholder="No of Options">  
+					<p id="qid" style="display:none;"></p>
+					<p><b>After making any changes on an image or text color, please refresh the page for them to take effect.</b></p>
 				</div> 
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-success" name="remove-dash">Save</button>
-					<button type="submit" name="remove-db" class="btn btn-danger">Close</button>
+					<center><button type="submit" class="btn btn-success" name="remove-dash" id="save" style="width:200px;">Save</button></center>
 				</div>		
 			</div>
 		</div>
 	</div>	
+
+	<div id="success-modal">
+		<div class="modalconent">
+			<h3 style="color:teal;">Information</h3>
+			<hr>	
+			<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+		</div>
+	</div>
 	
 			
 	<div class="container-fluid display-table">
@@ -259,30 +283,35 @@
 						}    
 					?>
 					<p class="dir" style="padding:15px 0px 0 20px;">Directory: <b><?php  echo $dname;    ?></b></p>
-					<p class="dir" style="padding:0 0px 0 20px; margin-bottom: -5px;">Question Type: <b><?php  echo $type;    ?></b></p>
+					<p class="dir" style="padding:0 0px 0 20px; margin-bottom: -5px;">Question Type: <b id="type" ><?php echo $type; ?></b></p>
 					<p id="dir" style="display:none;"><?php echo $did; ?></p>
 
 
-					<input type="text" class="form-control" id="search" placeholder="Search a NAT Question">
+					
 
 					
 					<div class="content-inner">
+						<input type="text" class="form-control" id="search" placeholder="Search">
+						<p id="search_res"><span id="no">5</span> results found on "<span id="string"></span>"</p>
 						<div class="form-wrapper" id="data">
+							
+							
 							<?php
 
-								$sql = "select * from nat where nat_directory='$did'";
+								$sql = "select * from mcq where mcq_directory='$did' and mcq_type='$type'";
 								$res = mysqli_query($conn,$sql);
 								$count = mysqli_num_rows($res);
 
-								$sql = "select * from nat where nat_directory='$did' LIMIT 10";
+								$sql = "select * from mcq where mcq_directory='$did' and mcq_type='$type' LIMIT 10";
 								$res = mysqli_query($conn,$sql);
 								if(mysqli_num_rows($res) > 0){
-									while($nat = mysqli_fetch_array($res)){
+									while($row = mysqli_fetch_array($res)){
 										echo '
 											<div class="stu-con">
-												<div class="statement" id="stmt'.$nat['nat_id'].'">'.$nat['nat_statement'].'</div>
-												<div class="answer" id="ans'.$nat['nat_id'].'">'.$nat['nat_answer'].'</div>
-												<button class="btn btn-primary btn-sm edit" id="'.$nat['nat_id'].'">Edit</button>
+												<div class="statement" id="stmt'.$row['mcq_id'].'">'.$row['mcq_statement'].'</div><br>
+												<b><div>Answer: </b><span class="answer" id="ans'.$row['mcq_id'].'">'.$row['mcq_answer'].'</span></div><br>
+												<b><div>No. of options: </b><span class="option" id="opt'.$row['mcq_id'].'">'.$row['mcq_options'].'</span></div><br>
+												<button class="btn btn-primary btn-sm edit" id="'.$row['mcq_id'].'">Edit</button>
 											</div>
 										';
 									}
@@ -295,6 +324,7 @@
 						</div>
 						<br>&nbsp;<button class="btn btn-success" id="show">Show more</button>
 						&nbsp;<a class="btn btn-warning" href="temp.php?did=<?php echo $did; ?>&type=NAT"" id="reset">Reset</a>
+						&nbsp;&nbsp;<span id="cwrap" style=" font-weight: bold;">Showing 1 to <span id="count" style=" font-weight: bold;"><?php if($count<10) echo $count; else echo'10'; ?></span> of <?php echo $count; ?> entries</span>
 						
 					</div>				
 				</div>
@@ -304,7 +334,7 @@
 
 	<script src="../js/jquery-3.2.1.min.js"></script>	
 	<script src="../js/bootstrap.js"></script>
-	<script src="js/nat.js"></script>
+	<script src="js/mcq.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
 	<script>
 		$(document).ready(function() {
@@ -322,12 +352,20 @@
 			    }
 
 		    });
+
 		    var a=<?php echo $count; ?>;
 			if(a<=10){
 				$("#reset").hide();
 				$("#show").hide();
 			}
 		});
+	</script>
+	<script>
+		window.onload = function () {
+			document.getElementById('button').onclick = function () {
+				document.getElementById('success-modal').style.display = "none";
+			};
+		};
 	</script>
 </body>
 </html>
