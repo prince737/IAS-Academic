@@ -14,8 +14,8 @@ if(isset($_POST['edit_dir'])){
 	
 	$sql = "update directories set dir_name='$name', dir_level=$level where dir_id='$did'";
 	if(!mysqli_query($conn, $sql)){
-		//header("Location: ../edit_dir.php?err");
-		//exit();
+		header("Location: ../edit_dir.php?err");
+		exit();
 	}
 	else{
 		$dname = simple_crypt($name,'e');

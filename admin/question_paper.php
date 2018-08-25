@@ -1,29 +1,31 @@
 <?php
 	session_start();
-	require_once('../includes/dbh.inc.php');	
 	
+	include_once '../includes/dbh.inc.php';
 	if(!isset($_SESSION['admin'])){
 		header("Location: admin_login.php");
 		exit();
 	}
+	
 ?>
-
 
 <!DOCTYPE html>
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=0.8">
-	<title>Online Exams| IAS</title>
+	<title>View Directories | IAS</title>
+	<link rel="icon" type="image/jpg" href="../images/logo.jpg" />
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/default.css">
-	<link rel="stylesheet" type="text/css" href="css/active-notices.css">
-	<link rel="stylesheet" type="text/css" href="css/online_exam.css">
+    <link rel="stylesheet" type="text/css" href="css/notices.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" type="image/jpg" href="../images/logo.jpg" />
 </head>
-<body>
 
+<body>	
+
+	
+			
 	<div class="container-fluid display-table">
 		<div class="row display-table-row">
 			<div class="col-md-2 col-sm-1 hidden-xs display-table-cell valign-top" id="mySidebar">
@@ -61,7 +63,7 @@
 						</a>
 						<ul class="collapse collapsable" id="collapse-post1c" style="margin:0px; padding:0px; ">
 							<li>
-								<a href="add_course.php">
+								<a href="#">
 									<span>Add New</span>
 								</a>
 							</li>
@@ -84,7 +86,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="active_notices.php">
+								<a href="active_events.php">
 									<span>View Active</span>
 								</a>
 							</li>
@@ -97,13 +99,31 @@
 						</a>
 						<ul class="collapse collapsable" id="collapse-post2" style="margin:0px; padding:0px; ">
 							<li>
-								<a href="new_event.php">
+								<a href="add_event.php">
 									<span>Create New</span>
 								</a>
 							</li>
 							<li>
-								<a href="#">
+								<a href="active_events.php">
 									<span>View Active</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="link">
+						<a href="#collapse-pos2" data-toggle="collapse" aria-control="collapse-post1">
+							<i class="fa fa-book" aria-hidden="true"></i>
+							<span class="hidden-sm hidden-xs">Study Material</span>
+						</a>
+						<ul class="collapse collapsable" id="collapse-pos2" style="margin:0px; padding:0px; ">
+							<li>
+								<a href="add_notes.php">
+									<span>Add New</span>
+								</a>
+							</li>
+							<li>
+								<a href="remove_notes.php">
+									<span>Remove Existing</span>
 								</a>
 							</li>
 						</ul>
@@ -139,7 +159,7 @@
 						</a>
 					</li>
 					<li class="link online-exam">
-						<a href="#">
+						<a href="online_exam.php">
 							<i class="fa fa-tasks" aria-hidden="true"></i>
 							<span class="hidden-sm hidden-xs">Online Exams</span>
 						</a>
@@ -185,71 +205,55 @@
 					</header>
 				</div>
 				
-				<div id="content">
-					<header  class="clearfix">
-						<h2 class="page_title pull-left">Manage Online Exams</h2>
+				<div id="content">				
+					<header class="clearfix">
+						<h2 class="page_title pull-left">Add Questions in a Paper</h2>	
+						<a type="button" class="new pull-right btn-primary btn-xs" href="questions.php">View all Papers</a>
 					</header>
-					
-					<div class="inner-content">
-						<div class="container">
-							<div class="row">
-								<div class="col-sm-3 links qd">
-									<h4>Question Directories</h4>
-									<a href="create_dir.php">Create Directory</a>
-									<a href="edit_dir.php">Edit Directory</a>
-									<a href="questions.php">Add Questions</a>
-									<a href="view_directories.php">View all Directories</a>
-								</div>
-								<div class="col-sm-3 links papers">
-									<h4>Exam Papers</h4>
-									<a href="create_paper.php">Create new Paper</a>
-									<a href="#">Edit a Paper</a>
-									<a href="#">Search a Paper</a>
-									<a href="papers.php">View all Papers</a>
-								</div>
-								<div class="col-sm-3 links exams">Exams</div>
-								<div class="col-sm-3 links results">Results</div>
-							</div>
+					<?php  
+						if(isset($_GET['paper'])){ 
+							$paper = $_GET['paper'];
+							//Get paper arrtibutes
+						}    
+					?>
+					<p class="dir" style="padding: 20px 0 0 20px;">Paper: <b>Paper Name<?php  //echo $dname;    ?></b></p>
+					<p class="dir" style="padding-left: 20px;">Classes: <b>Class Names<?php  //echo $dname;    ?></b></p>
+					<p class="dir" style="padding-left: 20px;">Courses: <b>Course Names<?php  //echo $dname;    ?></b></p>
+					<p class="dir" style="padding-left: 20px;">Centers: <b>Center Names<?php  //echo $dname;    ?></b></p>
+					<div class="content-inner">
+						<div class="form-wrapper" id="data">
+
+							Hey there
 						</div>
-					</div>										
-				</div> <!-- end of content-->
+					</div>				
+				</div>
 			</div>
-		</div>	
+		</div>
 	</div>
+	
+	
 
 	<script src="../js/jquery-3.2.1.min.js"></script>	
 	<script src="../js/bootstrap.js"></script>
-	<script src="js/default.js"></script>
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script>
-	  $( function() {
-		$( "#datepicker" ).datepicker({
-				changeMonth: true,
-				changeYear: true,
-				altField: "#datepicker",
-				altFormat: "yy-mm-dd",
-			});
-	  });
 	</script>
-	<script src="../vendor/js/chosen.jquery.min.js"></script>
-	<script>
-		$(".chosen_select").chosen({
-			disable_search_threshold: 10,
-			no_results_text: "Oops, nothing found!",
-			width: "100%"
-		});
 
-	
-	</script>
 	<script>
-		window.onload = function () {
-			document.getElementById('button').onclick = function () {
-				document.getElementById('success-modal').style.display = "none"
-				window.location.replace('active_events.php');
-			};
+		document.getElementById('buttoner').onclick = function () {
+			document.getElementById('success-modal').style.display = "none",
+			window.location.replace('add_course.php');
 		};
+		
+	
 	</script>
 	
+	
+	
+
 </body>
 </html>
+				
+				
+				
+				
+				
+				
