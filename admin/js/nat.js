@@ -19,7 +19,7 @@ $(document).on('click', '.edit', function(e) {
 	$('#summernote').summernote('code', code);
 	$('#editor').modal('show'); 
 });
-
+ 
 //directory id variable
 var did=$("#dir").html();
 

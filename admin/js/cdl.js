@@ -17,7 +17,7 @@ $(document).on('click', '.edit', function(e) {
 	$('#opt').hide();
 	$('#save').show();
 	$('#saveq').hide();
-	$('#editor').modal('show'); 
+	$('#editor').modal('show');
 });
 
 //directory id variable
@@ -297,7 +297,7 @@ $(document).on('click', '.inneredit', function(e) {
 	$('#nat_mcq_id').html(id);
 	$('#summernote').summernote('code', code);
 	$('#save').hide();
-	$('#saveques').show();
+	$('#saveq').show();
 	$('#editor').modal('show'); 
 });
 

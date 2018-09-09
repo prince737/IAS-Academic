@@ -3,9 +3,7 @@
 session_start();
 include_once '../../includes/dbh.inc.php';
 
-if(isset($_POST['submit'])){
-	
-	
+if(isset($_POST['submit'])){	
 	$startdate = mysqli_real_escape_string($conn, $_POST['startdate']);
 	$enddate = mysqli_real_escape_string($conn, $_POST['enddate']);
 	$heading = mysqli_real_escape_string($conn, $_POST['heading']);

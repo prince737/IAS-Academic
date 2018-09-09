@@ -21,7 +21,7 @@
 	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
+    <style> 
     	.stu-con{
 			margin:10px;
 			background:#fff;	
@@ -296,7 +296,7 @@
 							
 							<?php
 
-								$sql = "select * from nat where nat_directory='$did'";
+								$sql = "select * from nat where nat_directory='$did' and nat_ifcdl=0";
 								$res = mysqli_query($conn,$sql);
 								$count = mysqli_num_rows($res);
 
@@ -320,10 +320,10 @@
 							
 						</div>
 						<br>&nbsp;<button class="btn btn-success" id="show">Show more</button>
-						&nbsp;<a class="btn btn-warning" href="temp.php?did=<?php echo $did; ?>&type=NAT"" id="reset">Reset</a>
-						&nbsp;&nbsp;<span id="cwrap" style=" font-weight: bold;">Showing 1 to <span id="count" style=" font-weight: bold;">10</span> of <?php echo $count; ?> entries</span>
+						&nbsp;<a class="btn btn-warning" href="nat.php?did=<?php echo $did; ?>&type=NAT"" id="reset">Reset</a>
+						&nbsp;&nbsp;<span id="cwrap" style=" font-weight: bold;">Showing 1 to <span id="count" style=" font-weight: bold;"><?php if($count<10) echo $count; else echo "10"; ?></span> of <?php echo $count; ?> entries</span>
 						
-					</div>				
+					</div>		
 				</div>
 			</div>
 		</div>
