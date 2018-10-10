@@ -3,6 +3,7 @@ var dataCount=10;
 $('#search').on('click', function(e){
 	var qdir = $('#qdir').val();
 	var qtype = $('#qtype').val();
+	var pid = $('#pid').html();
 	if(qtype == '0' || qdir == '0'){
 		alert("Please select correct option from dropdown.");
 	}
@@ -12,6 +13,7 @@ $('#search').on('click', function(e){
 			url: 'includes/papers.inc.php', 
 			dataType: "json",
 			data: {
+				pid: pid,
 				qtype: qtype,
 				qdir: qdir,
 				first: 1,
@@ -24,7 +26,7 @@ $('#search').on('click', function(e){
 				if(data.count>0){
 					$('.nav_controls').show();	
 				
-					if(dataCount>data.count){
+					if(dataCount>data.count){///
 			        	$('#count').html(data.count);
 			        }
 			        else{
@@ -77,6 +79,7 @@ $('#data').on('click', '.addq', function(e){
 	var qtype = $('#qtype').val();
 	var qid = this.id;
 	var marks = $('#marks'+qid).val();
+	var sl_no = $('#sl_no'+qid).val();
 	var pid = $('#pid').html();
 	var qdir = $('#qdir').val();
 
@@ -91,6 +94,7 @@ $('#data').on('click', '.addq', function(e){
 			data: {
 				addQuestion: 1,
 				qtype: qtype,
+				sl_no: sl_no,
 				pid: pid,
 				qid: qid,
 				qdir: qdir,
@@ -107,6 +111,45 @@ $('#data').on('click', '.addq', function(e){
 		        	$('#count').html(dataCount);
 		        }
 		        $('#count1').html(data.count);
+
+
+		        if(qtype == 'MCQ'){
+		        	var var1 = parseInt($('#noMcq').html()) + 1;
+		        	$('#noMcq').html(var1);
+		        	if(!parseInt($('#marksMcq').html())){
+		        		var1 =  parseInt(marks);
+		        	}
+		        	else{
+		        		var1 = parseInt($('#marksMcq').html()) + parseInt(marks);
+		        	}
+		        	$('#marksMcq').html(var1);
+		        }
+		        else if(qtype == 'MMC'){
+		        	var var1 = parseInt($('#noMmc').html()) + 1;
+		        	$('#noMmc').html(var1);
+		        	if(!parseInt($('#marksMmc').html())){
+		        		var1 =  parseInt(marks);
+		        	}
+		        	else{
+		        		var1 = parseInt($('#marksMmc').html()) + parseInt(marks);
+		        	}		        	
+		        	$('#marksMmc').html(var1);
+		        }
+		        else if(qtype == 'NAT'){
+		        	var var1 = parseInt($('#noNat').html()) + 1;
+		        	$('#noNat').html(var1);
+		        	if(!parseInt($('#marksNat').html())){
+		        		var1 =  parseInt(marks);
+		        	}
+		        	else{
+		        		var1 = parseInt($('#marksNat').html()) + parseInt(marks);
+		        	}	
+		        	$('#marksNat').html(var1);
+		        }
+		        var total = parseInt($('#marksTotal').html()) + parseInt(marks);
+		       	$('#marksTotal').html(total);
+		       	$('#totalQues').html( parseInt($('#totalQues').html())+1);
+		        
 			}
 		});
 	}

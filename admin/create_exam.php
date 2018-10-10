@@ -13,7 +13,7 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=0.8">
-	<title>All Question Papers | IAS</title>
+	<title>Create / Pulish Exams | IAS</title>
 	<link rel="icon" type="image/jpg" href="../images/logo.jpg" />
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/default.css">
@@ -21,45 +21,21 @@
 	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style type="text/css">
+    	.paper{
+    		display: none;
+    	}
+    	.paper span{
+    		margin-bottom: 20px; 
+    		margin-right: 50px;
+    		display: inline-block;
+    	}
+	</style>
 </head>
+
 
 <body>	
 
-
-	<div class="modal fade" id="edit_paper">
-		<div class="modal-dialog">
-			<div class="modal-content" >
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" >&times;</button>	<h3>Edit Paper</h3>		
-				</div>
-				<div class="modal-body">
-					<form action="includes/papers.inc.php" method="POST" enctype="multipart/form-data">							
-						<div class="form-group">
-							<label for="">PAPER NAME:</label>
-							<input type="text" class="form-control" id="qp_name" name="paper_name" required">
-						</div>
-						<div class="form-group">
-							<label for="">FULL MARKS:</label>															
-							<input type="text" class="form-control" id="qp_marks" name="paper_marks" required">
-						</div>
-						<div class="form-group">
-							<label for="">PAPER STANDARD:</label>														
-							<input type="text" class="form-control" id="qp_standard" name="paper_standard" required">
-						</div>
-						<div class="form-group">
-							<label for="">PAPER LEVEL:</label>														
-							<input type="text" class="form-control" id="qp_level" name="paper_level" required">
-						</div>
-						<input type="hidden" id="qpid" name="qpid">
-						<hr>
-						<button type="submit" class="btn btn-success btn-sm" name="edit_paper">Save </button>
-						<button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
-					</form>
-				</div> 
-					
-			</div>
-		</div>
-	</div>
 	
 			
 	<div class="container-fluid display-table">
@@ -243,104 +219,133 @@
 
 				<ol class="breadcrumb" style="margin-top:20px;">
 					<li class="breadcrumb-item"><a href="online_exam.php">Online Exams</a></li>
-					<li class="breadcrumb-item active">Exam Papers</li>
-					<li class="breadcrumb-item active">View all Question Papers</li>
+					<li class="breadcrumb-item active">Exams</li>					
+					<li class="breadcrumb-item active">Create Exam</li>
 				</ol>
 				
 				<div id="content">				
 					<header class="clearfix">
-						<h2 class="page_title pull-left">All Question paper</h2>	
-						<a type="button" class="new pull-right btn-primary btn-xs" href="create_paper.php">Create Question Paper</a>
+						<h2 class="page_title pull-left">Create a new Exam</h2>	
+						<a type="button" class="new pull-right btn-primary btn-xs" href="exams.php">View all Exams</a>
 					</header>
 					
 					<div class="content-inner">
-						<table id="example" class="display" style="width:100%">
-					        <thead>
-					            <tr>
-					                <th>Id</th>
-					                <th>Date of Creation</th>
-					                <th>Name</th>
-					                <th>Level</th>
-					                <th>Type</th>
-					                <th>Standard</th>
-					                <th>Full Marks</th>
-					                <th>Actions</th>
-					            </tr>
-					        </thead>
-					         <tbody>
+						<div class="form-wrapper" id="data">
+							<form action="includes/exams.inc.php" method="POST" enctype="multipart/form-data">		
+								<select class="form-control" id="pid" name="pid" required>
+									<option selected value="">Select Paper</option>
+									<?php
+										$sql = 'select * from papers';
+										$result = mysqli_query($conn, $sql);
+										
+										while($row = mysqli_fetch_array($result)){
+											echo '<option value="'.$row['qpid'].'">'.$row['qp_name'].'</option>';
+										}										
+									
+									?>
+								</select><br>
+								<div class="paper">
+									<span>Paper Id: <b id="paperid"></b></span><span>Paper Level: <b id="plevel"></b></span><span>Full Marks: <b id="pmarks"></b></span>
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" name="exam_title" required placeholder="Exam Title">
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" name="exam_type" required placeholder="Exam Type">
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" name="exam_standard" required placeholder="Exam Standard">
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" name="exam_time" required placeholder="Time">
+								</div>
+								<div class="form-group">
+									<select class="form-control" id="nega" name="exam_nega" required>
+										<option selected value="">Negative Marking</option>
+										<option value="Yes">Yes</option>
+										<option value="No">No</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<select class="form-control" id="cal" name="exam_cal" required>
+										<option selected value="">Calculator</option>
+										<option value="Yes">Yes</option>
+										<option value="No">No</option>
+									</select>
+								</div>
+								<div class="clearfix">
+									<button type="submit" class="btn btn-primary" name="save_exam">Create Exam</button>
+								</div>
 
-						<?php
-							$sql = "select * from papers";
-							$result=mysqli_query($conn, $sql);
-							
-							$i=1;
-							while($row = mysqli_fetch_array($result)){
 
-								echo '
-									<tr>
-						                <td id="id'.$i.'">'.$row['qpid'].'</td>
-						                <td>'.$row['qp_date'].'</td>
-						                <td id="name'.$i.'">'.$row['qp_name'].'</td>
-						                <td id="level'.$i.'">'.$row['qp_level'].'</td>
-						                <td id="type'.$i.'">'.$row['qp_type'].'</td>
-						                <td id="standard'.$i.'">'.$row['qp_standard'].'</td>
-						                <td id="marks'.$i.'">'.$row['qp_fullmarks'].'</td>
-						                <td>
-						                   <button id="edit'.$i.'" class="btn btn-xs btn-warning edit">Edit Paper</button>
-						                    <a href="add_questions.php?qpid='.$row['qpid'].'" class="btn btn-xs btn-success">Add Questions</a>
-						                    <a href="remove_questions.php?qpid='.$row['qpid'].'" class="btn btn-xs btn-danger">Remove Questions</a>
-						                </td>
-						            </tr>						            
-								';	
-								$i++;
-							}
 
-						?>
-					            
-					    </table>
+								<!--<div class="form-group">
+									<input type="text" class="form-control" name="paper_name" required placeholder="Paper Name">
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" name="paper_marks" required placeholder="Full Marks">
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" name="paper_standard" required placeholder="Paper Standard">
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" name="paper_level" required placeholder="Paper Level">
+								</div><div class="form-group">
+									<input type="text" class="form-control" name="paper_type" required placeholder="Paper Type">
+								</div>
+								-->
+							</form>
+						</div>
 					</div>				
 				</div>
 			</div>
 		</div>
 	</div>
 	
+	<?php
+		if(isset($_GET['err']))
+		{
+			echo '			    
+			    <div id="success-modal">
+					<div class="modalconent">
+						<h3 style="color:teal;">Information</h3>
+						<hr>	
+						<p class="para">Something went wrong, please try again.</p> 
+						<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+					</div>
+				</div>
+			';			
+		}
+		elseif(isset($_GET['id'])){
+			echo '			    
+			    <div id="success-modal">
+					<div class="modalconent">
+						<h3 style="color:teal;">Information</h3>
+						<hr>	
+						<p class="para">Exam was succesfully created21. Its Id is  <b>'.$_GET['id'].'</b>.<br> Go to <a href="exams.php">view all</a> page to publish it.</p> 
+						<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
+					</div>
+				</div>
+			';	
+		}
+
+	?>
+	
 
 	<script src="../js/jquery-3.2.1.min.js"></script>	
 	<script src="../js/bootstrap.js"></script>
-	<script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.18/r-2.2.2/datatables.min.js"></script>
+	<script src="js/exam.js"></script>
 
 	<script>
 		document.getElementById('button').onclick = function () {
-			document.getElementById('success-modal').style.display = "none",
-			window.location.replace('create_paper.php');
-		};		
+			document.getElementById('success-modal').style.display = "none";
+		};
+		
 	
 	</script>
-	<script type="text/javascript">
-		$(document).ready( function () {
-		    $('#example').DataTable();
-
-		    $('.edit').click(function(){
-		    	var id = this.id;
-		    	id = id.substring(4,);
-
-		    	$('#qpid').val($('#id'+id).html());
-		    	$('#qp_name').val($('#name'+id).html());
-		    	$('#qp_standard').val($('#standard'+id).html());
-		    	$('#qp_level').val($('#level'+id).html());
-		    	$('#qp_marks').val($('#marks'+id).html());
-				$('#edit_paper').modal('show'); 
-		    })
-		} );
-	</script>
+	
 	
 	
 
 </body>
 </html>
-				
-				
-				
-				
-				
-				

@@ -232,6 +232,8 @@
 								</div>
 								<div class="form-group">
 									<input type="text" class="form-control" name="paper_level" required placeholder="Paper Level">
+								</div><div class="form-group">
+									<input type="text" class="form-control" name="paper_type" required placeholder="Paper Type">
 								</div>
 								<div class="clearfix">
 									<button type="submit" class="btn btn-primary" name="save_paper">Save Paper</button>

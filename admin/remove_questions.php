@@ -13,54 +13,41 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=0.8">
-	<title>All Question Papers | IAS</title>
+	<title>Remove Question  | IAS</title>
 	<link rel="icon" type="image/jpg" href="../images/logo.jpg" />
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/default.css">
     <link rel="stylesheet" type="text/css" href="css/notices.css">
-	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+    	.stu-con{
+			margin:10px;
+			background:#fff;	
+			padding:20px 20px;
+			box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);			
+		}
+		#success-modal, .nav_controls, .type, .mod_span{
+			display:none;
+		}
+		.marks{
+			height:30px;
+			margin-left: 15px;
+		}
+	</style>
 </head>
 
 <body>	
 
-
-	<div class="modal fade" id="edit_paper">
-		<div class="modal-dialog">
-			<div class="modal-content" >
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" >&times;</button>	<h3>Edit Paper</h3>		
-				</div>
-				<div class="modal-body">
-					<form action="includes/papers.inc.php" method="POST" enctype="multipart/form-data">							
-						<div class="form-group">
-							<label for="">PAPER NAME:</label>
-							<input type="text" class="form-control" id="qp_name" name="paper_name" required">
-						</div>
-						<div class="form-group">
-							<label for="">FULL MARKS:</label>															
-							<input type="text" class="form-control" id="qp_marks" name="paper_marks" required">
-						</div>
-						<div class="form-group">
-							<label for="">PAPER STANDARD:</label>														
-							<input type="text" class="form-control" id="qp_standard" name="paper_standard" required">
-						</div>
-						<div class="form-group">
-							<label for="">PAPER LEVEL:</label>														
-							<input type="text" class="form-control" id="qp_level" name="paper_level" required">
-						</div>
-						<input type="hidden" id="qpid" name="qpid">
-						<hr>
-						<button type="submit" class="btn btn-success btn-sm" name="edit_paper">Save </button>
-						<button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
-					</form>
-				</div> 
-					
-			</div>
+	<div id="success-modal">
+		<div class="modalconent">
+			<h3 style="color:teal;">Information</h3>
+			<hr>	
+			<p><b class="para" id="para"></b></p> 
+			<button id="button" class="btn btn-danger btn-sm pull-right">Close</button>
 		</div>
 	</div>
-	
 			
 	<div class="container-fluid display-table">
 		<div class="row display-table-row">
@@ -243,61 +230,166 @@
 
 				<ol class="breadcrumb" style="margin-top:20px;">
 					<li class="breadcrumb-item"><a href="online_exam.php">Online Exams</a></li>
-					<li class="breadcrumb-item active">Exam Papers</li>
-					<li class="breadcrumb-item active">View all Question Papers</li>
+					<li class="breadcrumb-item"><a href="papers.php">View All Papers</a></li>
+					<li class="breadcrumb-item active">Remove Questions</li>
 				</ol>
 				
+				<?php
+					$paper_id = $_GET['qpid'];
+				?>
+
 				<div id="content">				
 					<header class="clearfix">
-						<h2 class="page_title pull-left">All Question paper</h2>	
+						<h2 class="page_title pull-left">Remove Questions from a Paper</h2>	
 						<a type="button" class="new pull-right btn-primary btn-xs" href="create_paper.php">Create Question Paper</a>
+						<a type="button" class="new pull-right btn-success btn-xs" href="add_questions.php?qpid=<?php echo $paper_id; ?>">Add Question</a>
 					</header>
-					
+
+					<?php
+
+						//LOAD QUESTIONS IN PAPER
+						$sql = "select * from paper_question where paper_id='$paper_id' order by sl_no";
+						$res_q = mysqli_query($conn, $sql);
+
+						//MCQ MARKS
+						$sql = "SELECT count(question_type) as count, sum(marks) as marks FROM `paper_question` WHERE paper_id='$paper_id' and question_type = 'MCQ'";
+						$res = mysqli_query($conn, $sql);
+						$row = mysqli_fetch_array($res);
+						$noMcq = $row['count'];
+						$marksMcq = $row['marks'];
+
+						//MMCQ MARKS
+						$sql = "SELECT count(question_type) as count, sum(marks) as marks FROM `paper_question` WHERE paper_id='$paper_id' and question_type = 'MMC'";
+						$res = mysqli_query($conn, $sql);
+						$row = mysqli_fetch_array($res);
+						$noMmcq = $row['count'];
+						$marksMmcq = $row['marks'];
+
+						//NAT MARKS
+						$sql = "SELECT count(question_type) as count, sum(marks) as marks FROM `paper_question` WHERE paper_id='$paper_id' and question_type = 'NAT'";
+						$res = mysqli_query($conn, $sql);
+						$row = mysqli_fetch_array($res);
+						$noNat = $row['count'];
+						$marksNat = $row['marks'];
+
+						/*$noCdl = 5;
+						$marksCdl = 25;		*/				
+
+						$totalMarks = $marksMcq + $marksMmcq + $marksNat /*+ $marksCdl*/;
+
+					?>
+
 					<div class="content-inner">
-						<table id="example" class="display" style="width:100%">
-					        <thead>
+						<table class="table table-bordered">
+							<thead>
 					            <tr>
-					                <th>Id</th>
-					                <th>Date of Creation</th>
-					                <th>Name</th>
-					                <th>Level</th>
-					                <th>Type</th>
-					                <th>Standard</th>
-					                <th>Full Marks</th>
-					                <th>Actions</th>
+					                <th>Paper Id</th>
+					                <th>No. of MCQ</th>
+					                <th>Marks MCQ</th>
+					                <th>No. of MMCQ</th>
+					                <th>Marks MMCQ</th>
+					                <th>No. of NAT</th>
+					                <th>Marks NAT</th>
+					                <!--<th>No. of CDL</th>
+					                <th>Marks CDL</th>-->
+					                <th>Total Marks</th>
 					            </tr>
 					        </thead>
 					         <tbody>
-
+					         	<tr>
+					         		<td id="pid"><?php echo $paper_id ?></td>
+					         		<td id="noMcq"><?php echo $noMcq ?></td>
+					         		<td id="marksMcq"><?php echo $marksMcq ?></td>
+					         		<td id="noMmc"><?php echo $noMmcq ?></td>
+					         		<td id="marksMmc"><?php echo $marksMmcq ?></td>
+					         		<td id="noNat"><?php echo $noNat ?></td>
+					         		<td id="marksNat"><?php echo $marksNat ?></td>
+					         		<!--<td id="noCdl"><?php echo $noCdl ?></td>
+					         		<td id="marksCdl"><?php echo $marksCdl ?></td>-->
+					         		<td id="marksTotal"><?php echo $totalMarks ?></td>
+					         	</tr>
+					         </tbody>
+						</table>
+						<div class="form-wrapper" id="data">
 						<?php
-							$sql = "select * from papers";
-							$result=mysqli_query($conn, $sql);
-							
-							$i=1;
-							while($row = mysqli_fetch_array($result)){
-
-								echo '
-									<tr>
-						                <td id="id'.$i.'">'.$row['qpid'].'</td>
-						                <td>'.$row['qp_date'].'</td>
-						                <td id="name'.$i.'">'.$row['qp_name'].'</td>
-						                <td id="level'.$i.'">'.$row['qp_level'].'</td>
-						                <td id="type'.$i.'">'.$row['qp_type'].'</td>
-						                <td id="standard'.$i.'">'.$row['qp_standard'].'</td>
-						                <td id="marks'.$i.'">'.$row['qp_fullmarks'].'</td>
-						                <td>
-						                   <button id="edit'.$i.'" class="btn btn-xs btn-warning edit">Edit Paper</button>
-						                    <a href="add_questions.php?qpid='.$row['qpid'].'" class="btn btn-xs btn-success">Add Questions</a>
-						                    <a href="remove_questions.php?qpid='.$row['qpid'].'" class="btn btn-xs btn-danger">Remove Questions</a>
-						                </td>
-						            </tr>						            
-								';	
-								$i++;
+							while($row = mysqli_fetch_array($res_q)){
+								$qid = $row['question_id'];
+								if($row['question_type'] == 'MCQ' || $row['question_type'] == 'MAMCQ'){
+									$sql = "select * from mcq where mcq_id=$qid and mcq_type='MCQ'";
+									$res = mysqli_query($conn, $sql);
+									$row1 = mysqli_fetch_array($res);
+									echo '
+										<div class="stu-con">
+											<div class="statement" id="stmt'.$row1['mcq_id'].'">'.$row1['mcq_statement'].'</div><br>
+											<b><div>No. of options: </b><span class="option" id="opt'.$row1['mcq_id'].'">'.$row1['mcq_options'].'</span></div>
+											<b><div>Correct Answer: </b><span class="option" id="ans'.$row1['mcq_id'].'">'.$row1['mcq_answer'].'</span></div>
+											<hr>
+											<button class="btn btn-danger btn-sm remq" id="mcq'.$row1['mcq_id'].'">Remove from Paper</button>
+								     	</div>
+									';
+								}
+								if($row['question_type'] == 'MMC'){
+									$sql = "select * from mcq where mcq_id=$qid and mcq_type='MAMCQ'";
+									$res = mysqli_query($conn, $sql);
+									$row1 = mysqli_fetch_array($res);
+									echo '
+										<div class="stu-con">
+											<div class="statement" id="stmt'.$row1['mcq_id'].'">'.$row1['mcq_statement'].'</div><br>
+											<b><div>No. of options: </b><span class="option" id="opt'.$row1['mcq_id'].'">'.$row1['mcq_options'].'</span></div>
+											<b><div>Correct Answer: </b><span class="option" id="ans'.$row1['mcq_id'].'">'.$row1['mcq_answer'].'</span></div>
+											<hr>
+											<button class="btn btn-danger btn-sm remq" id="mmc'.$row1['mcq_id'].'">Remove from Paper</button>
+								     	</div>
+									';
+								}
+								elseif($row['question_type'] == 'NAT'){
+									$sql = "select * from nat where nat_id=$qid";
+									$res = mysqli_query($conn, $sql);
+									$row1 = mysqli_fetch_array($res);
+									echo '
+										<div class="stu-con">
+											<div class="statement" id="stmt'.$row1['nat_id'].'">'.$row1['nat_statement'].'</div>
+											<div class="answer" id="ans'.$row1['nat_id'].'">Correct Answer: '.$row1['nat_answer'].'</div>
+											<hr>
+											<button class="btn btn-danger btn-sm remq" id="nat'.$row1['nat_id'].'">Remove from Paper</button>
+								    	</div>
+									';
+								}
 							}
-
 						?>
-					            
-					    </table>
+						</div>
+						<div class="nav_controls">
+							<br>&nbsp;<button class="btn btn-success" id="show">Show more</button>
+							&nbsp;<a class="btn btn-warning" href="add_questions.php?qpid=<?php echo $_GET['qpid'] ?>" id="reset">Reset</a>
+							&nbsp;&nbsp;
+							<span id="cwrap" style=" font-weight: bold;">
+								Showing 1 to 
+								<span id="count" style=" font-weight: bold;"></span>
+								 of <span id = "count1" style=" font-weight: bold;"></span> entries
+							</span>
+						</div>
+
+
+						<div class="modal fade" id="remModal">
+							<div class="modal-dialog modal-sm" style="margin-top: 10%;">
+								<div class="modal-content" >
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>	<h4>Remove Question</h4>			
+									</div>
+									<div class="modal-body">
+										Sure about removing the question?
+										<span id="qid" class="mod_span"></span>
+										<span id="qtype" class="mod_span"></span>
+										<span id="qpid" class="mod_span"></span>
+									</div> 
+									<div class="modal-footer">
+										<button type="button" class="btn btn-success btn-xs" data-dismiss="modal">Close</button>
+										<button type="submit" class="btn btn-danger btn-xs" name="deny" id="removeQes">Remove</button>
+									</div>		
+								</div>
+							</div>
+						</div>
+
 					</div>				
 				</div>
 			</div>
@@ -307,34 +399,14 @@
 
 	<script src="../js/jquery-3.2.1.min.js"></script>	
 	<script src="../js/bootstrap.js"></script>
-	<script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.18/r-2.2.2/datatables.min.js"></script>
+	<script src="js/remove_question.js"></script>
 
 	<script>
 		document.getElementById('button').onclick = function () {
-			document.getElementById('success-modal').style.display = "none",
-			window.location.replace('create_paper.php');
+			document.getElementById('success-modal').style.display = "none";
 		};		
 	
 	</script>
-	<script type="text/javascript">
-		$(document).ready( function () {
-		    $('#example').DataTable();
-
-		    $('.edit').click(function(){
-		    	var id = this.id;
-		    	id = id.substring(4,);
-
-		    	$('#qpid').val($('#id'+id).html());
-		    	$('#qp_name').val($('#name'+id).html());
-		    	$('#qp_standard').val($('#standard'+id).html());
-		    	$('#qp_level').val($('#level'+id).html());
-		    	$('#qp_marks').val($('#marks'+id).html());
-				$('#edit_paper').modal('show'); 
-		    })
-		} );
-	</script>
-	
-	
 
 </body>
 </html>

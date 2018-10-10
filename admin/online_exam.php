@@ -207,7 +207,11 @@
 									<a href="#">Search a Paper</a>
 									<a href="papers.php">View all Papers</a>
 								</div>
-								<div class="col-sm-3 links exams">Exams</div>
+								<div class="col-sm-3 links exams">
+									<h4>Exams</h4>
+									<a href="create_exam.php">Publish Exam</a>
+									<a href="exams.php">View all Exams</a>
+								</div>
 								<div class="col-sm-3 links results">Results</div>
 							</div>
 						</div>

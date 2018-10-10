@@ -6,7 +6,6 @@
 		header("Location: admin_login.php");
 		exit();
 	}
-	
 ?>
 
 <!DOCTYPE html>
@@ -234,40 +233,74 @@
 					<li class="breadcrumb-item active">Add Questions</li>
 				</ol>
 				
+				<?php
+						$paper_id = $_GET['qpid'];
+				?>
+
 				<div id="content">				
 					<header class="clearfix">
 						<h2 class="page_title pull-left">Add Questions to a Paper</h2>	
-						<a type="button" class="new pull-right btn-primary btn-xs" href="create_paper.php">Create Question Paper</a>
+						<a type="button" class="new pull-right btn-warning btn-xs" href="remove_questions.php?qpid=<?php echo $paper_id; ?>">Remove Questions</a>
+						<a type="button" class="new pull-right btn-primary btn-xs" href="create_paper.php">Create Question Paper</a>&nbsp;&nbsp;
 					</header>
+
+					<?php
+						$sql = "SELECT count(question_type) as count, sum(marks) as marks FROM `paper_question` WHERE paper_id='$paper_id' and question_type = 'MCQ'";
+						$res = mysqli_query($conn, $sql);
+						$row = mysqli_fetch_array($res);
+						$noMcq = $row['count'];
+						$marksMcq = $row['marks'];
+
+						$sql = "SELECT count(question_type) as count, sum(marks) as marks FROM `paper_question` WHERE paper_id='$paper_id' and question_type = 'MMC'";
+						$res = mysqli_query($conn, $sql);
+						$row = mysqli_fetch_array($res);
+						$noMmcq = $row['count'];
+						$marksMmcq = $row['marks'];
+
+						$sql = "SELECT count(question_type) as count, sum(marks) as marks FROM `paper_question` WHERE paper_id='$paper_id' and question_type = 'NAT'";
+						$res = mysqli_query($conn, $sql);
+						$row = mysqli_fetch_array($res);
+						$noNat = $row['count'];
+						$marksNat = $row['marks'];
+
+						/*$noCdl = 5;
+						$marksCdl = 25;			*/			
+
+						$totalMarks = $marksMcq + $marksMmcq + $marksNat /*+ $marksCdl*/;
+						$totalQues = $noNat + $noMmcq + $noMcq /*+ $marksCdl*/;
+
+					?>
 
 					<div class="content-inner">
 						<table class="table table-bordered">
 							<thead>
 					            <tr>
-					                <th>Paper Name</th>
+					                <th>Paper Id</th>
 					                <th>No. of MCQ</th>
 					                <th>Marks MCQ</th>
 					                <th>No. of MMCQ</th>
 					                <th>Marks MMCQ</th>
 					                <th>No. of NAT</th>
 					                <th>Marks NAT</th>
-					                <th>No. of CDL</th>
-					                <th>Marks CDL</th>
+					                <!--<th>No. of CDL</th>
+					                <th>Marks CDL</th>-->
+					                <th>No of Questions</th>
 					                <th>Total Marks</th>
 					            </tr>
 					        </thead>
 					         <tbody>
 					         	<tr>
-					         		<td id="pid"><?php echo $_GET['qpid'] ?></td>
-					         		<td>5</td>
-					         		<td>10</td>
-					         		<td>10</td>
-					         		<td>15</td>
-					         		<td>5</td>
-					         		<td>5</td>
-					         		<td>20</td>
-					         		<td>45</td>
-					         		<td>200</td>
+					         		<td id="pid"><?php echo $paper_id ?></td>
+					         		<td id="noMcq"><?php echo $noMcq ?></td>
+					         		<td id="marksMcq"><?php echo $marksMcq ?></td>
+					         		<td id="noMmc"><?php echo $noMmcq ?></td>
+					         		<td id="marksMmc"><?php echo $marksMmcq ?></td>
+					         		<td id="noNat"><?php echo $noNat ?></td>
+					         		<td id="marksNat"><?php echo $marksNat ?></td>
+					         		<!--<td id="noCdl"><?php echo $noCdl ?></td>
+					         		<td id="marksCdl"><?php echo $marksCdl ?></td>-->
+					         		<td id="totalQues"><?php echo $totalQues ?></td>
+					         		<td id="marksTotal"><?php echo $totalMarks ?></td>
 					         	</tr>
 					         </tbody>
 						</table>
@@ -292,7 +325,7 @@
 									<option value="MCQ">MCQ</option>
 									<option value="NAT">NAT</option>
 									<option value="CDL">CDL</option>
-									<option value="MAMCQ">MAMCQ</option>									
+									<option value="MMC">MAMCQ</option>									
 								</select>
 							</div>
 							<div class="col-sm-1">
