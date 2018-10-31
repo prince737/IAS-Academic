@@ -67,7 +67,7 @@
 		
 	?>
 
-	<div class="containers">
+	<div class="container">
     	<div class="row">
          	<div class="col-sm-12">
          		<div class="cover_wrap">
@@ -148,9 +148,28 @@
 								<i class="fa fa-download" aria-hidden="true"></i>DOWNLOADS</span>
 							</a>
 						</li>
-						<li class="link">
-							<a href="505.php">
+						<li class="link" id="exam">
+							<a href="505.php" id="exam_link">
 								<i class="fa fa-pencil" aria-hidden="true"></i>EXAMS</span>
+								<?php
+									$sql = "select * from exam_course natural join exams where exam_status=1;";
+									$resultset = mysqli_query($conn,$sql);
+									$c = [];
+									while($courses = mysqli_fetch_array($resultset)){
+										array_push($c, $courses['course_id']);
+									}
+
+									$query="select course_id from students_courses where student_id=".$row['stu_id'];
+									$res = mysqli_query($conn,$query);
+									$cs= [];
+									while($r = mysqli_fetch_array($res)){
+										array_push($cs, $r['course_id']);
+									}
+									
+									if(!empty(array_intersect($cs, $c))){
+										echo '<span class="notification">New</span>';
+									}
+								?>
 							</a>
 						</li>
 						<li class="link">

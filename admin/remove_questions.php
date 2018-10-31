@@ -323,8 +323,11 @@
 											<div class="statement" id="stmt'.$row1['mcq_id'].'">'.$row1['mcq_statement'].'</div><br>
 											<b><div>No. of options: </b><span class="option" id="opt'.$row1['mcq_id'].'">'.$row1['mcq_options'].'</span></div>
 											<b><div>Correct Answer: </b><span class="option" id="ans'.$row1['mcq_id'].'">'.$row1['mcq_answer'].'</span></div>
+											<b><div>Serial No: </b><span class="option" id="sl'.$row['pq_id'].'">'.$row['sl_no'].'</span></div>
+											<b><div>Marks: </b><span class="option" id="marks'.$row['pq_id'].'">'.$row['marks'].'</span></div>
 											<hr>
 											<button class="btn btn-danger btn-sm remq" id="mcq'.$row1['mcq_id'].'">Remove from Paper</button>
+											<button class="btn btn-warning btn-sm edsl" id="mcqrm_sl'.$row['pq_id'].'">Edit</button>
 								     	</div>
 									';
 								}
@@ -337,8 +340,11 @@
 											<div class="statement" id="stmt'.$row1['mcq_id'].'">'.$row1['mcq_statement'].'</div><br>
 											<b><div>No. of options: </b><span class="option" id="opt'.$row1['mcq_id'].'">'.$row1['mcq_options'].'</span></div>
 											<b><div>Correct Answer: </b><span class="option" id="ans'.$row1['mcq_id'].'">'.$row1['mcq_answer'].'</span></div>
+											<b><div>Serial No: </b><span class="option" id="sl'.$row['pq_id'].'">'.$row['sl_no'].'</span></div>
+											<b><div>Marks: </b><span class="option" id="marks'.$row['pq_id'].'">'.$row['marks'].'</span></div>
 											<hr>
 											<button class="btn btn-danger btn-sm remq" id="mmc'.$row1['mcq_id'].'">Remove from Paper</button>
+											<button class="btn btn-warning btn-sm edsl" id="mmcrm_sl'.$row['pq_id'].'">Edit</button>
 								     	</div>
 									';
 								}
@@ -350,8 +356,11 @@
 										<div class="stu-con">
 											<div class="statement" id="stmt'.$row1['nat_id'].'">'.$row1['nat_statement'].'</div>
 											<div class="answer" id="ans'.$row1['nat_id'].'">Correct Answer: '.$row1['nat_answer'].'</div>
+											<b><div>Serial No: </b><span class="option" id="sl'.$row['pq_id'].'">'.$row['sl_no'].'</span></div>
+											<b><div>Marks: </b><span class="option" id="marks'.$row['pq_id'].'">'.$row['marks'].'</span></div>
 											<hr>
 											<button class="btn btn-danger btn-sm remq" id="nat'.$row1['nat_id'].'">Remove from Paper</button>
+											<button class="btn btn-warning btn-sm edsl" id="natrm_sl'.$row['pq_id'].'">Edit</button>
 								    	</div>
 									';
 								}
@@ -385,6 +394,34 @@
 									<div class="modal-footer">
 										<button type="button" class="btn btn-success btn-xs" data-dismiss="modal">Close</button>
 										<button type="submit" class="btn btn-danger btn-xs" name="deny" id="removeQes">Remove</button>
+									</div>		
+								</div>
+							</div>
+						</div>
+
+						<div class="modal fade" id="editsl">
+							<div class="modal-dialog modal-sm" style="margin-top: 10%;">
+								<div class="modal-content" >
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>	<h4>Edit Question</h4>			
+									</div>
+									<div class="modal-body">
+										<div class="form-group">
+											<label>Serial No:</label>
+											<input type="text" class="form-control" id="serial" required>
+										</div>
+										<div class="form-group">
+											<label>Marks:</label>
+											<input type="text" class="form-control" id="marks" required>
+										</div>
+										<span id="pqid" class="mod_span"></span>
+										<span id="qtype1" class="mod_span"></span>
+										<span id="pid1" class="mod_span"></span>
+										<span id="prev_marks" class="mod_span"></span>
+									</div> 
+									<div class="modal-footer">
+										<button type="button" class="btn btn-danger btn-xs" data-dismiss="modal">Close</button>
+										<button type="submit" class="btn btn-success btn-xs" name="deny" id="editQues">Save</button>
 									</div>		
 								</div>
 							</div>

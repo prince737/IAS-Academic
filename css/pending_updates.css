@@ -2,15 +2,15 @@ body{
 	overflow-x:hidden!important;
 }
 
-.content{
+/*.content{
 	min-height:100vh;
 	
-	/*padding-bottom: 70px;
+	padding-bottom: 70px;
     background-image: url(../images/border.png);
     background-repeat: no-repeat;
     background-position: center bottom;
-	background-size: 100% 10%;*/
-}
+	background-size: 100% 10%;
+}*/
 .content h4{
 	margin:0px;
 	color:teal;

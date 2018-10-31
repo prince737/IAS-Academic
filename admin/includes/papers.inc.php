@@ -145,6 +145,7 @@ elseif(isset($_POST['remQ'])){
 	else{
 		$sql = "select * from paper_question where paper_id='$qpid'";
 		$res_q = mysqli_query($conn, $sql);
+		$i=1;
 		while($row = mysqli_fetch_array($res_q)){
 			$qid = $row['question_id'];
 			if($row['question_type'] == 'MCQ'){
@@ -155,8 +156,11 @@ elseif(isset($_POST['remQ'])){
 						<div class="statement" id="stmt'.$row1['mcq_id'].'">'.$row1['mcq_statement'].'</div><br>
 						<b><div>No. of options: </b><span class="option" id="opt'.$row1['mcq_id'].'">'.$row1['mcq_options'].'</span></div>
 						<b><div>Correct Answer: </b><span class="option" id="ans'.$row1['mcq_id'].'">'.$row1['mcq_answer'].'</span></div>
+						<b><div>Serial No: </b><span class="option" id="sl'.$row['pq_id'].'">'.$row['sl_no'].'</span></div>
+						<b><div>Marks: </b><span class="option" id="marks'.$row['pq_id'].'">'.$row['marks'].'</span></div>
 						<hr>
 						<button class="btn btn-danger btn-sm remq" id="mcq'.$row1['mcq_id'].'">Remove from Paper</button>
+						<button class="btn btn-warning btn-sm edsl" id="rm_sl'.$row['pq_id'].'">Edit</button>
 			     	</div>';
 			}
 			else if($row['question_type'] == 'MMC'){
@@ -168,8 +172,11 @@ elseif(isset($_POST['remQ'])){
 						<div class="statement" id="stmt'.$row1['mcq_id'].'">'.$row1['mcq_statement'].'</div><br>
 						<b><div>No. of options: </b><span class="option" id="opt'.$row1['mcq_id'].'">'.$row1['mcq_options'].'</span></div>
 						<b><div>Correct Answer: </b><span class="option" id="ans'.$row1['mcq_id'].'">'.$row1['mcq_answer'].'</span></div>
+						<b><div>Serial No: </b><span class="option" id="sl'.$row['pq_id'].'">'.$row['sl_no'].'</span></div>
+						<b><div>Marks: </b><span class="option" id="marks'.$row['pq_id'].'">'.$row['marks'].'</span></div>
 						<hr>
 						<button class="btn btn-danger btn-sm remq" id="mmc'.$row1['mcq_id'].'">Remove from Paper</button>
+						<button class="btn btn-warning btn-sm edsl" id="rm_sl'.$row['pq_id'].'">Edit</button>
 			     	</div>
 				';
 			}
@@ -180,14 +187,96 @@ elseif(isset($_POST['remQ'])){
 				$d .=	'<div class="stu-con">
 						<div class="statement" id="stmt'.$row1['nat_id'].'">'.$row1['nat_statement'].'</div>
 						<div class="answer" id="ans'.$row1['nat_id'].'">Correct Answer: '.$row1['nat_answer'].'</div>
+						<b><div>Serial No: </b><span class="option" id="sl'.$row['pq_id'].'">'.$row['sl_no'].'</span></div>
+						<b><div>Marks: </b><span class="option" id="marks'.$row['pq_id'].'">'.$row['marks'].'</span></div>
 						<hr>
 						<button class="btn btn-danger btn-sm remq" id="NAT'.$row1['nat_id'].'">Remove from Paper</button>
+						<button class="btn btn-warning btn-sm edsl" id="rm_sl'.$row['pq_id'].'">Edit</button>
 			    	</div>';
 			}
+			$i++;
 		}
 		$data = array(
 	    	"d"     => $d,
 	    	"msg" => "$qtype was successfully removed to paper.",
+	    	"marks" => $marks,
+		);
+	}
+	echo json_encode($data);
+}
+
+
+/*REMOVE QUESTION FROM PAPER*/
+elseif(isset($_POST['editQ'])){
+	$pqid = mysqli_real_escape_string($conn, $_POST['pqid']);
+	$marks = mysqli_real_escape_string($conn, $_POST['marks']);
+	$serial = mysqli_real_escape_string($conn, $_POST['serial']); 
+	$pid = mysqli_real_escape_string($conn, $_POST['pid']); 
+	$d = '';
+
+	$sql = "update paper_question set marks=$marks, sl_no = $serial where pq_id = $pqid";
+	if(!mysqli_query($conn, $sql)){
+		$data = array(
+	    	"msg"     => $sql,
+		);
+	}
+	else{
+		$sql = "select * from paper_question where paper_id='$pid'";
+		$res_q = mysqli_query($conn, $sql);
+		$i=1;
+		while($row = mysqli_fetch_array($res_q)){
+			$qid = $row['question_id'];
+			if($row['question_type'] == 'MCQ'){
+				$sql = "select * from mcq where mcq_id=$qid  and mcq_type='MCQ'";
+				$res = mysqli_query($conn, $sql);
+				$row1 = mysqli_fetch_array($res);
+				$d .= 	'<div class="stu-con">
+						<div class="statement" id="stmt'.$row1['mcq_id'].'">'.$row1['mcq_statement'].'</div><br>
+						<b><div>No. of options: </b><span class="option" id="opt'.$row1['mcq_id'].'">'.$row1['mcq_options'].'</span></div>
+						<b><div>Correct Answer: </b><span class="option" id="ans'.$row1['mcq_id'].'">'.$row1['mcq_answer'].'</span></div>
+						<b><div>Serial No: </b><span class="option" id="sl'.$row['pq_id'].'">'.$row['sl_no'].'</span></div>
+						<b><div>Marks: </b><span class="option" id="marks'.$row['pq_id'].'">'.$row['marks'].'</span></div>
+						<hr>
+						<button class="btn btn-danger btn-sm remq" id="mcq'.$row1['mcq_id'].'">Remove from Paper</button>
+						<button class="btn btn-warning btn-sm edsl" id="mcqrm_sl'.$row['pq_id'].'">Edit</button>
+			     	</div>';
+			}
+			else if($row['question_type'] == 'MMC'){
+				$sql = "select * from mcq where mcq_id=$qid and mcq_type='MAMCQ'";
+				$res = mysqli_query($conn, $sql);
+				$row1 = mysqli_fetch_array($res);
+				$d .= '
+					<div class="stu-con">
+						<div class="statement" id="stmt'.$row1['mcq_id'].'">'.$row1['mcq_statement'].'</div><br>
+						<b><div>No. of options: </b><span class="option" id="opt'.$row1['mcq_id'].'">'.$row1['mcq_options'].'</span></div>
+						<b><div>Correct Answer: </b><span class="option" id="ans'.$row1['mcq_id'].'">'.$row1['mcq_answer'].'</span></div>
+						<b><div>Serial No: </b><span class="option" id="sl'.$row['pq_id'].'">'.$row['sl_no'].'</span></div>
+						<b><div>Marks: </b><span class="option" id="marks'.$row['pq_id'].'">'.$row['marks'].'</span></div>
+						<hr>
+						<button class="btn btn-danger btn-sm remq" id="mmc'.$row1['mcq_id'].'">Remove from Paper</button>
+						<button class="btn btn-warning btn-sm edsl" id="mmcrm_sl'.$row['pq_id'].'">Edit</button>
+			     	</div>
+				';
+			}
+			elseif($row['question_type'] == 'NAT'){
+				$sql = "select * from nat where nat_id=$qid";
+				$res = mysqli_query($conn, $sql);
+				$row1 = mysqli_fetch_array($res);
+				$d .=	'<div class="stu-con">
+						<div class="statement" id="stmt'.$row1['nat_id'].'">'.$row1['nat_statement'].'</div>
+						<div class="answer" id="ans'.$row1['nat_id'].'">Correct Answer: '.$row1['nat_answer'].'</div>
+						<b><div>Serial No: </b><span class="option" id="sl'.$row['pq_id'].'">'.$row['sl_no'].'</span></div>
+						<b><div>Marks: </b><span class="option" id="marks'.$row['pq_id'].'">'.$row['marks'].'</span></div>
+						<hr>
+						<button class="btn btn-danger btn-sm remq" id="NAT'.$row1['nat_id'].'">Remove from Paper</button>
+						<button class="btn btn-warning btn-sm edsl" id="natrm_sl'.$row['pq_id'].'">Edit</button>
+			    	</div>';
+			}
+			$i++;
+		}
+		$data = array(
+	    	"d"     => $d,
+	    	"msg" => "Question was successfully updated.",
 	    	"marks" => $marks,
 		);
 	}

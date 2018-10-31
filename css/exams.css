@@ -1,0 +1,38 @@
+.main .exam_heading{
+	font-size: 25px;
+	color: #212121;
+	background-color: #e1f5fe;
+	padding: 10px 20px;
+}
+
+.main .exam_content{
+	padding: 20px;
+}
+
+.main .exam_content table thead th{
+	font-weight: bold;
+	color: #616161;
+}
+
+.modal-dialog{
+	margin-top: 15%;
+}
+
+.modal-content{
+	background-color: #ff1d4d!important;
+	border-radius: 5px!important;
+}
+
+.modal-body{
+	color: #fff;
+}
+
+.modal-body p{
+	margin: 20px 0;
+}
+
+.modal-foot{
+	background-color: #fff;
+	border-radius: 0 0 5px 5px;
+	padding: 10px 5px;
+}
