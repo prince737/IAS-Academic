@@ -203,8 +203,17 @@
 						    	<?php
 						    		$sql = "select * from exam_course natural join exams natural join courses where exam_status=1 and course_id in (select course_id from students_courses where student_id = ".$row['stu_id'].")";
 						    		$res = mysqli_query($conn, $sql);
+
+
 						    		$i=1;
 									while($r=mysqli_fetch_array($res)){
+										$sql = "select * from results where student_id = ".$row['stu_id']." and exam_id = '".$r['exam_id']."'";
+										$result = mysqli_query($conn, $sql);
+										$count = mysqli_num_rows($result);
+										if($count >= 1){
+											continue;
+										}
+
 										$date = strtotime($r['exam_end']);
 										echo '
 										<tr>
@@ -215,7 +224,6 @@
 						        			<td>'.$r['exam_time'].'</td>
 						        			<td>'.date('d/m/Y h:i:sa', $date).'</td>
 						        			<td><button class="btn btn-success btn-xs begin_btn" id="bt'.$i.'">Begin</button></td>
-						        			
 						      			</tr>
 
 						      			<div class="modal fade" id="exam_confirm'.$i.'" role="dialog">
@@ -227,7 +235,7 @@
 										        		<p>Once you click on start you won\'t be able to revert back.</p>
 										      		</div>
 										      		<div class="modal-foot">
-											        	<center><button type="button" class="btn btn-success btn-sm" onclick="location.href=\'exam.php?eid='.$r['exam_id'].'&sid='.$row['stu_id'].'&course='.$r['course_name'].'\'" data-dismiss="modal">START</button></center>
+											        	<center><button type="button" class="btn btn-success btn-sm" onclick="window.open(\'exam.php?eid='.$r['exam_id'].'&sid='.$row['stu_id'].'&course='.$r['course_name'].'\', \'_blank\', \'toolbar=yes,scrollbars=yes,resizable=no,fullscreen=yes\')" data-dismiss="modal">START</button></center>
 											        </div>
 										    	</div>
 										  	</div>
@@ -241,16 +249,67 @@
 						</table>
 					</div>
         		</div>
+
+
+        		<div class="main" style="margin-top: 10px;">
+        			<div class="exam_heading">Completed Exams</div>
+        			<div class="exam_content">
+	        			<table class="table table-bordered">
+							<thead>
+						      <tr>
+						        <th>Exam Id</th>
+						        <th>Title</th>
+						        <th>Course</th>
+						        <th>Standard</th>
+						        <th>Actions</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						    	<?php
+						    		$sql = "select * from exam_course natural join exams natural join courses where exam_status=1 and course_id in (select course_id from students_courses where student_id = ".$row['stu_id'].")";
+						    		$res = mysqli_query($conn, $sql);
+
+
+						    		$i=1;
+									while($r=mysqli_fetch_array($res)){
+										$sql = "select * from results where student_id = ".$row['stu_id']." and exam_id = '".$r['exam_id']."' and submission != 0";
+										$result = mysqli_query($conn, $sql);
+										$count = mysqli_num_rows($result);
+										if($count < 1){
+											continue;
+										}
+
+										$date = strtotime($r['exam_end']);
+										echo '
+										<tr>
+						        			<td>'.$r['exam_id'].'</td>
+						        			<td>'.$r['exam_title'].'</td>
+						        			<td>'.$r['course_name'].'</td>
+						        			<td>'.$r['exam_standard'].'</td>
+						        			<td><button class="btn btn-success btn-xs begin_btn" ">View Result</button></td>
+						      			</tr>
+
+						      			';
+						      			$i++;
+									}
+						    	?>
+						    </tbody>
+						</table>
+					</div>
+        		</div>
+
+
+
+
+
+
+
+
         	</div>
         </div>
     </div>
 
     <!------CONFIRMATION MODAL----->
-    
-	
-	
-
-
 	<footer>
 		<div class="container">
 			<div class="row">
@@ -285,7 +344,10 @@
 
 
 
-    /*<button type="button" class="btn btn-success btn-sm" onclick="window.open(\'exam.php?eid='.$r['exam_id'].'&sid='.$row['stu_id'].'&course='.$r['course_name'].'\', \'_blank\', \'toolbar=yes,scrollbars=yes,resizable=no,fullscreen=yes\')" data-dismiss="modal">START</button>*/
+    /*<button type="button" class="btn btn-success btn-sm" onclick="window.open(\'exam.php?eid='.$r['exam_id'].'&sid='.$row['stu_id'].'&course='.$r['course_name'].'\', \'_blank\', \'toolbar=yes,scrollbars=yes,resizable=no,fullscreen=yes\')" data-dismiss="modal">START</button>
+
+	<button type="button" class="btn btn-success btn-sm" onclick="location.href=\'exam.php?eid='.$r['exam_id'].'&sid='.$row['stu_id'].'&course='.$r['course_name'].'\'" data-dismiss="modal">START</button>
+    */
 		
 
 	</script>	

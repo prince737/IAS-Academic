@@ -98,5 +98,25 @@
 		);
 		echo json_encode($data);
 	}
+	else if(isset($_POST['answers'])){
+		$pid = mysqli_real_escape_string($conn, $_POST['pid']);
+		$sid = mysqli_real_escape_string($conn, $_POST['sid']);
+		$eid = mysqli_real_escape_string($conn, $_POST['eid']);
+		$answers = mysqli_real_escape_string($conn, $_POST['answers']);
+		$status = mysqli_real_escape_string($conn, $_POST['status']);
+		$d = '';
+
+		$sql = "insert into results(student_id, exam_id, paper_id, submission, result) values($sid, '$eid', '$pid', $status, '$answers')";
+		if(!mysqli_query($conn, $sql)){
+			$d = 'error';
+		}
+		else{
+			$d = 'submitted';
+		}
+		$data = array(
+		    "response"     => $d
+		);
+		echo json_encode($data);
+	}
 
 ?>

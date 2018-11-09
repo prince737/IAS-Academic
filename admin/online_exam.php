@@ -203,8 +203,8 @@
 								<div class="col-sm-3 links papers">
 									<h4>Exam Papers</h4>
 									<a href="create_paper.php">Create new Paper</a>
-									<a href="#">Edit a Paper</a>
-									<a href="#">Search a Paper</a>
+									<a href="papers.php">Edit a Paper</a>
+									<a href="papers.php">Search a Paper</a>
 									<a href="papers.php">View all Papers</a>
 								</div>
 								<div class="col-sm-3 links exams">

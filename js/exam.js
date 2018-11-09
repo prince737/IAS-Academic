@@ -1,9 +1,121 @@
+//FIRST QUESTION DIAPLAY
 var pid = $('#pid').html();
+var sid = $('#sid').html();
+var eid = $('#eid').html();
 changeQuestion(1, pid);
 
-//$('#1').addClass('na');
+//SECURITY MECHANISM
+$('#close_submit').click(function() {
+	$('#success-modal').hide();
+});
+$('#close_submit1').click(function() {
+	$('#ended').hide();
+});
+$(document).mousemove(function( event ) {
+	if(event.pageY < 15 && event.pageX > 700){
+		$('#success-modal').show();
+	}
+});
 
 
+var interval = setInterval("myFunction()", 1);
+	function myFunction() {
+    if (!document.hasFocus()) {
+    	clearInterval(interval);
+        $('#left-tab').show();
+        localStorage.removeItem(name);
+		localStorage.removeItem('stop');
+		localStorage.removeItem('answers');
+
+		submission(2);
+	}
+}
+
+//NAVIGATION BUTTONS
+var qno = $('#no_of_questions').html();
+var i;
+var text = '';
+var a = JSON.parse(localStorage.getItem("answers"));
+for(i=1; i<=parseInt(qno); i++){
+	if (a != null && a[i]) {
+		if(a[i][1] === 'NEXT')		    
+			text += '<button class="btn btn-default navbtn answered" id="sl'+i+'">'+i+'</button>';
+		else if(a[i][1] === 'REVIEW' && a[i][0] !== null)	{
+			text += '<button class="btn btn-default navbtn reviewa" id="sl'+i+'">'+i+'</button>';
+		}
+		else if(a[i][1] === 'REVIEW' && a[i][0] === null)
+			text += '<button class="btn btn-default navbtn reviewna" id="sl'+i+'">'+i+'</button>';
+		else{
+			text += '<button class="btn btn-default navbtn na" id="sl'+i+'">'+i+'</button>';
+		}
+	}
+	else{
+		text += '<button class="btn btn-default navbtn" id="sl'+i+'">'+i+'</button>';
+	}
+}
+$('#navigation').html(text);
+
+
+//TIMER
+var count=0;
+var duration = 10;//2 * 60 * 60;
+	
+var d = new Date();
+var name = 'start';
+
+time = Date.now();
+//localStorage.removeItem(name);
+
+if(localStorage.getItem(name) === null){
+	localStorage.setItem(name,time);
+}
+if(localStorage.getItem('stop') === null){
+	localStorage.setItem('stop',time);
+}
+
+var start = localStorage.getItem(name);
+function timer()
+{ 
+	var stop = localStorage.getItem('stop');
+	var timeLeft = duration - (((stop - start) / 1000) | 0);
+   	var min = Math.floor(timeLeft / 60);
+   	var sec = Math.floor(timeLeft % 3600 % 60);
+
+	if(timeLeft<=0){
+		clearTimeout(tm);
+		if(count == 0)
+			submission(3);
+		localStorage.removeItem(name);
+		localStorage.removeItem('stop');
+		localStorage.removeItem('answers');
+		document.getElementById("ended").style.display = "block";
+	}
+	else{
+		document.getElementById("min").innerHTML = min<10?"0"+min:min;
+		document.getElementById("sec").innerHTML = sec<10?"0"+sec:sec;				
+	}
+
+	if(localStorage.getItem('stop') !== null){
+		localStorage.setItem('stop',parseInt(stop)+1000);
+	}	
+	//timeLeft--;
+	tm = setTimeout(function(){ timer() }, 1000);
+}
+
+
+
+//$('#sl1').addClass('na');
+
+//SUBMISSION
+$('#submit').click(function() {
+	localStorage.removeItem(name);
+	localStorage.removeItem('stop');
+	localStorage.removeItem('answers');
+
+	submission(1);
+});
+
+//CLEAR RESPONSE
 $('#clear_response').click(function() {
 	$('input[name="options"]').prop('checked', false);
 	$('input[name="option"]').prop('checked', false);
@@ -17,21 +129,20 @@ $('#save').click(function() {
 	var pid = $('#pid').html();
 	var type = '';
 	var value = '';
-
 	if(prev_type == 'MCQ'){
 		if($('input[name="options"]').is(':checked')){
 			value = $('input[name=options]:checked').val();
 			type = 'MCQ';
-			$('#'+prev).addClass('answered');
-			$('#'+prev).removeClass('reviewa');
-			$('#'+prev).removeClass('na');
-			$('#'+prev).removeClass('reviewna');
+			$('#sl'+prev).addClass('answered');
+			$('#sl'+prev).removeClass('reviewa');
+			$('#sl'+prev).removeClass('na');
+			$('#sl'+prev).removeClass('reviewna');
 		}
 		else{
-			$('#'+prev).addClass('na');
-			$('#'+prev).removeClass('reviewa');
-			$('#'+prev).removeClass('answered');
-			$('#'+prev).removeClass('reviewna');
+			$('#sl'+prev).addClass('na');
+			$('#sl'+prev).removeClass('reviewa');
+			$('#sl'+prev).removeClass('answered');
+			$('#sl'+prev).removeClass('reviewna');
 		}
 	}
 	else if(prev_type == 'MMCQ'){
@@ -41,43 +152,43 @@ $('#save').click(function() {
 			$("input:checkbox[name=option]:checked").each(function(){
 			    value.push($(this).val());
 			});
-			$('#'+prev).addClass('answered');
-			$('#'+prev).removeClass('reviewa');
-			$('#'+prev).removeClass('na');
-			$('#'+prev).removeClass('reviewna');
+			$('#sl'+prev).addClass('answered');
+			$('#sl'+prev).removeClass('reviewa');
+			$('#sl'+prev).removeClass('na');
+			$('#sl'+prev).removeClass('reviewna');
 		}
 		else{
-			$('#'+prev).addClass('na');
-			$('#'+prev).removeClass('reviewa');
-			$('#'+prev).removeClass('answered');
-			$('#'+prev).removeClass('reviewna');
+			$('#sl'+prev).addClass('na');
+			$('#sl'+prev).removeClass('reviewa');
+			$('#sl'+prev).removeClass('answered');
+			$('#sl'+prev).removeClass('reviewna');
 		}
 	}
 	else if(prev_type == 'NAT'){
 		if($('#nat_ans').val().length > 0){
 			value = $('#nat_ans').val();
 			type = 'NAT';
-			$('#'+prev).addClass('answered');
-			$('#'+prev).removeClass('reviewa');
-			$('#'+prev).removeClass('na');
-			$('#'+prev).removeClass('reviewna');
+			$('#sl'+prev).addClass('answered');
+			$('#sl'+prev).removeClass('reviewa');
+			$('#sl'+prev).removeClass('na');
+			$('#sl'+prev).removeClass('reviewna');
 		}
 		else{
-			$('#'+prev).addClass('na');
-			$('#'+prev).removeClass('reviewa');
-			$('#'+prev).removeClass('answered');
-			$('#'+prev).removeClass('reviewna');
+			$('#sl'+prev).addClass('na');
+			$('#sl'+prev).removeClass('reviewa');
+			$('#sl'+prev).removeClass('answered');
+			$('#sl'+prev).removeClass('reviewna');
 		}
 	}
 
 	if (localStorage.answers) {
 	    var a = JSON.parse(localStorage.getItem("answers"));
-	    a[prev] = value;
+	    a[prev] = [value, 'NEXT'];
 		localStorage.setItem("answers", JSON.stringify(a));
 	    
 	} else {
 	  	var a = {};
-	  	a[prev] = value;
+	  	a[prev] = [value, 'NEXT'];
 		localStorage.setItem("answers", JSON.stringify(a));
 	}
 
@@ -97,16 +208,16 @@ $('#review').click(function() {
 		if($('input[name="options"]').is(':checked')){
 			value = $('input[name=options]:checked').val();
 			type = 'MCQ';
-			$('#'+prev).addClass('reviewa');
-			$('#'+prev).removeClass('reviewna');
-			$('#'+prev).removeClass('na');
-			$('#'+prev).removeClass('answered');
+			$('#sl'+prev).addClass('reviewa');
+			$('#sl'+prev).removeClass('reviewna');
+			$('#sl'+prev).removeClass('na');
+			$('#sl'+prev).removeClass('answered');
 		}
 		else{
-			$('#'+prev).addClass('reviewna');
-			$('#'+prev).removeClass('reviewa');
-			$('#'+prev).removeClass('na');
-			$('#'+prev).removeClass('answered');
+			$('#sl'+prev).addClass('reviewna');
+			$('#sl'+prev).removeClass('reviewa');
+			$('#sl'+prev).removeClass('na');
+			$('#sl'+prev).removeClass('answered');
 		}
 	}
 	else if(prev_type == 'MMCQ'){
@@ -116,51 +227,52 @@ $('#review').click(function() {
 			$("input:checkbox[name=option]:checked").each(function(){
 			    value.push($(this).val());
 			});
-			$('#'+prev).addClass('reviewa');
-			$('#'+prev).removeClass('reviewna');
-			$('#'+prev).removeClass('na');
-			$('#'+prev).removeClass('answered');
+			$('#sl'+prev).addClass('reviewa');
+			$('#sl'+prev).removeClass('reviewna');
+			$('#sl'+prev).removeClass('na');
+			$('#sl'+prev).removeClass('answered');
 		}
 		else{
-			$('#'+prev).addClass('reviewna');
-			$('#'+prev).removeClass('reviewa');
-			$('#'+prev).removeClass('na');
-			$('#'+prev).removeClass('answered');
+			$('#sl'+prev).addClass('reviewna');
+			$('#sl'+prev).removeClass('reviewa');
+			$('#sl'+prev).removeClass('na');
+			$('#sl'+prev).removeClass('answered');
 		}
 	}
 	else if(prev_type == 'NAT'){
 		if($('#nat_ans').val().length > 0){
 			value = $('#nat_ans').val();
 			type = 'NAT';
-			$('#'+prev).addClass('reviewa');
-			$('#'+prev).removeClass('reviewna');
-			$('#'+prev).removeClass('na');
-			$('#'+prev).removeClass('answered');
+			$('#sl'+prev).addClass('reviewa');
+			$('#sl'+prev).removeClass('reviewna');
+			$('#sl'+prev).removeClass('na');
+			$('#sl'+prev).removeClass('answered');
 		}
 		else{
-			$('#'+prev).addClass('reviewna');
-			$('#'+prev).removeClass('reviewa');
-			$('#'+prev).removeClass('na');
-			$('#'+prev).removeClass('answered');
+			$('#sl'+prev).addClass('reviewna');
+			$('#sl'+prev).removeClass('reviewa');
+			$('#sl'+prev).removeClass('na');
+			$('#sl'+prev).removeClass('answered');
 		}
 	}
 
 	if (localStorage.answers) {
 	    var a = JSON.parse(localStorage.getItem("answers"));
-	    a[prev] = value;
+	    a[prev] = [value, 'REVIEW'];
 		localStorage.setItem("answers", JSON.stringify(a));
 	    
 	} else {
 	  	var a = {};
-	  	a[prev] = value;
+	  	a[prev] = [value, 'REVIEW'];
 		localStorage.setItem("answers", JSON.stringify(a));
 	}	
 	
 	changeQuestion(parseInt(prev) + 1, pid);
 });
 
+//NUMBER NAV BUTTON CLICK
 $('.navbtn').click(function() {	
-	var sl_no = this.id;
+	var sl_no = this.innerHTML;
 	var pid = $('#pid').html();
 
 	//ADDING CLASSES TO NAV BUTTONS
@@ -216,48 +328,53 @@ function changeQuestion(sl_no, pid){
 			$('#question_data').html(data.question_data);
 			$('#response').html(data.response);
 			$('#qtype').html(data.qtype);
-			$('#'+sl_no).addClass('na');
+			$('#sl'+sl_no).addClass('na');
 			
 
 			if (localStorage.answers) {
 				var a = JSON.parse(localStorage.getItem("answers"));
 		    	if(data.qtype == 'MCQ'){
 		    		if (a[sl_no]) {				    
-					    $('input[name=options][value='+a[sl_no]+']').prop('checked', true);
+					    $('input[name=options][value='+a[sl_no][0]+']').prop('checked', true);
 					}
 		    	}
 		    	else if(data.qtype == 'MMCQ'){
 		    		if (a[sl_no]) {
-		    			for (var i = 0; i < a[sl_no].length; i++) {
-		    				$('input[name=option][value='+a[sl_no][i]+']').prop('checked', true);
+		    			for (var i = 0; i < a[sl_no][0].length; i++) {
+		    				$('input[name=option][value='+a[sl_no][0][i]+']').prop('checked', true);
 						}					    
 					}
 		    	}
 		    	else if(data.qtype == 'NAT'){
 		    		if (a[sl_no]) {			    
-					    $('#nat_ans').val(a[sl_no]);
+					    $('#nat_ans').val(a[sl_no][0]);
 					}
 		    	}
 		    }
-		    else{
-		    	alert('no ls');
-		    }
-			
 	    }  
 	});
 }
 
-
-/*
-if (localStorage.clickcount) {
-    var a = JSON.parse(localStorage.getItem("clickcount"));
-    a.push('2');
-	localStorage.setItem("clickcount", JSON.stringify(a));
-    console.log(a[1]);
-} else {
-  	var names = [];
-	names[0] = prompt("New member name?");
-	localStorage.setItem("clickcount", JSON.stringify(names));
+function submission(status){
+	var answers = localStorage.getItem('answers');
+	count++;
+	$.ajax({  
+	    url:"includes/exam.inc.php",  
+	    method:"POST",  
+	    data:{eid:eid, pid:pid, sid:sid, answers:answers, status:status},  
+	    dataType:"json",  
+	    success:function(data)
+	    {
+	    	if(data.response = 'submitted'){
+	    		if(status == 1)
+	    			$('#finish').show();
+	    		else if(status == 2)
+	    			$('#left-tab').show();
+	    		else
+	    			$('#ended').show();
+	    	}
+	    }  
+	});
 }
-*/
+
 
