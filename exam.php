@@ -100,10 +100,11 @@
 		<span class="pull-left"><?php echo $exam['exam_standard'] ?></span>
 		<span class="pull-right"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
 Instructions</span>
-		<span class="pull-left" id="pid"><?php echo $exam['paper_id'] ?></span>
-		<span class="pull-left" id="sid"><?php echo $sid ?></span>
-		<span class="pull-left" id="eid"><?php echo $eid ?></span>
-		<span class="pull-left" id="no_of_questions"><?php echo $no_of_questions ?></span>
+		<span class="pull-left hidden" id="pid"><?php echo $exam['paper_id'] ?></span>
+		<span class="pull-left hidden" id="sid"><?php echo $sid ?></span>
+		<span class="pull-left hidden" id="eid"><?php echo $eid ?></span>
+		<span class="pull-left hidden" id="duration"><?php echo $exam['exam_time'] ?></span>
+		<span class="pull-left hidden" id="no_of_questions"><?php echo $no_of_questions ?></span>
 	</div>
 
 	<div class="container-fluid">
@@ -111,7 +112,10 @@ Instructions</span>
 			<div class="col-sm-10 mainbody">
 				<div class="stream_wrap">
 					<span class="stream"><?php echo $course ?></span>
-					<i class="fa fa-calculator fa-5 pull-right" aria-hidden="true" id="calc_open"></i>
+					<?php
+						if($exam['exam_cal'] == 'Yes')
+							echo '<i class="fa fa-calculator fa-5 pull-right" aria-hidden="true" id="calc_open"></i>';
+					?>
 				</div>
 				<div class="time_wrap">
 					<span class="pull-right">

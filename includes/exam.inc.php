@@ -106,7 +106,7 @@
 		$status = mysqli_real_escape_string($conn, $_POST['status']);
 		$d = '';
 
-		$sql = "insert into results(student_id, exam_id, paper_id, submission, result) values($sid, '$eid', '$pid', $status, '$answers')";
+		$sql = "insert into results(student_id, exam_id, paper_id, submission, result, marks) values($sid, '$eid', '$pid', $status, '$answers', $marks)";
 		if(!mysqli_query($conn, $sql)){
 			$d = 'error';
 		}

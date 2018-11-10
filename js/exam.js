@@ -11,25 +11,22 @@ $('#close_submit').click(function() {
 $('#close_submit1').click(function() {
 	$('#ended').hide();
 });
-$(document).mousemove(function( event ) {
+/*$(document).mousemove(function( event ) {
 	if(event.pageY < 15 && event.pageX > 700){
 		$('#success-modal').show();
 	}
-});
+});*/
 
 
-var interval = setInterval("myFunction()", 1);
+/*var interval = setInterval("myFunction()", 1);
 	function myFunction() {
     if (!document.hasFocus()) {
     	clearInterval(interval);
         $('#left-tab').show();
-        localStorage.removeItem(name);
-		localStorage.removeItem('stop');
-		localStorage.removeItem('answers');
 
 		submission(2);
 	}
-}
+}*/
 
 //NAVIGATION BUTTONS
 var qno = $('#no_of_questions').html();
@@ -58,7 +55,7 @@ $('#navigation').html(text);
 
 //TIMER
 var count=0;
-var duration = 10;//2 * 60 * 60;
+var duration = 30 * 60;//parseInt($('#duration').html()) * 60;
 	
 var d = new Date();
 var name = 'start';
@@ -108,10 +105,6 @@ function timer()
 
 //SUBMISSION
 $('#submit').click(function() {
-	localStorage.removeItem(name);
-	localStorage.removeItem('stop');
-	localStorage.removeItem('answers');
-
 	submission(1);
 });
 
@@ -375,6 +368,10 @@ function submission(status){
 	    	}
 	    }  
 	});
+
+    localStorage.removeItem(name);
+	localStorage.removeItem('stop');
+	localStorage.removeItem('answers');
 }
 
 
