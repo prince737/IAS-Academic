@@ -59,9 +59,10 @@
 		$cal= mysqli_real_escape_string($conn, $_POST['exam_cal']);
 		$nega= mysqli_real_escape_string($conn, $_POST['exam_nega']);
 		$eid= mysqli_real_escape_string($conn, $_POST['exid']);
+		$ends= mysqli_real_escape_string($conn, $_POST['ends']);
 		$standard= mysqli_real_escape_string($conn, $_POST['exam_standard']);
 
-		$sql = "update exams set exam_title = '$title', exam_type='$type', exam_time = '$time', exam_cal='$cal', exam_nega='$nega', exam_standard='$standard' where exam_id = '$eid'";
+		$sql = "update exams set exam_title = '$title', exam_type='$type', exam_time = '$time', exam_cal='$cal', exam_nega='$nega', exam_standard='$standard', exam_end='$ends' where exam_id = '$eid'";
 		if(!mysqli_query($conn, $sql)){
 			header("Location: ../exams.php?err");	
 			exit();

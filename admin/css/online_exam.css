@@ -26,3 +26,7 @@
 .results{
 	background-color: #ff5353;
 }
+
+.box{
+	min-height: 140px;
+}

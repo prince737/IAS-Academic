@@ -285,10 +285,6 @@
 					<p class="dir" style="padding:15px 0px 0 20px;">Directory: <b><?php  echo $dname;    ?></b></p>
 					<p class="dir" style="padding:0 0px 0 20px; margin-bottom: -5px;">Question Type: <b id="type" ><?php echo $type; ?></b></p>
 					<p id="dir" style="display:none;"><?php echo $did; ?></p>
-
-
-					
-
 					
 					<div class="content-inner">
 						<input type="text" class="form-control" id="search" placeholder="Search">

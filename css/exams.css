@@ -1,3 +1,7 @@
+button{
+	outline: none!important;
+}
+
 .main .exam_heading{
 	font-size: 25px;
 	color: #212121;

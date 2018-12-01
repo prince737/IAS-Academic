@@ -148,29 +148,33 @@
 							<a href="505.php" id="exam_link">
 								<i class="fa fa-pencil" aria-hidden="true"></i>EXAMS</span>
 								<?php
-									$sql = "select * from exam_course inner join exams where exam_status=1;";
+									$sql = "select * from exams natural join exam_course where exam_status=1 and course_id in (select course_id from students_courses where student_id=".$row['stu_id'].");";
 									$resultset = mysqli_query($conn,$sql);
-									$c = [];
-									while($courses = mysqli_fetch_array($resultset)){
-										array_push($c, $courses['course_id']);
+									$i=0;
+									while($r = mysqli_fetch_array($resultset)){
+										$query = "select * from results where exam_id = '".$r['exam_id']."' and student_id = ".$row['stu_id'];
+										$res = mysqli_query($conn,$query);
+										$num_res = mysqli_num_rows($res);
+										if($num_res == 0){
+											$i++;
+										}
 									}
-
-									$query="select course_id from students_courses where student_id=".$row['stu_id'];
-									$res = mysqli_query($conn,$query);
-									$cs= [];
-									while($r = mysqli_fetch_array($res)){
-										array_push($cs, $r['course_id']);
-									}
-									
-									if(!empty(array_intersect($cs, $c))){
-										echo '<span class="notification">New</span>';
+									if($i!=0){
+										echo '<span class="notification">'.$i.'</span>';
 									}
 								?>
 							</a>
 						</li>
-						<li class="link">
-							<a href="505.php">
+						<li class="link" id="result">
+							<a href="results.php">
 								<i class="fa fa-list-alt" aria-hidden="true"></i>RESULTS</span>
+								<?php
+									$sql = "select * from results where student_id =".$row['stu_id']." and publish_status=1";;
+									$res = mysqli_query($conn,$sql);
+									$rescount = mysqli_num_rows($res);
+									if($rescount > 0)
+										echo '<span class="res_no">'.$rescount.'</span>';
+								?>
 							</a>
 						</li>
 						<li class="link logout">
@@ -194,6 +198,7 @@
 						        <th>Title</th>
 						        <th>Course</th>
 						        <th>Standard</th>
+						        <th>Full Marks</th>
 						        <th>Time (mins)</th>
 						        <th>Will Close on</th>
 						        <th>Actions</th>
@@ -205,6 +210,8 @@
 						    		$res = mysqli_query($conn, $sql);
 
 
+
+
 						    		$i=1;
 									while($r=mysqli_fetch_array($res)){
 										$sql = "select * from results where student_id = ".$row['stu_id']." and exam_id = '".$r['exam_id']."'";
@@ -214,6 +221,10 @@
 											continue;
 										}
 
+										$query = "select qp_fullmarks from papers where qpid = '".$r['paper_id']."'";
+										$rs = mysqli_query($conn, $query);
+										$full_marks=mysqli_fetch_array($rs);
+
 										$date = strtotime($r['exam_end']);
 										echo '
 										<tr>
@@ -221,6 +232,7 @@
 						        			<td>'.$r['exam_title'].'</td>
 						        			<td>'.$r['course_name'].'</td>
 						        			<td>'.$r['exam_standard'].'</td>
+						        			<td>'.$full_marks['qp_fullmarks'].'</td>
 						        			<td>'.$r['exam_time'].'</td>
 						        			<td>'.date('d/m/Y h:i:sa', $date).'</td>
 						        			<td><button class="btn btn-success btn-xs begin_btn" id="bt'.$i.'">Begin</button></td>
@@ -235,7 +247,7 @@
 										        		<p>Once you click on start you won\'t be able to revert back.</p>
 										      		</div>
 										      		<div class="modal-foot">
-											        	<center><button type="button" class="btn btn-success btn-sm" onclick="location.href=\'exam.php?eid='.$r['exam_id'].'&sid='.$row['stu_id'].'&course='.$r['course_name'].'\'" data-dismiss="modal">START</button></center>
+											        	<center><button type="button" class="btn btn-success btn-sm" onclick="window.open(\'exam.php?eid='.$r['exam_id'].'&sid='.$row['stu_id'].'&course='.$r['course_name'].'\', \'_blank\', \'toolbar=yes,scrollbars=yes,resizable=no,fullscreen=yes\')" data-dismiss="modal">START</button></center>
 											        </div>
 										    	</div>
 										  	</div>
@@ -286,7 +298,7 @@
 						        			<td>'.$r['exam_title'].'</td>
 						        			<td>'.$r['course_name'].'</td>
 						        			<td>'.$r['exam_standard'].'</td>
-						        			<td><button class="btn btn-success btn-xs begin_btn" ">View Result</button></td>
+						        			<td><button class="btn btn-success btn-xs begin_btn" onclick="location.href=\'results.php\'">View Result</button></td>
 						      			</tr>
 
 						      			';

@@ -1,3 +1,23 @@
+ window.onbeforeunload = submit;
+
+ function submit(){
+        alert("hessre");
+
+ 	submission(2);
+ }
+
+
+$('#startex').click(function() {
+	$('#questionsbody').show();
+	$('#navbtn').show();
+	$('#submission').show();
+	$('#instruction').hide();
+	$('#subf').hide();
+	$('#navbtn1').hide();
+	timer();
+});
+
+
 //FIRST QUESTION DIAPLAY
 var pid = $('#pid').html();
 var sid = $('#sid').html();
@@ -11,22 +31,21 @@ $('#close_submit').click(function() {
 $('#close_submit1').click(function() {
 	$('#ended').hide();
 });
-/*$(document).mousemove(function( event ) {
+$(document).mousemove(function( event ) {
 	if(event.pageY < 15 && event.pageX > 700){
 		$('#success-modal').show();
 	}
-});*/
+});
 
 
-/*var interval = setInterval("myFunction()", 1);
+var interval = setInterval("myFunction()", 1);
 	function myFunction() {
     if (!document.hasFocus()) {
     	clearInterval(interval);
         $('#left-tab').show();
-
 		submission(2);
 	}
-}*/
+}
 
 //NAVIGATION BUTTONS
 var qno = $('#no_of_questions').html();
@@ -54,14 +73,14 @@ $('#navigation').html(text);
 
 
 //TIMER
+
 var count=0;
-var duration = 30 * 60;//parseInt($('#duration').html()) * 60;
+var duration = parseInt($('#duration').html()) * 60;
 	
 var d = new Date();
 var name = 'start';
-
 time = Date.now();
-//localStorage.removeItem(name);
+	//localStorage.removeItem(name);
 
 if(localStorage.getItem(name) === null){
 	localStorage.setItem(name,time);
@@ -71,15 +90,16 @@ if(localStorage.getItem('stop') === null){
 }
 
 var start = localStorage.getItem(name);
+
 function timer()
 { 
+	
 	var stop = localStorage.getItem('stop');
 	var timeLeft = duration - (((stop - start) / 1000) | 0);
    	var min = Math.floor(timeLeft / 60);
    	var sec = Math.floor(timeLeft % 3600 % 60);
-
-	if(timeLeft<=0){
-		clearTimeout(tm);
+		if(timeLeft<=0){
+			clearTimeout(tm);
 		if(count == 0)
 			submission(3);
 		localStorage.removeItem(name);
@@ -91,8 +111,7 @@ function timer()
 		document.getElementById("min").innerHTML = min<10?"0"+min:min;
 		document.getElementById("sec").innerHTML = sec<10?"0"+sec:sec;				
 	}
-
-	if(localStorage.getItem('stop') !== null){
+		if(localStorage.getItem('stop') !== null){
 		localStorage.setItem('stop',parseInt(stop)+1000);
 	}	
 	//timeLeft--;
@@ -116,6 +135,7 @@ $('#clear_response').click(function() {
 });
 
 //SAVE AND NEXT
+var save = 0;
 $('#save').click(function() {
 	var prev = $('#qno').html();
 	var prev_type = $('#qtype').html();
@@ -185,17 +205,20 @@ $('#save').click(function() {
 		localStorage.setItem("answers", JSON.stringify(a));
 	}
 
-	
+	save += 1;
 	changeQuestion(parseInt(prev) + 1, pid);
 });
 
 //MARK FOR REVIEW
+var reviewa = 0;
+var reviewna = 0;
 $('#review').click(function() {
 	var prev = $('#qno').html();
 	var prev_type = $('#qtype').html();
 	var pid = $('#pid').html();
 	var type = '';
 	var value = '';
+	var type = '';
 
 	if(prev_type == 'MCQ'){
 		if($('input[name="options"]').is(':checked')){
@@ -205,12 +228,16 @@ $('#review').click(function() {
 			$('#sl'+prev).removeClass('reviewna');
 			$('#sl'+prev).removeClass('na');
 			$('#sl'+prev).removeClass('answered');
+			type = 'REVIEWA';
+			reviewa += 1;
 		}
 		else{
 			$('#sl'+prev).addClass('reviewna');
 			$('#sl'+prev).removeClass('reviewa');
 			$('#sl'+prev).removeClass('na');
 			$('#sl'+prev).removeClass('answered');
+			type = 'REVIEW';
+			reviewna += 1;
 		}
 	}
 	else if(prev_type == 'MMCQ'){
@@ -224,12 +251,16 @@ $('#review').click(function() {
 			$('#sl'+prev).removeClass('reviewna');
 			$('#sl'+prev).removeClass('na');
 			$('#sl'+prev).removeClass('answered');
+			type = 'REVIEWA';
+			reviewa += 1;
 		}
 		else{
 			$('#sl'+prev).addClass('reviewna');
 			$('#sl'+prev).removeClass('reviewa');
 			$('#sl'+prev).removeClass('na');
 			$('#sl'+prev).removeClass('answered');
+			type = 'REVIEW';
+			reviewna += 1;
 		}
 	}
 	else if(prev_type == 'NAT'){
@@ -240,25 +271,30 @@ $('#review').click(function() {
 			$('#sl'+prev).removeClass('reviewna');
 			$('#sl'+prev).removeClass('na');
 			$('#sl'+prev).removeClass('answered');
+			type = 'REVIEWA';
+			reviewa += 1;
 		}
 		else{
 			$('#sl'+prev).addClass('reviewna');
 			$('#sl'+prev).removeClass('reviewa');
 			$('#sl'+prev).removeClass('na');
 			$('#sl'+prev).removeClass('answered');
+			type = 'REVIEW';
+			reviewna += 1;
 		}
 	}
 
 	if (localStorage.answers) {
 	    var a = JSON.parse(localStorage.getItem("answers"));
-	    a[prev] = [value, 'REVIEW'];
+	    a[prev] = [value, type];
 		localStorage.setItem("answers", JSON.stringify(a));
 	    
 	} else {
 	  	var a = {};
-	  	a[prev] = [value, 'REVIEW'];
+	  	a[prev] = [value, type];
 		localStorage.setItem("answers", JSON.stringify(a));
 	}	
+	
 	
 	changeQuestion(parseInt(prev) + 1, pid);
 });
@@ -281,6 +317,9 @@ $(document).on('click', '.numbtn', function(e) {
 	if (curr == 'bkspc'){
 		var strng = $('#nat_ans').val();
 		$('#nat_ans').val(strng.substring(0,strng.length-1));
+	}
+	else if(curr == 'clear'){
+		$('#nat_ans').val('');
 	}
 
 	if(curr == 'one'){
@@ -305,6 +344,8 @@ $(document).on('click', '.numbtn', function(e) {
 		$('#nat_ans').val($('#nat_ans').val() + '0');
 	}else if(curr == '.'){
 		$('#nat_ans').val($('#nat_ans').val() + '.');
+	}else if(curr == 'neg'){
+		$('#nat_ans').val($('#nat_ans').val() + '-');
 	}
 });
 
@@ -350,12 +391,14 @@ function changeQuestion(sl_no, pid){
 
 function submission(status){
 	var answers = localStorage.getItem('answers');
+	var start = localStorage.getItem('start');
+	var end = localStorage.getItem('stop');
 	count++;
 	$.ajax({  
 	    url:"includes/exam.inc.php",  
 	    method:"POST",  
-	    data:{eid:eid, pid:pid, sid:sid, answers:answers, status:status},  
-	    dataType:"json",  
+	    data:{eid:eid, pid:pid, sid:sid, answers:answers, status:status, start:start, end:end},  
+	    dataType:"text",  
 	    success:function(data)
 	    {
 	    	if(data.response = 'submitted'){
@@ -365,6 +408,9 @@ function submission(status){
 	    			$('#left-tab').show();
 	    		else
 	    			$('#ended').show();
+	    		$('.anum').html(save);
+	    		$('.revnum').html(reviewna);
+	    		$('.notanum').html(qno - (save + reviewa));
 	    	}
 	    }  
 	});

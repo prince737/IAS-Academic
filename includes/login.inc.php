@@ -150,7 +150,7 @@ elseif(isset($_POST['resetPwd'])) {
 			
 		}
 		catch(Exception $e){
-			header("Location: ../login.php?l=m_n_snt");
+			header("Location: ../login.php?l=$e");
 			exit();
 		}
 			

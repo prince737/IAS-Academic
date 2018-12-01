@@ -84,9 +84,12 @@
 					<button class="btn btn-default numbtn" id="seven">7</button>
 					<button class="btn btn-default numbtn" id="eight">8</button>
 					<button class="btn btn-default numbtn" id="nine">9</button><br>
-					<button class="btn btn-default numbtn" id="bkspc"><</button>
-					<button class="btn btn-default numbtn" id="zero">0</button>
 					<button class="btn btn-default numbtn" id=".">.</button>
+					<button class="btn btn-default numbtn" id="zero">0</button>					
+					<button class="btn btn-default numbtn" id="neg">-</button><br>
+					<button class="btn btn-default numbtn" id="clear">C</button>
+					<button class="btn btn-default numbtn" id="bkspc">BKSPC</button>
+
 				</div>';
 		}
 
@@ -104,9 +107,160 @@
 		$eid = mysqli_real_escape_string($conn, $_POST['eid']);
 		$answers = mysqli_real_escape_string($conn, $_POST['answers']);
 		$status = mysqli_real_escape_string($conn, $_POST['status']);
+		$start = mysqli_real_escape_string($conn, $_POST['start']);
+		$end = mysqli_real_escape_string($conn, $_POST['end']);
 		$d = '';
 
-		$sql = "insert into results(student_id, exam_id, paper_id, submission, result, marks) values($sid, '$eid', '$pid', $status, '$answers', $marks)";
+		date_default_timezone_set("Asia/Kolkata");
+
+		$start = intval($start) / 1000;
+		$start = date('m/d/Y h:i:sa', $start);
+
+		$end = intval($end) / 1000;
+		$end = date('m/d/Y h:i:sa', $end);
+		
+
+		$sql = "select * from exams where exam_id = '$eid'";
+		$res = mysqli_query($conn, $sql);
+		$exam = mysqli_fetch_array($res);
+
+		if($exam['exam_nega'] == 'Yes'){
+			$nega = 1;
+		}
+		else{
+			$nega = 0;
+		}
+
+		$ans = json_decode(stripslashes($answers));
+
+		$sql = "select * from paper_question where paper_id = '$pid' order by sl_no";
+		$res = mysqli_query($conn, $sql);
+		$i = 1;
+		$marks = 0.0;
+		$marks_arr = [];
+		while($question = mysqli_fetch_array($res)){
+			if($question['question_type'] == 'MCQ'){
+				$query = "select * from mcq where mcq_id =".$question['question_id'];
+				$rs = mysqli_query($conn, $query);
+				$row = mysqli_fetch_array($rs);
+				//IF RESPONSE EXISTS
+				if(!empty($ans->{$i}))
+					$user_ans =  array($ans->{$i});
+				else{
+					array_push($marks_arr, 0);
+					$i++;
+					continue;
+				}
+				//IF IT IS ELIGIBLE FOR EVALUATION
+				if($user_ans[0][1] == 'REVIEW' || empty($user_ans[0][0])){
+					array_push($marks_arr, 0);
+					$i++;
+					continue;
+				}
+				//EVALUATION
+				if(strtolower($user_ans[0][0]) == $row['mcq_answer']){
+					$m = $question['marks'];
+					$marks += $m;
+				}
+				else{
+					if($nega == 1){
+						$m = round (($question['marks'] / 3), 2);
+						$marks -= $m;
+						$m = -$m;
+					}
+				}
+				array_push($marks_arr, $m);
+			}
+			else if($question['question_type'] == 'MMC'){
+				$query = "select * from mcq where mcq_id =".$question['question_id'];
+				$rs = mysqli_query($conn, $query);
+				$row = mysqli_fetch_array($rs);
+				
+				//IF RESPONSE EXISTS
+				if(!empty($ans->{$i})){
+					$user_ans =  array($ans->{$i});
+				}
+				else{
+					array_push($marks_arr, 0);
+					$i++;
+					continue;
+				}
+
+				//IF IT IS ELIGIBLE FOR EVALUATION
+				if($user_ans[0][1] == 'REVIEW' || empty($user_ans[0][0])){
+					array_push($marks_arr, 0);
+					$i++;
+					continue;
+				}
+
+				$user_ans_arr = $user_ans[0][0];
+				$user_ans_arr = array_map('strtolower', $user_ans_arr);
+				$valid_ans = explode(',',$row['mcq_answer']);
+				$valid_ans_count = sizeof($valid_ans);
+
+				$count = 0;
+				foreach ($user_ans_arr as $answ) {
+					if(in_array($answ, $valid_ans)){
+						$count++;
+					}
+					else{
+						$m = round (($question['marks'] / 3), 2);
+						$marks -= $m;
+						$m = -$m;
+						$count = 0;
+						break;
+					}
+				}
+				if($count > 0){
+					$m = round((($question['marks'] / $valid_ans_count) * $count), 2);
+					$marks += $m;
+				}
+				array_push($marks_arr, $m);
+			}
+			else if($question['question_type'] == 'NAT'){
+				$query = "select * from nat where nat_id =".$question['question_id'];
+				$rs = mysqli_query($conn, $query);
+				$row = mysqli_fetch_array($rs);
+				//IF RESPONSE EXISTS
+				if(!empty($ans->{$i})){
+					$user_ans =  array($ans->{$i});
+				}
+				else{
+					array_push($marks_arr, 0);
+					$i++;
+					continue;
+				}
+				//IF IT IS ELIGIBLE FOR EVALUATION
+				if($user_ans[0][1] == 'REVIEW' || empty($user_ans[0][0])){
+					array_push($marks_arr, 0);
+					$i++;
+					continue;
+				}
+
+				//EVALUATION
+				$user_ans = $user_ans[0][0];
+				$valid_ans = explode('-',$row['nat_answer']);
+				if(strlen($user_ans) == strlen($valid_ans[0])){
+					if($user_ans >= $valid_ans[0] && $user_ans <= $valid_ans[1]){
+						$m = $question['marks'];
+						$marks += $m;
+					}
+				}
+				else{
+					if($nega == 1){
+						$m = round (($question['marks'] / 3), 2);
+						$marks -= $m;
+						$m = -$m;
+					}
+				}
+				array_push($marks_arr, $m);
+			}
+			$i++;
+		}
+
+		$marks = round($marks,2);
+		$marks_arr = implode(",",$marks_arr);
+		$sql = "insert into results(student_id, exam_id, paper_id, submission, result, marks, qwise_marks, started, ended) values($sid, '$eid', '$pid', $status, '$answers', $marks, '$marks_arr', '$start', '$end')";
 		if(!mysqli_query($conn, $sql)){
 			$d = 'error';
 		}

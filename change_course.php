@@ -63,7 +63,7 @@
 		$result = mysqli_query($conn, $query);
 	?>
 	
-	<div class="container-fluid profile-wrapper">
+	<div class="container profile-wrapper" style="min-height: calc(100vh - 196px)!important;">
 		<div class="row">
 			<div class="col-md-3 navigation shadow" >
 				<div class="img-name">
@@ -126,29 +126,33 @@
 							<a href="505.php" id="exam_link">
 								<i class="fa fa-pencil" aria-hidden="true"></i>EXAMS</span>
 								<?php
-									$sql = "select * from exam_course inner join exams where exam_status=1;";
+									$sql = "select * from exams natural join exam_course where exam_status=1 and course_id in (select course_id from students_courses where student_id=".$rowMain['stu_id'].");";
 									$resultset = mysqli_query($conn,$sql);
-									$c = [];
-									while($courses = mysqli_fetch_array($resultset)){
-										array_push($c, $courses['course_id']);
+									$i=0;
+									while($r = mysqli_fetch_array($resultset)){
+										$query = "select * from results where exam_id = '".$r['exam_id']."' and student_id = ".$rowMain['stu_id'];
+										$res = mysqli_query($conn,$query);
+										$num_res = mysqli_num_rows($res);
+										if($num_res == 0){
+											$i++;
+										}
 									}
-
-									$query="select course_id from students_courses where student_id=".$row['stu_id'];
-									$res = mysqli_query($conn,$query);
-									$cs= [];
-									while($r = mysqli_fetch_array($res)){
-										array_push($cs, $r['course_id']);
-									}
-									
-									if(!empty(array_intersect($cs, $c))){
-										echo '<span class="notification">New</span>';
+									if($i!=0){
+										echo '<span class="notification">'.$i.'</span>';
 									}
 								?>
 							</a>
 						</li>
-						<li class="link">
+						<li class="link" id="result">
 							<a href="505.php">
 								<i class="fa fa-list-alt" aria-hidden="true"></i>RESULTS</span>
+								<?php
+									$sql = "select * from results where student_id =".$rowMain['stu_id']." and publish_status=1";
+									$res = mysqli_query($conn,$sql);
+									$rescount = mysqli_num_rows($res);
+									if($rescount > 0)
+										echo '<span class="res_no">'.$rescount.'</span>';
+								?>
 							</a>
 						</li>
 						<li class="link logout">

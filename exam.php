@@ -42,7 +42,7 @@
 
 </head>
 
-<body onload="timer()">
+<body>
 
 	<?php
 		$sql = "select * from exams where exam_id='$eid'";
@@ -109,7 +109,33 @@ Instructions</span>
 
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-10 mainbody">
+			<div class="col-sm-10 mainbody instruction" id="instruction">
+				<p class="ihead">Instructions</p>
+				<p class="note">Please read the instructions very carefully</p>
+				<div class="instruction_wrap">
+					<ol style="list-style-position: inside;">
+						<li>By clicking on START EXAM button your exam will be started.</li>
+						<li>You have to click on SAVE AND NEXT or SAVE AND MARK FOR REVIEW button to save your answer for each question.</li>
+						<li>If answer a question and save it as SAVE AND MARK FOR REVIEW, the answer will be auto-submitted after completion of the exam.</li>
+						<li>You can jump to any question of the Question Paper using the QUESTION PALATE at the right of the Exam Window.</li>
+						<li>For NUMERICAL ANSWER TYPE (NAT) questions you have to give answer upto the specified decimal places after point mentioned in the question otherwise your answer will be treated as incorrect. If the information about the decimal places after point is not provided in the question, answer upto 2 decimal places.</li>
+						<li> For each type of action taken against a question by you the button of the Question Palate will change its colour accordingly.</li>
+						<li>Time of the exam is maintaining in server and is shown at the top-right corner of your screen. When the clock becomes 0 (zero) the exam will be submitted automatically.</li>
+						<li> If calculator is allowed for your exam, you must use the VIRTUAL CALCULATOR provided at the top-right corner of your screen. If calculator is not allowed for the exam, it will not be shown.</li>
+						<li>DO NOT PRESS ANY KEY OF KEYBOARD of your device during the exam. To answer NAT questions use the VIRTUAL KEYPAD provided.</li>
+						<li>DO NOT OPEN ANY OTHER TAB in your device. System may show you a Warning Messege if you try to reach at the top of your screen.</li>
+						<li>DO NOT OPEN ANY OTHER APPLICATION OR PROGRAM in your device.</li>
+						<li>DO NOT MINIMIZE THE EXAM WINDOW during exam.</li>
+						<li>RIGHT CLICK IS NOT ALLOWED during exam.</li>
+						<li>EXAM WILL BE AUTO-SUBMITTED IMMIDIETLY for occurance of any one of 8 to 11 of these instructions.</li>
+						<li>You can Submit your exam at any time during the Exam Period. If you doesn't your exam will be submitted automatically after completion of the Exam Period.</li>
+					</ol>
+				</div>
+				<div class="response_wrap" id="insnext">
+					<button class="btn btn-primary pull-right" id="startex">Next</button>
+				</div>
+			</div>
+			<div class="col-sm-10 mainbody" id="questionsbody">
 				<div class="stream_wrap">
 					<span class="stream"><?php echo $course ?></span>
 					<?php
@@ -144,7 +170,9 @@ Instructions</span>
 					<img class="img" <?php echo 'src="'.$student['stu_imageLocation'].'"'; ?> height="100" width="100" />
 					<span><?php echo $student['stu_name']; ?></span>
 				</div>
-				<div class="nav_buttons">
+				<div class="nav_buttons" id="navbtn1" style="border:none; border-left: 1px solid #bdbdbd">
+				</div>
+				<div class="nav_buttons" id="navbtn">
 					<div class="nav_demo">
 						<div class="row" style="margin: 0;">
 							<table>
@@ -162,14 +190,15 @@ Instructions</span>
 							</table>
 						</div>
 					</div>
-					<div class="exam_name">
+					<div class="exam_name" >
 						<?php echo $exam['exam_title'] ?>
 					</div>
 					<div class="navigation" id = "navigation">
 					</div>
 				</div>
-				
-				<div class="submission">
+				<div class="submission" id="subf">
+				</div>
+				<div class="submission" id="submission">
 					<button class="btn btn-primary" id="submit">Submit</button>
 				</div>
 			</div>
@@ -510,6 +539,17 @@ Instructions</span>
 			<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
 			<h4 class="snap">EXAM SUBMITTED!</h4>
 			<p class="msg">You left the tab. Your exam has been submitted. Authorities will be notified.</p>
+			<div class="row stats">
+				<div class="col-sm-4">
+					<p>Answered: <span class="anum"></span></p>
+				</div>
+				<div class="col-sm-4">
+					<p>Marked For Review: <span class="revnum"></span></p>
+				</div>
+				<div class="col-sm-4">
+					<p>Not Attempted: <span class="notanum"></span></p>
+				</div>
+			</div>
 			<button id="close_submit2" onclick="window.top.close();" class="btn btn-danger">Close</button>
 		</div>
 	</div>
@@ -519,6 +559,17 @@ Instructions</span>
 			<i class="fa fa-check" aria-hidden="true"></i>
 			<h4 class="snap">Exam Submitted!</h4>
 			<p class="msg">Your exam has been submitted successfully.</p>
+			<div class="row stats">
+				<div class="col-sm-4">
+					<p>Answered: <span class="anum"></span></p>
+				</div>
+				<div class="col-sm-4">
+					<p>Marked For Review: <span class="revnum"></span></p>
+				</div>
+				<div class="col-sm-4">
+					<p>Not Attempted: <span class="notanum"></span></p>
+				</div>
+			</div>
 			<button id="close_submit2" onclick="window.top.close();" class="btn btn-danger">Close</button>
 		</div>
 	</div>
@@ -528,7 +579,18 @@ Instructions</span>
 			<i class="fa fa-clock-o" aria-hidden="true"></i>
 			<h4 class="snap">TIMEOUT!</h4>
 			<p class="msg">Exam submitted.</p>
-			<button id="close_submit1" onclick="window.top.close();" class="btn btn-danger">Close</button>
+			<div class="row stats">
+				<div class="col-sm-4">
+					<p>Answered: <span class="anum"></span></p>
+				</div>
+				<div class="col-sm-4">
+					<p>Marked For Review: <span class="revnum"></span></p>
+				</div>
+				<div class="col-sm-4">
+					<p>Not Attempted: <span class="notanum"></span></p>
+				</div>
+			</div>
+			<button id="close_submit1"  class="btn btn-danger">Close</button>
 		</div>
 	</div>
 
@@ -574,11 +636,7 @@ Instructions</span>
 		 	e.preventDefault();
 		});
 		$(document).keydown(function(e){
-		    if(e.which === 123 || e.which === 116){
 		       return false;
-		    }
 		});*/
-		
-
 	</script>
 </body>

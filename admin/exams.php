@@ -13,7 +13,7 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=0.8">
-	<title>All Question Papers | IAS</title>
+	<title>All Exams | IAS</title>
 	<link rel="icon" type="image/jpg" href="../images/logo.jpg" />
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/default.css">
@@ -254,7 +254,8 @@
 								}
 								else if($row['exam_status'] == 2){
 									$status = '<span class="label label-danger">Completed</span>';
-									$action = '<a href="#" class="btn btn-xs btn-warning">Delete</a>';
+									$action = '<button id="delete'.$i.'" class="btn btn-xs btn-warning delete">Delete</button>
+											   <button id="publish'.$i.'" class="btn btn-xs btn-default publish">Re-Publish</button>';
 								}
 								echo '
 									<tr>
@@ -306,6 +307,9 @@
 						</div>
 						<div class="form-group">
 							<input type="text" class="form-control" name="exam_time" id="exam_time" required placeholder="Time">
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" name="ends" id="ends" required placeholder="Time">
 						</div>
 						<div class="form-group">
 							<select class="form-control" id="nega" name="exam_nega" required>
@@ -380,7 +384,7 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" >&times;</button>	<h4>Delete Exam</h4>		
 				</div>
-				<form action="includes/examsexams.inc.php" method="POST" enctype="multipart/form-data">
+				<form action="includes/exams.inc.php" method="POST" enctype="multipart/form-data">
 					<div class="modal-body">
 						Sure to delete exam having id <b id="exam_id"></b>?
 						<input type="hidden" id="exmid" name="exmid">
@@ -512,6 +516,9 @@
 		    	$('#exam_standard').val($('#standard'+id).html());
 		    	$('#exam_type').val($('#type'+id).html());
 		    	$('#exam_time').val($('#time'+id).html());
+		    	$('#ends').val($('#ends'+id).html());
+		    	$('#nega').val($('#nega'+id).html());
+		    	$('#cal').val($('#cal'+id).html());
 				$('#edit_paper').modal('show'); 
 		    });
 

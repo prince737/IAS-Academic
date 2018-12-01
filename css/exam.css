@@ -6,6 +6,14 @@
 	font-size: 12px;
 }
 
+#questionsbody, #navbtn, #submission{
+	display: none;
+}
+
+#subf{
+	height: 50px;
+}
+
 body{
 	background:#f1f3f6;
 }
@@ -400,3 +408,45 @@ footer{
     margin-bottom: 15px;
 }
 
+.modalcontent .stats p{
+	font-size:16px;
+    font-weight:300;
+    color:#616161;
+    text-align:center;
+    margin-bottom: 15px;
+    text-align: left;
+    padding-left: 25px;
+}
+
+
+
+/*INSTRUCTIONS*/
+.ihead{
+	background-color: #b3e8f6;
+	height: 50px;
+	line-height: 50px;
+	font-size: 25px;
+	color:#212121;
+	margin-right: 30px;
+}
+
+.note{
+	text-align: center;
+	font-size: 16px;
+	color: #212121;
+	margin: 60px;
+}
+
+.instruction_wrap{
+	overflow-y: scroll;
+	height: calc(100vh - 350px);
+}
+
+.instruction_wrap ol{
+	font-size: 16px;
+}
+
+.instruction_wrap ol li{
+	font-size: 16px;
+	padding: 10px 50px;
+}
